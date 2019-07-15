@@ -1,0 +1,25 @@
+//Imports
+@import '../../base';
+//End: Imports
+html {
+  max-width:1920px;
+  margin:0 auto;
+  font-size:16px;
+  word-wrap:break-word;
+}
+html,body {
+  min-width:320px;
+}
+h1,h2,h3,h4,h5,h6,p {
+  margin:0;
+  font-weight:inherit;
+}
+p:not(:first-of-type){
+  margin-top:5px;
+}
+* {
+  font-family:inherit;
+  &, &:before, &:after{
+    @include box-sizing(border-box);
+  }
+}

@@ -1,0 +1,3 @@
+@function escape($string) {
+  @return unquote("\"")+unquote("\\")+$string+unquote("\"");
+}

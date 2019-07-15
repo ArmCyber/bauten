@@ -1,0 +1,47 @@
+//region FontAwesome 5
+%fa5 {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+}
+@mixin fa5($weight, $unicode, $add_before, $family: "Font Awesome\ 5 Free") {
+  @extend %fa5;
+  font-family: $family;
+  font-weight:$weight;
+  @if ($add_before==false) {
+    content: escape($unicode);
+    display:inline-block;
+  }
+  @else {
+    &:before {
+      content: escape($unicode);
+      display:inline-block;
+    }
+  }
+}
+@mixin far($unicode, $add_before:true) {
+  @include fa5(400, $unicode, $add_before);
+}
+@mixin fal($unicode, $add_before:true) {
+  @include fa5(300, $unicode, $add_before);
+}
+@mixin fas($unicode, $add_before:true) {
+  @include fa5(900, $unicode, $add_before);
+}
+@mixin fab($unicode, $add_before:true) {
+  @include fa5(400, $unicode, $add_before, "Font Awesome 5 Brands");
+}
+//endregion
+@mixin newBtn($class, $color, $hoverColor){
+  &.#{$class} {
+    color: $color;
+    &:hover {
+      color: $hoverColor;
+    }
+    @content;
+  }
+}

@@ -1,0 +1,95 @@
+.z-select {
+  display:none!important;
+}
+.z-select-title {
+  display:inline-block;
+  vertical-align:middle;
+  line-height:1;
+}
+button.z-select-btn {
+  display: inline-block;
+  border:none;
+  outline:none;
+  font-size: 11px;
+  padding: 10px;
+  background-color: #eaeaea;
+  color: #b3b3b3;
+  cursor: pointer;
+  //region border-radius: 3px;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  //endregion
+  //region transition: background-color 0.25s linear;
+  -moz-transition: background-color 0.25s linear;
+  -webkit-transition: background-color 0.25s linear;
+  -o-transition: background-color 0.25s linear;
+  transition: background-color 0.25s linear;
+  //endregion
+  //region user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  //endregion
+  .z-select:disabled + & {
+    opacity:0.5;
+    cursor: default;
+  }
+  .z-select:not(:disabled) + &:hover {
+    background-color: #e0e0e0;
+  }
+  &:before {
+    font-size:16px;
+    margin-right:5px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  //region Custom classes
+  &.z-unchecked {
+    &:before {
+      @include far(f111, false);
+    }
+  }
+  &.z-indeterminate {
+   background-color: #3875b2;
+   color:#ffffff;
+   .z-select:not(:disabled) + &:hover {
+     background-color: #32679c;
+   }
+   &:before {
+     @include far(f192, false);
+   }
+  }
+  &.z-left {
+    background-color: #3875b2;
+    color:#ffffff;
+    .z-select:not(:disabled) + &:hover {
+      background-color: #32679c;
+    }
+    &:before {
+      @include fas(f0a8, false);
+    }
+  }
+  &.z-right {
+    background-color: #3875b2;
+    color:#ffffff;
+    .z-select:not(:disabled) + &:hover {
+      background-color: #32679c;
+    }
+    &:before {
+      @include fas(f0a9, false);
+    }
+  }
+  &.z-checked {
+    background-color: #56ba3e;
+    color:#ffffff;
+    .z-select:not(:disabled) + &:hover {
+      background-color: #22ab00;
+    }
+    &:before {
+      @include far(f058, false);
+    }
+  }
+  //endregion
+}
