@@ -34,10 +34,16 @@ class FileManager {
                 $img = Image::make($image->getRealPath());
                 foreach ($sizes as $size) {
                     $dir = $path.($size['dir']??null);
-                    if (!empty($size['method']) && $size['method'] == 'original') $img->save($dir.$name);
-                    else $img->{$size['method']??'fit'}($size['width'], $size['height'], function($constraint) use ($size) {
-                        if (!empty($size['upsize'])) $constraint->upsize();
-                    })->save($dir.$name);
+                    if (!empty($size['method']) && $size['method'] == 'original') {
+                        $this->checkDir($dir);
+                        $img->save($dir.$name);
+                    }
+                    else {
+                        $this->checkDir($dir);
+                        $img->{$size['method']??'fit'}($size['width'], $size['height'], function($constraint) use ($size) {
+                            if (!empty($size['upsize'])) $constraint->upsize();
+                        })->save($dir.$name);
+                    }
                     if (!empty($delete) && empty($size['skip_delete'])) {
                         File::delete($dir.$delete);
                     }
@@ -66,7 +72,7 @@ class FileManager {
                     $name = file_name(18, $ext);
                 }
                 while (file_exists($path.$name));
-
+                $this->checkDir($path);
                 $image->move($path, $name);
 
                 if (!empty($delete)
@@ -95,7 +101,7 @@ class FileManager {
                 $name = file_name(18, $ext);
             }
             while (file_exists($path.$name));
-
+            $this->checkDir($path);
             $image->move($path, $name);
 
             if (!empty($delete)
@@ -106,5 +112,9 @@ class FileManager {
             return $name;
         }
         else return null;
+    }
+
+    public function checkDir($path) {
+        if (!file_exists($path)) mkdir($path, 0755, true);
     }
 }

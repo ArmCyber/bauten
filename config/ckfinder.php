@@ -84,7 +84,7 @@ $config['backends']['default'] = array(
     'adapter'      => 'local',
     'baseUrl'      => env('APP_URL').'/u/docs/',
     'root'         => public_path('/u/docs/'),
-    'chmodFiles'   => 0777,
+    'chmodFiles'   => 0644,
     'chmodFolders' => 0755,
     'filesystemEncoding' => 'UTF-8'
 );

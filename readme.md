@@ -9,10 +9,10 @@
 7) Import database running "php artisan db:import" command.
 8) Configure sass.
 ### Sass configuration for JetBrains PhpStorm
-1) __Program:__ *Your sass file path (Default path for windows installed globally with NPM: "C:\Users\Hayko\AppData\Roaming\npm\sass").*
+1) __Program:__ *Your sass file path (Default path for windows installed globally with NPM: "C:\Users\\{User}\AppData\Roaming\npm\sass").*
 2) __Arguments:__ *"--update $FileName$:$ContentRoot$/public/f/$FileDirName$/css/$FileNameWithoutExtension$.css --style compressed".*
 3) __Output paths to refresh:__ *"$ContentRoot$/public/f/$FileDirName$/css/$FileNameWithoutExtension$.css".*
 4) __Scope__: Include recursively *"/resources/sass"* directory.
-#### Advanced Options for sass
+#### Advanced Options for Sass
 1) Uncheck *"Auto-save edited files to trigger the watcher"* checkbox.
 2) Check *"Trigger the watcher on external changes"* checkbox.

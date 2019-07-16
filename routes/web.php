@@ -14,8 +14,8 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware'=>'guest:cms'], fu
 //endregion
 Route::group(['prefix' => config('admin.prefix'), 'middleware' => 'auth:cms'], function () {
     //region CKFinder
-    Route::any('file_browser/connector', '\CKSource\CKFinderBridge\Controller\CKFinderController@requestAction')->name('ckfinder_connector');
-    Route::any('file_browser/browser', '\CKSource\CKFinderBridge\Controller\CKFinderController@browserAction')->name('ckfinder_browser');
+    Route::any('file-browser/connector', '\CKSource\CKFinderBridge\Controller\CKFinderController@requestAction')->name('ckfinder_connector');
+    Route::any('file-browser/browser', '\CKSource\CKFinderBridge\Controller\CKFinderController@browserAction')->name('ckfinder_browser');
     //endregion
     Route::name('admin.')->namespace('Admin')->group(function() {
         //region Logout
