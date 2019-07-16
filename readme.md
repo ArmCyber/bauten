@@ -5,8 +5,9 @@
 3) Copy ".env.example" to ".env"
 4) Run "php artisan key:generate --ansi" command from terminal.
 5) Run "php artisan ckfinder:download" command from terminal.
-6) Configure database, migrate and seed.
-7) Configure sass.
+6) Configure database.
+7) Import database running "php artisan db:import" command.
+8) Configure sass.
 ### Sass configuration for JetBrains PhpStorm
 1) __Program:__ *Your sass file path (Default path for windows installed globally with NPM: "C:\Users\Hayko\AppData\Roaming\npm\sass").*
 2) __Arguments:__ *"--update $FileName$:$ContentRoot$/public/f/$FileDirName$/css/$FileNameWithoutExtension$.css --style compressed".*
