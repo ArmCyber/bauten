@@ -100,7 +100,7 @@
   @font-face {
     font-family: $family;
     src: url($path + $filename + '.eot');
-    src: local($family), url($path + $filename + '.woff2') format('woff2'),
+    src: url($path + $filename + '.woff2') format('woff2'),
     url($path + $filename + '.woff') format('woff'),
     url($path + $filename + '.ttf') format('truetype'),
     url($path + $filename + '.svg#' + $filename) format('svg'),

@@ -1,18 +1,34 @@
 # Bauten
 ## Cloning instructions
 1) Clone this repository.
-2) Run "composer install -o" command from terminal.
+2) Install composer.
+    ```bash 
+    composer install -o
+    ```
 3) Copy ".env.example" to ".env"
-4) Run "php artisan key:generate --ansi" command from terminal.
-5) Run "php artisan ckfinder:download" command from terminal.
+4) Generate application key with Artisan.
+    ```bash
+    php artisan key:generate --ansi
+    ```
+5) Download CKFinder with Artisan.
+    ```bash
+    php artisan ckfinder:download
+    ```
 6) Configure database.
-7) Import database running "php artisan db:import" command.
+7) Import database with Artisan.
+    ```bash
+    php artisan snapshot:load master
+    ```
 8) Configure sass.
 ### Sass configuration for JetBrains PhpStorm
-1) __Program:__ *Your sass file path (Default path for windows installed globally with NPM: "C:\Users\\{User}\AppData\Roaming\npm\sass").*
-2) __Arguments:__ *"--update $FileName$:$ContentRoot$/public/f/$FileDirName$/css/$FileNameWithoutExtension$.css --style compressed".*
-3) __Output paths to refresh:__ *"$ContentRoot$/public/f/$FileDirName$/css/$FileNameWithoutExtension$.css".*
-4) __Scope__: Include recursively *"/resources/sass"* directory.
+```bash
+Program: Your sass file path (Default path for windows installed globally with NPM: "C:\Users\\{User}\AppData\Roaming\npm\sass")
+Arguments: "--update $FileName$:$ContentRoot$/public/f/$FileDirName$/css/$FileNameWithoutExtension$.css --style compressed"
+Output paths to refresh: "$ContentRoot$/public/f/$FileDirName$/css/$FileNameWithoutExtension$.css"
+Scope: Include recursively "/resources/sass" directory
+```
 #### Advanced Options for Sass
-1) Uncheck *"Auto-save edited files to trigger the watcher"* checkbox.
-2) Check *"Trigger the watcher on external changes"* checkbox.
+```bash
+Uncheck "Auto-save edited files to trigger the watcher" checkbox.
+Check "Trigger the watcher on external changes" checkbox.
+```
