@@ -2,7 +2,7 @@
 .container {
   margin-left:auto;
   margin-right:auto;
-  width:95%;
+  width:$container-percent;
   max-width: $container-width;
   padding:0;
 }
@@ -18,7 +18,6 @@
 .error-container {
   text-align: center;
 }
-@include set-padding($padding);
 .ht-container {
   height: 73px;
   display:flex;
@@ -178,4 +177,34 @@ a.footer-soc {
     content: '₸';
     display:inline;
   }
+}
+.row-grid {
+  &:not(.l-m) {
+    @include m(margin-top margin-bottom, -7.5px);
+    >*{
+      @include m(padding-top padding-bottom, 7.5px);
+    }
+  }
+  &.l-m {
+    @include m(margin-top margin-bottom, -15px);
+    >*{
+      @include m(padding-top padding-bottom, 15px);
+    }
+  }
+}
+.section {
+  padding-top:40px;
+  padding-bottom:65px;
+}
+.section-title {
+  line-height:1;
+  padding-bottom:40px;
+  font-size:41px;
+  color:$purple-blue;
+}
+.force-3-1 {
+  @include force(3,1);
+}
+.force-16-9 {
+  @include force(16,9);
 }

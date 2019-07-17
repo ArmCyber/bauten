@@ -96,15 +96,18 @@
   filter:$value;
 }
 //End: Parameters
-@mixin font($family, $path, $filename, $weight, $style) {
+@mixin font($family, $path, $filename, $weight, $style, $local:'') {
   @font-face {
+    @if($local!=''){
+      $local: local($family+' '+$local), local($filename);
+    }
+    @else {
+      $local: local($family);
+    }
     font-family: $family;
-    src: url($path + $filename + '.eot');
-    src: url($path + $filename + '.woff2') format('woff2'),
+    src: $local, url($path + $filename + '.woff2') format('woff2'),
     url($path + $filename + '.woff') format('woff'),
-    url($path + $filename + '.ttf') format('truetype'),
-    url($path + $filename + '.svg#' + $filename) format('svg'),
-    url($path + $filename + '.eot?#iefix') format('embedded-opentype');
+    url($path + $filename + '.ttf') format('truetype');
     font-weight: $weight;
     font-style: $style;
     font-display: auto;
@@ -112,16 +115,16 @@
 }
 @mixin fontAll($family, $fileName) {
   $path:$site+'fonts/'+$fileName+'/';
-  //@include font($family, $path, $fileName + '-Light', 300, normal);
-  //@include font($family, $path, $fileName + '-LightItalic', 300, italic);
+  @include font($family, $path, $fileName + '-Light', 300, normal, 'Light');
+  @include font($family, $path, $fileName + '-LightItalic', 300, italic, 'Light Italic');
   @include font($family, $path, $fileName + '-Regular', 400, normal);
-  //@include font($family, $path, $fileName + '-Italic', 400, italic);
-  @include font($family, $path, $fileName + '-Medium', 500, normal);
-  //@include font($family, $path, $fileName + '-MediumItalic', 500, italic);
-  //@include font($family, $path, $fileName + '-Bold', 700, normal);
-  //@include font($family, $path, $fileName + '-BoldItalic', 700, italic);
-  //@include font($family, $path, $fileName + '-Black', 900, normal);
-  //@include font($family, $path, $fileName + '-BlackItalic', 900, italic);
+  @include font($family, $path, $fileName + '-Italic', 400, italic, 'Italic');
+  @include font($family, $path, $fileName + '-Medium', 500, normal, 'Medium');
+  @include font($family, $path, $fileName + '-MediumItalic', 500, italic, 'Medium Italic');
+  @include font($family, $path, $fileName + '-Bold', 700, normal, 'Bold');
+  @include font($family, $path, $fileName + '-BoldItalic', 700, italic, 'Bold Italic');
+  @include font($family, $path, $fileName + '-Black', 900, normal, 'Black');
+  @include font($family, $path, $fileName + '-BlackItalic', 900, italic, 'Black Italic');
 }
 @mixin media($size, $do:true) {
   $plus:'';
@@ -234,6 +237,10 @@
   .py-s {
     padding-top: $padding;
     padding-bottom: $padding;
+  }
+  .py-2s {
+    padding-top: 2*$padding;
+    padding-bottom: 2*$padding;
   }
   .pt-s {
     padding-top:$padding;

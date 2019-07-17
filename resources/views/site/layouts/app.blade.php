@@ -5,10 +5,9 @@
     <link rel="shortcut icon" href="{!! asset('favicon.ico') !!}">
     @css(aApp('bootstrap/css/bootstrap.css'))
     @css(aSite('css/app.css'))
-    @css(aSite('css/main.css'))
     @stack('css')
 </head><body>
-    <div id="page">
+    <div id="page" class="page">
         <header id="header">
             <div id="header-top">
                 <div class="container ht-container">
