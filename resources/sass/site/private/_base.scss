@@ -1,5 +1,9 @@
 @import '../../base';
+@import 'ic';
+//region Font
 @include fontAll('Roboto', 'Roboto');
+//endregion
+//region Scrollbar
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -13,6 +17,8 @@
     background-color:#a8a8a8;
   }
 }
+//endregion
+//region Reset
 html {
   margin:0 auto;
   font-size:16px;
@@ -57,6 +63,21 @@ input, textarea {
 a img, a img:focus, a:focus, :focus {
   outline:none;
 }
+a[href^="tel:"]{
+  color:inherit;
+}
+button:focus {
+  outline:none;
+}
+//endregion
+//region Generic
+#page {
+  display:flex;
+  flex-direction:column;
+  min-height: inherit;
+  width:100%;
+  overflow-x:hidden;
+}
 .row {
   @include m(margin-left margin-right, -7.5px);
 }
@@ -71,16 +92,18 @@ a img, a img:focus, a:focus, :focus {
     }
   }
 }
-a[href^="tel:"]{
-  color:inherit;
+.row-grid {
+  &:not(.l-m) {
+    @include m(margin-top margin-bottom, -7.5px);
+    >*{
+      @include m(padding-top padding-bottom, 7.5px);
+    }
+  }
+  &.l-m {
+    @include m(margin-top margin-bottom, -15px);
+    >*{
+      @include m(padding-top padding-bottom, 15px);
+    }
+  }
 }
-button:focus {
-  outline:none;
-}
-#page {
-  display:flex;
-  flex-direction:column;
-  min-height: inherit;
-  width:100%;
-  overflow-x:hidden;
-}
+//endregion

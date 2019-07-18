@@ -18,7 +18,14 @@
                         <a href="tel:+87776191747" class="ht-tel">8 (777) 619 1747</a>
                     </div>
                     <div class="ht-sm text-right">
-                        <a href="javascript:void(0)" class="ht-login">Регистрация</a>
+                        <div class="ht-auth">
+                            <a href="javascript:void(0)" class="ht-login">Регистрация</a>
+                        </div>
+                        <div class="ht-hamburger">
+                            <button class="hamburger">
+                                <span class="ic-hamburger"><span></span></span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

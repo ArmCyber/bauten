@@ -236,6 +236,7 @@ a.brand-item {
   padding-top:25px;
 }
 //endregion
+//region Generic
 .page a.card-more {
   background-color: $purple-blue;
   color:#ffffff;
@@ -244,4 +245,146 @@ a.brand-item {
   text-align: center;
   align-items:center;
   justify-content: center;
+}
+//endregion
+@include media(1599) {
+  //region Welcome
+  .welcome {
+    @include m(padding-top padding-bottom, 100px);
+  }
+  .welcome-title {
+    font-size:40px;
+  }
+  .welcome-text {
+    font-size:24px;
+    padding:10px 5% 10px 0;
+  }
+  //endregion
+  //region Catalogue
+  a.catalogue-title, .cat-price {
+    font-size:19px;
+  }
+  .catalogue-left {
+    @include m(flex-basis max-width, 65%);
+  }
+  .catalogue-right {
+    @include m(flex-basis max-width, 35%);
+  }
+  //endregion
+  //region Parts
+  .part-title {
+    font-size:17px;
+  }
+  .part-banners {
+    margin-top:55px;
+  }
+  //endregion
+  //region Brands
+  .brand-title {
+    font-size:20px;
+  }
+  //endregion
+  //region News
+
+  .news-title {
+    font-size: 23px;
+    padding-top: 15px;
+    padding-bottom: 20px;
+  }
+  .news-short {
+    padding-top:15px;
+  }
+  //endregion
+  //region Generic
+  .page a.card-more {
+    font-size:19px;
+  }
+  //endregion
+}
+@include media(1365) {
+  //region Welcome
+  .welcome-title {
+    font-size:35px;
+  }
+  .welcome-text {
+    font-size:22px;
+    padding-right:3%;
+  }
+  //endregion
+  //region Catalogue
+  .catalogue-item {
+    padding:15px;
+  }
+  .catalogue-price {
+    @include m(padding-left padding-right, 5px);
+  }
+  a.catalogue-title {
+    font-size:18px;
+  }
+  .cat-price {
+    font-size:inherit;
+  }
+    //endregion
+  //region Parts
+  .part-title {
+    font-size:16px;
+  }
+  //endregion
+  //region Brands
+  .brand-title {
+    font-size:16px;
+  }
+  //endregion
+  //region News
+  .news-day{
+    font-size:20px;
+  }
+  .news-content {
+    padding-right:5px;
+  }
+  .news-title {
+    font-size: 19px;
+    padding-top: 10px;
+    padding-bottom: 15px;
+  }
+  .news-short {
+    padding-top: 10px;
+  }
+  //endregion
+  //region Generic
+  .page a.card-more {
+    font-size: 17px;
+  }
+  //endregion
+}
+@include media(1199) {
+  //region Welcome
+  .welcome {
+    @include m(padding-top padding-bottom, 75px);
+  }
+  .welcome-title {
+    font-size:30px;
+  }
+  .welcome-text {
+    padding:5px 0;
+    line-height: 1.5;
+  }
+  //endregion
+  //region Catalogue
+  a.catalogue-title, .cat-price {
+    font-size:19px;
+  }
+  //endregion
+  //region News
+  .news-title {
+    font-size:18px;
+  }
+  .news-date {
+    padding: 5px 10px;
+  }
+  .news-day {
+    font-size:18px;
+  }
+  //endregion
+
 }
