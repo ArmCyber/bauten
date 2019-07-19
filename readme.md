@@ -23,8 +23,8 @@
 ### Sass configuration for JetBrains PhpStorm
 ```
 Program: Your sass file path (Default path for windows installed globally with NPM: "C:\Users\\{User}\AppData\Roaming\npm\sass")
-Arguments: "--update $FileName$:$ContentRoot$/public/f/$FileDirName$/css/$FileNameWithoutExtension$.css --style compressed"
-Output paths to refresh: "$ContentRoot$/public/f/$FileDirName$/css/$FileNameWithoutExtension$.css"
+Arguments: "--update $FileName$:$ContentRoot$/public/a/$FileDirName$/css/$FileNameWithoutExtension$.css --style compressed"
+Output paths to refresh: "$ContentRoot$/public/a/$FileDirName$/css/$FileNameWithoutExtension$.css"
 Scope: Include recursively "/resources/sass" directory
 ```
 #### Advanced Options for Sass

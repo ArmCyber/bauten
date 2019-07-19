@@ -12,7 +12,7 @@
             <div id="header-top">
                 <div class="container ht-container">
                     <div class="ht-sm">
-                        <a href="{{ url('/') }}" class="ht-brand"><img src="{{ asset('t/logo.png') }}" alt=""></a>
+                        <a href="{{ url('/') }}" class="ht-brand"><img src="{{ asset('f/logo.png') }}" alt=""></a>
                     </div>
                     <div class="ht-lg">
                         <a href="tel:+87776191747" class="ht-tel">8 (777) 619 1747</a>
@@ -46,10 +46,10 @@
         <footer id="footer">
             <div class="container">
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col-12 col-lg-4">
                         <div class="footer-main">
                             <div>
-                                <img class="footer-logo" src="{{ asset('t/logo-footer.png') }}" alt="">
+                                <img class="footer-logo" src="{{ asset('f/logo-footer.png') }}" alt="">
                             </div>
                             <div class="footer-contacts">
                                 <div>Алматы Казахстан, с. Мадениет уч. 383</div>
@@ -57,11 +57,11 @@
                                 <div>Алматы 8 (775) 996 1880</div>
                             </div>
                             <div class="footer-socs">
-                                <a href="#" class="footer-soc"><img src="{{ asset('t/messenger.svg') }}" alt="Messenger"><span>Bautenautoparts</span></a>
+                                <a href="#" class="footer-soc"><img src="{{ asset('f/messenger.svg') }}" alt="Messenger"><span>Bautenautoparts</span></a>
                             </div>
                             <div class="footer-payments">
-                                <img src="{{ asset('t/visa.png') }}" alt="visa">
-                                <img src="{{ asset('t/mastercard.png') }}" alt="visa">
+                                <img src="{{ asset('f/visa.png') }}" alt="visa">
+                                <img src="{{ asset('f/mastercard.png') }}" alt="visa">
                             </div>
                             <div class="footer-copy">
                                 <p>© ТОО "Bauten" 2006-{!! now()->year !!} Все права защищены.</p>
@@ -69,7 +69,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-8 footer-lists">
+                    <div class="col-12 col-lg-8 footer-lists">
                         <div class="footer-list">
                             <div class="footer-link"><a href="javascript:void(0)">Каталог</a></div>
                             <div class="footer-link"><a href="javascript:void(0)">Марки</a></div>

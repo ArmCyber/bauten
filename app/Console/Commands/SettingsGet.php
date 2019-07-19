@@ -37,11 +37,11 @@ class SettingsGet extends Command
      */
     public function handle()
     {
-        if ($this->option('all')){
-            $this->showAll();
+        if ($key = $this->argument('key')){
+            $this->showOne($key);
         }
         else {
-            $this->showOne();
+            $this->showAll();
         }
     }
 
@@ -55,12 +55,7 @@ class SettingsGet extends Command
         return $valueInfo;
     }
 
-    private function showOne(){
-        $key = $this->argument('key');
-        if (!$key) {
-            $this->error('Not enough arguments (missing: \"key\").');
-            return;
-        }
+    private function showOne($key){
         if (!settings()->has($key)) {
             $this->error('Attribute "'.$key.'" does not exist.');
         }

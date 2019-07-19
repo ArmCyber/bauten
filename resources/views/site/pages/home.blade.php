@@ -1,6 +1,6 @@
 @extends('site.layouts.app')
 @section('main')
-    <section class="welcome-section" style="background-image: linear-gradient(rgba(0,0,0,.15),rgba(0,0,0,.15)), url('{{ asset('t/welcome.png') }}');">
+    <section class="welcome-section" style="background-image: linear-gradient(rgba(0,0,0,.15),rgba(0,0,0,.15)), url('{{ asset('f/welcome.png') }}');">
         <div class="welcome">
             <div class="container">
                 <h1 class="welcome-title">Автозапчасти вовремя</h1>
@@ -25,7 +25,7 @@
                                 <div><span class="catalogue-price">Цена: от <span class="cat-price">{{ $item['price'] }}</span> <span class="kzt"></span></span></div>
                             </div>
                             <div class="catalogue-right">
-                                <a href="javascript:void(0)"><img src="{{ asset('t/catalogue/'.$loop->iteration.'.png') }}" alt="{{ $item['title'] }}"></a>
+                                <a href="javascript:void(0)"><img src="{{ asset('f/catalogue/'.$loop->iteration.'.png') }}" alt="{{ $item['title'] }}"></a>
                             </div>
                         </div>
                     </div>
@@ -41,7 +41,7 @@
                     @foreach(['Audi', 'BMW', 'Chrysler', 'Citroen', 'Daewoo', 'Ford', 'Honda', 'Hyundai', 'Isuzu', 'Kia', 'Lexus'] as $item)
                         <div class="col-3 col-xl-2">
                             <a href="javascript:void(0)" class="part-item">
-                                <span class="part-img"><img src="{{ asset('t/parts/'.$loop->iteration.'.png') }}" alt="{{ $item }}"></span>
+                                <span class="part-img"><img src="{{ asset('f/parts/'.$loop->iteration.'.png') }}" alt="{{ $item }}"></span>
                                 <span class="part-title">{{ $item }}</span>
                             </a>
                         </div>
@@ -56,12 +56,12 @@
             <div class="part-banners">
                 <div class="part-banner">
                     <a href="javascript:void(0)" class="force-3-1">
-                        <img src="{{ asset('t/home_banner_1.png') }}" alt="">
+                        <img src="{{ asset('f/home_banner_1.png') }}" alt="">
                     </a>
                 </div>
                 <div class="part-banner">
                     <a href="javascript:void(0)" class="force-3-1">
-                        <img src="{{ asset('t/home_banner_2.png') }}" alt="">
+                        <img src="{{ asset('f/home_banner_2.png') }}" alt="">
                     </a>
                 </div>
             </div>
@@ -74,7 +74,7 @@
                 @foreach(['A-ONE', 'AGP', 'BAUTEN', 'BAW', 'CAMELLIA', 'CASP', 'CFT', 'DEPO', 'VISA', 'DEYE', 'DID'] as $item)
                     <div class="col-3 col-xl-2">
                         <a href="javascript:void(0)" class="brand-item">
-                            <span class="brand-img"><img src="{{ asset('t/brands/'.$loop->iteration.'.png') }}" alt="{{ $item }}"></span>
+                            <span class="brand-img"><img src="{{ asset('f/brands/'.$loop->iteration.'.png') }}" alt="{{ $item }}"></span>
                             <span class="brand-title">{{ $item }}</span>
                         </a>
                     </div>
@@ -94,7 +94,7 @@
                 <div class="col-4">
                     <div class="news-item">
                         <div class="news-img">
-                            <a href="javascript:void(0)" class="force-16-9"><img src="{{ asset('t/news/'.$i.'.png') }}" alt="News"></a>
+                            <a href="javascript:void(0)" class="force-16-9"><img src="{{ asset('f/news/'.$i.'.png') }}" alt="News"></a>
                             <span class="news-date">
                                 <span class="news-day">21</span>
                                 <span class="news-month">Августа</span>

@@ -5,7 +5,7 @@ use Illuminate\Support\Str;
 if (!function_exists('aApp')) {
     function aApp($asset, $add_version = false)
     {
-        $path = 'f/app/' . $asset;
+        $path = 'a/app/' . $asset;
         if (!empty($add_version)) $path .= '?v=' . config('app.version');
         return asset($path);
     }
@@ -13,7 +13,7 @@ if (!function_exists('aApp')) {
 if (!function_exists('aAdmin')) {
     function aAdmin($asset, $add_version = false)
     {
-        $path = 'f/admin/' . $asset;
+        $path = 'a/admin/' . $asset;
         if (!empty($add_version)) $path .= '?v=' . config('app.version');
         return asset($path);
     }
@@ -21,7 +21,15 @@ if (!function_exists('aAdmin')) {
 if (!function_exists('aSite')) {
     function aSite($asset, $add_version = false)
     {
-        $path = 'f/site/' . $asset;
+        $path = 'a/site/' . $asset;
+        if (!empty($add_version)) $path .= '?v=' . config('app.version');
+        return asset($path);
+    }
+}
+if (!function_exists('aVendor')) {
+    function aVendor($asset, $add_version = false)
+    {
+        $path = 'a/vendor/' . $asset;
         if (!empty($add_version)) $path .= '?v=' . config('app.version');
         return asset($path);
     }

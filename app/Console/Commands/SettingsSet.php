@@ -46,7 +46,7 @@ class SettingsSet extends Command
             $valueInfo = 'null';
         }
         elseif ($this->option('bool')) {
-            if ($value) {
+            if ($value && $value!=='false') {
                 $value = true;
                 $valueInfo = 'true';
             }
