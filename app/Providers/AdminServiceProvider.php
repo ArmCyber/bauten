@@ -17,9 +17,7 @@ class AdminServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('settings', function () {
-            return Valuestore::make(storage_path('app/settings.json'));
-        });
+        //
     }
 
     /**

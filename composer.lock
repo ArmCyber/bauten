@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bfee1e30d0a4b49b03f16b0b0c9dfa06",
+    "content-hash": "4bfea4b5b1d66d48c2966580dacadf65",
     "packages": [
         {
             "name": "arrilot/laravel-widgets",
@@ -4089,6 +4089,54 @@
                 "environment"
             ],
             "time": "2019-06-15T22:40:20+00:00"
+        },
+        {
+            "name": "zakhayko/settings",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zakhayko/settings.git",
+                "reference": "f7facb60b904f958004f088796b64b8e73456903"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zakhayko/settings/zipball/f7facb60b904f958004f088796b64b8e73456903",
+                "reference": "f7facb60b904f958004f088796b64b8e73456903",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": ">=5.5",
+                "php": ">=5.6.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Zakhayko\\Settings\\SettingsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Zakhayko\\Settings\\": "src"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Hayko",
+                    "email": "zakhayko@gmail.com"
+                }
+            ],
+            "description": "Settings.json for Laravel",
+            "homepage": "https://github.com/zakhayko/settings",
+            "time": "2019-07-20T10:28:58+00:00"
         }
     ],
     "packages-dev": [
