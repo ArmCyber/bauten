@@ -72,7 +72,6 @@ class FileManager {
                     $name = file_name(18, $ext);
                 }
                 while (file_exists($path.$name));
-                $this->checkDir($path);
                 $image->move($path, $name);
 
                 if (!empty($delete)
@@ -101,7 +100,6 @@ class FileManager {
                 $name = file_name(18, $ext);
             }
             while (file_exists($path.$name));
-            $this->checkDir($path);
             $image->move($path, $name);
 
             if (!empty($delete)
