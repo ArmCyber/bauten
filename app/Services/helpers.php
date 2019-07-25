@@ -140,12 +140,6 @@ if (!function_exists('file_name')) {
         return Str::random($size) . $ext;
     }
 }
-if (!function_exists('banner')) {
-    function banner(&$params, &$banners, $thisKey, $thisCount, $key, $label=null)
-    {
-        return \App\Services\Banners\BannerManager::widget($params,$banners, $thisKey, $thisCount, $key, $label);
-    }
-}
 if (!function_exists('r')) {
     function r($val)
     {

@@ -45,21 +45,6 @@ class AdminServiceProvider extends ServiceProvider
         Blade::directive('js', function ($expression) {
             return "<?php echo newJs($expression) ?>";
         });
-        Blade::directive('banners', function ($expression) {
-            return "<?php \$this_count=\$params[$expression]['count']??1; \$key=$expression; for(\$i=0; \$i<\$this_count; \$i++): ?>";
-        });
-        Blade::directive('endbanners', function () {
-            return "<?php endfor; unset(\$i, \$key, \$this_count); ?>";
-        });
-        Blade::directive('cards', function ($expression) {
-            return "<?php \$thisExpression=$expression; \$key=\$thisExpression['banners']; \$thisExpression['count']=\$params[\$key]['count']??1; \$__env->startComponent('admin.components.cards', \$thisExpression); for(\$i=0; \$i<\$thisExpression['count']; \$i++): \$__env->slot('tab_'.\$i)?>";
-        });
-        Blade::directive('endcards', function($expression){
-            return "<?php \$__env->endSlot(); endfor; unset(\$i, \$key, \$thisExpression); echo \$__env->renderComponent()?>";
-        });
-        Blade::directive('banner', function ($expression) {
-            return "<?php echo banner(\$params, \$banners, \$key??null, \$i??0, $expression) ?>";
-        });
         //endregion
         //region Includes
         Blade::include('admin.includes.ckeditor', 'ckeditor');
