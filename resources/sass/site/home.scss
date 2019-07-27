@@ -248,6 +248,12 @@ a.brand-item {
   justify-content: center;
 }
 //endregion
+//region Search
+.home-search {
+  background-color:#FBF9F9;
+  padding: 15px 0 40px 0;
+}
+//endregion
 @include media(1599) {
   //region Welcome
   .welcome {

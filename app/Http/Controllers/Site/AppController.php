@@ -10,6 +10,8 @@ class AppController extends BaseController
     use StaticPages;
 
     private function static_home($page) {
-        return view('site.pages.home');
+        $data = [];
+        $data['logged_in'] = request()->has('logged_in');
+        return view('site.pages.home', $data);
     }
 }

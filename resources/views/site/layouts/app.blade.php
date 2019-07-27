@@ -19,7 +19,7 @@
                     </div>
                     <div class="ht-sm text-right">
                         <div class="ht-auth">
-                            <a href="javascript:void(0)" class="ht-login">Регистрация</a>
+                            <a href="{{ route('page', ['url'=>'', 'logged_in'=>1]) }}" class="ht-login">Регистрация</a>
                         </div>
                         <div class="ht-hamburger">
                             <button class="hamburger">
