@@ -63,7 +63,7 @@
                                 <img src="{{ asset('f/visa.png') }}" alt="visa">
                                 <img src="{{ asset('f/mastercard.png') }}" alt="visa">
                             </div>
-                            <div class="footer-copy">
+                            <div class="footer-copy d-none d-lg-block">
                                 <p>© ТОО "Bauten" 2006-{!! now()->year !!} Все права защищены.</p>
                                 <p><a href="https://studionomad.kz" target="_blank">Дизайн и разработка сайта</a> от STUDIONOMAD</p>
                             </div>
@@ -98,6 +98,12 @@
                             <div class="footer-link"><a href="javascript:void(0)">Корпоративным клиентам</a></div>
                             <div class="footer-link"><a href="javascript:void(0)">Программа лояльности</a></div>
                             <div class="footer-link"><a href="javascript:void(0)">Вакансии</a></div>
+                        </div>
+                    </div>
+                    <div class="col-12 d-lg-none">
+                        <div class="footer-copy text-center">
+                            <p>© ТОО "Bauten" 2006-{!! now()->year !!} Все права защищены.</p>
+                            <p><a href="https://studionomad.kz" target="_blank">Дизайн и разработка сайта</a> от STUDIONOMAD</p>
                         </div>
                     </div>
                 </div>

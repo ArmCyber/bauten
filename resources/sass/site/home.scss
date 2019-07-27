@@ -101,6 +101,8 @@ a.catalogue-title {
   background-color:$purple-blue;
   display:inline-block;
   padding:0 10px;
+  white-space:nowrap;
+  position: relative;
 }
 .cat-price {
   font-size:24px;
@@ -136,7 +138,6 @@ a.part-item {
   font-size:18px;
   margin-top:10px;
 }
-
 .part-banners {
   display:flex;
   margin: 0 -10px;
@@ -386,5 +387,111 @@ a.brand-item {
     font-size:18px;
   }
   //endregion
-
+}
+@include media(991) {
+  //region Welcome
+  .welcome {
+    @include m(padding-top padding-bottom, 55px);
+  }
+  .welcome-title {
+    font-size:25px;
+  }
+  .welcome-text {
+    font-size:19px;
+  }
+  //endregion
+  //region Catalogue
+  .catalogue-item {
+    padding:9px;
+  }
+  a.catalogue-title, .cat-price {
+    font-size:18px;
+  }
+  //endregion
+  //region News
+  .news-title {
+    font-size: 17px;
+  }
+  .news-date {
+    padding: 5px 7px;
+    @include m(bottom left, 7px);
+  }
+  .news-month {
+    margin-top:2px;
+  }
+  //endregion
+}
+@media (max-width: 899px) and (min-width: 768px) {
+  //region Catalogue
+  .catalogue-item {
+    padding: 7px;
+  }
+  a.catalogue-title, .cat-price {
+    font-size: 16px;
+  }
+  //endregion
+}
+@include media(767) {
+  //region Welcome
+  .welcome {
+    @include m(padding-top padding-bottom, 50px);
+  }
+  .welcome-title {
+    text-align: center;
+    font-size:22px;
+  }
+  .welcome-bg::before {
+    content:none;
+    display:none;
+  }
+  .welcome-text {
+    width: 100%;
+    padding:5px;
+    font-size:17px;
+    text-align: center;
+  }
+  //endregion
+  //region Parts
+  .part-banners {
+    margin:20px 0 0 0;
+    flex-wrap:wrap;
+  }
+  .part-banner {
+    @include m(width flex-basis, 650px);
+    max-width:100%;
+    margin:0 auto;
+    padding:20px 0 0 0;
+  }
+  //endregion
+}
+@include media(575) {
+  //region Welcome
+  .welcome {
+    @include m(padding-top padding-bottom, 40px);
+  }
+  .welcome-title {
+    font-size:20px;
+  }
+  .welcome-text {
+    font-size:16px;
+  }
+  //endregion
+  //region Catalogue
+  .catalogue-item {
+    max-width: 360px;
+    @include m(margin-left margin-right,auto);
+  }
+  //endregion
+  //region Generic
+  .card-more {
+    font-size:16px;
+  }
+  //endregion
+  //region News
+  .news-item {
+    margin: 5px auto 0 auto;
+    padding-bottom: 5px;
+    max-width: 400px;
+  }
+  //endregion
 }

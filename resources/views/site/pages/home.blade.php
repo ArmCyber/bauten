@@ -18,7 +18,7 @@
             <h2 class="section-title">Каталог автозапчастей</h2>
             <div class="section-content row row-grid">
                 @foreach([['title'=>'Шины','price'=>'7.800',],['title'=>'Диски','price'=>'9.700',],['title'=>'Щетки стеклоочистеля','price'=>'5.300',],['title'=>'Масла','price'=>'1.800',],['title'=>'Аксессуары','price'=>'9.900',],['title'=>'Электро - оборудование','price'=>'5.400',],['title'=>'Автохимия','price'=>'1.200',],['title'=>'Инструменты','price'=>'2.300',],] as $item)
-                    <div class="col-4 col-xl-3">
+                    <div class="col-12 col-sm-6 col-md-4 col-xl-3">
                         <div class="catalogue-item">
                             <div class="catalogue-left">
                                 <div><a href="javascript:void(0)" class="catalogue-title">{{ $item['title'] }}</a></div>
@@ -39,14 +39,14 @@
             <div class="home-parts">
                 <div class="row row-grid l-m">
                     @foreach(['Audi', 'BMW', 'Chrysler', 'Citroen', 'Daewoo', 'Ford', 'Honda', 'Hyundai', 'Isuzu', 'Kia', 'Lexus'] as $item)
-                        <div class="col-3 col-xl-2">
+                        <div class="col-6 col-sm-4 col-md-3 col-xl-2">
                             <a href="javascript:void(0)" class="part-item">
                                 <span class="part-img"><img src="{{ asset('f/parts/'.$loop->iteration.'.png') }}" alt="{{ $item }}"></span>
                                 <span class="part-title">{{ $item }}</span>
                             </a>
                         </div>
                     @endforeach
-                    <div class="col-3 col-xl-2">
+                    <div class="col-6 col-sm-4 col-md-3 col-xl-2">
                         <a href="javascript:void(0)" class="part-item card-more">
                             <span class="d-block">Посмотреть все запчасти</span>
                         </a>
@@ -72,14 +72,14 @@
             <h2 class="section-title">Каталог брендов</h2>
             <div class="section-content row row-grid l-m">
                 @foreach(['A-ONE', 'AGP', 'BAUTEN', 'BAW', 'CAMELLIA', 'CASP', 'CFT', 'DEPO', 'VISA', 'DEYE', 'DID'] as $item)
-                    <div class="col-3 col-xl-2">
+                    <div class="col-6 col-sm-4 col-md-3 col-xl-2">
                         <a href="javascript:void(0)" class="brand-item">
                             <span class="brand-img"><img src="{{ asset('f/brands/'.$loop->iteration.'.png') }}" alt="{{ $item }}"></span>
                             <span class="brand-title">{{ $item }}</span>
                         </a>
                     </div>
                 @endforeach
-                <div class="col-3 col-xl-2">
+                <div class="col-6 col-sm-4 col-md-3 col-xl-2">
                     <a href="javascript:void(0)" class="part-item card-more">
                         <span class="d-block">Посмотреть все бренды</span>
                     </a>
@@ -89,9 +89,9 @@
     </section>
     <section class="section container">
         <h2 class="section-title">Новости</h2>
-        <div class="section-content row">
+        <div class="section-content row row-grid">
             @for($i=1; $i<=3; $i++)
-                <div class="col-4">
+                <div class="col-12 col-sm-6 col-md-4">
                     <div class="news-item">
                         <div class="news-img">
                             <a href="javascript:void(0)" class="force-16-9"><img src="{{ asset('f/news/'.$i.'.png') }}" alt="News"></a>
