@@ -206,6 +206,9 @@ a.footer-soc {
     display:inline;
   }
 }
+.all-inherit {
+  all:inherit !important;
+}
 //endregion
 @include media(1599) {
   //region Header
