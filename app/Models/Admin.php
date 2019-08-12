@@ -16,6 +16,11 @@ class Admin extends User
     protected const GUARD = 'cms';
 
 //    protected $fillable = ['name', 'email', 'password', 'role'];
+    public const ROLES = [
+        1 => 'Оператор',
+        2 => 'Контент менеджер',
+        3 => 'Администратор',
+    ];
 
     protected $hidden = [
         'password', 'remember_token',
