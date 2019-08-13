@@ -20,7 +20,7 @@ class AdminsTableSeeder extends Seeder
             'name'=>'Developer',
             'email'=>'dev@dev.loc',
             'password'=>Hash::make('12345678'),
-            'role'=>3,
+            'role'=>4,
             'created_at'=>$now,
             'updated_at'=>$now,
         ]);

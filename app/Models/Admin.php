@@ -15,11 +15,11 @@ class Admin extends User
 
     protected const GUARD = 'cms';
 
-//    protected $fillable = ['name', 'email', 'password', 'role'];
     public const ROLES = [
         1 => 'Оператор',
         2 => 'Контент менеджер',
         3 => 'Администратор',
+        4 => 'Главный администратор',
     ];
 
     protected $hidden = [
@@ -32,7 +32,7 @@ class Admin extends User
         } catch (\Exception $e){}
     }
 
-    public static function action($user, $inputs){
+    public static function changeSettings($user, $inputs){
         $user['name'] = $inputs['name'];
         $user['email'] = $inputs['email'];
         if (!empty($inputs['change_password'])) {
@@ -41,6 +41,32 @@ class Admin extends User
         $result = $user->save();
         Auth::login($user);
         return $result;
+    }
+
+    public static function action($model, $inputs) {
+        if (!$model) $model = new self;
+        $model['name'] = $inputs['name'];
+        $model['email'] = $inputs['email'];
+        if (array_key_exists('password', $inputs)) $model['password'] = Hash::make($inputs['password']);
+        $model['active'] = (int) array_key_exists('active', $inputs);
+        $model['role'] = $inputs['role'];
+        return $model->save();
+    }
+
+    public static function adminList(){
+        return self::where('role', '<', 4)->sort()->get();
+    }
+
+    public static function getItem($id){
+        return self::where('id', $id)->where('role', '<', '4')->firstOrFail();
+    }
+
+    public static function deleteItem($model){
+        return $model->delete();
+    }
+
+    public function scopeSort($q) {
+        return $q->orderBy('id', 'desc');
     }
 
 }

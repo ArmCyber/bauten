@@ -21,7 +21,7 @@ class ProfileController extends BaseController
         $inputs = $request->all();
         $user = Auth::user();
         $this->validator($inputs, $user->id, $user->password)->validate();
-        if(Admin::action($user, $inputs)) {
+        if(Admin::changeSettings($user, $inputs)) {
             Notify::success('Профиль редактирован.');
             return redirect()->route('admin.profile.main');
         }
