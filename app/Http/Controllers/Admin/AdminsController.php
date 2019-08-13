@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Admin;
 use App\Services\Notify\Facades\Notify;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class AdminsController extends BaseController
@@ -19,7 +20,7 @@ class AdminsController extends BaseController
     public function add(){
         $data = ['title'=>'Регистрация администратора', 'edit'=>false];
         $data['back_url'] = route('admin.admins.main');
-        $data['roles'] = Admin::ROLES;
+        $data['roles'] = Admin::getAvailableRoles();
         return view('admin.pages.admins.form', $data);
     }
 
@@ -40,7 +41,7 @@ class AdminsController extends BaseController
         $data = ['title'=>'Редактирование профиля администратора', 'edit'=>true];
         $data['back_url'] = route('admin.admins.main');
         $data['item'] = Admin::getItem($id);
-        $data['roles'] = Admin::ROLES;
+        $data['roles'] = Admin::getAvailableRoles();
         return view('admin.pages.admins.form', $data);
     }
 
@@ -72,7 +73,7 @@ class AdminsController extends BaseController
         return Validator::make($inputs, [
             'name' => 'required|string|max:255',
             'email' => 'required|string|mail|max:255|unique:admins,email'.($ignore?','.$ignore:null),
-            'role' => 'required|integer|between:1,3',
+            'role' => 'required|integer|between:1,'.Auth::user()->role,
             'password' => ($ignore?'nullable':'required').'|string|min:8|confirmed'
         ],[
             'role.*' => 'Выберите роль.',

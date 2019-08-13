@@ -12,7 +12,7 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware'=>'guest:cms'], fu
     Route::post('password/recover/{email}/{token}', 'Admin\AuthController@attemptRecover')->where(['email'=>'[^\/]+', 'token'=>'[^\/]+']);
 });
 //endregion
-Route::group(['prefix' => config('admin.prefix'), 'middleware' => 'auth:cms'], function () {
+Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', 'admin.active']], function () {
     //region CKFinder
     Route::any('file-browser/connector', '\CKSource\CKFinderBridge\Controller\CKFinderController@requestAction')->name('ckfinder_connector');
     Route::any('file-browser/browser', '\CKSource\CKFinderBridge\Controller\CKFinderController@browserAction')->name('ckfinder_browser');
@@ -25,7 +25,7 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => 'auth:cms'], f
         Route::get('/', 'AuthController@redirectToHomepage');
         //endregion
         //region Dashboard
-        Route::get('main', 'BaseController@main')->name('main');
+        Route::get('main', 'AppController@main')->name('main');
         //endregion
         //region Profile
         Route::prefix('profile')->name('profile.')->group(function() { $c = 'ProfileController@';
@@ -34,7 +34,7 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => 'auth:cms'], f
         });
         //endregion
         //region Pages
-        Route::prefix('pages')->name('pages.')->group(function() { $c='PagesController@';
+        Route::middleware('can:manager')->prefix('pages')->name('pages.')->group(function() { $c='PagesController@';
             Route::get('', $c.'main')->name('main');
             Route::get('add', $c.'addPage')->name('add');
             Route::put('add', $c.'addPage_put');
@@ -45,7 +45,7 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => 'auth:cms'], f
         });
         //endregion
         //region Admins
-        Route::prefix('admins')->name('admins.')->group(function() { $c = 'AdminsController@';
+        Route::middleware('can:admin')->prefix('admins')->name('admins.')->group(function() { $c = 'AdminsController@';
             Route::get('', $c.'main')->name('main');
             Route::get('add', $c.'add')->name('add');
             Route::put('add', $c.'add_put');

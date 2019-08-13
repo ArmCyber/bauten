@@ -23,7 +23,6 @@
                     <select name="role" class="select2" style="width: 100%">
                         @php $selectedRole = old('role', $item->role??0) @endphp
                         @foreach($roles as $key=>$role)
-                            @if($loop->last) @break @endif
                             <option value="{{ $key }}"{!! $key==$selectedRole?' selected':null !!}>{{ $role }}</option>
                         @endforeach
                     </select>

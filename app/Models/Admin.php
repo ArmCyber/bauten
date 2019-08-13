@@ -22,6 +22,13 @@ class Admin extends User
         4 => 'Главный администратор',
     ];
 
+    public static function getAvailableRoles(){
+        $role = Auth::user()->role;
+        return collect(self::ROLES)->filter(function($value, $key) use ($role){
+            return $key<$role;
+        })->toArray();
+    }
+
     protected $hidden = [
         'password', 'remember_token',
     ];
@@ -47,18 +54,18 @@ class Admin extends User
         if (!$model) $model = new self;
         $model['name'] = $inputs['name'];
         $model['email'] = $inputs['email'];
-        if (array_key_exists('password', $inputs)) $model['password'] = Hash::make($inputs['password']);
+        if (!empty($inputs['password'])) $model['password'] = Hash::make($inputs['password']);
         $model['active'] = (int) array_key_exists('active', $inputs);
         $model['role'] = $inputs['role'];
         return $model->save();
     }
 
     public static function adminList(){
-        return self::where('role', '<', 4)->sort()->get();
+        return self::where('role', '<', Auth::user()->role)->sort()->get();
     }
 
     public static function getItem($id){
-        return self::where('id', $id)->where('role', '<', '4')->firstOrFail();
+        return self::where('id', $id)->where('role', '<', Auth::user()->role)->firstOrFail();
     }
 
     public static function deleteItem($model){

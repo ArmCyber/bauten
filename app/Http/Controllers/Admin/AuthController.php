@@ -42,6 +42,7 @@ class AuthController extends Controller
             $this->fireLockoutEvent($request);
             return $this->sendLockoutResponse($request);
         }
+        $credentials['active'] = 1;
         if (!Auth::guard('cms')->attempt($credentials)) {
             $this->incrementLoginAttempts($request);
             return $this->sendErrors(['root'=>[__('admin/auth/messages.failed')]]);
