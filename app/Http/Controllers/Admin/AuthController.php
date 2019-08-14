@@ -5,14 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Admin;
 use App\Services\Notify\Facades\Notify;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Validation\ValidationException;
 
-class AuthController extends Controller
+class AuthController extends BaseController
 {
     use ThrottlesLogins;
 

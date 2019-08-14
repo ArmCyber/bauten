@@ -87,7 +87,28 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
             Route::patch('sort', $c.'sort')->middleware('ajax')->name('sort');
         });
         //endregion
-
+        //region Countries
+        Route::middleware('can:admin')->prefix('countries')->name('countries.')->group(function() { $c = 'CountriesController@';
+            Route::get('', $c.'main')->name('main');
+            Route::get('add', $c.'add')->name('add');
+            Route::put('add', $c.'add_put');
+            Route::get('edit/{id}', $c.'edit')->name('edit');
+            Route::patch('edit/{id}', $c.'edit_patch');
+            Route::delete('delete', $c.'delete')->middleware('ajax')->name('delete');
+            Route::patch('sort', $c.'sort')->middleware('ajax')->name('sort');
+        });
+        //endregion
+        //region Regions
+        Route::middleware('can:admin')->prefix('regions')->name('regions.')->group(function() { $c = 'RegionsController@';
+            Route::get('{id}', $c.'main')->name('main');
+            Route::get('add/{id}', $c.'add')->name('add');
+            Route::put('add/{id}', $c.'add_put');
+            Route::get('edit/{id}', $c.'edit')->name('edit');
+            Route::patch('edit/{id}', $c.'edit_patch');
+            Route::delete('delete', $c.'delete')->middleware('ajax')->name('delete');
+            Route::patch('sort', $c.'sort')->middleware('ajax')->name('sort');
+        });
+        //endregion
     });
 });
 //endregion

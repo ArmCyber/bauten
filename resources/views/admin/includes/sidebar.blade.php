@@ -4,4 +4,5 @@
 @can('admin')
     @alink(['url'=>route('admin.marks.main'), 'icon'=>'fas fa-list-ol', 'title'=>'Марки'])@endalink
     @alink(['url'=>route('admin.admins.main'), 'icon'=>'fas fa-user-tie', 'title'=>'Администраторы'])@endalink
+    @alink(['url'=>route('admin.countries.main'), 'icon'=>'fas fa-globe-americas', 'title'=>'Страны'])@endalink
 @endcan

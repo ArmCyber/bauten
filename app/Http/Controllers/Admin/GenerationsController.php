@@ -6,9 +6,8 @@ use App\Models\Generation;
 use App\Models\Model;
 use App\Services\Notify\Facades\Notify;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class GenerationsController extends Controller
+class GenerationsController extends BaseController
 {
     public function main($id){
         $data = [];

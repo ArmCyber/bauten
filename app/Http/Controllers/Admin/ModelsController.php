@@ -6,10 +6,9 @@ use App\Models\Mark;
 use App\Models\Model;
 use App\Services\Notify\Facades\Notify;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
-class ModelsController extends Controller
+class ModelsController extends BaseController
 {
     public function main($id){
         $data = [];
