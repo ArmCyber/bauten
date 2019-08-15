@@ -12,7 +12,7 @@ class Country extends Model
     protected $sortableDesc = false;
 
     public static function adminList(){
-        return self::sort()->get();
+        return self::withCount('regions')->sort()->get();
     }
 
     public static function action($model, $inputs) {
@@ -27,5 +27,13 @@ class Country extends Model
 
     public static function deleteItem($model){
         return $model->delete();
+    }
+
+    public static function getItem($id){
+        return self::findOrFail($id);
+    }
+
+    public function regions(){
+        return $this->hasMany('App\Models\Region', 'country_id', 'id')->sort();
     }
 }

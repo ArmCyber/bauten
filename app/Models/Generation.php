@@ -23,7 +23,7 @@ class Generation extends Model
     }
 
     public static function getItem($id) {
-        return self::where('id', $id)->firstOrFail();
+        return self::findOrFail($id);
     }
 
     public static function deleteItem($model) {

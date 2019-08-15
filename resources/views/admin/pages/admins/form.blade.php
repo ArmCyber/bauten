@@ -14,7 +14,7 @@
             <div class="card">
                 <div class="c-title">Имя</div>
                 <div class="little-p">
-                    <input type="text" name="name" class="form-control" placeholder="Имя" value="{{ old('name', $item->name??null) }}">
+                    <input type="text" name="name" class="form-control" placeholder="Имя" maxlength="255" value="{{ old('name', $item->name??null) }}">
                 </div>
             </div>
             <div class="card">
@@ -39,7 +39,7 @@
             <div class="card">
                 <div class="c-title">Адрес эл.почты</div>
                 <div class="little-p">
-                    <input type="text" name="email" class="form-control" placeholder="Адрес эл.почты" value="{{ old('email', $item->email??null) }}">
+                    <input type="text" name="email" class="form-control" placeholder="Адрес эл.почты" maxlength="255" value="{{ old('email', $item->email??null) }}">
                 </div>
             </div>
             <div class="card">

@@ -14,13 +14,13 @@
             <div class="card">
                 <div class="c-title">Имя</div>
                 <div class="little-p">
-                    <input type="text" name="name" class="form-control" autocomplete="name" placeholder="Имя" value="{{ old('name', $user->name) }}">
+                    <input type="text" name="name" maxlength="255" class="form-control" autocomplete="name" placeholder="Имя" value="{{ old('name', $user->name) }}">
                 </div>
             </div>
             <div class="card">
                 <div class="c-title">Эл.почта</div>
                 <div class="little-p">
-                    <input type="text" name="email" class="form-control" autocomplete="email" placeholder="Эл.почта" value="{{ old('email', $user->email) }}">
+                    <input type="text" name="email" maxlength="255" class="form-control" autocomplete="email" placeholder="Эл.почта" value="{{ old('email', $user->email) }}">
                 </div>
             </div>
             <div class="card">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Mark;
 use App\Services\Notify\Facades\Notify;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class MarksController extends BaseController
 {
@@ -22,7 +23,7 @@ class MarksController extends BaseController
 
     public function add_put(Request $request){
         $inputs = $request->all();
-//        $this->validator($inputs)->validate();
+        $this->validator($inputs)->validate();
         if(Mark::action(null, $inputs)) {
             Notify::success('Марка добавлена.');
             return redirect()->route('admin.marks.main');
@@ -43,7 +44,7 @@ class MarksController extends BaseController
     public function edit_patch($id, Request $request){
         $item = Mark::getItem($id);
         $inputs = $request->all();
-//        $this->validator($inputs, $item->id)->validate();
+        $this->validator($inputs)->validate();
         if(Mark::action($item, $inputs)) {
             Notify::success('Марка редактирована.');
             return redirect()->route('admin.marks.edit', ['id'=>$item->id]);
@@ -66,9 +67,9 @@ class MarksController extends BaseController
 
     public function sort() { return Mark::sortable(); }
 
-//    private function validator($inputs, $ignore=false) {
-//        return Validator::make($inputs, [
-//
-//        ]);
-//    }
+    private function validator($inputs) {
+        return Validator::make($inputs, [
+            'name' => 'nullable|string|max:255'
+        ]);
+    }
 }

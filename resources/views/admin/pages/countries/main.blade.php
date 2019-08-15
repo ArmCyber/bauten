@@ -22,7 +22,7 @@
                             @else
                                 <td class="text-danger">Неактивно</td>
                             @endif
-                            <td><a href="{{ route('admin.countries.main', ['id'=>$item->id]) }}">Перейти к областям ({!! $item->regions_count !!})</a></td>
+                            <td><a href="{{ route('admin.regions.main', ['id'=>$item->id]) }}">Перейти к областям ({!! $item->regions_count !!})</a></td>
                             <td>
                                 <a href="{{ route('admin.countries.edit', ['id'=>$item->id]) }}" {!! tooltip('Редактировать') !!} class="icon-btn edit"></a>
                                 <span class="d-inline-block"  style="margin-left:4px;" data-toggle="modal" data-target="#itemDeleteModal"><a href="javascript:void(0)" class="icon-btn delete" {!! tooltip('Удалить') !!}></a></span>
@@ -41,9 +41,9 @@
         'saveBtnClass'=>'btn-danger',
         'closeBtn' => 'Отменить',
         'form'=>['id'=>'itemDeleteForm', 'action'=>'javascript:void(0)']])
-    @slot('title')Удаление области@endslot
+    @slot('title')Удаление страны@endslot
     <input type="hidden" id="pdf-item-id">
-    <p class="font-14">Вы действительно хотите удалить область &Lt;<span id="pdm-title"></span>&Gt;?</p>
+    <p class="font-14">Вы действительно хотите удалить страну &Lt;<span id="pdm-title"></span>&Gt;?</p>
     @endmodal
 @endsection
 @push('css')
@@ -97,7 +97,7 @@
                         if (e.success) {
                             loader.removeClass('shown');
                             blocked = false;
-                            toastr.success('Область удалена.');
+                            toastr.success('Страна удалена.');
                             modal.modal('hide');
                             $('.item-row[data-id="'+thisItemId+'"]').fadeOut(function(){
                                 $(this).remove();

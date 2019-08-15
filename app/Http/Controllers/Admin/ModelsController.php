@@ -81,6 +81,7 @@ class ModelsController extends BaseController
     private function validator($inputs, $ignore=false) {
         return Validator::make($inputs, [
             'mark_id'=>'required|integer|exists:marks,id',
+            'name' => 'nullable|string|max:255',
         ]);
     }
 }

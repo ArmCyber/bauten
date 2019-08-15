@@ -191,5 +191,8 @@ return [
         'url' => 'Ссылка',
         'mark_id' => 'Марка',
         'model_id' => 'Модель',
+        'seo_title' => 'SEO Название',
+        'seo_keywords' => 'SEO Ключевые слова',
+        'seo_description' => 'SEO Описание',
     ],
 ];

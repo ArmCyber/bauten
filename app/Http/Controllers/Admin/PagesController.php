@@ -89,6 +89,10 @@ class PagesController extends BaseController
         $result = [];
         $rules = [
             'generated_url'=>'required_with:generate_url|string|nullable',
+            'title' => 'nullable|string|max:255',
+            'seo_title' => 'nullable|string|max:255',
+            'seo_keywords' => 'nullable|string|max:255',
+            'seo_description' => 'nullable|string',
         ];
         if (empty($inputs['generate_url'])) {
             $rules['url'] = 'required|is_url|string|unique:pages,url'.$unique.'|min:3|nullable';

@@ -5,13 +5,13 @@
                 <div class="form-group">
                     <div class="c-title">Название</div>
                     <div class="little-p">
-                        <input type="text" name="seo_title" class="form-control" placeholder="Название" value="{{ old('seo_title', $item->seo_title??null) }}">
+                        <input type="text" name="seo_title" class="form-control" placeholder="Название" maxlength="255" value="{{ old('seo_title', $item->seo_title??null) }}">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="c-title">Ключевые слова</div>
                     <div class="little-p">
-                        <input type="text" name="seo_keywords" class="form-control" placeholder="Ключевые слова" value="{{ old('seo_keywords', $item->seo_keywords??null) }}">
+                        <input type="text" name="seo_keywords" class="form-control" placeholder="Ключевые слова" maxlength="255" value="{{ old('seo_keywords', $item->seo_keywords??null) }}">
                     </div>
                 </div>
                 <div class="form-group">

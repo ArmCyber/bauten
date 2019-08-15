@@ -35,19 +35,19 @@ class CountriesController extends BaseController
     }
 
     public function edit($id){
-        $data = ['title'=>'Редактирование марок', 'edit'=>true];
-        $data['back_url'] = route('admin.marks.main');
-        $data['item'] = Mark::getItem($id);
-        return view('admin.pages.marks.form', $data);
+        $data = ['title'=>'Редактирование страны', 'edit'=>true];
+        $data['back_url'] = route('admin.countries.main');
+        $data['item'] = Country::getItem($id);
+        return view('admin.pages.countries.form', $data);
     }
 
     public function edit_patch($id, Request $request){
-        $item = Mark::getItem($id);
+        $item = Country::getItem($id);
         $inputs = $request->all();
-//        $this->validator($inputs, $item->id)->validate();
-        if(Mark::action($item, $inputs)) {
-            Notify::success('Марка редактирована.');
-            return redirect()->route('admin.marks.edit', ['id'=>$item->id]);
+        $this->validator($inputs, $item->id)->validate();
+        if(Country::action($item, $inputs)) {
+            Notify::success('Страна редактирована.');
+            return redirect()->route('admin.countries.edit', ['id'=>$item->id]);
         }
         else {
             Notify::get('error_occurred');
@@ -59,17 +59,17 @@ class CountriesController extends BaseController
         $result = ['success'=>false];
         $id = $request->input('item_id');
         if ($id && is_id($id)) {
-            $item = Mark::where('id',$id)->first();
-            if ($item && Mark::deleteItem($item)) $result['success'] = true;
+            $item = Country::where('id',$id)->first();
+            if ($item && Country::deleteItem($item)) $result['success'] = true;
         }
         return response()->json($result);
     }
 
-    public function sort() { return Mark::sortable(); }
+    public function sort() { return Country::sortable(); }
 
     private function validator($inputs, $ignore=false) {
         return Validator::make($inputs, [
-            'title' => 'required|string|unique:countries,title'.($ignore?','.$ignore:null)
+            'title' => 'required|string|max:255|unique:countries,title'.($ignore?','.$ignore:null)
         ]);
     }
 }

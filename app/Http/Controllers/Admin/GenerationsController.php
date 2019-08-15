@@ -6,6 +6,7 @@ use App\Models\Generation;
 use App\Models\Model;
 use App\Services\Notify\Facades\Notify;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class GenerationsController extends BaseController
 {
@@ -30,7 +31,7 @@ class GenerationsController extends BaseController
         $data['model'] = Model::getItem($id);
         $inputs = $request->all();
         $inputs['model_id'] = $data['model']->id;
-//        $this->validator($inputs)->validate();
+        $this->validator($inputs)->validate();
         if(Generation::action(null, $inputs)) {
             Notify::success('Поколения добавлено.');
             return redirect()->route('admin.generations.main', ['id'=>$data['model']->id]);
@@ -56,7 +57,7 @@ class GenerationsController extends BaseController
     public function edit_patch($id, Request $request){
         $item = Generation::getItem($id);
         $inputs = $request->all();
-//        $this->validator($inputs, $item->id)->validate();
+        $this->validator($inputs)->validate();
         if(Generation::action($item, $inputs)) {
             Notify::success('Модель редактирован.');
             return redirect()->route('admin.generations.edit', ['id'=>$item->id]);
@@ -77,6 +78,9 @@ class GenerationsController extends BaseController
         return response()->json($result);
     }
 
-//    private function validator($inputs, $ignore=false) {
-//    }
+    private function validator($inputs) {
+        return Validator::make($inputs, [
+            'title' => 'nullable|string|max:255'
+        ]);
+    }
 }

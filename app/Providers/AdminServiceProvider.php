@@ -6,7 +6,6 @@ use App\Services\PageManager\Facades\PageManager;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
-use Spatie\Valuestore\Valuestore;
 
 class AdminServiceProvider extends ServiceProvider
 {

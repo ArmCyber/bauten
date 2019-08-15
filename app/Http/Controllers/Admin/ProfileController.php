@@ -33,8 +33,8 @@ class ProfileController extends BaseController
 
     private function validator($inputs, $ignore, $current_password) {
         $rules = [
-            'name'=>'required|string',
-            'email'=>'required|string|email|unique:admins,email,'.$ignore,
+            'name'=>'required|string|max:255',
+            'email'=>'required|string|max:255|email|unique:admins,email,'.$ignore,
             'current_password'=>[
                 'required',
                 'string',
