@@ -113,7 +113,8 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
 });
 //endregion
 
-Route::any('file-browser/connector', '\CKSource\CKFinderBridge\Controller\CKFinderController@requestAction')->name('ckfinder_connector');
-Route::any('file-browser/browser', '\CKSource\CKFinderBridge\Controller\CKFinderController@browserAction')->name('ckfinder_browser');
+//region Temporary
+Route::get('catalogue', 'Site\AppController@catalogue');
+//endregion
 
 Route::get('{url?}', 'Site\AppController@pageManager')->name('page');

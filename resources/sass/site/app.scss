@@ -210,6 +210,25 @@ a.footer-soc {
   all:inherit !important;
 }
 //endregion
+//region Inner Pages
+@include set-padding(20px);
+.page-breadcrumb {
+    background-color:transparent;
+    padding:0;
+    .breadcrumb-item {
+        color:#9D9D9D;
+        font-size:14px;
+        font-style: italic;
+        >a {
+            color:#4A4A4A;
+            text-decoration: underline;
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+}
+//endregion
 @include media(1599) {
   //region Header
   #header-top {
