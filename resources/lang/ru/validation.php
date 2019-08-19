@@ -194,5 +194,6 @@ return [
         'seo_title' => 'SEO Название',
         'seo_keywords' => 'SEO Ключевые слова',
         'seo_description' => 'SEO Описание',
+        'code' => 'Код',
     ],
 ];
