@@ -4,6 +4,7 @@
     <title>Bauten</title>
     <link rel="shortcut icon" href="{!! asset('favicon.ico') !!}">
     @css(aApp('bootstrap/css/bootstrap.css'))
+    @css(aApp('font-awesome/css/all.css'))
     @css(aSite('css/app.css'))
     @stack('css')
 </head><body>
@@ -110,5 +111,6 @@
             </div>
         </footer>
     </div>
+    @js(aApp('jquery/jquery.js'))
     @stack('js')
 </body></html>
