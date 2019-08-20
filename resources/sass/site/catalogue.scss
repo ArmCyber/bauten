@@ -34,5 +34,47 @@
     }
 }
 .filter-values {
-    //display:none;
+    border:1px solid #EEEEEE;
+    padding:23px;
+    max-height: 360px;
+    overflow-y: auto;
+    scrollbar-color:$blue #f6f8fa;
+    &::-webkit-scrollbar{
+        width: 9px;
+    }
+    &::-webkit-scrollbar-track{
+        background-color: #F5F7FA;
+        @include box-shadow(none);
+    }
+    &::-webkit-scrollbar-thumb {
+        background: $blue url($site + 'img/scroll-dashes.png') center center no-repeat;
+        @include background-size(7px 7px);
+        &:hover {
+            background-color: #0060ad;
+        }
+    }
+
+}
+label.filter-value {
+    display:block;
+    cursor:pointer;
+}
+input.filter-checkbox {
+    display:none;
+    +span {
+        display:inline-flex;
+        font-size:19px;
+        color:#4A4A4A;
+        align-items:center;
+        &:before {
+            content:'';
+            display:inline-block;
+            width:23px;
+            height:23px;
+            border:2px solid #4A4A4A;
+            @include border-radius(4px);
+            overflow: hidden;
+            margin-right: 20px;
+        }
+    }
 }

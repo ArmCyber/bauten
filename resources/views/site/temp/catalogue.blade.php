@@ -15,7 +15,7 @@
                         <div class="filter-values">
                             @for($i=1;$i<20;$i++)
                                 <label class="filter-value">
-                                    <input type="checkbox" name="{{ $filter_name }}[]" value="{{ $i }}">
+                                    <input type="checkbox" class="filter-checkbox" name="{{ $filter_name }}[]" value="{{ $i }}">
                                     <span>{{ $i }}</span>
                                 </label>
                             @endfor
