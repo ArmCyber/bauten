@@ -28,16 +28,33 @@
     justify-content: space-between;
     cursor:pointer;
     color:#949494;
+    @include transition(#{color .3s ease, background-color .3s ease});
     &:after {
         @include fas(f107, false);
         margin-left:3px;
+        @include transition(transform .3s ease, webkit moz);
+    }
+    .filter-expanded>&{
+        background-color:$blue;
+        color:#ffffff;
+        &:after {
+            @include transform(rotate(180deg));
+        }
+    }
+}
+.filter-content {
+    overflow:hidden;
+    max-height: 0;
+    @include transition(max-height .3s ease);
+    .filter-expanded>& {
+        max-height: 360px;
     }
 }
 .filter-values {
     border:1px solid #EEEEEE;
     padding:23px;
-    max-height: 360px;
-    overflow-y: auto;
+    max-height: inherit;
+    overflow-y:auto;
     scrollbar-color:$blue #f6f8fa;
     &::-webkit-scrollbar{
         width: 9px;

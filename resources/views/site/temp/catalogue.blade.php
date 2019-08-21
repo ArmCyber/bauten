@@ -12,13 +12,15 @@
                 @foreach(['height'=>'Высота', 'length'=>'Длина', 'width'=>'Ширина', 'brand'=>'Бренд', 'capacity'=>'Ёмкость', 'polarity'=>'Полярность', 'terminal_location'=>'Расположение клемм'] as $filter_name=>$filter_title)
                     <div class="products-filter">
                         <div class="filter-name">{{ $filter_title }}</div>
-                        <div class="filter-values">
-                            @for($i=1;$i<20;$i++)
-                                <label class="filter-value">
-                                    <input type="checkbox" class="filter-checkbox" name="{{ $filter_name }}[]" value="{{ $i }}">
-                                    <span>{{ $i }}</span>
-                                </label>
-                            @endfor
+                        <div class="filter-content">
+                            <div class="filter-values">
+                                @for($i=1;$i<20;$i++)
+                                    <label class="filter-value">
+                                        <input type="checkbox" class="filter-checkbox" name="{{ $filter_name }}[]" value="{{ $i }}">
+                                        <span>{{ $i }}</span>
+                                    </label>
+                                @endfor
+                            </div>
                         </div>
                     </div>
                 @endforeach
@@ -47,5 +49,5 @@
     @css(aSite('css/catalogue.css'))
 @endpush
 @push('js')
-
+    @js(aSite('js/catalogue.js'))
 @endpush
