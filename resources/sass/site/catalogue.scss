@@ -94,4 +94,80 @@ input.filter-checkbox {
             margin-right: 20px;
         }
     }
+    &:checked+span {
+        color:$blue;
+        &:before {
+            border-color:$blue;
+            background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNi41MDciIGhlaWdodD0iMTIuNjA3IiB2aWV3Qm94PSIwIDAgMTYuNTA3IDEyLjYwNyI+PHBhdGggZD0iTTE1LjE4MywyNy4yNDIsOS41MDcsMjAuODdsMS4xLS45NzcsNC42LDUuMTY5TDI0Ljk0LDE0LjYzNWwxLjA3NCwxWiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTkuNTA3IC0xNC42MzUpIiBmaWxsPSIjMDA1NDk4Ii8+PC9zdmc+") center center no-repeat;
+            @include background-size(16px 12px);
+        }
+    }
+}
+.sort-select-title {
+    display:inline-block;
+    padding-left:10px;
+    margin-right:45px;
+    vertical-align: middle;
+    font-size:17px;
+}
+#sort-select-styler {
+    .jq-selectbox__select {
+        height:51px;
+        background:#ffffff;
+        @include border-radius(0);
+        border:1px solid #EEEEEE;
+        @include box-shadow(none);
+        font-size:17px;
+        color:#949494;
+        width:207px;
+        padding-left:17px;
+        line-height:1;
+        display:inline-flex;
+        align-items: center;
+    }
+    .jq-selectbox__trigger {
+        border: none;
+        text-align: center;
+        display: inline-flex;
+        align-items: center;
+    }
+    .jq-selectbox__trigger-arrow {
+        all:unset;
+        @include fas(f107);
+    }
+    .jq-selectbox__select-text {
+        width:100% !important;
+    }
+    li:hover {
+        background-color: $blue;
+    }
+    .jq-selectbox__dropdown {
+        @include border-radius(0);
+        border:1px solid #EEEEEE;
+    }
+}
+.product-item {
+    padding:20px;
+    @include box-shadow(0 3px 6px 0 rgba(0,0,0,.1));
+    height:100%;
+    display:flex;
+    flex-direction: column;
+}
+.product-image {
+    font-size:0;
+    text-align:center;
+    >img {
+        height:270px;
+        width:auto;
+        max-width:100%;
+        object-fit: contain;
+    }
+}
+.product-title {
+    margin-top:10px;
+    font-size:21px;
+    color:#3B519D;
+}
+.product-page-items {
+    margin-top:20px;
 }

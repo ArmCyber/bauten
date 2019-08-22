@@ -28,16 +28,29 @@
         </div>
         <div class="products-content">
             <div class="products-sort">
-
+                <div>
+                    <span class="sort-select-title">Сортировать по</span>
+                    <select name="sort" id="sort-select">
+                        <option>Ценам</option>
+                        <option>Дате</option>
+                        <option>Именам</option>
+                    </select>
+                </div>
             </div>
-            <div class="product-items">
-                <div class="row">
-                    @for($i=1; $i<12; $i++)
-                        <div class="col-3">
+            <div class="product-page-items">
+                <div class="row row-grid">
+                    @for($i=1; $i<=4; $i++)
+                        @foreach([['Щетки стеклоочистителя "Torino" бескаркасная с силиконом 14"', '6.300'], ['Набор для утапливания поршней тормозного цил. 12пр', '7.800'], ['Ремкомплект бескамерных шин "AUTOPROFI"', '1.200']] as $item)
+                        <div class="col-4">
                             <div class="product-item">
-
+                                <div class="product-image">
+                                    <img src="{{ asset('f/cat-page/'.$loop->iteration.'.png') }}">
+                                </div>
+                                <div class="product-title">{{ $item[0] }}</div>
+                                <div class="product-price"><span class="catalogue-price">Цена: от <span class="cat-price">{{ $item[1] }}</span> <span class="kzt"></span></span></div>
                             </div>
                         </div>
+                        @endforeach
                     @endfor
                 </div>
             </div>
@@ -46,8 +59,10 @@
 </div>
 @endsection
 @push('css')
+    @css(aSite('assets/styler/styler.css'))
     @css(aSite('css/catalogue.css'))
 @endpush
 @push('js')
+    @js(aSite('assets/styler/styler.js'))
     @js(aSite('js/catalogue.js'))
 @endpush

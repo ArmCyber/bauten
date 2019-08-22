@@ -6,3 +6,4 @@ $('.filter-name').on('click', function(){
         filter.addClass('filter-expanded');
     }
 });
+$('#sort-select').styler();
