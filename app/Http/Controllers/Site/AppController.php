@@ -21,4 +21,7 @@ class AppController extends BaseController
     public function catalogue(){
         return view('site.temp.catalogue');
     }
+    public function register(){
+        return view('site.temp.register');
+    }
 }

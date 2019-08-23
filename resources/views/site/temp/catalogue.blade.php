@@ -44,7 +44,7 @@
                         <div class="col-4">
                             <div class="product-item">
                                 <div class="product-image">
-                                    <img src="{{ asset('f/cat-page/'.$loop->iteration.'.png') }}">
+                                    <img src="{{ asset('f/cat-page/'.$loop->iteration.'.png') }}" alt="">
                                 </div>
                                 <div class="product-title">{{ $item[0] }}</div>
                                 <div class="product-price"><span class="catalogue-price">Цена: от <span class="cat-price">{{ $item[1] }}</span> <span class="kzt"></span></span></div>
@@ -60,7 +60,7 @@
 @endsection
 @push('css')
     @css(aSite('assets/styler/styler.css'))
-    @css(aSite('css/catalogue.css'))
+    @css(aSite('css/inner.css'))
 @endpush
 @push('js')
     @js(aSite('assets/styler/styler.js'))

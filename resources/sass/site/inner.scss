@@ -171,3 +171,51 @@ input.filter-checkbox {
 .product-page-items {
     margin-top:20px;
 }
+.product-price {
+    margin-top:auto;
+    padding-top:20px;
+}
+.registration-title {
+    color:#3B519D;
+    font-size:41px;
+}
+.registration-text {
+    color:#7B7B7B;
+    font-size:16px;
+    line-height: 1.9;
+    padding-top:15px;
+}
+.registration-block {
+    color:#545454;
+    margin-top:70px;
+}
+.c-radios {
+    margin-top:15px;
+}
+.c-radio {
+    display:inline-block;
+    line-height:1;
+    cursor:pointer;
+    &:not(:last-child) {
+        margin-right:5px;
+    }
+    >span {
+        display:inline-flex;
+        width:200px;
+        height:47px;
+        text-align:center;
+        align-items: center;
+        justify-content: center;
+        overflow:hidden;
+        text-overflow: ellipsis;
+        background-color:#F7F7F7;
+        color:#7B7B7B;
+    }
+    >input {
+        display:none;
+        &:checked+span {
+            background-color:$blue;
+            color:#ffffff;
+        }
+    }
+}

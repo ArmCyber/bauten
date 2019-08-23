@@ -137,6 +137,7 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
 
 //region Temporary
 Route::get('catalogue', 'Site\AppController@catalogue');
+Route::get('register', 'Site\AppController@register');
 //endregion
 
 Route::get('{url?}', 'Site\AppController@pageManager')->name('page');
