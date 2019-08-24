@@ -28,7 +28,12 @@
                                     <span>Физическое Лицо</span>
                                 </label>
                             </div>
-
+                            <div class="c-inputs">
+                                <div class="c-form-group">
+                                    <div class="c-label"><label>Город</label></div>
+                                    <div class="c-control"></div>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>
