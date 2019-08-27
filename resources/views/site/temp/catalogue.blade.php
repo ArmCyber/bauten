@@ -41,7 +41,7 @@
                 <div class="row row-grid">
                     @for($i=1; $i<=4; $i++)
                         @foreach([['Щетки стеклоочистителя "Torino" бескаркасная с силиконом 14"', '6.300'], ['Набор для утапливания поршней тормозного цил. 12пр', '7.800'], ['Ремкомплект бескамерных шин "AUTOPROFI"', '1.200']] as $item)
-                        <div class="col-4">
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-6 col-xl-4">
                             <div class="product-item">
                                 <div class="product-image">
                                     <img src="{{ asset('f/cat-page/'.$loop->iteration.'.png') }}" alt="">

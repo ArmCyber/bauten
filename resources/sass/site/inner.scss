@@ -219,3 +219,171 @@ input.filter-checkbox {
         }
     }
 }
+.c-form-group {
+    display:flex;
+    align-items: center;
+    margin-top:15px;
+}
+.c-label {
+    flex:0 0 107px;
+    max-width: 107px;
+    padding-right:5px;
+    font-size:17px;
+    >label {
+        margin-bottom:0;
+        cursor:pointer;
+    }
+}
+.c-control {
+    flex:0 0 356px;
+    max-width: 356px;
+    height:51px;
+    >input {
+        display:block;
+        width:100%;
+        height:100%;
+        border:1px solid #EEEEEE;
+        background-color: #ffffff;
+        @include border-radius(none);
+        @include box-shadow(none);
+        padding:0 15px;
+    }
+}
+.registration-terms {
+    max-width:620px;
+    padding-left:20px;
+    margin-left:auto;
+}
+.registration-term {
+    &:not(:last-child) {
+        margin-bottom:20px;
+    }
+}
+.term-title {
+    color:#3B519D;
+    font-size:35px;
+}
+.term-content {
+    padding:47px 36px;
+    margin-top:10px;
+    background-color: #F7F7F7;
+    position:relative;
+    &:after {
+        content:'';
+        display:block;
+        width:55px;
+        height:55px;
+        background:transparent url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1NC43NTUiIGhlaWdodD0iNTQuNzU1IiB2aWV3Qm94PSIwIDAgNTQuNzU1IDU0Ljc1NSI+DQogIDxnIGlkPSJHcm91cF8zNzgwIiBkYXRhLW5hbWU9Ikdyb3VwIDM3ODAiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xNjI1LjEyMiAtNDQyLjYyMikiPg0KICAgIDxnIGlkPSJHcm91cF8zNzczIiBkYXRhLW5hbWU9Ikdyb3VwIDM3NzMiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE2NzkuODc3IDQ2OS44KSByb3RhdGUoMTM1KSI+DQogICAgICA8cGF0aCBpZD0iUG9seWdvbl8zNyIgZGF0YS1uYW1lPSJQb2x5Z29uIDM3IiBkPSJNMTkuNSwwLDM5LDE5SDBaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzOSAzOC40MzUpIHJvdGF0ZSgxODApIiBmaWxsPSIjZGVkZWRlIi8+DQogICAgICA8cGF0aCBpZD0iUG9seWdvbl8zOCIgZGF0YS1uYW1lPSJQb2x5Z29uIDM4IiBkPSJNMTkuNSwwLDM5LDE5SDBaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwIDApIiBmaWxsPSIjZmZmIi8+DQogICAgPC9nPg0KICA8L2c+DQo8L3N2Zz4NCg==") calc(100% + 15px) calc(100% + 15px) no-repeat;
+        @include background-size(100% 100%);
+        position:absolute;
+        bottom:-2px;
+        right:-2px;
+    }
+}
+.term-description {
+    color:#7B7B7B;
+}
+.c-inputs:not(.lp-checked) .lp-only {
+    display:none;
+}
+button.bauten-btn {
+    width:202px;
+    height:47px;
+    border:1px solid $blue;
+    background-color: $blue;
+    color:#ffffff;
+    @include transition(#{color .3s ease, background-color .3s ease});
+    &:hover {
+        color:$blue;
+        background-color: #ffffff;
+    }
+}
+@include media(1599) {
+    .product-title {
+        font-size:19px;
+    }
+    .filter-name {
+        font-size:16px;
+        height:45px;
+    }
+    .filter-values {
+        padding:10px 14px;
+    }
+    input.filter-checkbox+span:before {
+        margin-right:10px;
+    }
+    #sort-select-styler .jq-selectbox__select {
+        height:45px;
+    }
+    .registration-title {
+        font-size:33px;
+    }
+    .registration-text {
+        padding-top:10px;
+    }
+    .registration-block {
+        margin-top:30px;
+    }
+    .c-radio>span {
+        height:43px;
+    }
+    .c-control{
+        height:45px;
+    }
+    .c-label {
+        font-size:16px;
+    }
+    button.bauten-btn {
+        height:43px;
+    }
+    .registration-terms {
+        padding-left:10px;
+    }
+    .term-title {
+        font-size:28px;
+    }
+    .term-content {
+        padding:25px 30px;
+    }
+}
+@include media(1199) {
+    .sort-select-title {
+        margin-right:25px;
+    }
+    .products-filters {
+        @include m(max-width flex-basis, 35%);
+    }
+    .products-content {
+        @include m(max-width flex-basis, 65%);
+    }
+    .registration-title {
+        font-size: 27px;
+    }
+    .term-title {
+        font-size: 24px;
+    }
+    .term-content {
+        padding: 20px 25px;
+    }
+}
+@include media(991) {
+    .products-filters {
+        display:none;
+    }
+    .products-content {
+        @include m(max-width flex-basis, 100%);
+    }
+    .product-title {
+        font-size:17px;
+    }
+    .products-sort {
+        display:none;
+    }
+
+}
+@include media (575) {
+    .product-item {
+        max-width:350px;
+        margin:0 auto;
+    }
+}
