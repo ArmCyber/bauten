@@ -51,3 +51,12 @@ $(document).on('input', 'input.number-input', function(){
         stepNumberInput(input, false);
     }
 });
+var productThumbs = new Swiper('#product-thumbs', {
+    slidesPerView: 4,
+});
+new Swiper('#product-gallery', {
+    effect: 'fade',
+    thumbs: {
+        swiper: productThumbs
+    }
+});

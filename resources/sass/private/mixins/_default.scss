@@ -115,16 +115,16 @@
 }
 @mixin fontAll($family, $fileName) {
   $path:$site+'fonts/'+$fileName+'/';
-  @include font($family, $path, $fileName + '-Light', 300, normal, 'Light');
-  @include font($family, $path, $fileName + '-LightItalic', 300, italic, 'Light Italic');
+  //@include font($family, $path, $fileName + '-Light', 300, normal, 'Light');
+  //@include font($family, $path, $fileName + '-LightItalic', 300, italic, 'Light Italic');
   @include font($family, $path, $fileName + '-Regular', 400, normal);
   @include font($family, $path, $fileName + '-Italic', 400, italic, 'Italic');
   @include font($family, $path, $fileName + '-Medium', 500, normal, 'Medium');
   @include font($family, $path, $fileName + '-MediumItalic', 500, italic, 'Medium Italic');
   @include font($family, $path, $fileName + '-Bold', 700, normal, 'Bold');
   @include font($family, $path, $fileName + '-BoldItalic', 700, italic, 'Bold Italic');
-  @include font($family, $path, $fileName + '-Black', 900, normal, 'Black');
-  @include font($family, $path, $fileName + '-BlackItalic', 900, italic, 'Black Italic');
+  //@include font($family, $path, $fileName + '-Black', 900, normal, 'Black');
+  //@include font($family, $path, $fileName + '-BlackItalic', 900, italic, 'Black Italic');
 }
 @mixin media($size, $do:true) {
   $plus:'';
