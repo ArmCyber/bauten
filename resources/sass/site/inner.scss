@@ -332,6 +332,134 @@ button.bauten-btn {
 .select2-container--default .select2-search--dropdown .select2-search__field {
     border-color:#eee;
 }
+.product-page-content {
+    padding-left:15px;
+}
+.product-page-info {
+    max-width:382px;
+    width:70%;
+}
+.product-page-title {
+    color:$blue;
+    font-size:21px;
+}
+.product-page-codes {
+    border-top:1px solid #707070;
+    margin-top:8px;
+    padding-top:8px;
+}
+.product-page-code {
+    font-size:12px;
+    color:#7B7B7B;
+    margin-bottom:6px;
+    >span {
+        color:#3B519D;
+    }
+}
+.product-page-description {
+    font-size:16px;
+    color:#7b7b7b;
+    line-height:2.1;
+    margin-top:25px;
+}
+.product-page-pricing {
+    margin-top:75px;
+}
+.product-page-price {
+    font-size:27px;
+    color:$blue;
+    line-height: 1.2;
+    .ppp {
+        font-size:37px;
+        margin-left:4px;
+    }
+    .kzt {
+        font-size:16px;
+    }
+}
+.product-page-mincount {
+    font-size:17px;
+    color:#7B7B7B;
+}
+.product-page-form {
+    margin-top:22px;
+    display:flex;
+}
+.number-group {
+    width:180px;
+    height:48px;
+    border:1px solid #C6C6C6;
+    background-color: #ffffff;
+    padding:6px;
+    display:flex;
+}
+input.number-input {
+    -webkit-appearance: none;
+    background:transparent;
+    @include box-shadow(none);
+    outline:none;
+    border-width: 0 1px;
+    border-style:solid;
+    border-color:#C6C6C6;
+    height:100%;
+    display:block;
+    flex:1;
+    width:auto;
+    color:#545454;
+    font-size:25px;
+    text-align: center;
+    min-width: 0;
+    padding:0 5px;
+}
+button.number-btn {
+    display:block;
+    height:100%;
+    flex:0 0 34px;
+    max-width: 34px;
+    -webkit-appearance: none;
+    border:none;
+    background-color: transparent;
+    color:#545454;
+    font-size:20px;
+    outline: none;
+    @include box-shadow(none);
+}
+.product-page-submit {
+    margin-left:8px;
+    >button {
+        border:1px solid $blue;
+        background-color: #ffffff;
+        outline:none;
+        cursor:pointer;
+        -webkit-appearance: none;
+        display:block;
+        height:100%;
+        color:$blue;
+        font-size:22px;
+        padding:0 15px;
+        @include transition(#{background-color .3s ease, color .3s ease});
+        &:after {
+            content: "";
+            display:inline-block;
+            width:18px;
+            height:18px;
+            background: transparent url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTcuNjk5IiBoZWlnaHQ9IjE3LjciIHZpZXdCb3g9IjAgMCAxNy42OTkgMTcuNyI+PGRlZnM+PGNsaXBQYXRoIGlkPSJhIj48cmVjdCB3aWR0aD0iMTcuNyIgaGVpZ2h0PSIxNy43IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwIDApIiBmaWxsPSIjMDA1NDk4Ii8+PC9jbGlwUGF0aD48L2RlZnM+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCkiIGNsaXAtcGF0aD0idXJsKCNhKSI+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCAxLjAxMykiPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAgMCkiPjxwYXRoIGQ9Ik0xMS44LDIxLjEzMWExLjMzOCwxLjMzOCwwLDEsMS0yLjY3NiwwQTEuMzM5LDEuMzM5LDAsMCwxLDExLjgsMjEuMTMxWiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTIuNjY1IC02Ljc5NikiIGZpbGw9IiMwMDU0OTgiLz48Y2lyY2xlIGN4PSIxLjMzOCIgY3k9IjEuMzM4IiByPSIxLjMzOCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTEuODE1IDEyLjk5NikiIGZpbGw9IiMwMDU0OTgiLz48cGF0aCBkPSJNMTcuNCw0LjMzYTEuMzg4LDEuMzg4LDAsMCwwLS44NjgtLjI4Nkg0Ljc2NWMtLjQyNi0yLS43LTIuNjE0LTIuMDItMi42MTRIMEwuNTc2LDIuNjY3bDIuMTgxLjAwOHMuNTA4LDAsLjYzOC43NDJsMS44LDguNzI5YTEuNjg0LDEuNjg0LDAsMCwwLDEuOCwxLjMzMWg3Ljg0OWMxLjA1NywwLDEuMTI0LTEuMTY1LDEuMTI0LTEuMTY1SDcuNTRBMS4yMjYsMS4yMjYsMCwwLDEsNi4yNzUsMTEuMTJsLS40LTEuODcyLDEwLjU0My0uMDEzYS45NDYuOTQ2LDAsMCwwLC45MDktLjg0M2wuMzYtMy4yOEEuNzk0Ljc5NCwwLDAsMCwxNy40LDQuMzNaTTE2LjE2MSw3LjkxOEg1LjU5M0w1LjA4Miw1LjUzM0gxNi40MjFaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwIC0xLjQzMSkiIGZpbGw9IiMwMDU0OTgiLz48L2c+PC9nPjwvZz48L3N2Zz4=") center center no-repeat;
+            background-size: 100% 100%;
+            vertical-align: -4px;
+            margin-left: 10px;
+        }
+        &:hover {
+            background-color: $blue;
+            color:#ffffff;
+            &:after {
+                @include filter(brightness(0) invert(1));
+            }
+        }
+    }
+}
+.product-page-sum {
+
+}
 @include media(1599) {
     .product-title {
         font-size:19px;

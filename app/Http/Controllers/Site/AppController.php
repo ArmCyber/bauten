@@ -22,10 +22,15 @@ class AppController extends BaseController
     public function catalogue(){
         return view('site.temp.catalogue');
     }
+
     public function register(){
         $data = [];
         $data['countries'] = Country::siteList();
         $data['regions'] = Country::jsonForRegions($data['countries']);
         return view('site.temp.register', $data);
+    }
+
+    public function product(){
+        return view('site.temp.product');
     }
 }
