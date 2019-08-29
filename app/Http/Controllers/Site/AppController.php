@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Site;
 
+use App\Models\Country;
 use App\Services\PageManager\StaticPages;
 use Illuminate\Http\Request;
 
@@ -22,6 +23,9 @@ class AppController extends BaseController
         return view('site.temp.catalogue');
     }
     public function register(){
-        return view('site.temp.register');
+        $data = [];
+        $data['countries'] = Country::siteList();
+        $data['regions'] = Country::jsonForRegions($data['countries']);
+        return view('site.temp.register', $data);
     }
 }

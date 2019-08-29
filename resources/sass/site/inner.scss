@@ -298,6 +298,40 @@ button.bauten-btn {
         background-color: #ffffff;
     }
 }
+.c-select2-inside {
+    .select2-container {
+        height:100%;
+    }
+    .select2-selection {
+        height:100%;
+        display:flex;
+        align-items: center;
+        border-radius: 0;
+        border-color:#eeeeee;
+    }
+    .select2-selection__arrow {
+        @include fas(f107);
+        top:calc(50% - 13px) !important;
+        display: flex;
+        align-items: center;
+        >b {
+            display:none;
+        }
+    }
+    .select2-selection__rendered {
+        padding-left:15px !important;
+    }
+}
+.select2-dropdown {
+    border-radius:0;
+    border-color:#eeeeee;
+}
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: $blue;
+}
+.select2-container--default .select2-search--dropdown .select2-search__field {
+    border-color:#eee;
+}
 @include media(1599) {
     .product-title {
         font-size:19px;
@@ -379,11 +413,71 @@ button.bauten-btn {
     .products-sort {
         display:none;
     }
-
+    .registration-page {
+        text-align: center;
+    }
+    .registration-block {
+        margin-top:15px;
+    }
+    .c-form-group {
+        justify-content: center;
+    }
+    .c-label {
+        text-align: left;
+    }
+    .registration-terms {
+        margin-right:auto;
+        padding-left:0;
+    }
+}
+@include media(767) {
+    .c-form-group {
+        flex-direction: column;
+        max-width: 350px;
+        width:100%;
+        margin-left:auto;
+        margin-right:auto;
+        text-align: left;
+    }
+    .c-label {
+        flex:auto;
+        max-width: none;
+        padding-right:0;
+        width: 100%;
+        margin-bottom:4px;
+    }
+    .c-control {
+        flex:auto;
+        width: 100%;
+    }
+    .registration-title {
+        font-size:22px;
+    }
+    .registration-text {
+        font-size: 16px;
+        line-height: 1.5;
+    }
+    .term-title {
+        font-size:20px;
+    }
 }
 @include media (575) {
     .product-item {
         max-width:350px;
         margin:0 auto;
+    }
+    .term-content {
+        padding:12px 8px;
+    }
+    .registration-title {
+        font-size:19px;
+    }
+    .c-radios {
+        margin-top:8px;
+    }
+    .c-radio {
+        display:block;
+        width:200px;
+        margin:4px auto 0 auto !important;
     }
 }

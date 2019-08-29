@@ -33,6 +33,24 @@ class Country extends Model
         return self::findOrFail($id);
     }
 
+    public static function siteList(){
+        return self::where('active', 1)->whereHas('regions', function($q){
+            $q->where('active', 1);
+        })->with(['regions'=>function($q){
+            $q->where('active', 1);
+        }])->sort()->get();
+    }
+
+    public static function jsonForRegions($countries){
+        return $countries->mapWithKeys(function($item){
+            return [
+                $item->id => $item->regions->map(function($item){
+                    return ['id'=>$item->id, 'title'=>$item->title];
+                })
+            ];
+        });
+    }
+
     public function regions(){
         return $this->hasMany('App\Models\Region', 'country_id', 'id')->sort();
     }

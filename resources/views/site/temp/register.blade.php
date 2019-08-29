@@ -30,6 +30,26 @@
                             </div>
                             <div class="c-inputs lp-checked">
                                 <div class="c-form-group">
+                                    <div class="c-label"><label for="form-city">Страна</label></div>
+                                    <div class="c-control c-select2-inside">
+                                        <select name="country" class="country-select" style="width: 100%;">
+                                            @foreach($countries as $country)
+                                                <option value="{!! $country->id !!}">{{ $country->title }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="c-form-group">
+                                    <div class="c-label"><label for="form-city">Область</label></div>
+                                    <div class="c-control c-select2-inside">
+                                        <select name="region" class="region-select" style="width: 100%;">
+                                            @foreach($regions[$countries[0]->id] as $region)
+                                                <option value="{!! $region['id'] !!}">{{ $region['title'] }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="c-form-group">
                                     <div class="c-label"><label for="form-city">Город</label></div>
                                     <div class="c-control"><input type="text" id="form-city" name="city"></div>
                                 </div>
@@ -57,15 +77,15 @@
                                     <div class="c-control"><input type="text" id="form-bin" name="bin"></div>
                                 </div>
                                 <div class="c-form-group">
-                                    <div class="c-label"></div>
-                                    <div class="c-control text-right"><button type="submit" class="bauten-btn">Подтвердить</button></div>
+                                    <div class="c-label d-none d-lg-block"></div>
+                                    <div class="c-control text-center text-lg-right"><button type="submit" class="bauten-btn">Подтвердить</button></div>
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
-            <div class="col-12 col-lg-6">
+            <div class="col-12 col-lg-6 mt-4 mt-lg-0">
                 <div class="registration-terms">
                     <div class="registration-term">
                         <div class="term-title">Условия сотрудничества</div>
@@ -92,8 +112,13 @@
     </div>
 @endsection
 @push('css')
+    @css(aApp('select2/select2.css'))
     @css(aSite('css/inner.css'))
 @endpush
 @push('js')
+    @js(aApp('select2/select2.js'))
+    <script>
+        var regions = {!! $regions->toJson(JSON_UNESCAPED_UNICODE) !!}
+    </script>
     @js(aSite('js/registration.js'))
 @endpush
