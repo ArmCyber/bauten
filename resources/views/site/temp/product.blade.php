@@ -1,6 +1,6 @@
 @extends('site.layouts.app')
 @section('main')
-<div class="container py-s">
+<div class="container pt-s">
     <div class="breadcrumb page-breadcrumb">
         <div class="breadcrumb-item"><a href="javascript:void(0)">Главная</a></div>
         <div class="breadcrumb-item"><a href="javascript:void(0)">Каталог</a></div>
@@ -76,6 +76,8 @@
             <div class="product-page-specs">
                 <div class="pr-specs-head">
                     <div class="pr-specs-title">Характеристики</div>
+                </div>
+                <div class="pr-specs-content">
                     <div class="pr-specs-tbl">
                         <div class="pr-specs-item"><div class="pr-specs-key">Бренд</div><div class="pr-specs-value">MITASU</div></div>
                         <div class="pr-specs-item"><div class="pr-specs-key">Состав</div><div class="pr-specs-value">Синтетическое</div></div>
@@ -84,6 +86,68 @@
                         <div class="pr-specs-item"><div class="pr-specs-key">Тип</div><div class="pr-specs-value">Масло трансмиссионное АКПП</div></div>
                     </div>
                 </div>
+            </div>
+            <div class="product-table">
+                <div class="prod-tbl-title">Применяемость по автомобилям</div>
+                <div class="prod-tbl-block">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Марка</th>
+                            <th>Модель</th>
+                            <th>Поколение</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr><td class="tbl-mark">Nissan</td><td>Tida</td><td>2014 г.</td></tr>
+                        <tr><td class="tbl-mark">Nissan</td><td>Tida</td><td>2014 г.</td></tr>
+                        <tr><td class="tbl-mark">Nissan</td><td>Tida</td><td>2014 г.</td></tr>
+                        <tr><td class="tbl-mark">Nissan</td><td>Tida</td><td>2014 г.</td></tr>
+                        <tr><td class="tbl-mark">Nissan</td><td>Tida</td><td>2014 г.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="product-table">
+                <div class="prod-tbl-title">Применяемость по двигателям</div>
+                <div class="prod-tbl-block">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Марка</th>
+                            <th>Модель</th>
+                            <th>Поколение</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr><td class="tbl-mark">GDI</td><td>3.2</td><td>Турбо</td></tr>
+                        <tr><td class="tbl-mark">GDI</td><td>4.5</td><td>Турбо</td></tr>
+                        <tr><td class="tbl-mark">GDI</td><td>1.3</td><td>Турбо</td></tr>
+                        <tr><td class="tbl-mark">GDI</td><td>4.4</td><td>Турбо</td></tr>
+                        <tr><td class="tbl-mark">GDI</td><td>5.3</td><td>Турбо</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="pb-s">
+    <div class="recommended-products section-bg">
+        <div class="container">
+            <div class="prod-tbl-title pb-5">С этим советуем</div>
+            <div class="row row-grid">
+                @foreach([['Щетки стеклоочистителя "Torino" бескаркасная с силиконом 14"', '6.300', 1], ['Набор для утапливания поршней тормозного цил. 12пр', '7.800', 2], ['Ремкомплект бескамерных шин "AUTOPROFI"', '1.200', 3],['Щетки стеклоочистителя "Torino" бескаркасная с силиконом 14"', '6.300', 1]] as $item)
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3">
+                        <div class="product-item">
+                            <div class="product-image">
+                                <img src="{{ asset('f/cat-page/'.$item[2].'.png') }}" alt="">
+                            </div>
+                            <div class="product-title">{{ $item[0] }}</div>
+                            <div class="product-price"><span class="catalogue-price">Цена: от <span class="cat-price">{{ $item[1] }}</span> <span class="kzt"></span></span></div>
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>
