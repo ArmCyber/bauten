@@ -9,7 +9,7 @@
     <div class="product-page">
         <div class="product-page-head">
             <div class="row l-m">
-                <div class="col-5">
+                <div class="col-12 col-md-5">
                     <div class="product-images">
                         <div class="product-gallery-lg">
                             <div id="product-gallery" class="swiper-container">
@@ -33,7 +33,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-7">
+                <div class="col-12 col-md-7">
                     <div class="product-page-content">
                         <div class="product-page-info">
                             <h1 class="product-page-title">Ремкомплект бескамерных шин "AUTOPROFI"</h1>
@@ -135,7 +135,7 @@
 <div class="pb-s">
     <div class="recommended-products section-bg">
         <div class="container">
-            <div class="prod-tbl-title pb-5">С этим советуем</div>
+            <div class="prod-tbl-title pb-3 pb-lg-5">С этим советуем</div>
             <div class="row row-grid">
                 @foreach([['Щетки стеклоочистителя "Torino" бескаркасная с силиконом 14"', '6.300', 1], ['Набор для утапливания поршней тормозного цил. 12пр', '7.800', 2], ['Ремкомплект бескамерных шин "AUTOPROFI"', '1.200', 3],['Щетки стеклоочистителя "Torino" бескаркасная с силиконом 14"', '6.300', 1]] as $item)
                     <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3">

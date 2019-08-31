@@ -768,6 +768,12 @@ button.number-btn {
             }
         }
     }
+    .pr-specs-item {
+        display: flex;
+        padding-left: 40px;
+        padding-right: 40px;
+        font-size: 17px;
+    }
 }
 
 @include media(1199) {
@@ -788,6 +794,17 @@ button.number-btn {
     }
     .term-content {
         padding: 20px 25px;
+    }
+    .number-group {
+        width: 160px;
+        height: 44px;
+        padding: 3px;
+    }
+    .pr-specs-key {
+        @include m(flex-basis max-width, 40%);
+    }
+    .pr-specs-value {
+        @include m(flex-basis max-width, 60%);
     }
 }
 
@@ -819,6 +836,74 @@ button.number-btn {
     .registration-terms {
         margin-right: auto;
         padding-left: 0;
+    }
+    .pr-specs-item {
+        font-size:16px;
+        @include m(padding-left padding-right, 35px);
+    }
+    .pr-specs-content {
+        @include m(padding-top padding-bottom, 28px);
+    }
+    .prod-tbl-title {
+        font-size:24px;
+    }
+    .prod-tbl-block {
+        th {
+            font-size:17px;
+            &:first-child {
+                padding-left:35px;
+            }
+        }
+        td {
+            font-size:16px;
+            &.item-mark {
+                padding-left:35px;
+            }
+        }
+    }
+    .recommended-products {
+        padding: 30px 0;
+    }
+    .product-page-content {
+        padding-left:0;
+    }
+    .product-page-info {
+        max-width: none;
+        width:auto;
+    }
+    .product-page-description {
+        margin-top:15px;
+        line-height: 1.5;
+    }
+    .product-page-pricing {
+        margin-top:25px;
+    }
+    .product-page-price{
+        font-size:20px;
+        .ppp {
+            font-size:28px;
+        }
+    }
+    .product-page-mincount {
+        font-size:15px;
+    }
+    .number-group {
+        height:38px;
+        width:150px;
+    }
+    input.number-input {
+        font-size:20px;
+    }
+    .product-page-submit {
+        >button {
+            font-size:20px;
+        }
+    }
+    .product-page-head {
+        padding-bottom:25px;
+    }
+    .product-page-body {
+        padding-top:25px;
     }
 }
 
@@ -852,6 +937,26 @@ button.number-btn {
     .term-title {
         font-size: 20px;
     }
+    .product-images {
+        max-width:500px;
+        margin:15px auto 30px auto;
+    }
+    .product-page-code {
+        font-size:15px;
+    }
+    .pr-specs-item {
+        flex-direction: column;
+    }
+    .pr-specs-key {
+        font-size:17px;
+        max-width: none;
+        flex:auto;
+    }
+    .pr-specs-value {
+        padding-top:2px;
+        max-width: none;
+        flex:auto;
+    }
 }
 
 @include media (575) {
@@ -872,5 +977,67 @@ button.number-btn {
         display: block;
         width: 200px;
         margin: 4px auto 0 auto !important;
+    }
+    .product-page-title {
+        font-size:18px;
+    }
+    .product-page-price {
+        font-size:17px;
+        .ppp {
+            font-size:22px;
+        }
+    }
+    .product-page-form {
+        margin-top: 15px;
+        flex-direction: column;
+    }
+    .product-page-submit {
+        margin-left:0;
+        padding-top: 13px;
+        >button {
+            height:38px;
+            padding:0;
+            width:150px;
+        }
+    }
+    .product-page-head {
+        padding-bottom:15px;
+    }
+    .product-page-body {
+        padding-top:15px;
+    }
+    .pr-specs-title {
+        font-size:17px;
+        padding: 10px 20px;
+        margin-left:4px;
+    }
+    .pr-specs-content {
+        padding-top:20px;
+        padding-bottom:20px;
+    }
+    .prod-tbl-block {
+        table, tbody{
+            display:block;
+        }
+        thead {
+            display: none;
+        }
+        tr {
+            display:block;
+            padding:14px 17px;
+        }
+        td {
+            display:inline-block;
+            padding:0 3px;
+            &.tbl-mark {
+                padding-left:3px;
+            }
+        }
+    }
+    .pr-specs-item {
+        padding:14px 17px;
+    }
+    .prod-tbl-title {
+        font-size: 19px;
     }
 }
