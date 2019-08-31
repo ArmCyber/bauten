@@ -32,7 +32,19 @@
             </div>
             <div id="header-menu">
                 <nav id="menu" class="container">
-                    <div class="menu-item"><a href="javascript:void(0)">Каталог</a></div>
+                    <div class="menu-item menu-has-dropdown active">
+                        <a href="javascript:void(0)">Каталог</a>
+                        <div class="menu-dropdown">
+                            <div class="menu-dropdown-content">
+                                <a href="javascript:void(0)" class="menu-dropdown-link active">Аксессуары</a>
+                                <a href="javascript:void(0)" class="menu-dropdown-link">Шины и диски</a>
+                                <a href="javascript:void(0)" class="menu-dropdown-link">Масла</a>
+                                <a href="javascript:void(0)" class="menu-dropdown-link">Автостекла</a>
+                                <a href="javascript:void(0)" class="menu-dropdown-link">Аккумуляторы</a>
+                                <a href="javascript:void(0)" class="menu-dropdown-link">Patron</a>
+                            </div>
+                        </div>
+                    </div>
                     <div class="menu-item"><a href="javascript:void(0)">Интернет магазин</a></div>
                     <div class="menu-item"><a href="javascript:void(0)">Новый интернет магазин</a></div>
                     <div class="menu-item"><a href="javascript:void(0)">Марки</a></div>
