@@ -3,7 +3,7 @@
 1) Clone this repository.
 2) Install composer.
     ``` 
-    composer install -o
+    composer install
     ```
 3) Copy ".env.example" to ".env"
 4) Generate application key with Artisan.
