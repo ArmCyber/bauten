@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Brand;
 use App\Models\Part;
+use App\Models\PartCatalog;
 use App\Services\Notify\Facades\Notify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -18,6 +20,8 @@ class PartsController extends BaseController
     public function add(){
         $data = ['title'=>'Добавление запчаста', 'edit'=>false];
         $data['back_url'] = route('admin.parts.main');
+        $data['part_catalogs'] = PartCatalog::adminList();
+        $data['brands'] = Brand::adminList();
         return view('admin.pages.parts.form', $data);
     }
 

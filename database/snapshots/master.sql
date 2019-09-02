@@ -46,11 +46,12 @@ CREATE TABLE `brands` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `brands_code_unique` (`code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `brands` WRITE;
 /*!40000 ALTER TABLE `brands` DISABLE KEYS */;
+INSERT INTO `brands` VALUES (1,'Codeսադ55','Brand`',NULL,0,1,'2019-09-02 17:45:16','2019-09-02 17:46:22'),(2,'asdasd','Бранд2',NULL,0,1,'2019-09-02 18:08:10','2019-09-02 18:08:10');
 /*!40000 ALTER TABLE `brands` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `countries`;
@@ -120,12 +121,12 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (1,'2019_07_10_171502_create_admins_table',1),(2,'2019_07_12_204343_create_password_resets_table',1),(3,'2019_07_12_232636_create_pages_table',1),(5,'2019_08_12_192243_add_role_to_admins_table',2),(15,'2019_08_14_161704_create_marks_table',3),(16,'2019_08_14_161725_create_models_table',3),(18,'2019_08_14_161756_create_generations_table',3),(27,'2019_08_14_221246_create_countries_table',4),(28,'2019_08_14_221310_create_regions_table',4),(31,'2019_08_19_142314_create_parts_table',5),(32,'2019_08_19_165244_create_brands_table',6);
+INSERT INTO `migrations` VALUES (1,'2019_07_10_171502_create_admins_table',1),(2,'2019_07_12_204343_create_password_resets_table',1),(3,'2019_07_12_232636_create_pages_table',1),(5,'2019_08_12_192243_add_role_to_admins_table',2),(15,'2019_08_14_161704_create_marks_table',3),(16,'2019_08_14_161725_create_models_table',3),(18,'2019_08_14_161756_create_generations_table',3),(27,'2019_08_14_221246_create_countries_table',4),(28,'2019_08_14_221310_create_regions_table',4),(31,'2019_08_19_142314_create_parts_table',5),(32,'2019_08_19_165244_create_brands_table',6),(36,'2019_09_02_210329_create_part_catalogs_table',7),(37,'2019_09_02_214401_add_data_to_parts_table',7);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `models`;
@@ -173,6 +174,24 @@ LOCK TABLES `pages` WRITE;
 INSERT INTO `pages` VALUES (1,'home','Главная','home',1,1,0,NULL,NULL,NULL,'2019-07-16 17:34:38','2019-07-16 17:34:38');
 /*!40000 ALTER TABLE `pages` ENABLE KEYS */;
 UNLOCK TABLES;
+DROP TABLE IF EXISTS `part_catalogs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `part_catalogs` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `part_catalogs_name_unique` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+LOCK TABLES `part_catalogs` WRITE;
+/*!40000 ALTER TABLE `part_catalogs` DISABLE KEYS */;
+INSERT INTO `part_catalogs` VALUES (1,'Каталог1','2019-09-02 18:06:13','2019-09-02 18:06:13'),(2,'Каталог2','2019-09-02 18:06:19','2019-09-02 18:06:19'),(3,'Каталог3','2019-09-02 18:06:24','2019-09-02 18:06:24'),(4,'Амстердам','2019-09-02 18:06:31','2019-09-02 18:06:31');
+/*!40000 ALTER TABLE `part_catalogs` ENABLE KEYS */;
+UNLOCK TABLES;
 DROP TABLE IF EXISTS `parts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -184,6 +203,9 @@ CREATE TABLE `parts` (
   `active` tinyint(1) NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `part_catalog_id` bigint(20) unsigned NOT NULL,
+  `brand_id` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `parts_code_unique` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -222,12 +244,12 @@ CREATE TABLE `regions` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `regions_country_id_title_unique` (`country_id`,`title`),
   CONSTRAINT `regions_country_id_foreign` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `regions` WRITE;
 /*!40000 ALTER TABLE `regions` DISABLE KEYS */;
-INSERT INTO `regions` VALUES (3,6,'Алматы',1,0,'2019-08-15 11:03:39','2019-08-15 11:03:39'),(4,6,'Астана',1,0,'2019-08-15 11:03:44','2019-08-15 11:03:44');
+INSERT INTO `regions` VALUES (3,6,'Алматы',1,0,'2019-08-15 11:03:39','2019-08-15 11:03:39'),(4,6,'Астана',1,0,'2019-08-15 11:03:44','2019-08-15 11:03:44'),(5,4,'Yerevan',1,0,'2019-08-29 15:05:21','2019-08-29 15:05:21'),(6,4,'Abovyan',1,0,'2019-08-29 15:05:28','2019-08-29 15:05:28'),(7,4,'Masis',1,0,'2019-08-29 15:05:33','2019-08-29 15:05:33'),(8,4,'Ashtarak',1,0,'2019-08-29 15:05:37','2019-08-29 15:05:37'),(9,5,'Moskva',1,0,'2019-08-29 15:05:46','2019-08-29 15:05:46'),(10,5,'Voronej',1,0,'2019-08-29 15:05:51','2019-08-29 15:05:51'),(11,5,'Sankt Peterburg',1,0,'2019-08-29 15:06:01','2019-08-29 15:06:01');
 /*!40000 ALTER TABLE `regions` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

@@ -131,6 +131,16 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
             Route::patch('sort', $c.'sort')->middleware('ajax')->name('sort');
         });
         //endregion
+        //region Part Catalogs
+        Route::middleware('can:admin')->prefix('part-catalogs')->name('part_catalogs.')->group(function() { $c = 'PartCatalogsController@';
+            Route::get('', $c.'main')->name('main');
+            Route::get('add', $c.'add')->name('add');
+            Route::put('add', $c.'add_put');
+            Route::get('edit/{id}', $c.'edit')->name('edit');
+            Route::patch('edit/{id}', $c.'edit_patch');
+            Route::delete('delete', $c.'delete')->middleware('ajax')->name('delete');
+        });
+        //endregion
     });
 });
 //endregion

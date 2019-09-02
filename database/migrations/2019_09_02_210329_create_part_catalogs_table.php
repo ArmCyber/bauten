@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGenerationsTable extends Migration
+class CreatePartCatalogsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateGenerationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('generations', function (Blueprint $table) {
+        Schema::create('part_catalogs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('model_id')->unsigned();
-            $table->string('name')->nullable();
-            $table->bigInteger('sort')->unsigned()->default(0);
-            $table->boolean('active')->default(1);
+            $table->string('name')->collation('utf8_general_ci')->unique();
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ class CreateGenerationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('generations');
+        Schema::dropIfExists('part_catalogs');
     }
 }
