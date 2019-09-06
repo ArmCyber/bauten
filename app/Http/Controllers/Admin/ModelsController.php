@@ -23,18 +23,19 @@ class ModelsController extends BaseController
     }
 
     public function add($id){
-        $data = ['title'=>'Добавление модели', 'edit'=>false];
+        $data = ['edit'=>false];
         $data['mark'] = Mark::getItem($id);
-        $data['marks'] = Mark::adminList();
+        $data['title'] = 'Добавление модели "'.$data['mark']->name.'"';
+//        $data['marks'] = Mark::adminList();
         $data['back_url'] = route('admin.models.main', ['id'=>$id]);
         return view('admin.pages.models.form', $data);
     }
 
     public function add_put($id, Request $request){
-        Mark::getItem($id);
+        $mark = Mark::getItem($id);
         $inputs = $request->all();
         $this->validator($inputs)->validate();
-        if(Model::action(null, $inputs)) {
+        if(Model::action(null, $inputs, $mark->id)) {
             Notify::success('Модель добавлен.');
             return redirect()->route('admin.models.main', ['id'=>(int) $inputs['mark_id']]);
         }
@@ -45,9 +46,11 @@ class ModelsController extends BaseController
     }
 
     public function edit($id){
-        $data = ['title'=>'Редактирование модели', 'edit'=>true];
+        $data = ['edit'=>true];
         $data['item'] = Model::getItem($id);
-        $data['marks'] = Mark::adminList();
+        $data['mark'] = $data['item']->mark;
+        $data['title'] = 'Редактирование модели "'.$data['mark']->name.'"';
+//        $data['marks'] = Mark::adminList();
         $data['back_url'] = route('admin.models.main', ['id'=>$data['item']->mark_id]);
         return view('admin.pages.models.form', $data);
     }

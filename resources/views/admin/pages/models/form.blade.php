@@ -17,17 +17,17 @@
                     <input type="text" name="name" class="form-control" placeholder="Имя" maxlength="255" value="{{ old('name', $item->name??null) }}">
                 </div>
             </div>
-            <div class="card">
-                <div class="c-title">Марка</div>
-                <div class="little-p">
-                    <select class="select2" name="mark_id" style="width: 100%">
-                        @php $selectedMark = old('mark_id', $item->mark_id??$mark->id) @endphp
-                        @foreach($marks as $markItem)
-                            <option value="{!! $markItem->id !!}"{!! $markItem->id==$selectedMark?' selected':null !!}>{{ $markItem->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
+{{--            <div class="card">--}}
+{{--                <div class="c-title">Марка</div>--}}
+{{--                <div class="little-p">--}}
+{{--                    <select class="select2" name="mark_id" style="width: 100%">--}}
+{{--                        @php $selectedMark = old('mark_id', $item->mark_id??$mark->id) @endphp--}}
+{{--                        @foreach($marks as $markItem)--}}
+{{--                            <option value="{!! $markItem->id !!}"{!! $markItem->id==$selectedMark?' selected':null !!}>{{ $markItem->name }}</option>--}}
+{{--                        @endforeach--}}
+{{--                    </select>--}}
+{{--                </div>--}}
+{{--            </div>--}}
             <div class="card">
                 <div class="c-title">Статус</div>
                 <div class="little-p">

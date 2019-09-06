@@ -33,4 +33,16 @@ class Part extends Model
     public static function getItem($id){
         return self::findOrFail($id);
     }
+
+    public function marks(){
+        return $this->belongsToMany('App\Models\Mark', 'part_cars', 'part_id', 'mark_id');
+    }
+
+    public function models(){
+        return $this->belongsToMany('App\Models\Model', 'part_cars', 'part_id', 'model_id');
+    }
+
+    public function generations(){
+        return $this->belongsToMany('App\Models\Generation', 'part_cars', 'part_id', 'generation_id');
+    }
 }

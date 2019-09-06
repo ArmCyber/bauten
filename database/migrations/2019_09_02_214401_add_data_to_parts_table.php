@@ -28,7 +28,7 @@ class AddDataToPartsTable extends Migration
     public function down()
     {
         Schema::table('parts', function (Blueprint $table) {
-            //
+            $table->dropColumn('image', 'part_catalog_id', 'brand_id');
         });
     }
 }

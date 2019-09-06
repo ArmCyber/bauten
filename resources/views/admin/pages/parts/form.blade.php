@@ -32,6 +32,17 @@
         </div>
         <div class="col-12 col-lg-6">
             <div class="card">
+                <div class="c-title">Изоброжение</div>
+                @if (!empty($item->image))
+                    <div class="p-2 text-center">
+                        <img src="{{ asset('u/parts/'.$item->image) }}" alt="" class="img-responsive">
+                    </div>
+                @endif
+                <div class="c-body">
+                    @file(['name'=>'image'])@endfile
+                </div>
+            </div>
+            <div class="card">
                 <div class="c-title">Каталог</div>
                 <div class="little-p">
                     <select name="part_catalog_id" class="select2" style="width:100%;">
@@ -53,13 +64,38 @@
             </div>
         </div>
     </div>
+    @bannerBlock(['title'=>'Приминяемость'])
+        <div id="applicability-rows" class="pb-4"></div>
+        <div>
+            <button id="add-row" type="button" class="btn btn-success">Добавить</button>
+        </div>
+    @endbannerBlock
     <div class="col-12 save-btn-fixed"><button type="submit"></button></div>
 </form>
+<div class="example appl-row row mt-2" style="display: none">
+    <div class="col-3">
+        <select name="mark_id[]" class="mark_id_select" style="width:100%">
+            <option value="0" selected disabled>Выберите марку</option>
+        </select>
+    </div>
+    <div class="col-3">
+        <select name="model_id[]" class="model_id_select" style="width:100%" disabled>
+            <option value="0">Все</option>
+        </select>
+    </div>
+    <div class="col-3">
+        <select name="generation_id[]" class="generation_id_select" style="width:100%" disabled>
+            <option value="0">Все</option>
+        </select>
+    </div>
+</div>
 @endsection
 @push('js')
     @js(aApp('select2/select2.js'))
+    @js(aAdmin('js/applicability.js'))
     <script>
         $('.select2').select2();
+        var a = new Applicability({!! $marks->toJson(JSON_UNESCAPED_UNICODE) !!})
     </script>
 @endpush
 @push('css')

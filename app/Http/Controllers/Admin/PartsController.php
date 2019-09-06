@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Brand;
+use App\Models\Mark;
 use App\Models\Part;
 use App\Models\PartCatalog;
 use App\Services\Notify\Facades\Notify;
@@ -22,6 +23,7 @@ class PartsController extends BaseController
         $data['back_url'] = route('admin.parts.main');
         $data['part_catalogs'] = PartCatalog::adminList();
         $data['brands'] = Brand::adminList();
+        $data['marks'] = Mark::fullAdminList();
         return view('admin.pages.parts.form', $data);
     }
 

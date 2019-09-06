@@ -11,6 +11,14 @@ class Mark extends Model
 
     protected $sortableDesc = false;
 
+    public static function fullAdminList(){
+        return self::select('id', 'name')->with(['models'=>function($q){
+            $q->select('id', 'name', 'mark_id')->with(['generations'=>function($q){
+                return $q->select('id', 'name', 'model_id');
+            }]);
+        }])->sort()->get();
+    }
+
     public static function action($model, $inputs) {
         if (!$model) {
             $model = new self;

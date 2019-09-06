@@ -11,13 +11,13 @@ class Model extends Eloquent
 
     protected $sortableDesc = false;
 
-    public static function action($model, $inputs) {
+    public static function action($model, $inputs, $mark_id=null) {
         if (!$model) {
             $model = new self;
+            $model['mark_id'] = $mark_id;
             $model['sort'] = $model->sortValue();
         }
         $model['name'] = $inputs['name'];
-        $model['mark_id'] = $inputs['mark_id'];
         $model['active'] = (int) array_key_exists('active', $inputs);
         return $model->save();
     }
