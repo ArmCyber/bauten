@@ -196,5 +196,7 @@ return [
         'seo_description' => 'SEO Описание',
         'code' => 'Код',
         'image' => 'Изображение',
+        'part_catalog_id' => 'Каталог',
+        'brand_id' => 'Бренд'
     ],
 ];

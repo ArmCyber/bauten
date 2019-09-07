@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Http\Traits\Sortable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\File;
 
 class Part extends Model
 {
@@ -19,14 +20,21 @@ class Part extends Model
         if (!$model) {
             $model = new self;
             $model['sort'] = $model->sortValue();
+            $action='add';
         }
+        else $action='edit';
         $model['name'] = $inputs['name'];
         $model['code'] = $inputs['code'];
+        $model['part_catalog_id'] = $inputs['part_catalog_id'];
+        $model['brand_id'] = $inputs['brand_id'];
         $model['active'] = (int) array_key_exists('active', $inputs);
-        return $model->save();
+        if($image = upload_file('image', 'u/parts/', ($action=='edit' && !empty($model->image))?$model->image:false)) $model->image = $image;
+        $model->save();
+        return true;
     }
 
     public static function deleteItem($model){
+        if ($model->image) File::delete('u/parts/'.$model->image);
         return $model->delete();
     }
 

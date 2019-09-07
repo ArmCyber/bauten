@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 @section('content')
-<form action="{!! $edit?route('admin.parts.edit', ['id'=>$item->id]):route('admin.parts.add') !!}" method="post">
+<form action="{!! $edit?route('admin.parts.edit', ['id'=>$item->id]):route('admin.parts.add') !!}" method="post" id="part-form" enctype="multipart/form-data">
     @csrf @method($edit?'patch':'put')
     @if ($errors->any())
         <div class="alert alert-danger" role="alert">
@@ -46,8 +46,9 @@
                 <div class="c-title">Каталог</div>
                 <div class="little-p">
                     <select name="part_catalog_id" class="select2" style="width:100%;">
+                        @php $selected_part_catalog = old('part_catalog_id', $item->part_catalog_id??null) @endphp
                         @foreach($part_catalogs as $part_catalog)
-                            <option value="{{ $part_catalog->id }}">{{ $part_catalog->name }}</option>
+                            <option value="{{ $part_catalog->id }}" {!! $part_catalog->id==$selected_part_catalog?'selected':null !!}>{{ $part_catalog->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -55,9 +56,10 @@
             <div class="card">
                 <div class="c-title">Бренд</div>
                 <div class="little-p">
+                    @php $selected_brand = old('brand_id', $item->brand_id??null) @endphp
                     <select name="brand_id" class="select2" style="width:100%;">
                         @foreach($brands as $brand)
-                            <option value="{{ $brand->id }}">{{ $brand->name }} ({{ $brand->code }})</option>
+                            <option value="{{ $brand->id }}" {!! $brand->id==$selected_brand?'selected':null !!}>{{ $brand->name }} ({{ $brand->code }})</option>
                         @endforeach
                     </select>
                 </div>
@@ -75,7 +77,7 @@
 <div class="example appl-row row mt-2" style="display: none">
     <div class="col-3">
         <select name="mark_id[]" class="mark_id_select" style="width:100%">
-            <option value="0" selected disabled>Выберите марку</option>
+            <option value="0" selected readonly>Выберите марку</option>
         </select>
     </div>
     <div class="col-3">
@@ -87,6 +89,9 @@
         <select name="generation_id[]" class="generation_id_select" style="width:100%" disabled>
             <option value="0">Все</option>
         </select>
+    </div>
+    <div class="col-3">
+        <button type="button" class="btn btn-sm btn-danger appl_row_delete">Удалить</button>
     </div>
 </div>
 @endsection

@@ -19,6 +19,20 @@ class Mark extends Model
         }])->sort()->get();
     }
 
+    public static function getApplicabilityKeys($marks, $models, $generations) {
+        return self::select('id')->whereIn('id', array_unique($marks))->with(['models'=>function($q) use ($models, $generations){
+            $q->select('id', 'mark_id')->whereIn('id', array_unique($models))->with(['generations' => function($q) use ($generations){
+                $q->select('id', 'model_id')->whereIn('id', array_unique($generations));
+            }]);
+        }])->get()->mapWithKeys(function($mark){
+            return [$mark->id => $mark->models->mapWithKeys(function($model){
+                return [$model->id => $model->generations->mapWithKeys(function($generation){
+                    return [$generation->id => true];
+                })];
+            })];
+        })->toArray();
+    }
+
     public static function action($model, $inputs) {
         if (!$model) {
             $model = new self;
@@ -44,5 +58,6 @@ class Mark extends Model
     public function models(){
         return $this->hasMany('App\Models\Model', 'mark_id', 'id')->sort();
     }
+
 
 }

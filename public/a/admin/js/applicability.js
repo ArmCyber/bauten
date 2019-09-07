@@ -11,7 +11,8 @@ var Applicability = function(marks){
         this.elements = {
             exampleRow: $('.appl-row.example'),
             rows: $('#applicability-rows'),
-            addButton: $('#add-row')
+            addButton: $('#add-row'),
+            form: $('#part-form')
         };
     };
 
@@ -20,7 +21,9 @@ var Applicability = function(marks){
         self.elements.addButton.on('click', function(){ self.addRow(); });
         self.elements.rows
             .on('change', '.mark_id_select', function(){ self.markIdChangeEvent($(this)) })
-            .on('change', '.model_id_select', function(){ self.modelIdChangeEvent($(this)) });
+            .on('change', '.model_id_select', function(){ self.modelIdChangeEvent($(this)) })
+            .on('click', '.appl_row_delete', function(){ self.deleteBtnClickEvent($(this)) });
+        self.elements.form.on('submit', function(e){ self.formSubmitEvent(e) })
     };
 
     this.addRow = function(){
@@ -77,6 +80,14 @@ var Applicability = function(marks){
             generationIdSelect.removeAttr('disabled');
         }
         generationIdSelect.trigger('change');
+    };
+
+    this.deleteBtnClickEvent = function(btn){
+        $(this).parents('.appl-row').remove();
+    };
+
+    this.formSubmitEvent = function(e){
+        this.elements.rows.css({'pointer-events':'none', 'opacity':'.5'}).find('option:disabled, select:disabled').removeAttr('disabled');
     };
 
     this.init(marks);

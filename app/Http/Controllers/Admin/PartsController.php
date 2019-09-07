@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Brand;
 use App\Models\Mark;
 use App\Models\Part;
+use App\Models\PartCar;
 use App\Models\PartCatalog;
 use App\Services\Notify\Facades\Notify;
 use Illuminate\Http\Request;
@@ -29,6 +30,11 @@ class PartsController extends BaseController
 
     public function add_put(Request $request){
         $inputs = $request->all();
+
+        PartCar::collect($inputs['mark_id']??[], $inputs['model_id']??[], $inputs['generation_id']);
+
+        return response('Hello');
+
         $this->validator($inputs, false)->validate();
         if(Part::action(null, $inputs)) {
             Notify::success('Запчаст добавлен.');
@@ -76,7 +82,10 @@ class PartsController extends BaseController
     private function validator($inputs, $ignore=false) {
         return Validator::make($inputs, [
             'name' => 'nullable|string|max:255',
-            'code' => 'required|string|max:255|unique:parts,code'.($ignore?','.$ignore:null)
+            'code' => 'required|string|max:255|unique:parts,code'.($ignore?','.$ignore:null),
+            'image' => ($ignore?'nullable':'required').'|image',
+            'part_catalog_id' => 'required|integer|exists:part_catalogs,id',
+            'brand_id' => 'required|integer|exists:brands,id',
         ]);
     }
 
