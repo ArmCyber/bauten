@@ -30,6 +30,7 @@ class Part extends Model
         $model['active'] = (int) array_key_exists('active', $inputs);
         if($image = upload_file('image', 'u/parts/', ($action=='edit' && !empty($model->image))?$model->image:false)) $model->image = $image;
         $model->save();
+        PartCar::sync($model->id, $inputs['mark_id']??[], $inputs['model_id']??[], $inputs['generation_id']??[], $action=='edit');
         return true;
     }
 

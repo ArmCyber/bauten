@@ -100,7 +100,7 @@
     @js(aAdmin('js/applicability.js'))
     <script>
         $('.select2').select2();
-        var a = new Applicability({!! $marks->toJson(JSON_UNESCAPED_UNICODE) !!})
+        new Applicability({!! $marks->toJson(JSON_UNESCAPED_UNICODE) !!}, {!! isset($part_cars)?$part_cars->toJson(JSON_UNESCAPED_UNICODE):'false' !!})
     </script>
 @endpush
 @push('css')

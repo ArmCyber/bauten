@@ -184,11 +184,12 @@ CREATE TABLE `part_cars` (
   `model_id` int(10) unsigned NOT NULL DEFAULT '0',
   `generation_id` bigint(20) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `part_cars` WRITE;
 /*!40000 ALTER TABLE `part_cars` DISABLE KEYS */;
+INSERT INTO `part_cars` VALUES (1,2,4,7,1),(2,2,1,0,0),(3,2,4,13,0);
 /*!40000 ALTER TABLE `part_cars` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `part_catalogs`;
@@ -225,11 +226,12 @@ CREATE TABLE `parts` (
   `brand_id` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `parts_code_unique` (`code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `parts` WRITE;
 /*!40000 ALTER TABLE `parts` DISABLE KEYS */;
+INSERT INTO `parts` VALUES (2,'Code','Name',0,1,'2019-09-09 15:14:13','2019-09-09 15:17:08','wY2kvJlYQnbmnZb6UI.png',2,2);
 /*!40000 ALTER TABLE `parts` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `password_resets`;

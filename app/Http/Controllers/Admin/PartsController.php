@@ -30,11 +30,6 @@ class PartsController extends BaseController
 
     public function add_put(Request $request){
         $inputs = $request->all();
-
-        PartCar::collect($inputs['mark_id']??[], $inputs['model_id']??[], $inputs['generation_id']);
-
-        return response('Hello');
-
         $this->validator($inputs, false)->validate();
         if(Part::action(null, $inputs)) {
             Notify::success('Запчаст добавлен.');
@@ -50,6 +45,10 @@ class PartsController extends BaseController
         $data = ['title'=>'Редактирование запчаста', 'edit'=>true];
         $data['back_url'] = route('admin.parts.main');
         $data['item'] = Part::getItem($id);
+        $data['part_catalogs'] = PartCatalog::adminList();
+        $data['brands'] = Brand::adminList();
+        $data['marks'] = Mark::fullAdminList();
+        $data['part_cars'] = PartCar::adminList($data['item']->id);
         return view('admin.pages.parts.form', $data);
     }
 

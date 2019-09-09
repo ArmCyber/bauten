@@ -26,7 +26,7 @@ class PartCatalog extends Model
         return self::findOrFail($id);
     }
 
-    public function scopeSort(){
-        return $this->orderBy('name')->orderBy('id');
+    public function scopeSort($q){
+        return $q->orderBy('name')->orderBy('id');
     }
 }

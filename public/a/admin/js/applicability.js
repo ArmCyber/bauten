@@ -1,10 +1,11 @@
-var Applicability = function(marks){
+var Applicability = function(marks, saved_values){
     this.data = {};
 
-    this.init = function(marks) {
+    this.init = function(marks,saved_values) {
         this.data.marks = marks;
         this.registerElements();
         this.registerEvents();
+        if (saved_values) this.insertSavedValues(saved_values);
     };
 
     this.registerElements = function(){
@@ -26,7 +27,7 @@ var Applicability = function(marks){
         self.elements.form.on('submit', function(e){ self.formSubmitEvent(e) })
     };
 
-    this.addRow = function(){
+    this.addRow = function(values){
         var self = this,
             element = this.elements.exampleRow.clone().removeClass('example').appendTo(this.elements.rows),
             markIdSelect = element.find('.mark_id_select'),
@@ -35,6 +36,11 @@ var Applicability = function(marks){
         $.each(this.data.marks, function(key, obj){
             markIdSelect.append(self.newOption(obj.name, obj.id));
         });
+        if (typeof values!=='undefined') {
+            markIdSelect.val(values.mark).trigger('change');
+            modelIdSelect.val(values.model).trigger('change');
+            generationIdSelect.val(values.generation).trigger('change');
+        }
         markIdSelect.select2();
         modelIdSelect.select2();
         generationIdSelect.select2();
@@ -83,12 +89,19 @@ var Applicability = function(marks){
     };
 
     this.deleteBtnClickEvent = function(btn){
-        $(this).parents('.appl-row').remove();
+        btn.parents('.appl-row').remove();
     };
 
     this.formSubmitEvent = function(e){
         this.elements.rows.css({'pointer-events':'none', 'opacity':'.5'}).find('option:disabled, select:disabled').removeAttr('disabled');
     };
 
-    this.init(marks);
+    this.insertSavedValues = function(values) {
+        var self=this;
+        $.each(values, function(index, value){
+            self.addRow({mark:value.mark_id, model:value.model_id, generation:value.generation_id});
+        });
+    };
+
+    this.init(marks, saved_values);
 };

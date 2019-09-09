@@ -34,8 +34,8 @@ trait Sortable {
         }
         return response()->json(false);
     }
-    public function scopeSort($query) {
-        return $query->orderBy('sort')->orderBy('id', ($this->sortableDesc??true)?'desc':'asc');
+    public function scopeSort($q) {
+        return $q->orderBy('sort')->orderBy('id', ($this->sortableDesc??true)?'desc':'asc');
     }
 
     public function sortValue(){
