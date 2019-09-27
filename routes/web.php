@@ -24,7 +24,10 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
         //region Home Page Redirect
         Route::get('/', 'AuthController@redirectToHomepage');
         //endregion
-        //region Dashboard
+        //region Banners
+        Route::middleware('can:admin')->match(['get', 'post'], 'banners/{page}', 'BannersController@render')->name('banners');
+        //endregion
+        //region Main Page
         Route::get('main', 'AppController@main')->name('main');
         //endregion
         //region Profile
@@ -34,7 +37,7 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
         });
         //endregion
         //region Pages
-        Route::middleware('can:manager')->prefix('pages')->name('pages.')->group(function() { $c='PagesController@';
+        Route::middleware('can:admin')->prefix('pages')->name('pages.')->group(function() { $c='PagesController@';
             Route::get('', $c.'main')->name('main');
             Route::get('add', $c.'addPage')->name('add');
             Route::put('add', $c.'addPage_put');

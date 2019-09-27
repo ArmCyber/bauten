@@ -16,6 +16,7 @@
         "laravel/tinker": "^1.0",
         "spatie/laravel-db-snapshots": "^1.2",
         "spatie/valuestore": "^1.2",
+        "zakhayko/banners": "^1.1",
         "zakhayko/settings": "^1.0"
     },
     "require-dev": {

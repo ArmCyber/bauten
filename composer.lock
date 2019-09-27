@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "821e4b3726b33e2ec355245f4fd1864a",
+    "content-hash": "4271ea9ce13b6b42b0ffd94f48164243",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -3981,6 +3981,54 @@
                 "environment"
             ],
             "time": "2019-08-27T17:00:38+00:00"
+        },
+        {
+            "name": "zakhayko/banners",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zakhayko/banners.git",
+                "reference": "4e0474e2f3dbe0599a7f6305e30cb3097830740b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zakhayko/banners/zipball/4e0474e2f3dbe0599a7f6305e30cb3097830740b",
+                "reference": "4e0474e2f3dbe0599a7f6305e30cb3097830740b",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": ">=5.6",
+                "php": ">=7.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Zakhayko\\Banners\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Zakhayko\\Banners\\": "src"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Hayko",
+                    "email": "zakhayko@gmail.com"
+                }
+            ],
+            "description": "Banners for Laravel",
+            "homepage": "https://github.com/zakhayko/banners",
+            "time": "2019-08-29T16:11:31+00:00"
         },
         {
             "name": "zakhayko/settings",
