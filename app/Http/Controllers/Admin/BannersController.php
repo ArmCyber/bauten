@@ -44,7 +44,76 @@ class BannersController extends BaseController
 
     protected $settings = [
         'info' => [
-            //
+            'data' => [
+                'params' => [
+                    'logo' => [
+                        'type'=>'image',
+                        'original_file'=>'true',
+                    ],
+                    'logo_footer' => [
+                        'type' => 'image',
+                        'original_file' => 'true',
+                    ],
+                    'email' => 'input',
+                    'seo_suffix' => 'input'
+                ]
+            ],
+            'requisites' => [
+                'count'=>4,
+                'params' => [
+                    'address' => 'input',
+                    'phone' => 'input',
+                    'email' => 'input',
+                ]
+            ],
+            'socials' => [
+                'count' => 4,
+                'params' => [
+                    'icon' => [
+                        'type' => 'image',
+                        'original_file' => true,
+                    ],
+                    'title' => 'input',
+                    'url' => 'input',
+                    'active' => 'labelauty',
+                ]
+            ],
+            'payment_logos' => [
+                'count' => 4,
+                'params' => [
+                    'logo' => [
+                        'type' => 'image',
+                        'original_file' => true,
+                    ],
+                    'title' => 'input',
+                    'alt' => 'input',
+                    'active' => 'labelauty',
+                ]
+            ],
+        ],
+        'home' => [
+            'block_titles' => [
+                'params' => [
+                    'catalogue' => 'input',
+                    'parts' => 'input',
+                    'brands' => 'input',
+                    'news' => 'input',
+                ]
+            ],
+
+            'banners' => [
+                'count' => 2,
+                'params' => [
+                    'image' => [
+                        'type'=>'image',
+                        'resize' => ['fit', 750, 250, true],
+                    ],
+                    'alt' => 'input',
+                    'url' => 'input',
+                    'title' => 'input',
+                    'active' => 'labelauty',
+                ]
+            ],
         ]
     ];
 }
