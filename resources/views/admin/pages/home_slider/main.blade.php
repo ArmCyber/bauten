@@ -4,7 +4,7 @@
     @if(count($items))
         <div class="card">
             <div class="table-responsive p-2">
-                <table class="table table-striped m-b-0 columns-middle init-dataTable">
+                <table class="table table-striped m-b-0 columns-middle">
                     <thead>
                     <tr>
                         <th>Изоброжение</th>
@@ -15,14 +15,14 @@
                     <tbody class="table-sortable" data-action="{!! route('admin.home_slider.sort') !!}">
                     @foreach($items as $item)
                         <tr class="item-row" data-id="{!! $item->id !!}">
-                            <td>{{ $item->image }}</td>
+                            <td><img src="{{ asset('u/home_slider/'.$item->image) }}" style="max-width: 250px; height: auto" alt=""></td>
                             @if($item->active)
                                 <td class="text-success">Активно</td>
                             @else
                                 <td class="text-danger">Неактивно</td>
                             @endif
                             <td>
-                                <a href="{{ route('admin.brands.edit', ['id'=>$item->id]) }}" {!! tooltip('Редактировать') !!} class="icon-btn edit"></a>
+                                <a href="{{ route('admin.home_slider.edit', ['id'=>$item->id]) }}" {!! tooltip('Редактировать') !!} class="icon-btn edit"></a>
                                 <span class="d-inline-block"  style="margin-left:4px;" data-toggle="modal" data-target="#itemDeleteModal"><a href="javascript:void(0)" class="icon-btn delete" {!! tooltip('Удалить') !!}></a></span>
                             </td>
                         </tr>
@@ -39,9 +39,9 @@
         'saveBtnClass'=>'btn-danger',
         'closeBtn' => 'Отменить',
         'form'=>['id'=>'itemDeleteForm', 'action'=>'javascript:void(0)']])
-    @slot('title')Удаление бренда@endslot
+    @slot('title')Удаление слайда@endslot
     <input type="hidden" id="pdf-item-id">
-    <p class="font-14">Вы действительно хотите удалить бренд &Lt;<span id="pdm-title"></span>&Gt;?</p>
+    <p class="font-14">Вы действительно хотите удалить данный слайд?</p>
     @endmodal
 @endsection
 @push('css')
@@ -51,7 +51,7 @@
     @js(aApp('datatables/datatables.js'))
     <script>
         var itemId = $('#pdf-item-id'),
-            modalTitle = $('#pdm-title'),
+            // modalTitle = $('#pdm-title'),
             blocked = false,
             modal = $('#itemDeleteModal');
         loader = modal.find('.modal-loader');
@@ -67,7 +67,7 @@
                 button = $(e.relatedTarget),
                 thisItemRow = button.parents('.item-row');
             itemId.val(thisItemRow.data('id'));
-            modalTitle.html(thisItemRow.find('.item-title').html());
+            // modalTitle.html(thisItemRow.find('.item-title').html());
 
         }).on('hide.bs.modal', function(e){
             if (blocked) return false;
@@ -79,7 +79,7 @@
             if (thisItemId && thisItemId.match(/^[1-9][0-9]{0,9}$/)) {
                 loader.addClass('shown');
                 $.ajax({
-                    url: '{!! route('admin.brands.delete') !!}',
+                    url: '{!! route('admin.home_slider.delete') !!}',
                     type: 'post',
                     dataType: 'json',
                     data: {
@@ -95,7 +95,7 @@
                         if (e.success) {
                             loader.removeClass('shown');
                             blocked = false;
-                            toastr.success('Бренд удален.');
+                            toastr.success('Слайд удален.');
                             modal.modal('hide');
                             $('.item-row[data-id="'+thisItemId+'"]').fadeOut(function(){
                                 $(this).remove();

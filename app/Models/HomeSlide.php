@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Http\Traits\Sortable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\File;
 
 class HomeSlide extends Model
 {
@@ -21,6 +22,16 @@ class HomeSlide extends Model
         return self::sort()->get();
     }
 
+    public static function getItem($id) {
+        return self::findOrFail($id);
+    }
+
+    public static function siteList() {
+        return Cache::rememberForever(self::CACHE_KEY, function(){
+            return HomeSlide::where('active', 1)->sort()->get();
+        });
+    }
+
     public static function action($model, $inputs) {
         self::clearCaches();
         if (!$model) {
@@ -30,9 +41,20 @@ class HomeSlide extends Model
         $model['title'] = $inputs['title'];
         $model['description'] = $inputs['description'];
         $model['active'] = (int) array_key_exists('active', $inputs);
-        $model['image_alt'] = $inputs['image_alt'];
-        $model['image_title'] = $inputs['image_title'];
-        if($image = upload_file('image', 'u/home_slider/', ($action=='edit' && !empty($model->image))?$model->image:false)) $model->image = $image;
+        $resizes = [
+            [
+                'width'=>1920,
+                'height'=>720,
+                'upsize'=>true,
+            ]
+        ];
+        if($image = upload_image('image', 'u/home_slider/', $resizes, ($action=='edit' && !empty($model->image))?$model->image:false)) $model->image = $image;
         return $model->save();
+    }
+
+    public static function deleteItem($model){
+        self::clearCaches();
+        if ($model->image) File::delete(public_path('u/home_slider/').$model->image);
+        return $model->delete();
     }
 }

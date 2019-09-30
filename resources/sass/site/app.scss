@@ -320,6 +320,9 @@ a.footer-soc {
 a.check-cursor[href="javascript:void(0)"] {
     cursor:default;
 }
+.swiper-slide {
+    background-color: $section-bg;
+}
 //endregion
 //region Inner Pages
 @include set-padding(20px);

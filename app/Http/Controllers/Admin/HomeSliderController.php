@@ -34,13 +34,44 @@ class HomeSliderController extends BaseController
         }
     }
 
+    public function edit($id){
+        $data = ['title'=>'Редактирование слайда', 'edit'=>true];
+        $data['back_url'] = route('admin.home_slider.main');
+        $data['item'] = HomeSlide::getItem($id);
+        return view('admin.pages.home_slider.form', $data);
+    }
+
+    public function edit_patch($id, Request $request){
+        $item = HomeSlide::getItem($id);
+        $inputs = $request->all();
+        $this->validator($inputs, $item->id)->validate();
+        if(HomeSlide::action($item, $inputs)) {
+            Notify::success('Слайд редактирован.');
+            return redirect()->route('admin.home_slider.edit', ['id'=>$item->id]);
+        }
+        else {
+            Notify::get('error_occurred');
+            return redirect()->back()->withInput();
+        }
+    }
+
+    public function sort(){return HomeSlide::sortable();}
+
+    public function delete(Request $request) {
+        $result = ['success'=>false];
+        $id = $request->input('item_id');
+        if ($id && is_id($id)) {
+            $item = HomeSlide::where('id',$id)->first();
+            if ($item && HomeSlide::deleteItem($item)) $result['success'] = true;
+        }
+        return response()->json($result);
+    }
+
     private function validator($inputs, $edit=false) {
         return Validator::make($inputs, [
             'title' => 'nullable|string|max:255',
             'description' => 'nullable|string|max:1000',
             'image' => ($edit?'nullable':'required').'|image|mimes:jpeg,png,gif',
-            'image_alt' => 'nullable|string|max:255',
-            'image_title' => 'nullable|string|max:255',
         ]);
     }
 

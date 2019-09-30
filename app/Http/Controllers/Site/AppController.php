@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Models\Country;
+use App\Models\HomeSlide;
 use App\Services\PageManager\StaticPages;
 use Illuminate\Http\Request;
 use Zakhayko\Banners\Models\Banner;
@@ -15,10 +16,9 @@ class AppController extends BaseController
         $data = [];
         $data['logged_in'] = request()->has('logged_in');
         $data['banners'] = Banner::get('home');
+        $data['home_slider'] = HomeSlide::siteList();
         return view('site.pages.home', $data);
     }
-
-
 
     //Temporary
     public function catalogue(){

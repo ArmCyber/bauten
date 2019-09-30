@@ -1,16 +1,55 @@
-<section class="welcome-section" style="background-image: linear-gradient(rgba(0,0,0,.15),rgba(0,0,0,.15)), url('{{ asset('f/welcome.png') }}');">
-    <div class="welcome">
-        <div class="container">
-            <h1 class="welcome-title">Автозапчасти вовремя</h1>
-            <div class="welcome-bg">
-                <div class="welcome-text">
-                    47 млн. предложений автозапчастей по актуальным ценам, которые привезем в
-                    наш офис или доставим курьером.
+@if ($slides_count = count($home_slider))
+    @if($slides_count==1)
+        <section class="welcome-section" style="background-image: linear-gradient(rgba(0,0,0,.15),rgba(0,0,0,.15)), url('{{ asset('u/home_slider/'.$home_slider[0]->image) }}');">
+            <div class="welcome">
+                <div class="container">
+                    <h1 class="welcome-title">{{ $home_slider[0]->title }}</h1>
+                    <div class="welcome-bg">
+                        <div class="welcome-text">{{ $home_slider[0]->description }}</div>
+                    </div>
                 </div>
             </div>
+        </section>
+    @else
+        <div id="home-slider" class="swiper-container init-first">
+            <div class="swiper-wrapper">
+                @foreach($home_slider as $home_slide)
+                    <div class="swiper-slide">
+                        <div class="welcome-section" style="background-image: linear-gradient(rgba(0,0,0,.15),rgba(0,0,0,.15)), url('{{ asset('u/home_slider/'.$home_slide->image) }}');">
+                            <div class="welcome">
+                                <div class="container">
+                                    @if ($loop->iteration!=1)
+                                        <div class="welcome-title">{{ $home_slide->title }}</div>
+                                    @else
+                                        <h1 class="welcome-title">{{ $home_slide->title }}</h1>
+                                    @endif
+                                    <div class="welcome-bg">
+                                        <div class="welcome-text">{{ $home_slide->description }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
         </div>
-    </div>
-</section>
+        @push('js')
+            @js(aApp('swiper/swiper.js'))
+            <script>
+                new Swiper('#home-slider', {
+                    loop: true,
+                    autoplay: {
+                        delay: 3000,
+                    },
+                    effect: 'fade'
+                });
+            </script>
+        @endpush
+        @push('css')
+            @css(aApp('swiper/swiper.css'))
+        @endpush
+    @endif
+@endif
 <section class="section section-bg">
     <div class="container">
         <h2 class="section-title">{{ $banners->block_titles->catalogue }}</h2>

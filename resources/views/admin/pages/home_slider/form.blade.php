@@ -32,7 +32,7 @@
         </div>
         <div class="col-12 col-lg-6">
             <div class="card">
-                <div class="c-title">Изоброжение</div>
+                <div class="c-title">Изоброжение (1920x720)</div>
                 @if (!empty($item->image))
                     <div class="p-2 text-center">
                         <img src="{{ asset('u/home_slider/'.$item->image) }}" alt="" class="img-responsive">
@@ -40,12 +40,6 @@
                 @endif
                 <div class="c-body">
                     @file(['name'=>'image'])@endfile
-                    <div class="pt-2">
-                        <input type="text" name="image_alt" class="form-control" placeholder="Alt" maxlength="255" value="{{ old('image_alt', $item->image_alt??null) }}">
-                    </div>
-                    <div class="pt-2">
-                        <input type="text" name="image_title" class="form-control" placeholder="Title" maxlength="255" value="{{ old('image_title', $item->image_title??null) }}">
-                    </div>
                 </div>
             </div>
         </div>

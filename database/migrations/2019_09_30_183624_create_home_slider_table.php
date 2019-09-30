@@ -16,8 +16,6 @@ class CreateHomeSliderTable extends Migration
         Schema::create('home_slider', function (Blueprint $table) {
             $table->increments('id');
             $table->string('image', 64);
-            $table->string('image_alt')->nullable();
-            $table->string('image_title')->nullable();
             $table->string('title')->nullable();
             $table->text('description')->nullable();
             $table->integer('sort')->unsigned()->default(0);
