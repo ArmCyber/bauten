@@ -29,4 +29,10 @@ class PartCatalog extends Model
     public function scopeSort($q){
         return $q->orderBy('name')->orderBy('id');
     }
+
+    public static function siteList(){
+        return self::sort()->get()->mapToGroups(function($item, $key) {
+            return [mb_strtoupper(mb_substr($item->name,0,1))=>$item];
+        });
+    }
 }

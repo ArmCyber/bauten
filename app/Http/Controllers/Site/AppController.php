@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Models\Country;
 use App\Models\HomeSlide;
+use App\Models\PartCatalog;
 use App\Services\PageManager\StaticPages;
 use Illuminate\Http\Request;
 use Zakhayko\Banners\Models\Banner;

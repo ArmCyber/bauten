@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Site;
 
+use App\Models\PartCatalog;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Zakhayko\Banners\Models\Banner;
@@ -22,6 +23,7 @@ class BaseController extends Controller
         if ($this->shared) return false;
         $this->shared['info'] = Banner::get('info');
         $this->shared['requisites'] = $this->shared['info']->requisites->flip();
+        $this->shared['catalogs'] = PartCatalog::siteList();
         view()->share($this->shared);
         return true;
     }

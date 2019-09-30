@@ -240,12 +240,12 @@ CREATE TABLE `part_catalogs` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `part_catalogs_name_unique` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `part_catalogs` WRITE;
 /*!40000 ALTER TABLE `part_catalogs` DISABLE KEYS */;
-INSERT INTO `part_catalogs` VALUES (1,'Каталог1','2019-09-02 18:06:13','2019-09-02 18:06:13'),(2,'Каталог2','2019-09-02 18:06:19','2019-09-02 18:06:19'),(3,'Каталог3','2019-09-02 18:06:24','2019-09-02 18:06:24'),(4,'Амстердам','2019-09-02 18:06:31','2019-09-02 18:06:31');
+INSERT INTO `part_catalogs` VALUES (1,'Каталог1','2019-09-02 18:06:13','2019-09-02 18:06:13'),(2,'Каталог2','2019-09-02 18:06:19','2019-09-02 18:06:19'),(3,'Каталог3','2019-09-02 18:06:24','2019-09-02 18:06:24'),(4,'Амстердам','2019-09-02 18:06:31','2019-09-02 18:06:31'),(5,'Бесшовное покрытие SBR 10','2019-09-30 18:35:39','2019-09-30 18:35:39'),(6,'Васдасса','2019-09-30 18:35:45','2019-09-30 18:35:45'),(7,'Гвеасд','2019-09-30 18:35:50','2019-09-30 18:35:50'),(8,'Дасдасдас','2019-09-30 18:35:55','2019-09-30 18:35:55');
 /*!40000 ALTER TABLE `part_catalogs` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `parts`;
