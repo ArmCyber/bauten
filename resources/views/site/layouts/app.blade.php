@@ -1,7 +1,7 @@
 <!doctype html><html lang="ru"><head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bauten</title>
+    <title>TITLE</title>
     <link rel="shortcut icon" href="{!! asset('favicon.ico') !!}">
     @css(aApp('bootstrap/css/bootstrap.css'))
     @css(aApp('font-awesome/css/all.css'))
@@ -13,10 +13,12 @@
             <div id="header-top">
                 <div class="container ht-container">
                     <div class="ht-sm">
-                        <a href="{{ url('/') }}" class="ht-brand"><img src="{{ asset('f/logo.png') }}" alt=""></a>
+                        <a href="{{ route('page') }}" class="ht-brand"><img src="{{ $info->data->logo() }}" alt="Bauten"></a>
                     </div>
                     <div class="ht-lg">
-                        <a href="tel:+87776191747" class="ht-tel">8 (777) 619 1747</a>
+                        @isset($requisites['phone'][0])
+                        <a href="tel:{{ $requisites['phone'][0] }}" class="ht-tel">{{ $requisites['phone'][0] }}</a>
+                        @endisset
                     </div>
                     <div class="ht-sm text-right">
                         <div class="ht-auth">
@@ -62,19 +64,27 @@
                     <div class="col-12 col-lg-4">
                         <div class="footer-main">
                             <div>
-                                <img class="footer-logo" src="{{ asset('f/logo-footer.png') }}" alt="">
+                                <img class="footer-logo" src="{{ $info->data->logo_footer() }}" alt="Bauten">
                             </div>
                             <div class="footer-contacts">
-                                <div>Алматы Казахстан, с. Мадениет уч. 383</div>
-                                <div>Алматы  8 (707) 173 7656</div>
-                                <div>Алматы 8 (775) 996 1880</div>
+                                @foreach($requisites['address']??[] as $address)
+                                    <div>{{ $address }}</div>
+                                @endforeach
+                                @foreach($requisites['phone']??[] as $phone)
+                                    <div><a href="tel:{{ $phone }}">{{ $phone }}</a></div>
+                                @endforeach
                             </div>
                             <div class="footer-socs">
-                                <a href="#" class="footer-soc"><img src="{{ asset('f/messenger.svg') }}" alt="Messenger"><span>Bautenautoparts</span></a>
+                                @foreach($info->socials as $social)
+                                    @if (!$social->active || !$social->url) @continue @endif
+                                    <a href="{{ url($social->url) }}" class="footer-soc" target="_blank">@if($social->icon)<img src="{{ $social->icon() }}" alt="{{ $social->title }}">@endif<span>{{ $social->title }}</span></a>
+                                @endforeach
                             </div>
                             <div class="footer-payments">
-                                <img src="{{ asset('f/visa.png') }}" alt="visa">
-                                <img src="{{ asset('f/mastercard.png') }}" alt="visa">
+                                @foreach($info->payment_logos as $payment_logo)
+                                    @if(!$payment_logo->active || !$payment_logo->logo) @continue @endif
+                                    <img src="{{ $payment_logo->logo() }}" alt="{{ $payment_logo->alt }}" title="{{ $payment_logo->title() }}">
+                                @endforeach
                             </div>
                             <div class="footer-copy d-none d-lg-block">
                                 <p>© ТОО "Bauten" 2006-{!! now()->year !!} Все права защищены.</p>
