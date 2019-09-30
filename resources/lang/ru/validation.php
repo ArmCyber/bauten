@@ -197,6 +197,8 @@ return [
         'code' => 'Код',
         'image' => 'Изображение',
         'part_catalog_id' => 'Каталог',
-        'brand_id' => 'Бренд'
+        'brand_id' => 'Бренд',
+        'image_alt' => 'Alt',
+        'image_title' => 'Title'
     ],
 ];

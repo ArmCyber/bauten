@@ -5,10 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Models\PartCatalog;
 use App\Services\Notify\Facades\Notify;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
-class PartCatalogsController extends Controller
+class PartCatalogsController extends BaseController
 {
     public function main(){
         $data = ['title'=>'Каталог запчастей'];

@@ -5,10 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Brand;
 use App\Services\Notify\Facades\Notify;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
-class BrandsController extends Controller
+class BrandsController extends BaseController
 {
     public function main(){
         $data = ['title'=>'Бренды'];
@@ -74,4 +73,5 @@ class BrandsController extends Controller
             'code' => 'required|string|max:255|unique:parts,code'.($ignore?','.$ignore:null),
             'image' => 'nullable|image|mimes:jpeg,png,gif,svg'
         ]);
-    }}
+    }
+}
