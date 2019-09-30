@@ -297,7 +297,6 @@ a.footer-soc {
         display: inline;
     }
 }
-
 .all-inherit {
     all: inherit !important;
 }
@@ -315,11 +314,12 @@ a.footer-soc {
     white-space: nowrap;
     position: relative;
 }
-
 .cat-price {
     font-size: 24px;
 }
-
+a.check-cursor[href="javascript:void(0)"] {
+    cursor:default;
+}
 //endregion
 //region Inner Pages
 @include set-padding(20px);

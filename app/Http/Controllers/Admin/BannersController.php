@@ -108,8 +108,8 @@ class BannersController extends BaseController
                         'type'=>'image',
                         'resize' => ['fit', 750, 250, true],
                     ],
-                    'alt' => 'input',
                     'url' => 'input',
+                    'alt' => 'input',
                     'title' => 'input',
                     'active' => 'labelauty',
                 ]

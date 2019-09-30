@@ -13,7 +13,7 @@
 </section>
 <section class="section section-bg">
     <div class="container">
-        <h2 class="section-title">Каталог автозапчастей</h2>
+        <h2 class="section-title">{{ $banners->block_titles->catalogue }}</h2>
         <div class="section-content row row-grid">
             @foreach([['title'=>'Шины','price'=>'7.800',],['title'=>'Диски','price'=>'9.700',],['title'=>'Щетки стеклоочистеля','price'=>'5.300',],['title'=>'Масла','price'=>'1.800',],['title'=>'Аксессуары','price'=>'9.900',],['title'=>'Электро - оборудование','price'=>'5.400',],['title'=>'Автохимия','price'=>'1.200',],['title'=>'Инструменты','price'=>'2.300',],] as $item)
                 <div class="col-12 col-sm-6 col-md-4 col-xl-3">

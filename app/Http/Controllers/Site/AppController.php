@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Site;
 use App\Models\Country;
 use App\Services\PageManager\StaticPages;
 use Illuminate\Http\Request;
+use Zakhayko\Banners\Models\Banner;
 
 class AppController extends BaseController
 {
@@ -13,6 +14,7 @@ class AppController extends BaseController
     private function static_home($page) {
         $data = [];
         $data['logged_in'] = request()->has('logged_in');
+        $data['banners'] = Banner::get('home');
         return view('site.pages.home', $data);
     }
 

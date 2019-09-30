@@ -29,14 +29,16 @@
                                         <span class="d-inline-block"  style="margin-left:4px;" data-toggle="modal" data-target="#itemDeleteModal"><a href="javascript:void(0)" class="icon-btn delete" {!! tooltip('Удалить') !!}></a></span>
                                     @else
                                         @if(array_key_exists($item->static, $content_pages))
-                                            <a href="{{ $content_pages[$item->static] }}" {!! tooltip('Контент') !!} class="icon-btn content"></a>
+                                            <a href="{{ route('admin.banners', ['page'=>$content_pages[$item->static]]) }}" {!! tooltip('Контент') !!} class="icon-btn content"></a>
                                         @endif
+                                        {{--
                                         @if(array_key_exists($item->static, $gallery_pages))
-                                            <a href="{{ $gallery_pages[$item->static] }}" {!! tooltip('Галерея') !!} class="icon-btn gallery"></a>
+                                            <a href="{{ route('admin.gallery', ['gallery'=>$gallery_pages[$item->static]]) }}" {!! tooltip('Галерея') !!} class="icon-btn gallery"></a>
                                         @endif
                                         @if(array_key_exists($item->static, $video_gallery_pages))
-                                            <a href="{{ $video_gallery_pages[$item->static] }}" {!! tooltip('Видеогалерея') !!} class="icon-btn video-gallery"></a>
+                                            <a href="{{ route('admin.video_gallery', ['gallery'=>$video_gallery_pages[$item->static]]) }}" {!! tooltip('Видеогалерея') !!} class="icon-btn video-gallery"></a>
                                         @endif
+                                        --}}
                                     @endif
                                 </td>
                             </tr>

@@ -7,22 +7,22 @@ use Illuminate\Support\Facades\Validator;
 class PagesController extends BaseController
 {
     private const CONTENT_PAGES = [
-        //
+        'home' => 'home',
     ];
+    /*
+        private const GALLERY_PAGES = [
+            //
+        ];
 
-    private const GALLERY_PAGES = [
-        //
-    ];
-
-    private const VIDEO_GALLERY_PAGES = [
-        //
-    ];
-
+        private const VIDEO_GALLERY_PAGES = [
+            //
+        ];
+    */
     public function main(){
         $data = [];
         $data['content_pages'] = self::CONTENT_PAGES;
-        $data['gallery_pages'] = self::GALLERY_PAGES;
-        $data['video_gallery_pages'] = self::VIDEO_GALLERY_PAGES;
+//        $data['gallery_pages'] = self::GALLERY_PAGES;
+//        $data['video_gallery_pages'] = self::VIDEO_GALLERY_PAGES;
         $data['title'] = 'Страницы';
         $data['items'] = Page::adminList();
         return view('admin.pages.pages.main', $data);

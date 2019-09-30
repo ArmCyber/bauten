@@ -2,7 +2,7 @@
 @section('main')
     @include('site.blocks.'.($logged_in?'auth.home_search':'guest.home_welcome'))
     <section class="section container">
-        <h2 class="section-title">Запчасти по моделям</h2>
+        <h2 class="section-title">{{ $banners->block_titles->parts }}</h2>
         <div class="section-content">
             <div class="home-parts">
                 <div class="row row-grid l-m">
@@ -22,22 +22,20 @@
                 </div>
             </div>
             <div class="part-banners">
-                <div class="part-banner">
-                    <a href="javascript:void(0)" class="force-3-1">
-                        <img src="{{ asset('f/home_banner_1.png') }}" alt="">
-                    </a>
-                </div>
-                <div class="part-banner">
-                    <a href="javascript:void(0)" class="force-3-1">
-                        <img src="{{ asset('f/home_banner_2.png') }}" alt="">
-                    </a>
-                </div>
+                @foreach($banners->banners as $banner)
+                    @if(!$banner->image || !$banner->active) @continue @endif
+                    <div class="part-banner">
+                        <a href="{{ $banner->url?url($banner->url):'javascript:void(0)' }}" class="force-3-1 check-cursor" @if($banner->url)target="_blank" @endif>
+                            <img src="{{ $banner->image() }}" alt="{{ $banner->alt }}" title="{{ $banner->title }}">
+                        </a>
+                    </div>
+                @endforeach
             </div>
         </div>
     </section>
     <section class="section section-bg">
         <div class="container">
-            <h2 class="section-title">Каталог брендов</h2>
+            <h2 class="section-title">{{ $banners->block_titles->brands }}</h2>
             <div class="section-content row row-grid l-m">
                 @foreach(['A-ONE', 'AGP', 'BAUTEN', 'BAW', 'CAMELLIA', 'CASP', 'CFT', 'DEPO', 'VISA', 'DEYE', 'DID'] as $item)
                     <div class="col-6 col-sm-4 col-md-3 col-xl-2">
@@ -56,7 +54,7 @@
         </div>
     </section>
     <section class="section container">
-        <h2 class="section-title">Новости</h2>
+        <h2 class="section-title">{{ $banners->block_titles->news }}</h2>
         <div class="section-content row row-grid">
             @for($i=1; $i<=3; $i++)
                 <div class="col-12 col-sm-6 col-md-4">
