@@ -136,8 +136,13 @@ return [
     |
     */
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'generated_url' => [
+            'required_with' => 'Введите название чтобы сгенерировать URL.',
+        ],
+        'url' => [
+            'required' => 'Введите URL или подставьте галочку "сгенерировать автоматический".',
+            'is_url' => 'Неправильный URL.',
+            'unique' => 'URL уже используется.'
         ],
     ],
     /*

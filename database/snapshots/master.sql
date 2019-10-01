@@ -124,7 +124,7 @@ CREATE TABLE `home_slider` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `home_slider` WRITE;
@@ -159,12 +159,12 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (1,'2019_07_10_171502_create_admins_table',1),(2,'2019_07_12_204343_create_password_resets_table',1),(3,'2019_07_12_232636_create_pages_table',1),(5,'2019_08_12_192243_add_role_to_admins_table',2),(15,'2019_08_14_161704_create_marks_table',3),(16,'2019_08_14_161725_create_models_table',3),(18,'2019_08_14_161756_create_generations_table',3),(27,'2019_08_14_221246_create_countries_table',4),(28,'2019_08_14_221310_create_regions_table',4),(31,'2019_08_19_142314_create_parts_table',5),(32,'2019_08_19_165244_create_brands_table',6),(36,'2019_09_02_210329_create_part_catalogs_table',7),(37,'2019_09_02_214401_add_data_to_parts_table',7),(39,'2019_09_06_194022_create_part_cars_table',8),(40,'2019_07_23_000000_create_zakhayko_banners_table',9),(43,'2019_09_30_183624_create_home_slider_table',10);
+INSERT INTO `migrations` VALUES (1,'2019_07_10_171502_create_admins_table',1),(2,'2019_07_12_204343_create_password_resets_table',1),(3,'2019_07_12_232636_create_pages_table',1),(5,'2019_08_12_192243_add_role_to_admins_table',2),(15,'2019_08_14_161704_create_marks_table',3),(16,'2019_08_14_161725_create_models_table',3),(18,'2019_08_14_161756_create_generations_table',3),(27,'2019_08_14_221246_create_countries_table',4),(28,'2019_08_14_221310_create_regions_table',4),(31,'2019_08_19_142314_create_parts_table',5),(32,'2019_08_19_165244_create_brands_table',6),(36,'2019_09_02_210329_create_part_catalogs_table',7),(37,'2019_09_02_214401_add_data_to_parts_table',7),(39,'2019_09_06_194022_create_part_cars_table',8),(40,'2019_07_23_000000_create_zakhayko_banners_table',9),(43,'2019_09_30_183624_create_home_slider_table',10),(44,'2019_10_01_205044_add_url_to_part_catalogs_table',11);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `models`;
@@ -204,12 +204,12 @@ CREATE TABLE `pages` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `pages` WRITE;
 /*!40000 ALTER TABLE `pages` DISABLE KEYS */;
-INSERT INTO `pages` VALUES (1,'home','Главная','home',1,1,0,NULL,NULL,NULL,'2019-07-16 17:34:38','2019-07-16 17:34:38');
+INSERT INTO `pages` VALUES (1,'home','Главная','home',1,1,0,NULL,NULL,NULL,'2019-07-16 17:34:38','2019-07-16 17:34:38'),(2,'catalogue','Каталогы','catalogs',1,1,0,NULL,NULL,NULL,'2019-07-16 17:34:38','2019-07-16 17:34:38');
 /*!40000 ALTER TABLE `pages` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `part_cars`;
@@ -236,6 +236,7 @@ DROP TABLE IF EXISTS `part_catalogs`;
 CREATE TABLE `part_catalogs` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -245,7 +246,7 @@ CREATE TABLE `part_catalogs` (
 
 LOCK TABLES `part_catalogs` WRITE;
 /*!40000 ALTER TABLE `part_catalogs` DISABLE KEYS */;
-INSERT INTO `part_catalogs` VALUES (1,'Каталог1','2019-09-02 18:06:13','2019-09-02 18:06:13'),(2,'Каталог2','2019-09-02 18:06:19','2019-09-02 18:06:19'),(3,'Каталог3','2019-09-02 18:06:24','2019-09-02 18:06:24'),(4,'Амстердам','2019-09-02 18:06:31','2019-09-02 18:06:31'),(5,'Бесшовное покрытие SBR 10','2019-09-30 18:35:39','2019-09-30 18:35:39'),(6,'Васдасса','2019-09-30 18:35:45','2019-09-30 18:35:45'),(7,'Гвеасд','2019-09-30 18:35:50','2019-09-30 18:35:50'),(8,'Дасдасдас','2019-09-30 18:35:55','2019-09-30 18:35:55');
+INSERT INTO `part_catalogs` VALUES (1,'Каталог1','katalog1','2019-09-02 18:06:13','2019-10-01 17:09:09'),(2,'Каталог2','katalog2','2019-09-02 18:06:19','2019-10-01 17:09:15'),(3,'Каталог3','katalog3','2019-09-02 18:06:24','2019-10-01 17:09:22'),(4,'Амстердам','amsterdam','2019-09-02 18:06:31','2019-10-01 17:08:30'),(5,'Бесшовное покрытие SBR 10','besshovnoe-pokrytie-sbr-10','2019-09-30 18:35:39','2019-10-01 17:08:40'),(6,'Васдасса','vasdassa','2019-09-30 18:35:45','2019-10-01 17:08:48'),(7,'Гвеасд','gveasd','2019-09-30 18:35:50','2019-10-01 17:08:54'),(8,'Дасдасдас','dasdasdas','2019-09-30 18:35:55','2019-10-01 17:09:02');
 /*!40000 ALTER TABLE `part_catalogs` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `parts`;

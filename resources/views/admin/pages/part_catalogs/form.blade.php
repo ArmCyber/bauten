@@ -18,6 +18,18 @@
                 </div>
             </div>
         </div>
+        <div class="col-12 col-lg-6">
+        <div class="card px-3 py-2">
+            <div class="row cstm-input">
+                <div class="col-12 p-b-5">
+                    <input class="labelauty-reverse toggle-bottom-input on-unchecked" type="checkbox" name="generate_url" value="1" data-labelauty="Вставить ссылку вручную" {!! oldCheck('generate_url', $edit?false:true) !!}>
+                    <div class="bottom-input">
+                        <input type="text" style="margin-top:3px;" name="url" class="form-control" id="form_url" placeholder="Ссылка" value="{{ old('url', $item->url??null) }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
     <div class="col-12 save-btn-fixed"><button type="submit"></button></div>
 </form>

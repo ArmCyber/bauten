@@ -59,6 +59,6 @@ class PageManager {
     }
     public function action($value) {
         $staticPages = $this->getStaticPages();
-        return $staticPages[$value];
+        return $staticPages[$value]??$value;
     }
 }

@@ -176,6 +176,27 @@ a.menu-dropdown-link {
     opacity: 1;
     pointer-events: all;
 }
+.menu-catalog-blocks {
+    display:flex;
+    flex-wrap:wrap;
+    padding:5px 8px;
+}
+.menu-catalog-block {
+    flex: 0 0 20%;
+    max-width: 20%;
+    padding:6px;
+}
+.menu-catalog-letter {
+    font-size:20px;
+    font-weight:500;
+}
+.menu-catalog-link {
+    padding-top:4px;
+    a{
+        font-size:16px;
+        color:$color;
+    }
+}
 //endregion
 //region Footer
 #footer {
@@ -366,7 +387,6 @@ a.check-cursor[href="javascript:void(0)"] {
         }
     }
 }
-
 //endregion
 @include media(1599) {
     //region Header

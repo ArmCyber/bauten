@@ -160,9 +160,9 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
 //endregion
 
 //region Temporary
-Route::get('catalogue', 'Site\AppController@catalogue');
+//Route::get('catalogue', 'Site\AppController@catalogue');
 Route::get('register', 'Site\AppController@register');
 Route::get('product', 'Site\AppController@product');
 //endregion
-
+Route::get(r('catalogue').'/{url}', 'Site\CatalogueController@catalogue')->name('catalogue');
 Route::get('{url?}', 'Site\AppController@pageManager')->name('page');

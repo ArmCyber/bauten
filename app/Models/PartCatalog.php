@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Http\Traits\UrlUnique;
 use Illuminate\Database\Eloquent\Model;
 
 class PartCatalog extends Model
 {
+    use UrlUnique;
     public static function adminList(){
         return self::sort()->get();
     }
@@ -13,7 +15,18 @@ class PartCatalog extends Model
     public static function action($model, $inputs) {
         if (!$model) {
             $model = new self;
+            $ignore = false;
         }
+        else $ignore = $model->id;
+
+        if (!empty($inputs['generate_url'])) {
+            $url = self::url_unique($inputs['generated_url'], $ignore);
+        }
+        else {
+            $url = $inputs['url'];
+        }
+        $model['url'] = $url;
+
         $model['name'] = $inputs['name'];
         return $model->save();
     }

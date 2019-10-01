@@ -22,9 +22,9 @@ class PartCatalogsController extends BaseController
     }
 
     public function add_put(Request $request){
-        $inputs = $request->all();
-        $this->validator($inputs, false)->validate();
-        if(PartCatalog::action(null, $inputs)) {
+        $validator = $this->validator($request, false);
+        $validator['validator']->validate();
+        if(PartCatalog::action(null, $validator['inputs'])) {
             Notify::success('Каталог запчастей добавлен.');
             return redirect()->route('admin.part_catalogs.main');
         }
@@ -43,9 +43,9 @@ class PartCatalogsController extends BaseController
 
     public function edit_patch($id, Request $request){
         $item = PartCatalog::getItem($id);
-        $inputs = $request->all();
-        $this->validator($inputs, $item->id)->validate();
-        if(PartCatalog::action($item, $inputs)) {
+        $validator = $this->validator($request, $item->id);
+        $validator['validator']->validate();
+        if(PartCatalog::action($item, $validator['inputs'])) {
             Notify::success('Каталог запчастей редактирован.');
             return redirect()->route('admin.part_catalogs.edit', ['id'=>$item->id]);
         }
@@ -65,9 +65,22 @@ class PartCatalogsController extends BaseController
         return response()->json($result);
     }
 
-    private function validator($inputs, $ignore=false) {
-        return Validator::make($inputs, [
-            'name' => 'required|string|max:255|unique:part_catalogs,name'.($ignore?','.$ignore:null),
-        ]);
+    private function validator($request, $ignore=false) {
+        $inputs = $request->all();
+        $unique = $ignore===false?null:','.$ignore;
+        if(!empty($inputs['url'])) $inputs['url'] = lower_case($inputs['url']);
+        $inputs['generated_url'] = !empty($inputs['name'])?to_url($inputs['name']):null;
+        $request->merge(['url' => $inputs['url']]);
+        $rules = [
+            'name' => 'required|string|max:255|unique:part_catalogs,name'.$unique,
+            'generated_url'=>'required_with:generate_url|string|nullable',
+        ];
+        if (empty($inputs['generate_url'])) {
+            $rules['url'] = 'required|is_url|string|unique:part_catalogs,url'.$unique.'|nullable';
+        }
+        $result = [];
+        $result['validator'] = Validator::make($inputs, $rules);
+        $result['inputs'] = $inputs;
+        return $result;
     }
 }

@@ -38,16 +38,18 @@
                         <a href="javascript:void(0)">Каталог</a>
                         <div class="fluid-dropdown">
                             <div class="fluid-dropdown-content">
-                                @foreach($catalogs as $key=>$catalog)
-                                    <div class="menu-catalog-block">
-                                        <div class="menu-catalog-letter">{{ $key }}</div>
-                                        <div class="menu-catalog-links">
-                                            @foreach($catalog as $catalog_item)
-                                                <div class="menu-catalog-link"><a href="javascript:void(0)">{{ $catalog_item->name }}</a></div>
-                                            @endforeach
+                                <div class="menu-catalog-blocks">
+                                    @foreach($catalogs as $key=>$catalog)
+                                        <div class="menu-catalog-block">
+                                            <div class="menu-catalog-letter">{{ $key }}</div>
+                                            <div class="menu-catalog-links">
+                                                @foreach($catalog as $catalog_item)
+                                                    <div class="menu-catalog-link"><a href="javascript:void(0)">{{ $catalog_item->name }}</a></div>
+                                                @endforeach
+                                            </div>
                                         </div>
-                                    </div>
-                                @endforeach
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
                         {{--<div class="menu-dropdown">
