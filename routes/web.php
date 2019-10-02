@@ -163,6 +163,17 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
             Route::patch('sort', $c.'sort')->middleware('ajax')->name('sort');
         });
         //endregion
+        //region Filters
+        Route::middleware('can:admin')->prefix('filters')->name('filters.')->group(function() { $c = 'FiltersController@';
+            Route::get('', $c.'main')->name('main');
+            Route::get('add', $c.'add')->name('add');
+            Route::put('add', $c.'add_put');
+            Route::get('edit/{id}', $c.'edit')->name('edit');
+            Route::patch('edit/{id}', $c.'edit_patch');
+            Route::delete('delete', $c.'delete')->middleware('ajax')->name('delete');
+            Route::patch('sort', $c.'sort')->middleware('ajax')->name('sort');
+        });
+        //endregion
     });
 });
 //endregion

@@ -91,6 +91,47 @@ LOCK TABLES `countries` WRITE;
 INSERT INTO `countries` VALUES (4,'Армения',1,1,'2019-08-15 10:07:44','2019-08-15 11:03:34'),(5,'Россия',2,1,'2019-08-15 11:03:21','2019-08-15 11:03:34'),(6,'Казахстан',0,1,'2019-08-15 11:03:25','2019-08-15 11:03:34');
 /*!40000 ALTER TABLE `countries` ENABLE KEYS */;
 UNLOCK TABLES;
+DROP TABLE IF EXISTS `filter_values`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `filter_values` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `title` int(11) NOT NULL,
+  `filter_id` int(10) unsigned NOT NULL,
+  `sort` int(10) unsigned NOT NULL DEFAULT '0',
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `filter_values_filter_id_foreign` (`filter_id`),
+  CONSTRAINT `filter_values_filter_id_foreign` FOREIGN KEY (`filter_id`) REFERENCES `filters` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+LOCK TABLES `filter_values` WRITE;
+/*!40000 ALTER TABLE `filter_values` DISABLE KEYS */;
+/*!40000 ALTER TABLE `filter_values` ENABLE KEYS */;
+UNLOCK TABLES;
+DROP TABLE IF EXISTS `filters`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `filters` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` tinyint(3) unsigned NOT NULL,
+  `is_global` tinyint(1) NOT NULL DEFAULT '0',
+  `sort` int(10) unsigned NOT NULL DEFAULT '0',
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+LOCK TABLES `filters` WRITE;
+/*!40000 ALTER TABLE `filters` DISABLE KEYS */;
+/*!40000 ALTER TABLE `filters` ENABLE KEYS */;
+UNLOCK TABLES;
 DROP TABLE IF EXISTS `galleries`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -179,12 +220,12 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (1,'2019_07_10_171502_create_admins_table',1),(2,'2019_07_12_204343_create_password_resets_table',1),(3,'2019_07_12_232636_create_pages_table',1),(5,'2019_08_12_192243_add_role_to_admins_table',2),(15,'2019_08_14_161704_create_marks_table',3),(16,'2019_08_14_161725_create_models_table',3),(18,'2019_08_14_161756_create_generations_table',3),(27,'2019_08_14_221246_create_countries_table',4),(28,'2019_08_14_221310_create_regions_table',4),(31,'2019_08_19_142314_create_parts_table',5),(32,'2019_08_19_165244_create_brands_table',6),(36,'2019_09_02_210329_create_part_catalogs_table',7),(37,'2019_09_02_214401_add_data_to_parts_table',7),(39,'2019_09_06_194022_create_part_cars_table',8),(40,'2019_07_23_000000_create_zakhayko_banners_table',9),(43,'2019_09_30_183624_create_home_slider_table',10),(44,'2019_10_01_205044_add_url_to_part_catalogs_table',11),(45,'2019_10_02_165526_add_price_and_url_to_parts_table',12),(47,'2019_10_02_181915_add_articule_to_parts_table',13),(49,'2019_10_02_183143_create_galleries_table',14);
+INSERT INTO `migrations` VALUES (1,'2019_07_10_171502_create_admins_table',1),(2,'2019_07_12_204343_create_password_resets_table',1),(3,'2019_07_12_232636_create_pages_table',1),(5,'2019_08_12_192243_add_role_to_admins_table',2),(15,'2019_08_14_161704_create_marks_table',3),(16,'2019_08_14_161725_create_models_table',3),(18,'2019_08_14_161756_create_generations_table',3),(27,'2019_08_14_221246_create_countries_table',4),(28,'2019_08_14_221310_create_regions_table',4),(31,'2019_08_19_142314_create_parts_table',5),(32,'2019_08_19_165244_create_brands_table',6),(36,'2019_09_02_210329_create_part_catalogs_table',7),(37,'2019_09_02_214401_add_data_to_parts_table',7),(39,'2019_09_06_194022_create_part_cars_table',8),(40,'2019_07_23_000000_create_zakhayko_banners_table',9),(43,'2019_09_30_183624_create_home_slider_table',10),(44,'2019_10_01_205044_add_url_to_part_catalogs_table',11),(45,'2019_10_02_165526_add_price_and_url_to_parts_table',12),(47,'2019_10_02_181915_add_articule_to_parts_table',13),(49,'2019_10_02_183143_create_galleries_table',14),(52,'2019_10_02_204629_create_filters_table',15),(53,'2019_10_02_214520_create_filter_values_table',15);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `models`;
