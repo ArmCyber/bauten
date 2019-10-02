@@ -133,7 +133,7 @@ input.filter-checkbox {
     font-size: 17px;
 }
 
-#sort-select-styler {
+#sort-select-styler, #sort-type-select-styler {
     .jq-selectbox__select {
         height: 51px;
         background: #ffffff;
@@ -187,8 +187,10 @@ input.filter-checkbox {
 .product-image {
     font-size: 0;
     text-align: center;
-
-    > img {
+    >a {
+        display:block;
+    }
+    img {
         height: 270px;
         width: auto;
         max-width: 100%;
@@ -199,7 +201,9 @@ input.filter-checkbox {
 .product-title {
     margin-top: 10px;
     font-size: 21px;
-    color: #3B519D;
+    >a {
+        color: #3B519D;
+    }
 }
 
 .product-page-items {
@@ -695,8 +699,10 @@ button.number-btn {
     input.filter-checkbox + span:before {
         margin-right: 10px;
     }
-    #sort-select-styler .jq-selectbox__select {
-        height: 45px;
+    #sort-select-styler, #sort-type-select-styler {
+        .jq-selectbox__select {
+            height: 45px;
+        }
     }
     .registration-title {
         font-size: 33px;

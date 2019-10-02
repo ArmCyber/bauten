@@ -65,4 +65,23 @@ class PartCar extends Model
         return $q->orderBy('id');
     }
 
+    public function scopeWithInfo($q){
+        return $q->with(['mark', 'model', 'generation']);
+    }
+
+    public function part(){
+        return $this->belongsTo('App\Models\Part', 'part_id', 'id');
+    }
+
+    public function mark(){
+        return $this->belongsTo('App\Models\Mark', 'mark_id', 'id');
+    }
+
+    public function model() {
+        return $this->belongsTo('App\Models\Model', 'model_id', 'id');
+    }
+
+    public function generation() {
+        return $this->belongsTo('App\Models\Generation', 'generation_id', 'id');
+    }
 }

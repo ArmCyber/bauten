@@ -95,7 +95,7 @@ class PagesController extends BaseController
             'seo_description' => 'nullable|string',
         ];
         if (empty($inputs['generate_url'])) {
-            $rules['url'] = 'required|is_url|string|unique:pages,url'.$unique.'|min:3|nullable';
+            $rules['url'] = 'required|is_url|string|unique:pages,url'.$unique.'|min:3|max:255|nullable';
             if (!$page || $page->url!==$inputs['url']){
                 $rules['url'].='|not_in_routes';
             }

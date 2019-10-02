@@ -1,7 +1,7 @@
 <!doctype html><html lang="ru"><head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>TITLE</title>
+    <title>Bauten</title>
     <link rel="shortcut icon" href="{!! asset('favicon.ico') !!}">
     @css(aApp('bootstrap/css/bootstrap.css'))
     @css(aApp('font-awesome/css/all.css'))
@@ -22,7 +22,7 @@
                     </div>
                     <div class="ht-sm text-right">
                         <div class="ht-auth">
-                            <a href="{{ route('page', ['url'=>'', 'logged_in'=>1]) }}" class="ht-login">Регистрация</a>
+                            <a href="/register" class="ht-login">Регистрация</a>
                         </div>
                         <div class="ht-hamburger">
                             <button class="hamburger">
@@ -44,7 +44,7 @@
                                             <div class="menu-catalog-letter">{{ $key }}</div>
                                             <div class="menu-catalog-links">
                                                 @foreach($catalog as $catalog_item)
-                                                    <div class="menu-catalog-link"><a href="javascript:void(0)">{{ $catalog_item->name }}</a></div>
+                                                    <div class="menu-catalog-link"><a href="{{ route('catalogue', ['url'=>$catalog_item->url]) }}">{{ $catalog_item->name }}</a></div>
                                                 @endforeach
                                             </div>
                                         </div>

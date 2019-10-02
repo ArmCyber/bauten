@@ -36,6 +36,15 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
             Route::patch('', $c.'patch');
         });
         //endregion
+        //region Galleries
+        Route::prefix('gallery')->group(function(){ $c='GalleriesController@';
+            Route::get('{gallery}/{id?}', $c.'show')->name('gallery');
+            Route::put('add', $c.'add')->name('gallery.add');
+            Route::patch('edit', $c.'edit')->middleware('ajax')->name('gallery.edit');
+            Route::patch('sort', $c.'sort')->middleware('ajax')->name('gallery.sort');
+            Route::delete('delete', $c.'delete')->middleware('ajax')->name('gallery.delete');
+        });
+        //endregion
         //region Pages
         Route::middleware('can:admin')->prefix('pages')->name('pages.')->group(function() { $c='PagesController@';
             Route::get('', $c.'main')->name('main');
@@ -120,7 +129,6 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
             Route::get('edit/{id}', $c.'edit')->name('edit');
             Route::patch('edit/{id}', $c.'edit_patch');
             Route::delete('delete', $c.'delete')->middleware('ajax')->name('delete');
-            Route::patch('sort', $c.'sort')->middleware('ajax')->name('sort');
         });
         //endregion
         //region Parts
@@ -162,7 +170,8 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
 //region Temporary
 //Route::get('catalogue', 'Site\AppController@catalogue');
 Route::get('register', 'Site\AppController@register');
-Route::get('product', 'Site\AppController@product');
+//Route::get('product', 'Site\AppController@product');
 //endregion
-Route::get(r('catalogue').'/{url}', 'Site\CatalogueController@catalogue')->name('catalogue');
+Route::get('product/{url}', 'Site\PartsController@show')->name('part');
+Route::get(r('catalogue').'/{url}', 'Site\CatalogueController@show')->name('catalogue');
 Route::get('{url?}', 'Site\AppController@pageManager')->name('page');

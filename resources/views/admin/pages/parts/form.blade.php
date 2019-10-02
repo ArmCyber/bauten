@@ -24,10 +24,33 @@
                 </div>
             </div>
             <div class="card">
-                <div class="c-title">Статус</div>
+                <div class="c-title">Артикул</div>
                 <div class="little-p">
-                    @labelauty(['id'=>'active', 'label'=>'Неактивно|Активно', 'checked'=>oldCheck('active', ($edit && empty($item->active))?false:true)])@endlabelauty
+                    <input type="text" name="articule" class="form-control" placeholder="Артикул" maxlength="255" value="{{ old('articule', $item->articule??null) }}">
                 </div>
+            </div>
+            <div class="card">
+                <div class="c-title">ОЕМ</div>
+                <div class="little-p">
+                    <input type="text" name="oem" class="form-control" placeholder="ОЕМ" maxlength="255" value="{{ old('oem', $item->oem??null) }}">
+                </div>
+            </div>
+            <div class="card">
+                <div class="c-title">Цена</div>
+                <div class="little-p">
+                    <input type="text" name="price" class="form-control" placeholder="Цена" maxlength="10" value="{{ old('price', $item->price??null) }}">
+                </div>
+            </div>
+            <div class="card px-3 py-2">
+                <div class="row cstm-input">
+                    <div class="col-12 p-b-5">
+                        <input class="labelauty-reverse toggle-bottom-input on-unchecked" type="checkbox" name="generate_url" value="1" data-labelauty="Вставить ссылку вручную" {!! oldCheck('generate_url', $edit?false:true) !!}>
+                        <div class="bottom-input">
+                            <input type="text" maxlength="255" style="margin-top:3px;" name="url" class="form-control" id="form_url" placeholder="Ссылка" value="{{ old('url', $item->url??null) }}">
+                        </div>
+                    </div>
+                </div>
+                @labelauty(['id'=>'active', 'class'=>'mt-3', 'label'=>'Неактивно|Активно', 'checked'=>oldCheck('active', ($edit && empty($item->active))?false:true)])@endlabelauty
             </div>
         </div>
         <div class="col-12 col-lg-6">
@@ -35,7 +58,7 @@
                 <div class="c-title">Изоброжение</div>
                 @if (!empty($item->image))
                     <div class="p-2 text-center">
-                        <img src="{{ asset('u/parts/'.$item->image) }}" alt="" class="img-responsive">
+                        <img src="{{ asset('u/parts/'.$item->image) }}" style="height: 270px; width:auto; max-width: 100%; object-fit: contain" alt="">
                     </div>
                 @endif
                 <div class="c-body">
@@ -62,6 +85,14 @@
                             <option value="{{ $brand->id }}" {!! $brand->id==$selected_brand?'selected':null !!}>{{ $brand->name }} ({{ $brand->code }})</option>
                         @endforeach
                     </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="card">
+                <div class="c-title">Описание</div>
+                <div class="little-p">
+                    <textarea name="description" class="form-control form-textarea ckeditor" placeholder="Описание">{!! old('description', $item->description??null) !!}</textarea>
                 </div>
             </div>
         </div>
@@ -97,6 +128,7 @@
 @endsection
 @push('js')
     @js(aApp('select2/select2.js'))
+    @ckeditor
     @js(aAdmin('js/applicability.js'))
     <script>
         $('.select2').select2();

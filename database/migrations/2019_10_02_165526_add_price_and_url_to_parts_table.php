@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddDataToPartsTable extends Migration
+class AddPriceAndUrlToPartsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,8 @@ class AddDataToPartsTable extends Migration
     public function up()
     {
         Schema::table('parts', function (Blueprint $table) {
-            $table->string('image')->nullable()->after('name');
-            $table->bigInteger('part_catalog_id')->unsigned()->after('image');
-            $table->bigInteger('brand_id')->after('part_catalog_id')->unsigned();
+            $table->string('url')->after('image');
+            $table->integer('price')->unsigned()->after('name');
         });
     }
 
@@ -28,7 +27,7 @@ class AddDataToPartsTable extends Migration
     public function down()
     {
         Schema::table('parts', function (Blueprint $table) {
-            $table->dropColumn('image', 'part_catalog_id', 'brand_id');
+            $table->dropColumn('price', 'url');
         });
     }
 }

@@ -130,7 +130,7 @@ if (!function_exists('upload_file')) {
 if (!function_exists('to_url')) {
     function to_url($string)
     {
-        return Str::slug($string);
+        return mb_substr(Str::slug($string), 0, 250);
     }
 }
 if (!function_exists('file_name')) {

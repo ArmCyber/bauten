@@ -88,8 +88,28 @@ CREATE TABLE `countries` (
 
 LOCK TABLES `countries` WRITE;
 /*!40000 ALTER TABLE `countries` DISABLE KEYS */;
-INSERT INTO `countries` VALUES (4,'Армения',2,1,'2019-08-15 10:07:44','2019-08-15 11:03:34'),(5,'Россия',3,1,'2019-08-15 11:03:21','2019-08-15 11:03:34'),(6,'Казахстан',1,1,'2019-08-15 11:03:25','2019-08-15 11:03:34');
+INSERT INTO `countries` VALUES (4,'Армения',1,1,'2019-08-15 10:07:44','2019-08-15 11:03:34'),(5,'Россия',2,1,'2019-08-15 11:03:21','2019-08-15 11:03:34'),(6,'Казахстан',0,1,'2019-08-15 11:03:25','2019-08-15 11:03:34');
 /*!40000 ALTER TABLE `countries` ENABLE KEYS */;
+UNLOCK TABLES;
+DROP TABLE IF EXISTS `galleries`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `galleries` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `gallery` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `key` int(10) unsigned DEFAULT NULL,
+  `image` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `alt` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sort` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+LOCK TABLES `galleries` WRITE;
+/*!40000 ALTER TABLE `galleries` DISABLE KEYS */;
+INSERT INTO `galleries` VALUES (2,'parts',2,'bGWuKmYua2LQ4n7WB8.png',NULL,NULL,0),(3,'parts',2,'K9ZltFrRXKlm1PyjR8.png',NULL,NULL,0),(4,'parts',2,'ApfRQ8xDzSahxc5a1g.png',NULL,NULL,0);
+/*!40000 ALTER TABLE `galleries` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `generations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -159,12 +179,12 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (1,'2019_07_10_171502_create_admins_table',1),(2,'2019_07_12_204343_create_password_resets_table',1),(3,'2019_07_12_232636_create_pages_table',1),(5,'2019_08_12_192243_add_role_to_admins_table',2),(15,'2019_08_14_161704_create_marks_table',3),(16,'2019_08_14_161725_create_models_table',3),(18,'2019_08_14_161756_create_generations_table',3),(27,'2019_08_14_221246_create_countries_table',4),(28,'2019_08_14_221310_create_regions_table',4),(31,'2019_08_19_142314_create_parts_table',5),(32,'2019_08_19_165244_create_brands_table',6),(36,'2019_09_02_210329_create_part_catalogs_table',7),(37,'2019_09_02_214401_add_data_to_parts_table',7),(39,'2019_09_06_194022_create_part_cars_table',8),(40,'2019_07_23_000000_create_zakhayko_banners_table',9),(43,'2019_09_30_183624_create_home_slider_table',10),(44,'2019_10_01_205044_add_url_to_part_catalogs_table',11);
+INSERT INTO `migrations` VALUES (1,'2019_07_10_171502_create_admins_table',1),(2,'2019_07_12_204343_create_password_resets_table',1),(3,'2019_07_12_232636_create_pages_table',1),(5,'2019_08_12_192243_add_role_to_admins_table',2),(15,'2019_08_14_161704_create_marks_table',3),(16,'2019_08_14_161725_create_models_table',3),(18,'2019_08_14_161756_create_generations_table',3),(27,'2019_08_14_221246_create_countries_table',4),(28,'2019_08_14_221310_create_regions_table',4),(31,'2019_08_19_142314_create_parts_table',5),(32,'2019_08_19_165244_create_brands_table',6),(36,'2019_09_02_210329_create_part_catalogs_table',7),(37,'2019_09_02_214401_add_data_to_parts_table',7),(39,'2019_09_06_194022_create_part_cars_table',8),(40,'2019_07_23_000000_create_zakhayko_banners_table',9),(43,'2019_09_30_183624_create_home_slider_table',10),(44,'2019_10_01_205044_add_url_to_part_catalogs_table',11),(45,'2019_10_02_165526_add_price_and_url_to_parts_table',12),(47,'2019_10_02_181915_add_articule_to_parts_table',13),(49,'2019_10_02_183143_create_galleries_table',14);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `models`;
@@ -256,13 +276,17 @@ CREATE TABLE `parts` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `code` varchar(255) CHARACTER SET utf8 NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `sort` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `price` int(10) unsigned NOT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `articule` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `oem` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `part_catalog_id` bigint(20) unsigned NOT NULL,
+  `brand_id` bigint(20) unsigned NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `part_catalog_id` bigint(20) unsigned NOT NULL,
-  `brand_id` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `parts_code_unique` (`code`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -270,7 +294,7 @@ CREATE TABLE `parts` (
 
 LOCK TABLES `parts` WRITE;
 /*!40000 ALTER TABLE `parts` DISABLE KEYS */;
-INSERT INTO `parts` VALUES (2,'Code','Name',0,1,'2019-09-09 15:14:13','2019-09-09 15:17:08','wY2kvJlYQnbmnZb6UI.png',2,2);
+INSERT INTO `parts` VALUES (2,'Code','Ремкомплект бескамерных шин \"AUTOPROFI\"',10000,'ZNZVqfeCj5GsKvxvpO.png','1500250','1500250','<p>Соответствие современным допускам автопроизводителей США, Евросоюза и Японии, что особенно ценно для смешанных автопарков и авторемонтных центров ∙ Соответствие требованиям стандарта удиненной замены ALLISON TES-295, позволяющее гарантировать пробег 100 000 км. ∙ Улучшенные показатели антивибрационной устойчивости ∙ Плавное и четкое переключение передач в течение всего срока службы жидкости ∙ Надежную защиту деталей</p>','remkomplekt-beskamernykh-shin-autoprofi',2,2,1,'2019-09-09 15:14:13','2019-10-02 15:18:24');
 /*!40000 ALTER TABLE `parts` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `password_resets`;

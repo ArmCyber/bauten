@@ -204,6 +204,9 @@ return [
         'part_catalog_id' => 'Каталог',
         'brand_id' => 'Бренд',
         'image_alt' => 'Alt',
-        'image_title' => 'Title'
+        'image_title' => 'Title',
+        'price' => 'Цена',
+        'articule' => 'Артикул',
+        'oem' => 'ОЕМ'
     ],
 ];

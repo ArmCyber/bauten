@@ -17,7 +17,6 @@ class CreatePartsTable extends Migration
             $table->bigIncrements('id');
             $table->string('code')->collation('utf8_general_ci')->unique();
             $table->string('name')->nullable();
-            $table->bigInteger('sort')->unsigned()->default(0);
             $table->boolean('active')->default(1);
             $table->timestamps();
         });

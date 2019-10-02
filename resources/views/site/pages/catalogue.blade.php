@@ -2,9 +2,9 @@
 @section('main')
 <div class="container py-s">
     <div class="breadcrumb page-breadcrumb">
-        <div class="breadcrumb-item"><a href="javascript:void(0)">Главная</a></div>
+        <div class="breadcrumb-item"><a href="{{ route('page') }}">Главная</a></div>
         <div class="breadcrumb-item"><a href="javascript:void(0)">Каталог</a></div>
-        <div class="breadcrumb-item">Аккумуляторы</div>
+        <div class="breadcrumb-item">{{ $catalogue->name }}</div>
     </div>
     <div class="products-block">
         <div class="products-filters">
@@ -35,11 +35,26 @@
                         <option>Дате</option>
                         <option>Именам</option>
                     </select>
+                    <select name="sort_type" id="sort-type-select">
+                        <option>по возрастанию</option>
+                        <option>по убыванию</option>
+                    </select>
                 </div>
             </div>
             <div class="product-page-items">
                 <div class="row row-grid">
-                    @for($i=1; $i<=4; $i++)
+                    @foreach($items as $item)
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-6 col-xl-4">
+                            <div class="product-item">
+                                <div class="product-image"><a href="{{ $item_url = route('part', ['url'=>$item->url]) }}">
+                                    <img src="{{ asset('u/parts/'.$item->image) }}" alt="{{ $item->name }}">
+                                </a></div>
+                                <div class="product-title"><a href="{{ $item_url }}">{{ $item->name }}</a></div>
+                                <div class="product-price"><span class="catalogue-price">Цена: <span class="cat-price">{{ $item->price }}</span> <span class="kzt"></span></span></div>
+                            </div>
+                        </div>
+                    @endforeach
+                    {{--@for($i=1; $i<=4; $i++)
                         @foreach([['Щетки стеклоочистителя "Torino" бескаркасная с силиконом 14"', '6.300'], ['Набор для утапливания поршней тормозного цил. 12пр', '7.800'], ['Ремкомплект бескамерных шин "AUTOPROFI"', '1.200']] as $item)
                         <div class="col-12 col-sm-6 col-md-4 col-lg-6 col-xl-4">
                             <div class="product-item">
@@ -51,7 +66,7 @@
                             </div>
                         </div>
                         @endforeach
-                    @endfor
+                    @endfor--}}
                 </div>
             </div>
         </div>

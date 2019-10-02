@@ -7,3 +7,4 @@ $('.filter-name').on('click', function(){
     }
 });
 $('#sort-select').styler();
+$('#sort-type-select').styler();

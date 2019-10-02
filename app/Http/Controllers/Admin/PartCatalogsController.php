@@ -68,7 +68,7 @@ class PartCatalogsController extends BaseController
     private function validator($request, $ignore=false) {
         $inputs = $request->all();
         $unique = $ignore===false?null:','.$ignore;
-        if(!empty($inputs['url'])) $inputs['url'] = lower_case($inputs['url']);
+        if(!empty($inputs['url'])) $inputs['url'] = mb_strtolower($inputs['url']);
         $inputs['generated_url'] = !empty($inputs['name'])?to_url($inputs['name']):null;
         $request->merge(['url' => $inputs['url']]);
         $rules = [
@@ -76,7 +76,7 @@ class PartCatalogsController extends BaseController
             'generated_url'=>'required_with:generate_url|string|nullable',
         ];
         if (empty($inputs['generate_url'])) {
-            $rules['url'] = 'required|is_url|string|unique:part_catalogs,url'.$unique.'|nullable';
+            $rules['url'] = 'required|is_url|string|max:255|unique:part_catalogs,url'.$unique.'|nullable';
         }
         $result = [];
         $result['validator'] = Validator::make($inputs, $rules);

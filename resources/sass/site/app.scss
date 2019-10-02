@@ -180,6 +180,7 @@ a.menu-dropdown-link {
     display:flex;
     flex-wrap:wrap;
     padding:5px 8px;
+    @include box-shadow (0 3px 6px rgba(0,0,0,.1));
 }
 .menu-catalog-block {
     flex: 0 0 20%;
@@ -371,18 +372,19 @@ a.check-cursor[href="javascript:void(0)"] {
 .page-breadcrumb {
     background-color: transparent;
     padding: 0;
-
     .breadcrumb-item {
         color: #9D9D9D;
         font-size: 14px;
         font-style: italic;
-
         > a {
             color: #4A4A4A;
             text-decoration: underline;
-
             &:hover {
                 text-decoration: none;
+            }
+            &[href="javascript:void(0)"]{
+                text-decoration: underline;
+                cursor:default;
             }
         }
     }

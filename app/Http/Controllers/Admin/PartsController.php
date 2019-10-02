@@ -29,9 +29,9 @@ class PartsController extends BaseController
     }
 
     public function add_put(Request $request){
-        $inputs = $request->all();
-        $this->validator($inputs, false)->validate();
-        if(Part::action(null, $inputs)) {
+        $validator = $this->validator($request, false);
+        $validator['validator']->validate();
+        if(Part::action(null, $validator['inputs'])) {
             Notify::success('Запчаст добавлен.');
             return redirect()->route('admin.parts.main');
         }
@@ -54,9 +54,9 @@ class PartsController extends BaseController
 
     public function edit_patch($id, Request $request){
         $item = Part::getItem($id);
-        $inputs = $request->all();
-        $this->validator($inputs, $item->id)->validate();
-        if(Part::action($item, $inputs)) {
+        $validator = $this->validator($request, $item->id);
+        $validator['validator']->validate();
+        if(Part::action($item, $validator['inputs'])) {
             Notify::success('Запчаст редактирован.');
             return redirect()->route('admin.parts.edit', ['id'=>$item->id]);
         }
@@ -76,16 +76,31 @@ class PartsController extends BaseController
         return response()->json($result);
     }
 
-    public function sort() { return Part::sortable(); }
-
-    private function validator($inputs, $ignore=false) {
-        return Validator::make($inputs, [
+    private function validator($request, $ignore=false) {
+        $inputs = $request->all();
+        $unique = $ignore===false?null:','.$ignore;
+        if(!empty($inputs['url'])) $inputs['url'] = mb_strtolower($inputs['url']);
+        $inputs['generated_url'] = !empty($inputs['name'])?to_url($inputs['name']):null;
+        $request->merge(['url' => $inputs['url']]);
+        $rules = [
             'name' => 'nullable|string|max:255',
-            'code' => 'required|string|max:255|unique:parts,code'.($ignore?','.$ignore:null),
+            'code' => 'required|string|max:255|unique:parts,code'.$unique,
             'image' => ($ignore?'nullable':'required').'|image',
             'part_catalog_id' => 'required|integer|exists:part_catalogs,id',
             'brand_id' => 'required|integer|exists:brands,id',
-        ]);
+            'generated_url'=>'required_with:generate_url|string|nullable',
+            'price' => 'required|numeric|between:1,10000000000',
+            'articule' => 'required|string|max:255|unique:parts,articule'.$unique,
+            'oem' => 'required|string|max:255|unique:parts,oem'.$unique,
+            'description' => 'nullable|string',
+        ];
+        if (empty($inputs['generate_url'])) {
+            $rules['url'] = 'required|is_url|string|max:255|unique:part_catalogs,url'.$unique.'|nullable';
+        }
+        $result = [];
+        $result['validator'] = Validator::make($inputs, $rules);
+        $result['inputs'] = $inputs;
+        return $result;
     }
 
 }

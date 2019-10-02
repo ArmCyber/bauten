@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace App\Http\Traits;
 
 trait UrlUnique {
@@ -11,6 +11,15 @@ trait UrlUnique {
         while($check_url->contains($url)) {
             $i++;
             $url = $real_url.'-'.$i;
+        }
+        return $url;
+    }
+    private static function actionUrl($inputs, $ignore) {
+        if (!empty($inputs['generate_url'])) {
+            $url = self::url_unique($inputs['generated_url'], $ignore);
+        }
+        else {
+            $url = $inputs['url'];
         }
         return $url;
     }
