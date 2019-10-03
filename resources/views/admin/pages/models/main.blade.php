@@ -9,7 +9,7 @@
                     <tr>
                         <th>Имя</th>
                         <th>Статус</th>
-                        <th>Поколении</th>
+                        <th>Модификации</th>
                         <th>Действие</th>
                     </tr>
                     </thead>
@@ -22,7 +22,7 @@
                             @else
                                 <td class="text-danger">Неактивно</td>
                             @endif
-                            <td><a href="{{ route('admin.generations.main', ['id'=>$item->id]) }}">Перейти к поколениям ({!! $item->generations_count !!})</a></td>
+                            <td><a href="{{ route('admin.generations.main', ['id'=>$item->id]) }}">Перейти к модификациям ({!! $item->generations_count !!})</a></td>
                             <td>
                                 <a href="{{ route('admin.models.edit', ['id'=>$item->id]) }}" {!! tooltip('Редактировать') !!} class="icon-btn edit"></a>
                                 <span class="d-inline-block"  style="margin-left:4px;" data-toggle="modal" data-target="#itemDeleteModal"><a href="javascript:void(0)" class="icon-btn delete" {!! tooltip('Удалить') !!}></a></span>
