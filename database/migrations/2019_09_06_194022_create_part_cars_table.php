@@ -19,6 +19,10 @@ class CreatePartCarsTable extends Migration
             $table->integer('mark_id')->unsigned();
             $table->integer('model_id')->unsigned()->default(0);
             $table->bigInteger('generation_id')->unsigned()->default(0);
+            $table->foreign('part_id')->references('id')->on('parts')->onDelete('cascade');
+            $table->foreign('mark_id')->references('id')->on('marks')->onDelete('cascade');
+            $table->foreign('model_id')->references('id')->on('models')->onDelete('cascade');
+            $table->foreign('generation_id')->references('id')->on('generations')->onDelete('cascade');
         });
     }
 

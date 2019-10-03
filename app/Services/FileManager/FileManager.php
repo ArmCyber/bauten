@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace App\Services\FileManager;
 
 use Illuminate\Support\Facades\File;
@@ -42,6 +42,7 @@ class FileManager {
                         $this->checkDir($dir);
                         $img->{$size['method']??'fit'}($size['width'], $size['height'], function($constraint) use ($size) {
                             if (!empty($size['upsize'])) $constraint->upsize();
+                            if (!empty($size['aspectRatio'])) $constraint->aspectRatio();
                         })->save($dir.$name);
                     }
                     if (!empty($delete) && empty($size['skip_delete'])) {

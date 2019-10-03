@@ -17,6 +17,14 @@ class CreatePartsTable extends Migration
             $table->bigIncrements('id');
             $table->string('code')->collation('utf8_general_ci')->unique();
             $table->string('name')->nullable();
+            $table->integer('price')->unsigned();
+            $table->string('image', 64)->nullable();
+            $table->string('articule');
+            $table->string('oem');
+            $table->text('description')->nullable();
+            $table->string('url');
+            $table->bigInteger('part_catalog_id')->unsigned();
+            $table->bigInteger('brand_id')->unsigned();
             $table->boolean('active')->default(1);
             $table->timestamps();
         });

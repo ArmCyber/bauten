@@ -37,8 +37,21 @@ class Mark extends Model
         if (!$model) {
             $model = new self;
             $model['sort'] = $model->sortValue();
+            $action='add';
         }
+        else $action='edit';
         $model['name'] = $inputs['name'];
+        $model['image_alt'] = $inputs['image_alt'];
+        $model['image_title'] = $inputs['image_title'];
+        $resizes = [
+            [
+                'method'=>'resize',
+                'width'=>null,
+                'height'=>56,
+                'aspectRatio'=>true,
+            ]
+        ];
+        if($image = upload_image('image', 'u/marks/', $resizes, ($action=='edit' && !empty($model->image))?$model->image:false)) $model->image = $image;
         $model['active'] = (int) array_key_exists('active', $inputs);
         return $model->save();
     }

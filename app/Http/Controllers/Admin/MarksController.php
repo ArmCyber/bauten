@@ -44,7 +44,7 @@ class MarksController extends BaseController
     public function edit_patch($id, Request $request){
         $item = Mark::getItem($id);
         $inputs = $request->all();
-        $this->validator($inputs)->validate();
+        $this->validator($inputs, true)->validate();
         if(Mark::action($item, $inputs)) {
             Notify::success('Марка редактирована.');
             return redirect()->route('admin.marks.edit', ['id'=>$item->id]);
@@ -67,9 +67,12 @@ class MarksController extends BaseController
 
     public function sort() { return Mark::sortable(); }
 
-    private function validator($inputs) {
+    private function validator($inputs, $edit=false) {
         return Validator::make($inputs, [
-            'name' => 'nullable|string|max:255'
+            'name' => 'nullable|string|max:255',
+            'image' => ($edit?'nullable':'required').'|image|mimes:jpeg,png',
+            'image_alt' => 'nullable|string|max:255',
+            'image_title' => 'nullable|string|max:255',
         ]);
     }
 }

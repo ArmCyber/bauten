@@ -82,7 +82,7 @@ class GalleriesController extends BaseController
         $images = $request->images;
         Validator::make(['images'=>$images], [
             'images'=>'required|array',
-            'images.*'=>'image|mimes:png,jpeg,gif'
+            'images.*'=>'image|mimes:png,jpeg'
         ], [
             'required'=>'Выберите изоброжении',
             'array'=>'Выберите изоброжении',

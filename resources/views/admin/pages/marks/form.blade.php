@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 @section('content')
-<form action="{!! $edit?route('admin.marks.edit', ['id'=>$item->id]):route('admin.marks.add') !!}" method="post">
+<form action="{!! $edit?route('admin.marks.edit', ['id'=>$item->id]):route('admin.marks.add') !!}" method="post" enctype="multipart/form-data">
     @csrf @method($edit?'patch':'put')
     @if ($errors->any())
         <div class="alert alert-danger" role="alert">
@@ -21,6 +21,25 @@
                 <div class="c-title">Статус</div>
                 <div class="little-p">
                     @labelauty(['id'=>'active', 'label'=>'Неактивно|Активно', 'checked'=>oldCheck('active', ($edit && empty($item->active))?false:true)])@endlabelauty
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6">
+            <div class="card">
+                <div class="c-title">Логотип ((<=200)x56)</div>
+                @if (!empty($item->image))
+                    <div class="p-2 text-center">
+                        <img src="{{ asset('u/marks/'.$item->image) }}" alt="" class="img-responsive">
+                    </div>
+                @endif
+                <div class="c-body">
+                    @file(['name'=>'image'])@endfile
+                    <div class="pt-2">
+                        <input type="text" name="image_alt" class="form-control" maxlength="255" placeholder="Alt" value="{{ old('image_alt', $item->image_alt??null) }}">
+                    </div>
+                    <div class="pt-2">
+                        <input type="text" name="image_title" class="form-control" maxlength="255" placeholder="Title" value="{{ old('image_title', $item->image_title??null) }}">
+                    </div>
                 </div>
             </div>
         </div>

@@ -71,7 +71,7 @@ class HomeSliderController extends BaseController
         return Validator::make($inputs, [
             'title' => 'nullable|string|max:255',
             'description' => 'nullable|string|max:1000',
-            'image' => ($edit?'nullable':'required').'|image|mimes:jpeg,png,gif',
+            'image' => ($edit?'nullable':'required').'|image|mimes:jpeg,png',
         ]);
     }
 

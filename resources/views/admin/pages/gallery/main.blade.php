@@ -2,7 +2,7 @@
 
 @section('content')
     @card
-        @slot('title') Изоброжении (jpeg, png, gif)@endslot
+        @slot('title') Изоброжении (jpeg, png)@endslot
         <div class="add-new-images">
             @if ($errors->any())
                 <div class="py-1 font-weight-bold text-danger text-sm-left text-center">{{ $errors->first() }}</div>
