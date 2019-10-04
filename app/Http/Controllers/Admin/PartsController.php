@@ -10,6 +10,7 @@ use App\Models\PartCatalog;
 use App\Services\Notify\Facades\Notify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 class PartsController extends BaseController
 {
@@ -28,10 +29,12 @@ class PartsController extends BaseController
         return view('admin.pages.parts.form', $data);
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function add_put(Request $request){
-        $validator = $this->validator($request, false);
-        $validator['validator']->validate();
-        if(Part::action(null, $validator['inputs'])) {
+        $inputs = $this->validateRequest($request, false);
+        if(Part::action(null, $inputs)) {
             Notify::success('Запчаст добавлен.');
             return redirect()->route('admin.parts.main');
         }
@@ -52,11 +55,13 @@ class PartsController extends BaseController
         return view('admin.pages.parts.form', $data);
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function edit_patch($id, Request $request){
         $item = Part::getItem($id);
-        $validator = $this->validator($request, $item->id);
-        $validator['validator']->validate();
-        if(Part::action($item, $validator['inputs'])) {
+        $inputs = $this->validateRequest($request, $item->id);
+        if(Part::action($item, $inputs)) {
             Notify::success('Запчаст редактирован.');
             return redirect()->route('admin.parts.edit', ['id'=>$item->id]);
         }
@@ -76,7 +81,10 @@ class PartsController extends BaseController
         return response()->json($result);
     }
 
-    private function validator($request, $ignore=false) {
+    /**
+     * @throws ValidationException
+     */
+    private function validateRequest($request, $ignore=false) {
         $inputs = $request->all();
         $unique = $ignore===false?null:','.$ignore;
         if(!empty($inputs['url'])) $inputs['url'] = mb_strtolower($inputs['url']);
@@ -97,10 +105,22 @@ class PartsController extends BaseController
         if (empty($inputs['generate_url'])) {
             $rules['url'] = 'required|is_url|string|max:255|unique:part_catalogs,url'.$unique.'|nullable';
         }
-        $result = [];
-        $result['validator'] = Validator::make($inputs, $rules);
-        $result['inputs'] = $inputs;
-        return $result;
+        $validator = Validator::make($inputs, $rules);
+        if ($validator->fails()) {
+            if (!empty($inputs['mark_id'])) {
+                $old_cars = [];
+                foreach($inputs['mark_id'] as $i=>$e){
+                    if ($e==0) continue;
+                    $old_cars[] = [
+                        'mark_id' => $e,
+                        'model_id' => $inputs['model_id'][$i],
+                        'generation_id' => $inputs['generation_id'][$i],
+                    ];
+                }
+                if (count($old_cars)) session()->flash('old_cars', $old_cars);
+            }
+            throw new ValidationException($validator);
+        }
+        return $inputs;
     }
-
 }

@@ -26,7 +26,6 @@ class ModelsController extends BaseController
         $data = ['edit'=>false];
         $data['mark'] = Mark::getItem($id);
         $data['title'] = 'Добавление модели "'.$data['mark']->name.'"';
-//        $data['marks'] = Mark::adminList();
         $data['back_url'] = route('admin.models.main', ['id'=>$id]);
         return view('admin.pages.models.form', $data);
     }
@@ -37,7 +36,7 @@ class ModelsController extends BaseController
         $this->validator($inputs)->validate();
         if(Model::action(null, $inputs, $mark->id)) {
             Notify::success('Модель добавлен.');
-            return redirect()->route('admin.models.main', ['id'=>(int) $inputs['mark_id']]);
+            return redirect()->route('admin.models.main', ['id'=>(int) $mark->id]);
         }
         else {
             Notify::get('error_occurred');
@@ -50,7 +49,6 @@ class ModelsController extends BaseController
         $data['item'] = Model::getItem($id);
         $data['mark'] = $data['item']->mark;
         $data['title'] = 'Редактирование модели "'.$data['mark']->name.'"';
-//        $data['marks'] = Mark::adminList();
         $data['back_url'] = route('admin.models.main', ['id'=>$data['item']->mark_id]);
         return view('admin.pages.models.form', $data);
     }
@@ -83,7 +81,6 @@ class ModelsController extends BaseController
 
     private function validator($inputs, $ignore=false) {
         return Validator::make($inputs, [
-            'mark_id'=>'required|integer|exists:marks,id',
             'name' => 'nullable|string|max:255',
         ]);
     }

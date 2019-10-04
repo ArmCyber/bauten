@@ -24,10 +24,12 @@ class GalleriesController extends BaseController
         'thumb_width'=>280,
         'thumb_height'=>210,
         'thumb_upsize'=>true,
+        'thumb_aspectRatio'=>false,
         'method'=>'resize',
         'width'=>1440,
         'height'=>null,
         'upsize'=>true,
+        'aspectRatio'=>false,
     ];
     private $gallery;
     private $key;
@@ -124,6 +126,7 @@ class GalleriesController extends BaseController
             'width'=>581,
             'height'=>null,
             'upsize'=>true,
+            'aspectRatio'=>true,
         ]);
     }
 }

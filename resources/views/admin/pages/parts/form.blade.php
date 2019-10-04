@@ -132,7 +132,7 @@
     @js(aAdmin('js/applicability.js'))
     <script>
         $('.select2').select2();
-        new Applicability({!! $marks->toJson(JSON_UNESCAPED_UNICODE) !!}, {!! isset($part_cars)?$part_cars->toJson(JSON_UNESCAPED_UNICODE):'false' !!})
+        new Applicability({!! $marks->toJson(JSON_UNESCAPED_UNICODE) !!}, {!! session()->has('old_cars')?json_encode(session('old_cars', JSON_UNESCAPED_UNICODE)):(isset($part_cars)?$part_cars->toJson(JSON_UNESCAPED_UNICODE):'false') !!})
     </script>
 @endpush
 @push('css')

@@ -63,11 +63,12 @@ CREATE TABLE `brands` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `brands_code_unique` (`code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `brands` WRITE;
 /*!40000 ALTER TABLE `brands` DISABLE KEYS */;
+INSERT INTO `brands` VALUES (1,'55020502','Brand1','fEbivzk2YQcu7wyoJU.jpeg',0,1,'2019-10-04 17:07:27','2019-10-04 17:07:27');
 /*!40000 ALTER TABLE `brands` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `countries`;
@@ -82,11 +83,12 @@ CREATE TABLE `countries` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `countries_title_unique` (`title`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `countries` WRITE;
 /*!40000 ALTER TABLE `countries` DISABLE KEYS */;
+INSERT INTO `countries` VALUES (1,'Казахстан',0,1,'2019-10-04 16:58:38','2019-10-04 16:58:38'),(2,'Россия',0,1,'2019-10-04 16:58:45','2019-10-04 16:58:45'),(3,'Армения',0,1,'2019-10-04 16:58:49','2019-10-04 16:58:49');
 /*!40000 ALTER TABLE `countries` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `filter_values`;
@@ -142,11 +144,12 @@ CREATE TABLE `galleries` (
   `title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `sort` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `galleries` WRITE;
 /*!40000 ALTER TABLE `galleries` DISABLE KEYS */;
+INSERT INTO `galleries` VALUES (4,'parts',1,'3k1c9riX06qDwsiOV8.jpg',NULL,NULL,0),(5,'parts',1,'hWOzkIXXtdHMSVBnuy.jpg',NULL,NULL,0);
 /*!40000 ALTER TABLE `galleries` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `generations`;
@@ -163,11 +166,12 @@ CREATE TABLE `generations` (
   PRIMARY KEY (`id`),
   KEY `generations_model_id_foreign` (`model_id`),
   CONSTRAINT `generations_model_id_foreign` FOREIGN KEY (`model_id`) REFERENCES `models` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `generations` WRITE;
 /*!40000 ALTER TABLE `generations` DISABLE KEYS */;
+INSERT INTO `generations` VALUES (1,1,'1',0,1,'2019-10-04 17:06:00','2019-10-04 17:06:00'),(2,1,'2',0,1,'2019-10-04 17:06:04','2019-10-04 17:06:04');
 /*!40000 ALTER TABLE `generations` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `home_slider`;
@@ -205,11 +209,12 @@ CREATE TABLE `marks` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `marks` WRITE;
 /*!40000 ALTER TABLE `marks` DISABLE KEYS */;
+INSERT INTO `marks` VALUES (1,'Audi','UDs9MqR9xPThoXyJgc.png','Audi','Audi',0,1,'2019-10-04 16:54:59','2019-10-04 16:54:59'),(2,'BMW','KWsJW7vbswgUECZnkU.png','BMW','BMW',0,1,'2019-10-04 16:55:15','2019-10-04 16:55:15'),(3,'Chrysler','RPSTHh9uLO97p0lGyI.png','Chrysler','Chrysler',0,1,'2019-10-04 16:55:41','2019-10-04 16:55:41'),(4,'Citroen','gxPkJWpfpVU8eCFPBv.png','Citroen','Citroen',0,1,'2019-10-04 16:55:53','2019-10-04 16:55:53'),(5,'Daewoo','UnuYkii5mEtrL3BJVD.png','Daewoo','Daewoo',0,1,'2019-10-04 16:56:05','2019-10-04 16:56:05'),(6,'Ford','2RUXJC3Qt7XvaFFJla.png','Ford','Ford',0,1,'2019-10-04 16:56:15','2019-10-04 16:56:15'),(7,'Honda','6xyhupCIiUldwuBmxi.png','Honda','Honda',0,1,'2019-10-04 16:56:27','2019-10-04 16:56:27'),(8,'Hyundai','vnwSMyPBCP4euuUNQl.png','Hyundai','Hyundai',0,1,'2019-10-04 16:56:48','2019-10-04 16:56:48'),(9,'Isuzu','r0fiw7gCTZfY37BPyx.png','Isuzu','Isuzu',0,1,'2019-10-04 16:57:21','2019-10-04 16:57:21'),(10,'Kia','Yxjrqo0bzPLn1RnDtM.png','Kia','Kia',0,1,'2019-10-04 16:57:38','2019-10-04 16:57:38'),(11,'Lexus','SKWeGkRlY10mT75jUj.png','Lexus','Lexus',0,1,'2019-10-04 16:57:51','2019-10-04 16:57:51');
 /*!40000 ALTER TABLE `marks` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `migrations`;
@@ -242,11 +247,12 @@ CREATE TABLE `models` (
   PRIMARY KEY (`id`),
   KEY `models_mark_id_foreign` (`mark_id`),
   CONSTRAINT `models_mark_id_foreign` FOREIGN KEY (`mark_id`) REFERENCES `marks` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `models` WRITE;
 /*!40000 ALTER TABLE `models` DISABLE KEYS */;
+INSERT INTO `models` VALUES (1,1,'100',0,1,'2019-10-04 17:04:45','2019-10-04 17:04:45'),(3,1,'200',0,1,'2019-10-04 17:05:54','2019-10-04 17:05:54');
 /*!40000 ALTER TABLE `models` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `pages`;
@@ -281,8 +287,8 @@ CREATE TABLE `part_cars` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `part_id` bigint(20) unsigned NOT NULL,
   `mark_id` int(10) unsigned NOT NULL,
-  `model_id` int(10) unsigned NOT NULL DEFAULT '0',
-  `generation_id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `model_id` int(10) unsigned DEFAULT NULL,
+  `generation_id` bigint(20) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `part_cars_part_id_foreign` (`part_id`),
   KEY `part_cars_mark_id_foreign` (`mark_id`),
@@ -292,11 +298,12 @@ CREATE TABLE `part_cars` (
   CONSTRAINT `part_cars_mark_id_foreign` FOREIGN KEY (`mark_id`) REFERENCES `marks` (`id`) ON DELETE CASCADE,
   CONSTRAINT `part_cars_model_id_foreign` FOREIGN KEY (`model_id`) REFERENCES `models` (`id`) ON DELETE CASCADE,
   CONSTRAINT `part_cars_part_id_foreign` FOREIGN KEY (`part_id`) REFERENCES `parts` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `part_cars` WRITE;
 /*!40000 ALTER TABLE `part_cars` DISABLE KEYS */;
+INSERT INTO `part_cars` VALUES (1,3,3,NULL,NULL),(2,3,1,1,2),(3,3,1,3,NULL),(4,3,5,NULL,NULL);
 /*!40000 ALTER TABLE `part_cars` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `part_catalogs`;
@@ -310,11 +317,12 @@ CREATE TABLE `part_catalogs` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `part_catalogs_name_unique` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `part_catalogs` WRITE;
 /*!40000 ALTER TABLE `part_catalogs` DISABLE KEYS */;
+INSERT INTO `part_catalogs` VALUES (1,'Cat1','cat1','2019-10-04 17:08:07','2019-10-04 17:08:07'),(2,'Cat2','cat2','2019-10-04 17:08:12','2019-10-04 17:08:12');
 /*!40000 ALTER TABLE `part_catalogs` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `parts`;
@@ -337,11 +345,12 @@ CREATE TABLE `parts` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `parts_code_unique` (`code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `parts` WRITE;
 /*!40000 ALTER TABLE `parts` DISABLE KEYS */;
+INSERT INTO `parts` VALUES (1,'123456','Ремкомплект бескамерных шин \"AUTOPROFI\"',10000,'S5OI1FAysvLIXsMI00.jpeg','1500250','1500250','<p>Соответствие современным допускам автопроизводителей США, Евросоюза и Японии, что особенно ценно для смешанных автопарков и авторемонтных центров ∙ Соответствие требованиям стандарта удиненной замены ALLISON TES-295, позволяющее гарантировать пробег 100 000 км. ∙ Улучшенные показатели антивибрационной устойчивости ∙ Плавное и четкое переключение передач в течение всего срока службы жидкости ∙ Надежную защиту деталей</p>','remkomplekt-beskamernykh-shin-autoprofi',1,1,1,'2019-09-09 11:14:13','2019-10-04 17:14:08'),(3,'test','Test',111,'I7Z5at7GUSUCYWfYmr.jpeg','111','111',NULL,'test',1,1,1,'2019-10-04 17:59:39','2019-10-04 18:40:36');
 /*!40000 ALTER TABLE `parts` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `password_resets`;
@@ -373,11 +382,12 @@ CREATE TABLE `regions` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `regions_country_id_title_unique` (`country_id`,`title`),
   CONSTRAINT `regions_country_id_foreign` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `regions` WRITE;
 /*!40000 ALTER TABLE `regions` DISABLE KEYS */;
+INSERT INTO `regions` VALUES (1,1,'Астана',1,0,'2019-10-04 16:58:55','2019-10-04 16:58:55'),(2,1,'Алматы',1,0,'2019-10-04 16:59:00','2019-10-04 16:59:00'),(3,2,'Москва',1,0,'2019-10-04 17:01:25','2019-10-04 17:01:25'),(4,3,'Ереван',1,0,'2019-10-04 17:01:33','2019-10-04 17:01:33');
 /*!40000 ALTER TABLE `regions` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

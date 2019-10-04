@@ -24,8 +24,8 @@ class PartCar extends Model
                 $result = $result->filter(function($item) use($mark){
                     return $item['mark_id'] != $mark;
                 });
-                $row['model_id'] = 0;
-                $row['generation_id'] = 0;
+                $row['model_id'] = null;
+                $row['generation_id'] = null;
             }
             else {
                 if (!isset($keys[$mark][$model]) ||
@@ -33,6 +33,7 @@ class PartCar extends Model
                 ) continue;
                 $row['model_id'] = $model;
                 if ($generation==0) {
+                    $generation=null;
                     $result = $result->filter(function($item) use($model){
                         return $item['model_id'] != $model;
                     });
@@ -47,13 +48,21 @@ class PartCar extends Model
     }
 
     public static function sync($part_id, $marks, $models, $generations, $edit){
-        $collection = self::collect($part_id, $marks, $models, $generations);
+        $new_data = self::collect($part_id, $marks, $models, $generations)->toArray();
         if ($edit) {
-
+            $old_data = self::adminList($part_id)->toArray();
+            if (count($new_data) === count($old_data)) foreach($old_data as $key => $data) {
+                $thisVal = $new_data[$key];
+                if ($thisVal['mark_id'] != $data['mark_id'] || $thisVal['model_id'] != $data['model_id'] || $thisVal['generation_id'] != $data['generation_id']) {
+                    $changed = true;
+                    break;
+                }
+            }
+            else $changed=true;
+            if (empty($changed)) return ;
+            self::where('part_id', $part_id)->delete();
         }
-        else {
-            self::insert($collection->toArray());
-        }
+        self::insert($new_data);
         return ;
     }
 
@@ -83,5 +92,15 @@ class PartCar extends Model
 
     public function generation() {
         return $this->belongsTo('App\Models\Generation', 'generation_id', 'id');
+    }
+
+    public function getModelIdAttribute($value) {
+        if ($value==null) return 0;
+        return $value;
+    }
+
+    public function getGenerationIdAttribute($value) {
+        if ($value==null) return 0;
+        return $value;
     }
 }

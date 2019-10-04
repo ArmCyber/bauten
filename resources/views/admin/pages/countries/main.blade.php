@@ -4,7 +4,7 @@
     @if(count($items))
         <div class="card">
             <div class="table-responsive p-2">
-                <table class="table table-striped m-b-0 columns-middle init-dataTable">
+                <table class="table table-striped m-b-0 columns-middle">
                     <thead>
                     <tr>
                         <th>Название</th>
@@ -108,10 +108,6 @@
                 });
             }
             else modalError();
-        });
-        $('.init-dataTable').dataTable({
-            sort:false,
-            paging: false,
         });
     </script>
 @endpush

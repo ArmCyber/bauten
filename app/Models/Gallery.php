@@ -26,6 +26,7 @@ class Gallery extends Model
                 'width'=>$settings['width'],
                 'height'=>$settings['height'],
                 'upsize'=>$settings['upsize'],
+                'aspectRatio'=>$settings['aspectRatio'],
             ],
         ];
         if (!empty($settings['use_thumbs'])) {
@@ -34,6 +35,7 @@ class Gallery extends Model
                 'width'=>$settings['thumb_width'],
                 'height'=>$settings['thumb_height'],
                 'upsize'=>$settings['thumb_upsize'],
+                'aspectRatio'=>$settings['thumb_aspectRatio'],
                 'dir'=>'thumbs/',
             ];
         }

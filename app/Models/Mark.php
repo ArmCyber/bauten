@@ -74,5 +74,4 @@ class Mark extends Model
         return $this->hasMany('App\Models\Model', 'mark_id', 'id')->sort();
     }
 
-
 }

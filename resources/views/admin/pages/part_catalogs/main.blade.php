@@ -8,6 +8,7 @@
                     <thead>
                     <tr>
                         <th>Имя</th>
+                        <th>Количество запчастей</th>
                         <th>Действие</th>
                     </tr>
                     </thead>
@@ -15,6 +16,7 @@
                     @foreach($items as $item)
                         <tr class="item-row" data-id="{!! $item->id !!}">
                             <td class="item-title">{{ $item->name}}</td>
+                            <td>{{ $item->parts_count }}</td>
                             <td>
                                 <a href="{{ route('admin.part_catalogs.edit', ['id'=>$item->id]) }}" {!! tooltip('Редактировать') !!} class="icon-btn edit"></a>
                                 <span class="d-inline-block"  style="margin-left:4px;" data-toggle="modal" data-target="#itemDeleteModal"><a href="javascript:void(0)" class="icon-btn delete" {!! tooltip('Удалить') !!}></a></span>
