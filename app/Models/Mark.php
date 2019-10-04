@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Http\Traits\Sortable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\File;
 
 class Mark extends Model
 {
@@ -65,6 +66,7 @@ class Mark extends Model
     }
 
     public static function deleteItem($model){
+        if ($model->image) File::delete(public_path('u/marks/'.$model->image));
         return $model->delete();
     }
 

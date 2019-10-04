@@ -15,12 +15,22 @@ class PagesTableSeeder extends Seeder
     {
         $now = Carbon::now();
         DB::table('pages')->insert([
-            'id'=>1,
-            'url'=>'home',
-            'title'=>'Главная',
-            'static'=>'home',
-            'created_at'=>$now,
-            'updated_at'=>$now,
+            [
+                'id'=>1,
+                'url'=>'home',
+                'title'=>'Главная',
+                'static'=>'home',
+                'created_at'=>$now,
+                'updated_at'=>$now,
+            ],
+            [
+                'id'=>2,
+                'url'=>'catalogue',
+                'title'=>'Каталогы',
+                'static'=>'catalogs',
+                'created_at'=>$now,
+                'updated_at'=>$now,
+            ],
         ]);
     }
 }
