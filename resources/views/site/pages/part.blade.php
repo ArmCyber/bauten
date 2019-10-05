@@ -1,7 +1,7 @@
 @extends('site.layouts.app')
 @section('main')
 <div class="container pt-s">
-    @breadcrumb(['pages'=>[['title'=>$page_title,'url'=>false],['title'=>$item->catalogue->name, 'url'=>$item->catalogue->url]]])@endbreadcrumb
+    @breadcrumb(['pages'=>[['title'=>$page_title,'url'=>false],['title'=>$item->catalogue->name, 'url'=>route('catalogue', ['url'=>$item->catalogue->url])]]])@endbreadcrumb
     <div class="product-page">
         <div class="product-page-head">
             <div class="row l-m">
