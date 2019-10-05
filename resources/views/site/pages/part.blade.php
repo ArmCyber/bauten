@@ -48,17 +48,17 @@
                             </div>
 {{--                            <div class="product-page-mincount">Мин. количество: 40 шт.</div>--}}
                         </div>
-{{--                        <div class="product-page-form">--}}
-{{--                            <div class="product-page-count">--}}
-{{--                                <div class="number-group">--}}
-{{--                                    <button class="number-btn number-input-minus">-</button>--}}
-{{--                                    <input type="text" value="1" maxlength="4" class="number-input">--}}
-{{--                                    <button class="number-btn number-input-plus">+</button>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <div class="product-page-submit"><button>В корзину</button></div>--}}
-{{--                        </div>--}}
-{{--                        <div class="product-page-price mt-3">Общая стоимность: <span class="ppp">48000</span> <span class="kzt"></span></div>--}}
+                        {{--<div class="product-page-form">
+                            <div class="product-page-count">
+                                <div class="number-group">
+                                    <button class="number-btn number-input-minus">-</button>
+                                    <input type="text" value="1" maxlength="4" class="number-input">
+                                    <button class="number-btn number-input-plus">+</button>
+                                </div>
+                            </div>
+                            <div class="product-page-submit"><button>В корзину</button></div>
+                        </div>
+                        <div class="product-page-price mt-3">Общая стоимность: <span class="ppp">48000</span> <span class="kzt"></span></div>--}}
                     </div>
                 </div>
             </div>
@@ -71,10 +71,10 @@
                 <div class="pr-specs-content">
                     <div class="pr-specs-tbl">
                         <div class="pr-specs-item"><div class="pr-specs-key">Бренд</div><div class="pr-specs-value">{{ $item->brand->name }}</div></div>
-{{--                        <div class="pr-specs-item"><div class="pr-specs-key">Состав</div><div class="pr-specs-value">Синтетическое</div></div>--}}
-{{--                        <div class="pr-specs-item"><div class="pr-specs-key">Вязкость</div><div class="pr-specs-value"></div></div>--}}
-{{--                        <div class="pr-specs-item"><div class="pr-specs-key">Объем, л</div><div class="pr-specs-value">4</div></div>--}}
-{{--                        <div class="pr-specs-item"><div class="pr-specs-key">Тип</div><div class="pr-specs-value">Масло трансмиссионное АКПП</div></div>--}}
+                        {{--x<div class="pr-specs-item"><div class="pr-specs-key">Состав</div><div class="pr-specs-value">Синтетическое</div></div>
+                        <div class="pr-specs-item"><div class="pr-specs-key">Вязкость</div><div class="pr-specs-value"></div></div>
+                        <div class="pr-specs-item"><div class="pr-specs-key">Объем, л</div><div class="pr-specs-value">4</div></div>
+                        <div class="pr-specs-item"><div class="pr-specs-key">Тип</div><div class="pr-specs-value">Масло трансмиссионное АКПП</div></div>--}}
                     </div>
                 </div>
             </div>
@@ -99,27 +99,27 @@
                     </div>
                 </div>
             @endif
-{{--            <div class="product-table">--}}
-{{--                <div class="prod-tbl-title">Применяемость по двигателям</div>--}}
-{{--                <div class="prod-tbl-block">--}}
-{{--                    <table>--}}
-{{--                        <thead>--}}
-{{--                        <tr>--}}
-{{--                            <th>Марка</th>--}}
-{{--                            <th>Модель</th>--}}
-{{--                            <th>Модификация</th>--}}
-{{--                        </tr>--}}
-{{--                        </thead>--}}
-{{--                        <tbody>--}}
-{{--                        <tr><td class="tbl-mark">GDI</td><td>3.2</td><td>Турбо</td></tr>--}}
-{{--                        <tr><td class="tbl-mark">GDI</td><td>4.5</td><td>Турбо</td></tr>--}}
-{{--                        <tr><td class="tbl-mark">GDI</td><td>1.3</td><td>Турбо</td></tr>--}}
-{{--                        <tr><td class="tbl-mark">GDI</td><td>4.4</td><td>Турбо</td></tr>--}}
-{{--                        <tr><td class="tbl-mark">GDI</td><td>5.3</td><td>Турбо</td></tr>--}}
-{{--                        </tbody>--}}
-{{--                    </table>--}}
-{{--                </div>--}}
-{{--            </div>--}}
+            {{--<div class="product-table">
+                <div class="prod-tbl-title">Применяемость по двигателям</div>
+                <div class="prod-tbl-block">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Марка</th>
+                            <th>Модель</th>
+                            <th>Модификация</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr><td class="tbl-mark">GDI</td><td>3.2</td><td>Турбо</td></tr>
+                        <tr><td class="tbl-mark">GDI</td><td>4.5</td><td>Турбо</td></tr>
+                        <tr><td class="tbl-mark">GDI</td><td>1.3</td><td>Турбо</td></tr>
+                        <tr><td class="tbl-mark">GDI</td><td>4.4</td><td>Турбо</td></tr>
+                        <tr><td class="tbl-mark">GDI</td><td>5.3</td><td>Турбо</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>--}}
         </div>
     </div>
 </div>
