@@ -272,12 +272,12 @@ CREATE TABLE `pages` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `pages` WRITE;
 /*!40000 ALTER TABLE `pages` DISABLE KEYS */;
-INSERT INTO `pages` VALUES (1,'home','Главная','home',1,1,0,NULL,NULL,NULL,'2019-10-04 16:49:11','2019-10-04 16:49:11'),(2,'catalogue','Каталогы','catalogs',1,1,0,NULL,NULL,NULL,'2019-10-04 16:49:11','2019-10-04 16:49:11');
+INSERT INTO `pages` VALUES (1,'home','Главная','home',1,1,0,NULL,NULL,NULL,'2019-10-04 16:49:11','2019-10-04 16:49:11'),(2,'catalogue','Интернет магазин','catalogs',1,1,0,NULL,NULL,NULL,'2019-10-04 16:49:11','2019-10-04 16:49:11'),(3,'marks','Марки','marks',1,1,0,NULL,NULL,NULL,'2019-10-05 12:38:09','2019-10-05 12:38:09'),(4,'brands','Бренды','brands',1,1,0,NULL,NULL,NULL,'2019-10-05 12:38:09','2019-10-05 12:38:09'),(5,'about','О компании','about',1,1,0,NULL,NULL,NULL,'2019-10-05 12:38:09','2019-10-05 12:38:09'),(6,'terms','Условия','terms',1,1,0,NULL,NULL,NULL,'2019-10-05 12:38:09','2019-10-05 12:38:09'),(7,'contacts','Контакты','contacts',1,1,0,NULL,NULL,NULL,'2019-10-05 12:38:09','2019-10-05 12:38:09');
 /*!40000 ALTER TABLE `pages` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `part_cars`;
@@ -317,12 +317,12 @@ CREATE TABLE `part_catalogs` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `part_catalogs_name_unique` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `part_catalogs` WRITE;
 /*!40000 ALTER TABLE `part_catalogs` DISABLE KEYS */;
-INSERT INTO `part_catalogs` VALUES (1,'Cat1','cat1','2019-10-04 17:08:07','2019-10-04 17:08:07'),(2,'Cat2','cat2','2019-10-04 17:08:12','2019-10-04 17:08:12');
+INSERT INTO `part_catalogs` VALUES (1,'Cat1','cat1','2019-10-04 17:08:07','2019-10-04 17:08:07'),(2,'Cat2','cat2','2019-10-04 17:08:12','2019-10-04 17:08:12'),(3,'ASdsadasd','asdsadasd','2019-10-05 11:28:59','2019-10-05 11:28:59');
 /*!40000 ALTER TABLE `part_catalogs` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `parts`;

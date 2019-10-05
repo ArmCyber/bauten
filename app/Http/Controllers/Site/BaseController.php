@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Site;
 
+use App\Models\Page;
 use App\Models\PartCatalog;
+use App\Services\PageManager\Facades\PageManager;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Zakhayko\Banners\Models\Banner;
@@ -24,6 +26,8 @@ class BaseController extends Controller
         $this->shared['info'] = Banner::get('info');
         $this->shared['requisites'] = $this->shared['info']->requisites->flip();
         $this->shared['catalogs'] = PartCatalog::siteList();
+        $this->shared['homepage'] = get_page(PageManager::getHomePage());
+        $this->shared['menu'] = Page::getMenu();
         view()->share($this->shared);
         return true;
     }

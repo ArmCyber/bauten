@@ -34,42 +34,36 @@
             </div>
             <div id="header-menu">
                 <nav id="menu" class="container">
-                    <div class="menu-item has-fluid-dropdown active">
-                        <a href="javascript:void(0)">Каталог</a>
-                        <div class="fluid-dropdown">
-                            <div class="fluid-dropdown-content">
-                                <div class="menu-catalog-blocks">
-                                    @foreach($catalogs as $key=>$catalog)
-                                        <div class="menu-catalog-block">
-                                            <div class="menu-catalog-letter">{{ $key }}</div>
-                                            <div class="menu-catalog-links">
-                                                @foreach($catalog as $catalog_item)
-                                                    <div class="menu-catalog-link"><a href="{{ route('catalogue', ['url'=>$catalog_item->url]) }}">{{ $catalog_item->name }}</a></div>
-                                                @endforeach
-                                            </div>
+                    @foreach($menu as $menu_item)
+                        @if ($menu_item->static=='catalogs')
+                            <div class="menu-item has-fluid-dropdown{{ ($active_page??null)==$menu_item->id?' active':'' }}">
+                                <a href="javascript:void(0)">{{ $menu_item->title }}</a>
+                                <div class="fluid-dropdown">
+                                    <div class="fluid-dropdown-content">
+                                        <div class="menu-catalog-blocks">
+                                            @foreach($catalogs as $key=>$catalog)
+                                                <div class="menu-catalog-block">
+                                                    <div class="menu-catalog-letter">{{ $key }}</div>
+                                                    <div class="menu-catalog-links">
+                                                        @foreach($catalog as $catalog_item)
+                                                            <div class="menu-catalog-link"><a href="{{ route('catalogue', ['url'=>$catalog_item->url]) }}">{{ $catalog_item->name }}</a></div>
+                                                        @endforeach
+                                                    </div>
+                                                </div>
+                                            @endforeach
                                         </div>
-                                    @endforeach
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        {{--<div class="menu-dropdown">
-                            <div class="menu-dropdown-content">
-                                <a href="javascript:void(0)" class="menu-dropdown-link active">Аксессуары</a>
-                                <a href="javascript:void(0)" class="menu-dropdown-link">Шины и диски</a>
-                                <a href="javascript:void(0)" class="menu-dropdown-link">Масла</a>
-                                <a href="javascript:void(0)" class="menu-dropdown-link">Автостекла</a>
-                                <a href="javascript:void(0)" class="menu-dropdown-link">Аккумуляторы</a>
-                                <a href="javascript:void(0)" class="menu-dropdown-link">Patron</a>
-                            </div>
-                        </div>--}}
-                    </div>
-                    <div class="menu-item"><a href="javascript:void(0)">Интернет магазин</a></div>
-                    <div class="menu-item"><a href="javascript:void(0)">Новый интернет магазин</a></div>
-                    <div class="menu-item"><a href="javascript:void(0)">Марки</a></div>
-                    <div class="menu-item"><a href="javascript:void(0)">Бренды</a></div>
-                    <div class="menu-item"><a href="javascript:void(0)">О компании</a></div>
-                    <div class="menu-item"><a href="javascript:void(0)">Условия</a></div>
-                    <div class="menu-item"><a href="javascript:void(0)">Контакты</a></div>
+                        @else
+                            <div class="menu-item{{ ($active_page??null)==$menu_item->id?' active':'' }}"><a href="{{ route('page', ['url'=>$menu_item->url]) }}">{{ $menu_item->title }}</a></div>
+                        @endif
+                    @endforeach
+{{--                    <div class="menu-item"><a href="javascript:void(0)">Марки</a></div>--}}
+{{--                    <div class="menu-item"><a href="javascript:void(0)">Бренды</a></div>--}}
+{{--                    <div class="menu-item"><a href="javascript:void(0)">О компании</a></div>--}}
+{{--                    <div class="menu-item"><a href="javascript:void(0)">Условия</a></div>--}}
+{{--                    <div class="menu-item"><a href="javascript:void(0)">Контакты</a></div>--}}
                 </nav>
             </div>
         </header>

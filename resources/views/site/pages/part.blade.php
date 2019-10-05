@@ -1,11 +1,7 @@
 @extends('site.layouts.app')
 @section('main')
 <div class="container pt-s">
-    <div class="breadcrumb page-breadcrumb">
-        <div class="breadcrumb-item"><a href="{{ route('page') }}">Главная</a></div>
-        <div class="breadcrumb-item"><a href="javascript:void(0)">Каталог</a></div>
-        <div class="breadcrumb-item"><a href="{{ route('catalogue', ['url'=>$item->catalogue->url]) }}">{{ $item->catalogue->name }}</a></div>
-    </div>
+    @breadcrumb(['pages'=>[['title'=>$page_title,'url'=>false],['title'=>$item->catalogue->name, 'url'=>$item->catalogue->url]]])@endbreadcrumb
     <div class="product-page">
         <div class="product-page-head">
             <div class="row l-m">

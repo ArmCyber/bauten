@@ -8,6 +8,7 @@
       <data directive="@banner" injection="true" prefix="&lt;?php echo banner($params, $banners, $thisKey, $thisCount," suffix=") ?&gt;" />
       <data directive="@bannerBlock" injection="true" prefix="&lt;?php is_array(" suffix=") ?&gt;" />
       <data directive="@banners" injection="true" prefix="&lt;?php echo(" suffix=") ?&gt;" />
+      <data directive="@breadcrumb" injection="true" prefix="&lt;?php is_array(" suffix=") ?&gt;" />
       <data directive="@break" injection="true" prefix="&lt;?php if(" suffix=") break; ?&gt;" />
       <data directive="@can" injection="true" prefix="&lt;?php if (Gate::check(" suffix=")): ?&gt;" />
       <data directive="@canany" injection="true" prefix="&lt;?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)-&gt;any(" suffix=")): ?&gt;" />
@@ -37,6 +38,7 @@
       <data directive="@endauth" />
       <data directive="@endbannerBlock" />
       <data directive="@endbanners" />
+      <data directive="@endbreadcrumb" />
       <data directive="@endcan" />
       <data directive="@endcanany" />
       <data directive="@endcannot" />

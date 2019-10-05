@@ -11,6 +11,9 @@ class CatalogueController extends BaseController
         $data = [];
         $data['catalogue'] = PartCatalog::getItemSite($url);
         $data['items'] = $data['catalogue']->parts;
+        $page = get_page('catalogs');
+        $data['active_page'] = $page->id;
+        $data['page_title'] = $page->title;
         return view('site.pages.catalogue', $data);
     }
 }

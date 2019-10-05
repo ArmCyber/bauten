@@ -1,11 +1,7 @@
 @extends('site.layouts.app')
 @section('main')
 <div class="container py-s">
-    <div class="breadcrumb page-breadcrumb">
-        <div class="breadcrumb-item"><a href="{{ route('page') }}">Главная</a></div>
-        <div class="breadcrumb-item"><a href="javascript:void(0)">Каталог</a></div>
-        <div class="breadcrumb-item">{{ $catalogue->name }}</div>
-    </div>
+    @breadcrumb(['pages'=>[['title'=>$page_title,'url'=>false],['title'=>$catalogue->name]]])@endbreadcrumb
     <div class="products-block">
         <div class="products-filters">
             <form action="javascript:void(0)">

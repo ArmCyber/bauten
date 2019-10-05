@@ -12,6 +12,7 @@ class PartsController extends BaseController
         $data = [];
         $data['item'] = Part::getItemSite($url);
         $data['gallery'] = Gallery::get('parts', $data['item']->id);
+        $data['page_title'] = get_page('catalogs')->title;
         return view('site.pages.part', $data);
     }
 }

@@ -31,6 +31,45 @@ class PagesTableSeeder extends Seeder
                 'created_at'=>$now,
                 'updated_at'=>$now,
             ],
+            [
+                'id'=>3,
+                'url'=>'marks',
+                'title'=>'Марки',
+                'static'=>'marks',
+                'created_at'=>$now,
+                'updated_at'=>$now,
+            ],
+            [
+                'id'=>4,
+                'url'=>'brands',
+                'title'=>'Бренды',
+                'static'=>'brands',
+                'created_at'=>$now,
+                'updated_at'=>$now,
+            ],
+            [
+                'id'=>5,
+                'url'=>'about',
+                'title'=>'О компании',
+                'static'=>'about',
+                'created_at'=>$now,
+                'updated_at'=>$now,
+            ],[
+                'id'=>6,
+                'url'=>'terms',
+                'title'=>'Условия',
+                'static'=>'terms',
+                'created_at'=>$now,
+                'updated_at'=>$now,
+            ],
+            [
+                'id'=>7,
+                'url'=>'contacts',
+                'title'=>'Контакты',
+                'static'=>'contacts',
+                'created_at'=>$now,
+                'updated_at'=>$now,
+            ],
         ]);
     }
 }

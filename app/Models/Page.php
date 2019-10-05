@@ -27,7 +27,7 @@ class Page extends Model
 
     public static function getStaticPages() {
         return Cache::rememberForever(self::CACHE_KEY_STATIC, function(){
-            return self::select('id', 'url', 'static', 'active')->whereNotNull('static')->get();
+            return self::select('id', 'title', 'url', 'static', 'active')->whereNotNull('static')->get();
         });
     }
 
@@ -82,6 +82,11 @@ class Page extends Model
     public static function deletePage($model){
         self::clearCaches();
         return $model->delete();
+    }
+
+    public function getUrlAttribute($value) {
+        if ($this->static==PageManager::getHomePage()) return '';
+        return $value;
     }
 
 }
