@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Site;
 use App\Models\Country;
 use App\Models\HomeSlide;
 use App\Models\PartCatalog;
+use App\Models\Term;
 use App\Services\PageManager\StaticPages;
 use Illuminate\Http\Request;
 use Zakhayko\Banners\Models\Banner;
@@ -23,6 +24,7 @@ class AppController extends BaseController
 
     private function static_terms($page) {
         $data = ['active_page'=>$page->id, 'page_title'=>$page->title];
+        $data['items'] = Term::siteList();
         return view('site.pages.terms', $data);
     }
 
