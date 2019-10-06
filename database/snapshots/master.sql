@@ -272,12 +272,12 @@ CREATE TABLE `pages` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `pages` WRITE;
 /*!40000 ALTER TABLE `pages` DISABLE KEYS */;
-INSERT INTO `pages` VALUES (1,'home','Главная','home',1,1,0,NULL,NULL,NULL,'2019-10-04 16:49:11','2019-10-04 16:49:11'),(2,'catalogue','Интернет магазин','catalogs',1,1,0,NULL,NULL,NULL,'2019-10-04 16:49:11','2019-10-04 16:49:11'),(3,'marks','Марки','marks',1,1,0,NULL,NULL,NULL,'2019-10-05 12:38:09','2019-10-05 12:38:09'),(4,'brands','Бренды','brands',1,1,0,NULL,NULL,NULL,'2019-10-05 12:38:09','2019-10-05 12:38:09'),(5,'about','О компании','about',1,1,0,NULL,NULL,NULL,'2019-10-05 12:38:09','2019-10-05 12:38:09'),(6,'terms','Условия','terms',1,1,0,NULL,NULL,NULL,'2019-10-05 12:38:09','2019-10-05 12:38:09'),(7,'contacts','Контакты','contacts',1,1,0,NULL,NULL,NULL,'2019-10-05 12:38:09','2019-10-05 12:38:09');
+INSERT INTO `pages` VALUES (1,'home','Главная','home',1,1,1,NULL,NULL,NULL,'2019-10-04 16:49:11','2019-10-06 14:18:00'),(2,'catalogue','Интернет магазин','catalogs',1,1,2,NULL,NULL,NULL,'2019-10-04 16:49:11','2019-10-06 14:18:00'),(3,'marks','Марки','marks',1,1,3,NULL,NULL,NULL,'2019-10-05 12:38:09','2019-10-06 14:18:00'),(4,'brands','Бренды','brands',1,1,4,NULL,NULL,NULL,'2019-10-05 12:38:09','2019-10-06 14:18:00'),(5,'about','О компании','about',1,1,5,NULL,NULL,NULL,'2019-10-05 12:38:09','2019-10-06 14:18:00'),(6,'terms','Условия','terms',1,1,6,NULL,NULL,NULL,'2019-10-05 12:38:09','2019-10-06 14:18:00'),(7,'contacts','Контакты','contacts',1,1,8,NULL,NULL,NULL,'2019-10-05 12:38:09','2019-10-06 14:18:00'),(8,'news','Новости','news',1,1,7,NULL,NULL,NULL,NULL,'2019-10-06 14:18:00');
 /*!40000 ALTER TABLE `pages` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `part_cars`;
