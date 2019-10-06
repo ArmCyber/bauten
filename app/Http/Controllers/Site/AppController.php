@@ -28,6 +28,36 @@ class AppController extends BaseController
         return view('site.pages.terms', $data);
     }
 
+    private function static_contacts($page) {
+        $data = ['active_page'=>$page->id, 'page_title'=>$page->title];
+//        $data['items'] = Term::siteList();
+        return view('site.pages.contacts', $data);
+    }
+
+    private function static_about($page) {
+        $data = ['active_page'=>$page->id, 'page_title'=>$page->title];
+//        $data['items'] = Term::siteList();
+        return view('site.pages.about', $data);
+    }
+
+    private function static_marks($page) {
+        $data = ['active_page'=>$page->id, 'page_title'=>$page->title];
+//        $data['items'] = Term::siteList();
+        return view('site.pages.marks', $data);
+    }
+
+    private function static_brands($page) {
+        $data = ['active_page'=>$page->id, 'page_title'=>$page->title];
+//        $data['items'] = Term::siteList();
+        return view('site.pages.brands', $data);
+    }
+
+    private function static_news($page) {
+        $data = ['active_page'=>$page->id, 'page_title'=>$page->title];
+//        $data['items'] = Term::siteList();
+        return view('site.pages.news', $data);
+    }
+
     //Temporary
     public function register(){
         $data = [];

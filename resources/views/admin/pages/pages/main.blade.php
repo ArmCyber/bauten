@@ -29,7 +29,7 @@
                                         <span class="d-inline-block"  style="margin-left:4px;" data-toggle="modal" data-target="#itemDeleteModal"><a href="javascript:void(0)" class="icon-btn delete" {!! tooltip('Удалить') !!}></a></span>
                                     @else
                                         @if(array_key_exists($item->static, $content_pages))
-                                            <a href="{{ route('admin.banners', ['page'=>$content_pages[$item->static]]) }}" {!! tooltip('Контент') !!} class="icon-btn content"></a>
+                                            <a href="{{ route($content_pages[$item->static][0], $content_pages[$item->static][1]??[]) }}" {!! tooltip('Контент') !!} class="icon-btn content"></a>
                                         @endif
                                         {{--
                                         @if(array_key_exists($item->static, $gallery_pages))

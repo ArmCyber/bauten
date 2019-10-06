@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Validator;
 class PagesController extends BaseController
 {
     private const CONTENT_PAGES = [
-        'home' => 'home',
+        'home' => ['admin.banners', ['banners'=>'home']],
+        'terms' => ['admin.terms.main'],
     ];
     /*
         private const GALLERY_PAGES = [
