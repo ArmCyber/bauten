@@ -53,34 +53,18 @@
             </div>
         </div>
     </section>
-    <section class="section container">
-        <h2 class="section-title">{{ $banners->block_titles->news }}</h2>
-        <div class="section-content row row-grid">
-            @for($i=1; $i<=3; $i++)
-                <div class="col-12 col-sm-6 col-md-4">
-                    <div class="news-item">
-                        <div class="news-img">
-                            <a href="javascript:void(0)" class="force-16-9"><img src="{{ asset('f/news/'.$i.'.png') }}" alt="News"></a>
-                            <span class="news-date">
-                                <span class="news-day">21</span>
-                                <span class="news-month">Августа</span>
-                                <span class="news-year">2019</span>
-                            </span>
-                        </div>
-                        <div class="news-content">
-                            <div class="news-title"><a href="javascript:void(0)">Чинить автомобили по ОСАГО предложили старыми деталями</a></div>
-                            <div class="news-short">
-                                В России могут разрешить использование старых деталей
-                                при ремонте автомобиля в рамках ОСАГО наравне с
-                                новыми. При этом согласие владельца машины на это не
-                                потребуется.
-                            </div>
-                        </div>
+    @if(is_active('news') && count($news))
+        <section class="section container">
+            <h2 class="section-title">{{ $banners->block_titles->news }}</h2>
+            <div class="section-content row row-grid">
+                @foreach($news as $news_item)
+                    <div class="col-12 col-sm-6 col-md-4">
+                        @component('site.components.news_item', ['item'=>$news_item])@endcomponent
                     </div>
-                </div>
-            @endfor
-        </div>
-    </section>
+                @endforeach
+            </div>
+        </section>
+    @endif
 @endsection
 @push('css')
     @css(aSite('css/home.css'))

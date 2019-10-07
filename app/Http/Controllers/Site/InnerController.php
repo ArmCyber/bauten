@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Mail\Contact;
+use App\Models\News;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -34,5 +35,14 @@ class InnerController extends BaseController
             return $redirect->withErrors(['global'=>__('app.internal error')])->withInput();
         }
         return $redirect->with(['message_sent'=>true]);
+    }
+
+    public function news_item($url) {
+        if (!is_active('news')) abort(404);
+        $data = [];
+        $data['item'] = News::getItemSite($url);
+        $data['parent'] = get_page('news');
+        $data['active_page'] = $data['parent']->id;
+        return view('site.pages.news_item', $data);
     }
 }

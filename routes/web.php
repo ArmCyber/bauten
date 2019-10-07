@@ -14,8 +14,8 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware'=>'guest:cms'], fu
 //endregion
 Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', 'admin.active']], function () {
     //region CKFinder
-    Route::any('file-browser/connector', '\CKSource\CKFinderBridge\Controller\CKFinderController@requestAction')->name('ckfinder_connector');
-    Route::any('file-browser/browser', '\CKSource\CKFinderBridge\Controller\CKFinderController@browserAction')->name('ckfinder_browser');
+    Route::any('file_browser/connector', '\CKSource\CKFinderBridge\Controller\CKFinderController@requestAction')->name('ckfinder_connector');
+    Route::any('file_browser/browser', '\CKSource\CKFinderBridge\Controller\CKFinderController@browserAction')->name('ckfinder_browser');
     //endregion
     Route::name('admin.')->namespace('Admin')->group(function() {
         //region Logout
@@ -185,6 +185,16 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
             Route::patch('sort', $c.'sort')->middleware('ajax')->name('sort');
         });
         //endregion
+        //region News
+        Route::middleware('can:admin')->prefix('news')->name('news.')->group(function() { $c = 'NewsController@';
+            Route::get('', $c.'main')->name('main');
+            Route::get('add', $c.'add')->name('add');
+            Route::put('add', $c.'add_put');
+            Route::get('edit/{id}', $c.'edit')->name('edit');
+            Route::patch('edit/{id}', $c.'edit_patch');
+            Route::delete('delete', $c.'delete')->middleware('ajax')->name('delete');
+        });
+        //endregion
     });
 });
 //endregion
@@ -196,5 +206,6 @@ Route::get('register', 'Site\AppController@register');
 Route::post(r('contacts').'/send-message', 'Site\InnerController@sendContactsMessage')->name('contacts.send_message');
 
 Route::get('product/{url}', 'Site\PartsController@show')->name('part');
-Route::get(r('catalogue').'/{url}', 'Site\CatalogueController@show')->name('catalogue');
+Route::get(r('news').'/{url}', 'Site\InnerController@news_item')->name('news');
+Route::get(r('catalogs').'/{url}', 'Site\CatalogueController@show')->name('catalogue');
 Route::get('{url?}', 'Site\AppController@pageManager')->name('page');

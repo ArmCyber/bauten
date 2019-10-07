@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Models\Country;
 use App\Models\HomeSlide;
+use App\Models\News;
 use App\Models\PartCatalog;
 use App\Models\Term;
 use App\Services\PageManager\StaticPages;
@@ -19,6 +20,7 @@ class AppController extends BaseController
         $data['logged_in'] = request()->has('logged_in');
         $data['banners'] = Banner::get('home');
         $data['home_slider'] = HomeSlide::siteList();
+        $data['news'] = News::homeList();
         return view('site.pages.home', $data);
     }
 
@@ -54,7 +56,7 @@ class AppController extends BaseController
 
     private function static_news($page) {
         $data = ['active_page'=>$page->id, 'page_title'=>$page->title];
-//        $data['items'] = Term::siteList();
+        $data['items'] = News::siteList();
         return view('site.pages.news', $data);
     }
 
