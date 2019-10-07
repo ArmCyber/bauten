@@ -22,9 +22,9 @@ class BrandsController extends BaseController
     }
 
     public function add_put(Request $request){
-        $inputs = $request->all();
-        $this->validator($inputs, false)->validate();
-        if(Brand::action(null, $inputs)) {
+        $validator = $this->validator($request, false);
+        $validator['validator']->validate();
+        if(Brand::action(null, $validator['inputs'])) {
             Notify::success('Бренд добавлен.');
             return redirect()->route('admin.brands.main');
         }
@@ -43,9 +43,9 @@ class BrandsController extends BaseController
 
     public function edit_patch($id, Request $request){
         $item = Brand::getItem($id);
-        $inputs = $request->all();
-        $this->validator($inputs, $item->id)->validate();
-        if(Brand::action($item, $inputs)) {
+        $validator = $this->validator($request, $item->id);
+        $validator['validator']->validate();
+        if(Brand::action($item, $validator['inputs'])) {
             Notify::success('Бренд редактирован.');
             return redirect()->route('admin.brands.edit', ['id'=>$item->id]);
         }
@@ -67,11 +67,25 @@ class BrandsController extends BaseController
 
     public function sort() { return Brand::sortable(); }
 
-    private function validator($inputs, $ignore=false) {
-        return Validator::make($inputs, [
+    private function validator($request, $ignore=false) {
+        $inputs = $request->all();
+        $unique = $ignore===false?null:','.$ignore;
+        if(!empty($inputs['url'])) $inputs['url'] = mb_strtolower($inputs['url']);
+        $inputs['generated_url'] = !empty($inputs['name'])?to_url($inputs['name']):null;
+        $request->merge(['url' => $inputs['url']]);
+        $rules = [
             'name' => 'nullable|string|max:255',
-            'code' => 'required|string|max:255|unique:parts,code'.($ignore?','.$ignore:null),
-            'image' => 'nullable|image|mimes:jpeg,png,gif,svg'
-        ]);
+            'image' => ($ignore?'nullable':'required').'|image|mimes:jpeg,png',
+            'image_alt' => 'nullable|string|max:255',
+            'image_title' => 'nullable|string|max:255',
+            'code' => 'required|string|max:255|unique:brands,code'.$unique,
+        ];
+        if (empty($inputs['generate_url'])) {
+            $rules['url'] = 'required|is_url|string|max:255|unique:marks,url'.$unique;
+        }
+        $result = [];
+        $result['validator'] = Validator::make($inputs, $rules);
+        $result['inputs'] = $inputs;
+        return $result;
     }
 }

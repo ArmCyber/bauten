@@ -7,14 +7,14 @@
             <div class="section-content">
                 <div class="home-parts">
                     <div class="row row-grid l-m">
-                        @foreach($marks as $item)
+                        @foreach($marks as $mark)
                             <div class="col-6 col-sm-4 col-md-3 col-xl-2">
-                                @component('site.components.marks', ['item'=>$item])@endcomponent
+                                @component('site.components.marks', ['item'=>$mark])@endcomponent
                             </div>
                         @endforeach
                         <div class="col-6 col-sm-4 col-md-3 col-xl-2">
                             <a href="{{ page('marks') }}" class="part-item card-more">
-                                <span class="d-block">Посмотреть все запчасти</span>
+                                <span class="d-block">Посмотреть все марки</span>
                             </a>
                         </div>
                     </div>
@@ -32,26 +32,25 @@
             @endforeach
         </div>
     </section>
-    <section class="section section-bg">
-        <div class="container">
-            <h2 class="section-title">{{ $banners->block_titles->brands }}</h2>
-            <div class="section-content row row-grid l-m">
-                @foreach(['A-ONE', 'AGP', 'BAUTEN', 'BAW', 'CAMELLIA', 'CASP', 'CFT', 'DEPO', 'VISA', 'DEYE', 'DID'] as $item)
+    @if(is_active('brands') && count($brands))
+        <section class="section section-bg">
+            <div class="container">
+                <h2 class="section-title">{{ $banners->block_titles->brands }}</h2>
+                <div class="section-content row row-grid l-m">
+                    @foreach($brands as $brand)
+                        <div class="col-6 col-sm-4 col-md-3 col-xl-2">
+                            @component('site.components.brand', ['item'=>$brand])@endcomponent
+                        </div>
+                    @endforeach
                     <div class="col-6 col-sm-4 col-md-3 col-xl-2">
-                        <a href="javascript:void(0)" class="brand-item">
-                            <span class="brand-img"><img src="{{ asset('f/brands/'.$loop->iteration.'.png') }}" alt="{{ $item }}"></span>
-                            <span class="brand-title">{{ $item }}</span>
+                        <a href="{{ page('brands') }}" class="part-item card-more">
+                            <span class="d-block">Посмотреть все бренды</span>
                         </a>
                     </div>
-                @endforeach
-                <div class="col-6 col-sm-4 col-md-3 col-xl-2">
-                    <a href="javascript:void(0)" class="part-item card-more">
-                        <span class="d-block">Посмотреть все бренды</span>
-                    </a>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @endif
     @if(is_active('news') && count($news))
         <section class="section container">
             <h2 class="section-title">{{ $banners->block_titles->news }}</h2>

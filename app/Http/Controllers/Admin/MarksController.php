@@ -80,7 +80,7 @@ class MarksController extends BaseController
             'image_title' => 'nullable|string|max:255',
         ];
         if (empty($inputs['generate_url'])) {
-            $rules['url'] = 'required|is_url|string|max:255|unique:marks,url'.$unique.'|nullable';
+            $rules['url'] = 'required|is_url|string|max:255|unique:marks,url'.$unique;
         }
         $result = [];
         $result['validator'] = Validator::make($inputs, $rules);

@@ -84,6 +84,7 @@ class PagesController extends BaseController
         $inputs = $request->all();
         if ($page && $page->static==\PageManager::getHomePage()){
             $inputs['url']=$page->url;
+            $skip_url_validation = true;
         }
         if(!empty($inputs['url'])) $inputs['url'] = mb_strtolower($inputs['url']);
         $inputs['generated_url'] = !empty($inputs['title'])?to_url($inputs['title']):null;
@@ -101,8 +102,8 @@ class PagesController extends BaseController
             'image_title' => 'nullable|string|max:255',
             'content' => 'nullable|string',
         ];
-        if (empty($inputs['generate_url'])) {
-            $rules['url'] = 'required|is_url|string|unique:pages,url'.$unique.'|min:3|max:255|nullable';
+        if (empty($inputs['generate_url']) && empty($skip_url_validation)) {
+            $rules['url'] = 'required|is_url|string|unique:pages,url'.$unique.'|min:3|max:255';
             if (!$page || $page->url!==$inputs['url']){
                 $rules['url'].='|not_in_routes';
             }

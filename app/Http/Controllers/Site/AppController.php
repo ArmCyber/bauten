@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Site;
 
+use App\Models\Brand;
 use App\Models\Country;
 use App\Models\HomeSlide;
 use App\Models\Mark;
@@ -24,6 +25,7 @@ class AppController extends BaseController
         $data['home_slider'] = HomeSlide::siteList();
         $data['news'] = News::homeList();
         $data['marks'] = Mark::homeList();
+        $data['brands'] = Brand::homeList();
         return view('site.pages.home', $data);
     }
 
@@ -53,7 +55,7 @@ class AppController extends BaseController
 
     private function static_brands($page) {
         $data = ['active_page'=>$page->id, 'page_title'=>$page->title];
-//        $data['items'] = Term::siteList();
+        $data['items'] = Brand::siteList();
         return view('site.pages.brands', $data);
     }
 

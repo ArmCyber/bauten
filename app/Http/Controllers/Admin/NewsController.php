@@ -85,7 +85,7 @@ class NewsController extends BaseController
 
         ];
         if (empty($inputs['generate_url'])) {
-            $rules['url'] = 'required|is_url|string|max:255|unique:news,url'.$unique.'|nullable';
+            $rules['url'] = 'required|is_url|string|max:255|unique:news,url'.$unique;
         }
         $result = [];
         $result['validator'] = Validator::make($inputs, $rules);

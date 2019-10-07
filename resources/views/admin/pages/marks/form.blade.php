@@ -36,7 +36,7 @@
             <div class="card">
                 <div class="c-title">Показать в главном ст.</div>
                 <div class="little-p">
-                    @labelauty(['id'=>'in_home', 'label'=>'Не показано|Показано', 'checked'=>oldCheck('in_home', ($edit && empty($item->in_home))?false:true)])@endlabelauty
+                    @labelauty(['id'=>'in_home', 'label'=>'Не показано|Показано', 'checked'=>oldCheck('in_home', ($edit && !empty($item->in_home))?true:false)])@endlabelauty
                 </div>
             </div>
         </div>

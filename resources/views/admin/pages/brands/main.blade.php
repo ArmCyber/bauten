@@ -10,6 +10,7 @@
                         <th>Код</th>
                         <th>Имя</th>
                         <th>Статус</th>
+                        <th>В главном ст.</th>
                         <th>Действие</th>
                     </tr>
                     </thead>
@@ -22,6 +23,11 @@
                                 <td class="text-success">Активно</td>
                             @else
                                 <td class="text-danger">Неактивно</td>
+                            @endif
+                            @if($item->in_home)
+                                <td class="text-success">Показано</td>
+                            @else
+                                <td class="text-danger">Не показано</td>
                             @endif
                             <td>
                                 <a href="{{ route('admin.brands.edit', ['id'=>$item->id]) }}" {!! tooltip('Редактировать') !!} class="icon-btn edit"></a>

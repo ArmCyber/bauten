@@ -103,7 +103,7 @@ class PartsController extends BaseController
             'description' => 'nullable|string',
         ];
         if (empty($inputs['generate_url'])) {
-            $rules['url'] = 'required|is_url|string|max:255|unique:part_catalogs,url'.$unique.'|nullable';
+            $rules['url'] = 'required|is_url|string|max:255|unique:part_catalogs,url'.$unique;
         }
         $validator = Validator::make($inputs, $rules);
         if ($validator->fails()) {

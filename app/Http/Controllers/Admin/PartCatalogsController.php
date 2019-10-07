@@ -76,7 +76,7 @@ class PartCatalogsController extends BaseController
             'generated_url'=>'required_with:generate_url|string|nullable',
         ];
         if (empty($inputs['generate_url'])) {
-            $rules['url'] = 'required|is_url|string|max:255|unique:part_catalogs,url'.$unique.'|nullable';
+            $rules['url'] = 'required|is_url|string|max:255|unique:part_catalogs,url'.$unique;
         }
         $result = [];
         $result['validator'] = Validator::make($inputs, $rules);

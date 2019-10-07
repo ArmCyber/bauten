@@ -61,17 +61,19 @@ class Page extends Model
             $ignore = $model->id;
             $action = 'edit';
         }
-        if (!empty($inputs['generate_url'])) {
-            $url = self::url_unique($inputs['generated_url'], $ignore);
-            if (PageManager::inUsedRoutes($url) && $url!=$model->url) $url = $url.'-2';
-            $length = mb_strlen($url, 'UTF-8');
-            if($length==1) $url = '-'.$url.'-';
-            else if ($length==2) $url=$url.'-';
+        if ($action == 'add' || $model->static!=\PageManager::getHomepage()) {
+            if (!empty($inputs['generate_url'])) {
+                $url = self::url_unique($inputs['generated_url'], $ignore);
+                if (PageManager::inUsedRoutes($url) && $url!=$model->url) $url = $url.'-2';
+                $length = mb_strlen($url, 'UTF-8');
+                if($length==1) $url = '-'.$url.'-';
+                else if ($length==2) $url=$url.'-';
+            }
+            else {
+                $url = $inputs['url'];
+            }
+            $model['url'] = $url;
         }
-        else {
-            $url = $inputs['url'];
-        }
-        $model['url'] = $url;
         $model['on_menu'] = (int) !empty($inputs['on_menu']);
         $model['active'] = (int) (!empty($inputs['active']) || ($action=='edit' && $model['static'] == PageManager::getHomePage()));
         merge_model($inputs, $model, ['title', 'seo_title', 'seo_description', 'seo_keywords']);

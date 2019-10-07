@@ -762,6 +762,9 @@ img.news-page-image {
 .marks-page .part-item {
     @include box-shadow(0 0px 10px 0 rgba(31,48,93,0.3));
 }
+.brands-page .brand-item {
+    @include box-shadow(0 0px 10px 0 rgba(31,48,93,0.3));
+}
 @include media(1599) {
     .product-title {
         font-size: 19px;

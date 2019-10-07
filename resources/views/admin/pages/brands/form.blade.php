@@ -29,17 +29,39 @@
                     @labelauty(['id'=>'active', 'label'=>'Неактивно|Активно', 'checked'=>oldCheck('active', ($edit && empty($item->active))?false:true)])@endlabelauty
                 </div>
             </div>
+            <div class="card">
+                <div class="c-title">Показать в главном ст.</div>
+                <div class="little-p">
+                    @labelauty(['id'=>'in_home', 'label'=>'Не показано|Показано', 'checked'=>oldCheck('in_home', ($edit && !empty($item->in_home))?true:false)])@endlabelauty
+                </div>
+            </div>
+            <div class="card px-3 py-2">
+                <div class="row cstm-input">
+                    <div class="col-12 p-b-5">
+                        <input class="labelauty-reverse toggle-bottom-input on-unchecked" type="checkbox" name="generate_url" value="1" data-labelauty="Вставить ссылку вручную" {!! oldCheck('generate_url', $edit?false:true) !!}>
+                        <div class="bottom-input">
+                            <input type="text" maxlength="255" style="margin-top:3px;" name="url" class="form-control" id="form_url" placeholder="Ссылка" value="{{ old('url', $item->url??null) }}">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="col-12 col-lg-6">
             <div class="card">
-                <div class="c-title">Изоброжение</div>
+                <div class="c-title">Изоброжение ((<=191)x50)</div>
                 @if (!empty($item->image))
-                    <div class="p-2 text-center">
-                        <img src="{{ asset('u/brands/'.$item->image) }}" alt="" class="img-responsive">
+                    <div class="p-2">
+                        <img src="{{ asset('u/brands/'.$item->image) }}" alt="" style="height: 50px; max-width: 191px; width: auto; object-fit: contain;">
                     </div>
                 @endif
                 <div class="c-body">
                     @file(['name'=>'image'])@endfile
+                    <div class="pt-2">
+                        <input type="text" name="image_alt" class="form-control" maxlength="255" placeholder="Alt" value="{{ old('image_alt', $item->image_alt??null) }}">
+                    </div>
+                    <div class="pt-2">
+                        <input type="text" name="image_title" class="form-control" maxlength="255" placeholder="Title" value="{{ old('image_title', $item->image_title??null) }}">
+                    </div>
                 </div>
             </div>
         </div>
