@@ -10,6 +10,7 @@ class PagesController extends BaseController
         'home' => ['admin.banners', ['banners'=>'home']],
         'terms' => ['admin.terms.main'],
         'contacts' => ['admin.banners', ['banners'=>'contacts']],
+        'about' => ['admin.banners', ['banners'=>'about']],
     ];
     /*
         private const GALLERY_PAGES = [
@@ -95,6 +96,10 @@ class PagesController extends BaseController
             'seo_title' => 'nullable|string|max:255',
             'seo_keywords' => 'nullable|string|max:255',
             'seo_description' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png',
+            'image_alt' => 'nullable|string|max:255',
+            'image_title' => 'nullable|string|max:255',
+            'content' => 'nullable|string',
         ];
         if (empty($inputs['generate_url'])) {
             $rules['url'] = 'required|is_url|string|unique:pages,url'.$unique.'|min:3|max:255|nullable';

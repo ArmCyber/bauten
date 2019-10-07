@@ -36,7 +36,7 @@ class AppController extends BaseController
 
     private function static_about($page) {
         $data = ['active_page'=>$page->id, 'page_title'=>$page->title];
-//        $data['items'] = Term::siteList();
+        $data['banners'] = Banner::get('about');
         return view('site.pages.about', $data);
     }
 
@@ -56,6 +56,12 @@ class AppController extends BaseController
         $data = ['active_page'=>$page->id, 'page_title'=>$page->title];
 //        $data['items'] = Term::siteList();
         return view('site.pages.news', $data);
+    }
+
+    private function dynamic_page($page) {
+        $data = ['active_page'=>$page->id, 'page_title'=>$page->title];
+        $data['page'] = $page;
+        return view('site.pages.dynamic_page', $data);
     }
 
     //Temporary

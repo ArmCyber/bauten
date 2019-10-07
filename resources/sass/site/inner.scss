@@ -741,6 +741,11 @@ input, textarea {
         @include box-shadow(none);
     }
 }
+.img-fluid {
+    width:100%;
+    height:auto;
+    line-height: 1;
+}
 @include media(1599) {
     .product-title {
         font-size: 19px;

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Cache;
 use App\Http\Traits\Sortable;
 use Illuminate\Database\Eloquent\Model;
 use App\Services\PageManager\Facades\PageManager;
+use Illuminate\Support\Facades\File;
 
 class Page extends Model
 {
@@ -74,6 +75,21 @@ class Page extends Model
         $model['on_menu'] = (int) !empty($inputs['on_menu']);
         $model['active'] = (int) (!empty($inputs['active']) || ($action=='edit' && $model['static'] == PageManager::getHomePage()));
         merge_model($inputs, $model, ['title', 'seo_title', 'seo_description', 'seo_keywords']);
+        if (!$ignore || !$model['static']) {
+            $model['image_alt'] = $inputs['image_alt'];
+            $model['image_title'] = $inputs['image_title'];
+            $model['content'] = $inputs['content'];
+            $resizes = [
+                [
+                    'method'=>'resize',
+                    'width'=>1440,
+                    'height'=>null,
+                    'aspectRatio'=>true,
+                    'upsize'=>true,
+                ]
+            ];
+            if($image = upload_image('image', 'u/pages/', $resizes, ($action=='edit' && !empty($model->image))?$model->image:false)) $model->image = $image;
+        }
         self::clearCaches();
         $model->save();
         return $model->wasChanged();
@@ -81,6 +97,7 @@ class Page extends Model
 
     public static function deletePage($model){
         self::clearCaches();
+        if ($model->image) File::delete(public_path('u/pages/'.$model->image));
         return $model->delete();
     }
 

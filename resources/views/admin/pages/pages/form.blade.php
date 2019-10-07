@@ -38,6 +38,48 @@
             @endcard
         </div>
     </div>
+    @if(!$edit || !$item->static)
+        @bannerBlock(['title'=>'Контент'])
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                <div class="card">
+                    <div class="c-title">Баннер (рек. шир. 1440px)</div>
+                    @if (!empty($item->image))
+                        <div class="p-2 text-center">
+                            <img src="{{ asset('u/pages/'.$item->image) }}" class="img-responsive" alt="">
+                        </div>
+                    @endif
+                    <div class="c-body">
+                        @file(['name'=>'image'])@endfile
+                        @labelauty(['id'=>'show_image', 'class'=>'pt-2', 'label'=>'Показать баннер', 'checked'=>oldCheck('show_image', ($edit && empty($item->show_image))?false:true)])@endlabelauty
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="c-title">Alt</div>
+                    <div class="little-p">
+                        <input type="text" name="image_alt" class="form-control" placeholder="Alt" maxlength="255" value="{{ old('image_alt', $item->image_alt??null) }}">
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="c-title">Title</div>
+                    <div class="little-p">
+                        <input type="text" name="image_title" class="form-control" placeholder="Title" maxlength="255" value="{{ old('image_title', $item->image_title??null) }}">
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="c-title">Контент</div>
+                        <div class="little-p">
+                            <textarea name="content" class="form-control form-textarea ckeditor" placeholder="Контент">{!! old('content', $item->content??null) !!}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endbannerBlock
+    @endif
     @seo(['item'=>$item??null])@endseo
     <div class="col-12 save-btn-fixed"><button type="submit"></button></div>
 </form>

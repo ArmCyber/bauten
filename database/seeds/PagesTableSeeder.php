@@ -49,13 +49,6 @@ class PagesTableSeeder extends Seeder
             ],
             [
                 'id'=>5,
-                'url'=>'about',
-                'title'=>'О компании',
-                'static'=>'about',
-                'created_at'=>$now,
-                'updated_at'=>$now,
-            ],[
-                'id'=>6,
                 'url'=>'terms',
                 'title'=>'Условия',
                 'static'=>'terms',
@@ -63,10 +56,18 @@ class PagesTableSeeder extends Seeder
                 'updated_at'=>$now,
             ],
             [
-                'id'=>7,
+                'id'=>6,
                 'url'=>'contacts',
                 'title'=>'Контакты',
                 'static'=>'contacts',
+                'created_at'=>$now,
+                'updated_at'=>$now,
+            ],
+            [
+                'id'=>7,
+                'url'=>'news',
+                'title'=>'Новости',
+                'static'=>'news',
                 'created_at'=>$now,
                 'updated_at'=>$now,
             ],
