@@ -190,10 +190,11 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
 //endregion
 
 //region Temporary
-//Route::get('catalogue', 'Site\AppController@catalogue');
 Route::get('register', 'Site\AppController@register');
-//Route::get('product', 'Site\AppController@product');
 //endregion
+
+Route::post(r('contacts').'/send-message', 'Site\InnerController@sendContactsMessage')->name('contacts.send_message');
+
 Route::get('product/{url}', 'Site\PartsController@show')->name('part');
 Route::get(r('catalogue').'/{url}', 'Site\CatalogueController@show')->name('catalogue');
 Route::get('{url?}', 'Site\AppController@pageManager')->name('page');

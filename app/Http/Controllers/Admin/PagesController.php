@@ -9,6 +9,7 @@ class PagesController extends BaseController
     private const CONTENT_PAGES = [
         'home' => ['admin.banners', ['banners'=>'home']],
         'terms' => ['admin.terms.main'],
+        'contacts' => ['admin.banners', ['banners'=>'contacts']],
     ];
     /*
         private const GALLERY_PAGES = [

@@ -114,6 +114,15 @@ class BannersController extends BaseController
                     'active' => 'labelauty',
                 ]
             ],
+        ],
+        'contacts' => [
+            'data' => [
+                'params' => [
+                    'requisites_title' => 'input',
+                    'form_title' => 'input',
+                    'iframe' => 'input'
+                ]
+            ]
         ]
     ];
 }

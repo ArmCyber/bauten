@@ -30,7 +30,7 @@ class AppController extends BaseController
 
     private function static_contacts($page) {
         $data = ['active_page'=>$page->id, 'page_title'=>$page->title];
-//        $data['items'] = Term::siteList();
+        $data['banners'] = Banner::get('contacts');
         return view('site.pages.contacts', $data);
     }
 

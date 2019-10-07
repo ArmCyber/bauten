@@ -56,14 +56,12 @@
                                 </div>
                             </div>
                         @else
-                            <div class="menu-item{{ ($active_page??null)==$menu_item->id?' active':'' }}"><a href="{{ route('page', ['url'=>$menu_item->url]) }}">{{ $menu_item->title }}</a></div>
+                            <div class="menu-item{{ ($active_page??null)==$menu_item->id?' active':'' }}"><a href="{{ $url = route('page', ['url'=>$menu_item->url]) }}">{{ $menu_item->title }}</a></div>
+                            @push('footer_links')
+                                <div class="footer-link"><a href="{{ $url }}">{{ $menu_item->title }}</a></div>
+                            @endpush
                         @endif
                     @endforeach
-{{--                    <div class="menu-item"><a href="javascript:void(0)">Марки</a></div>--}}
-{{--                    <div class="menu-item"><a href="javascript:void(0)">Бренды</a></div>--}}
-{{--                    <div class="menu-item"><a href="javascript:void(0)">О компании</a></div>--}}
-{{--                    <div class="menu-item"><a href="javascript:void(0)">Условия</a></div>--}}
-{{--                    <div class="menu-item"><a href="javascript:void(0)">Контакты</a></div>--}}
                 </nav>
             </div>
         </header>
@@ -103,14 +101,7 @@
                         </div>
                     </div>
                     <div class="col-12 col-lg-8 footer-lists">
-                        <div class="footer-list">
-                            <div class="footer-link"><a href="javascript:void(0)">Каталог</a></div>
-                            <div class="footer-link"><a href="javascript:void(0)">Марки</a></div>
-                            <div class="footer-link"><a href="javascript:void(0)">Бренды</a></div>
-                            <div class="footer-link"><a href="javascript:void(0)">О компании</a></div>
-                            <div class="footer-link"><a href="javascript:void(0)">Условия</a></div>
-                            <div class="footer-link"><a href="javascript:void(0)">Контакты</a></div>
-                        </div>
+                        <div class="footer-list">@stack('footer_links')</div>
                         <div class="footer-list">
                             <div class="footer-link"><a href="javascript:void(0)">Шины</a></div>
                             <div class="footer-link"><a href="javascript:void(0)">Жидкости ГУР</a></div>
