@@ -3,34 +3,33 @@
     @include('site.blocks.'.($logged_in?'auth.home_search':'guest.home_welcome'))
     <section class="section container">
         <h2 class="section-title">{{ $banners->block_titles->parts }}</h2>
-        <div class="section-content">
-            <div class="home-parts">
-                <div class="row row-grid l-m">
-                    @foreach(['Audi', 'BMW', 'Chrysler', 'Citroen', 'Daewoo', 'Ford', 'Honda', 'Hyundai', 'Isuzu', 'Kia', 'Lexus'] as $item)
+        @if(is_active('marks') && count($marks))
+            <div class="section-content">
+                <div class="home-parts">
+                    <div class="row row-grid l-m">
+                        @foreach($marks as $item)
+                            <div class="col-6 col-sm-4 col-md-3 col-xl-2">
+                                @component('site.components.marks', ['item'=>$item])@endcomponent
+                            </div>
+                        @endforeach
                         <div class="col-6 col-sm-4 col-md-3 col-xl-2">
-                            <a href="javascript:void(0)" class="part-item">
-                                <span class="part-img"><img src="{{ asset('f/parts/'.$loop->iteration.'.png') }}" alt="{{ $item }}"></span>
-                                <span class="part-title">{{ $item }}</span>
+                            <a href="{{ page('marks') }}" class="part-item card-more">
+                                <span class="d-block">Посмотреть все запчасти</span>
                             </a>
                         </div>
-                    @endforeach
-                    <div class="col-6 col-sm-4 col-md-3 col-xl-2">
-                        <a href="javascript:void(0)" class="part-item card-more">
-                            <span class="d-block">Посмотреть все запчасти</span>
-                        </a>
                     </div>
                 </div>
             </div>
-            <div class="part-banners">
-                @foreach($banners->banners as $banner)
-                    @if(!$banner->image || !$banner->active) @continue @endif
-                    <div class="part-banner">
-                        <a href="{{ $banner->url?url($banner->url):'javascript:void(0)' }}" class="force-3-1 check-cursor" @if($banner->url)target="_blank" @endif>
-                            <img src="{{ $banner->image() }}" alt="{{ $banner->alt }}" title="{{ $banner->title }}">
-                        </a>
-                    </div>
-                @endforeach
-            </div>
+        @endif
+        <div class="part-banners">
+            @foreach($banners->banners as $banner)
+                @if(!$banner->image || !$banner->active) @continue @endif
+                <div class="part-banner">
+                    <a href="{{ $banner->url?url($banner->url):'javascript:void(0)' }}" class="force-3-1 check-cursor" @if($banner->url)target="_blank" @endif>
+                        <img src="{{ $banner->image() }}" alt="{{ $banner->alt }}" title="{{ $banner->title }}">
+                    </a>
+                </div>
+            @endforeach
         </div>
     </section>
     <section class="section section-bg">
@@ -66,6 +65,3 @@
         </section>
     @endif
 @endsection
-@push('css')
-    @css(aSite('css/home.css'))
-@endpush

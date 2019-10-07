@@ -71,7 +71,6 @@
 @endsection
 @push('css')
     @css(aSite('assets/styler/styler.css'))
-    @css(aSite('css/inner.css'))
 @endpush
 @push('js')
     @js(aSite('assets/styler/styler.js'))

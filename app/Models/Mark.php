@@ -3,14 +3,36 @@
 namespace App\Models;
 
 use App\Http\Traits\Sortable;
+use App\Http\Traits\UrlUnique;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 
 class Mark extends Model
 {
-    use Sortable;
+    use Sortable,UrlUnique;
 
     protected $sortableDesc = false;
+
+    private const CACHE_KEY = 'marks';
+    private const CACHE_KEY_HOME = 'marks_home';
+
+    public static function clearCaches() {
+        Cache::forget(self::CACHE_KEY);
+        Cache::forget(self::CACHE_KEY_HOME);
+    }
+
+    public static function homeList(){
+        return Cache::rememberForever(self::CACHE_KEY_HOME, function(){
+            return self::where(['in_home'=>1, 'active'=>1])->sort()->get();
+        });
+    }
+
+    public static function siteList(){
+        return Cache::rememberForever(self::CACHE_KEY, function(){
+            return self::where('active',1)->sort()->get();
+        });
+    }
 
     public static function fullAdminList(){
         return self::select('id', 'name')->with(['models'=>function($q){
@@ -39,11 +61,13 @@ class Mark extends Model
             $model = new self;
             $model['sort'] = $model->sortValue();
             $action='add';
+            $ignore=false;
         }
-        else $action='edit';
+        else $ignore = $model->id;
         $model['name'] = $inputs['name'];
         $model['image_alt'] = $inputs['image_alt'];
         $model['image_title'] = $inputs['image_title'];
+        $model['url'] = self::actionUrl($inputs, $ignore);
         $resizes = [
             [
                 'method'=>'resize',
@@ -52,7 +76,7 @@ class Mark extends Model
                 'aspectRatio'=>true,
             ]
         ];
-        if($image = upload_image('image', 'u/marks/', $resizes, ($action=='edit' && !empty($model->image))?$model->image:false)) $model->image = $image;
+        if($image = upload_image('image', 'u/marks/', $resizes, ($ignore && !empty($model->image))?$model->image:false)) $model->image = $image;
         $model['active'] = (int) array_key_exists('active', $inputs);
         return $model->save();
     }

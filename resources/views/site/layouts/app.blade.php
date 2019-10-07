@@ -6,6 +6,9 @@
     @css(aApp('bootstrap/css/bootstrap.css'))
     @css(aApp('font-awesome/css/all.css'))
     @css(aSite('css/app.css'))
+    @empty($skip_inner_css)
+        @css(aSite('css/inner.css'))
+    @endempty
     @stack('css')
 </head><body>
     <div id="page" class="page">

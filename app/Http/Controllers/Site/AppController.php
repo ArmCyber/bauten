@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Models\Country;
 use App\Models\HomeSlide;
+use App\Models\Mark;
 use App\Models\News;
 use App\Models\PartCatalog;
 use App\Models\Term;
@@ -17,10 +18,12 @@ class AppController extends BaseController
 
     private function static_home($page) {
         $data = ['active_page'=>$page->id];
+        $data['skip_inner_css'] = true;
         $data['logged_in'] = request()->has('logged_in');
         $data['banners'] = Banner::get('home');
         $data['home_slider'] = HomeSlide::siteList();
         $data['news'] = News::homeList();
+        $data['marks'] = Mark::homeList();
         return view('site.pages.home', $data);
     }
 
@@ -44,7 +47,7 @@ class AppController extends BaseController
 
     private function static_marks($page) {
         $data = ['active_page'=>$page->id, 'page_title'=>$page->title];
-//        $data['items'] = Term::siteList();
+        $data['items'] = Mark::siteList();
         return view('site.pages.marks', $data);
     }
 

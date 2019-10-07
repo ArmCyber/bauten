@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddContentToPagesTable extends Migration
+class AddUrlToBrandsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class AddContentToPagesTable extends Migration
      */
     public function up()
     {
-        Schema::table('pages', function (Blueprint $table) {
-            $table->string('image', 64)->nullable()->after('static');
+        Schema::table('brands', function (Blueprint $table) {
             $table->string('image_alt')->nullable()->after('image');
             $table->string('image_title')->nullable()->after('image_alt');
-            $table->boolean('show_image')->default(1)->after('image_title');
-            $table->text('content')->nullable()->after('show_image');
+            $table->string('url')->after('image_title');
+            $table->boolean('in_home')->default(0)->after('url');
         });
     }
 
@@ -29,8 +28,8 @@ class AddContentToPagesTable extends Migration
      */
     public function down()
     {
-        Schema::table('pages', function (Blueprint $table) {
-            $table->dropColumn('image', 'image_alt', 'image_title', 'show_image', 'content');
+        Schema::table('brands', function (Blueprint $table) {
+            $table->dropColumn('image_alt', 'image_title', 'url', 'in_home');
         });
     }
 }

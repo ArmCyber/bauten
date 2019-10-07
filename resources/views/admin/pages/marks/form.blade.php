@@ -17,10 +17,26 @@
                     <input type="text" name="name" class="form-control" maxlength="255" placeholder="Имя" value="{{ old('name', $item->name??null) }}">
                 </div>
             </div>
+            <div class="card px-3 py-2 d-none">
+                <div class="row cstm-input">
+                    <div class="col-12 p-b-5">
+                        <input class="labelauty-reverse toggle-bottom-input on-unchecked" type="checkbox" name="generate_url" value="1" data-labelauty="Вставить ссылку вручную" {!! oldCheck('generate_url', $edit?false:true) !!}>
+                        <div class="bottom-input">
+                            <input type="text" maxlength="255" style="margin-top:3px;" name="url" class="form-control" id="form_url" placeholder="Ссылка" value="{{ old('url', $item->url??null) }}">
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="card">
                 <div class="c-title">Статус</div>
                 <div class="little-p">
                     @labelauty(['id'=>'active', 'label'=>'Неактивно|Активно', 'checked'=>oldCheck('active', ($edit && empty($item->active))?false:true)])@endlabelauty
+                </div>
+            </div>
+            <div class="card">
+                <div class="c-title">Показать в главном ст.</div>
+                <div class="little-p">
+                    @labelauty(['id'=>'in_home', 'label'=>'Не показано|Показано', 'checked'=>oldCheck('in_home', ($edit && empty($item->in_home))?false:true)])@endlabelauty
                 </div>
             </div>
         </div>

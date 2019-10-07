@@ -22,9 +22,9 @@ class MarksController extends BaseController
     }
 
     public function add_put(Request $request){
-        $inputs = $request->all();
-        $this->validator($inputs)->validate();
-        if(Mark::action(null, $inputs)) {
+        $validator = $this->validator($request);
+        $validator['validator']->validate();
+        if(Mark::action(null, $validator['inputs'])) {
             Notify::success('Марка добавлена.');
             return redirect()->route('admin.marks.main');
         }
@@ -43,9 +43,9 @@ class MarksController extends BaseController
 
     public function edit_patch($id, Request $request){
         $item = Mark::getItem($id);
-        $inputs = $request->all();
-        $this->validator($inputs, true)->validate();
-        if(Mark::action($item, $inputs)) {
+        $validator = $this->validator($request, true);
+        $validator['validator']->validate();
+        if(Mark::action($item, $validator['inputs'])) {
             Notify::success('Марка редактирована.');
             return redirect()->route('admin.marks.edit', ['id'=>$item->id]);
         }
@@ -67,12 +67,24 @@ class MarksController extends BaseController
 
     public function sort() { return Mark::sortable(); }
 
-    private function validator($inputs, $edit=false) {
-        return Validator::make($inputs, [
-            'name' => 'nullable|string|max:255',
-            'image' => ($edit?'nullable':'required').'|image|mimes:jpeg,png',
+    private function validator($request, $ignore=false) {
+        $inputs = $request->all();
+        $unique = $ignore===false?null:','.$ignore;
+        if(!empty($inputs['url'])) $inputs['url'] = mb_strtolower($inputs['url']);
+        $inputs['generated_url'] = !empty($inputs['name'])?to_url($inputs['name']):null;
+        $request->merge(['url' => $inputs['url']]);
+        $rules = [
+            'name' => 'required|string|max:255|unique:part_catalogs,name'.$unique,
+            'image' => ($ignore?'nullable':'required').'|image|mimes:jpeg,png',
             'image_alt' => 'nullable|string|max:255',
             'image_title' => 'nullable|string|max:255',
-        ]);
+        ];
+        if (empty($inputs['generate_url'])) {
+            $rules['url'] = 'required|is_url|string|max:255|unique:marks,url'.$unique.'|nullable';
+        }
+        $result = [];
+        $result['validator'] = Validator::make($inputs, $rules);
+        $result['inputs'] = $inputs;
+        return $result;
     }
 }

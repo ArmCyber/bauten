@@ -10,7 +10,7 @@
                 @endcard
             </div>
             <div class="col-12 col-dxl-6">
-                @card(['title'=>'Блок "Запчасти по моделям"'])
+                @card(['title'=>'Блок "Запчасти по маркам"'])
                     @banner('block_titles.parts', 'Название')
                 @endcard
             </div>

@@ -146,7 +146,6 @@
 @endsection
 @push('css')
     @css(aApp('swiper/swiper.css'))
-    @css(aSite('css/inner.css'))
 @endpush
 @push('js')
     @js(aApp('swiper/swiper.js'))

@@ -9,6 +9,3 @@
     </div>
 </div>
 @endsection
-@push('css')
-    @css(aSite('css/inner.css'))
-@endpush

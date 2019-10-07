@@ -47,12 +47,3 @@
     <div class="col-12 save-btn-fixed"><button type="submit"></button></div>
 </form>
 @endsection
-{{--@push('js')--}}
-    {{--@js(aApp('select2/select2.js'))--}}
-    {{--<script>--}}
-        {{--$('.select2').select2();--}}
-    {{--</script>--}}
-{{--@endpush--}}
-{{--@push('css')--}}
-    {{--@css(aApp('select2/select2.css'))--}}
-{{--@endpush--}}

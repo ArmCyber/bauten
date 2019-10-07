@@ -10,6 +10,7 @@
                         <th>Имя</th>
                         <th>Статус</th>
                         <th>Марки</th>
+                        <th>В главном ст.</th>
                         <th>Действие</th>
                     </tr>
                     </thead>
@@ -23,6 +24,11 @@
                                 <td class="text-danger">Неактивно</td>
                             @endif
                             <td><a href="{{ route('admin.models.main', ['id'=>$item->id]) }}">Перейти к моделям ({!! $item->models_count !!})</a></td>
+                            @if($item->in_home)
+                                <td class="text-success">Показано</td>
+                            @else
+                                <td class="text-danger">Не показано</td>
+                            @endif
                             <td>
                                 <a href="{{ route('admin.marks.edit', ['id'=>$item->id]) }}" {!! tooltip('Редактировать') !!} class="icon-btn edit"></a>
                                 <span class="d-inline-block"  style="margin-left:4px;" data-toggle="modal" data-target="#itemDeleteModal"><a href="javascript:void(0)" class="icon-btn delete" {!! tooltip('Удалить') !!}></a></span>
