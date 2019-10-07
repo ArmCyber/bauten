@@ -28,6 +28,8 @@ class BaseController extends Controller
         $this->shared['catalogs'] = PartCatalog::siteList();
         $this->shared['homepage'] = get_page(PageManager::getHomePage());
         $this->shared['menu'] = Page::getMenu();
+        $this->shared['footer_pages'] = Page::footerList();
+        $this->shared['home_catalogs'] = PartCatalog::homeList();
         view()->share($this->shared);
         return true;
     }

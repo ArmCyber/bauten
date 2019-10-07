@@ -106,25 +106,14 @@
                     <div class="col-12 col-lg-8 footer-lists">
                         <div class="footer-list">@stack('footer_links')</div>
                         <div class="footer-list">
-                            <div class="footer-link"><a href="javascript:void(0)">Шины</a></div>
-                            <div class="footer-link"><a href="javascript:void(0)">Жидкости ГУР</a></div>
-                            <div class="footer-link"><a href="javascript:void(0)">Смазки</a></div>
-                            <div class="footer-link"><a href="javascript:void(0)">Фаркопы</a></div>
-                            <div class="footer-link"><a href="javascript:void(0)">Коврики</a></div>
-                            <div class="footer-link"><a href="javascript:void(0)">Держатели и столики</a></div>
-                            <div class="footer-link"><a href="javascript:void(0)">Жидкости амортизаторные</a></div>
-                            <div class="footer-link"><a href="javascript:void(0)">Автосвет</a></div>
-                            <div class="footer-link"><a href="javascript:void(0)">Провода для прикуривания</a></div>
-                            <div class="footer-link"><a href="javascript:void(0)">Держатели и столики</a></div>
+                            @foreach($home_catalogs as $catalog)
+                                <div class="footer-link"><a href="{{ route('catalogue', ['url'=>$catalog->url]) }}">{{ $catalog->name }}</a></div>
+                            @endforeach
                         </div>
                         <div class="footer-list">
-                            <div class="footer-link"><a href="javascript:void(0)">Публичная оферта</a></div>
-                            <div class="footer-link"><a href="javascript:void(0)">Условия</a></div>
-                            <div class="footer-link"><a href="javascript:void(0)">Конфиденциальность</a></div>
-                            <div class="footer-link"><a href="javascript:void(0)">Оплата и доставка</a></div>
-                            <div class="footer-link"><a href="javascript:void(0)">Корпоративным клиентам</a></div>
-                            <div class="footer-link"><a href="javascript:void(0)">Программа лояльности</a></div>
-                            <div class="footer-link"><a href="javascript:void(0)">Вакансии</a></div>
+                            @foreach($footer_pages as $footer_page)
+                                <div class="footer-link"><a href="{{ route('page', ['url'=>$footer_page->url]) }}">{{ $footer_page->title }}</a></div>
+                            @endforeach
                         </div>
                     </div>
                     <div class="col-12 d-lg-none">

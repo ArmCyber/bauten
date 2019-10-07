@@ -74,6 +74,9 @@ class PartCatalogsController extends BaseController
         $rules = [
             'name' => 'required|string|max:255|unique:part_catalogs,name'.$unique,
             'generated_url'=>'required_with:generate_url|string|nullable',
+            'image' => 'nullable|image|mimes:jpeg,png',
+            'image_alt' => 'nullable|string|max:255',
+            'image_title' => 'nullable|string|max:255',
         ];
         if (empty($inputs['generate_url'])) {
             $rules['url'] = 'required|is_url|string|max:255|unique:part_catalogs,url'.$unique;

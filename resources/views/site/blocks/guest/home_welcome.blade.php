@@ -54,15 +54,15 @@
     <div class="container">
         <h2 class="section-title">{{ $banners->block_titles->catalogue }}</h2>
         <div class="section-content row row-grid">
-            @foreach([['title'=>'Шины','price'=>'7.800',],['title'=>'Диски','price'=>'9.700',],['title'=>'Щетки стеклоочистеля','price'=>'5.300',],['title'=>'Масла','price'=>'1.800',],['title'=>'Аксессуары','price'=>'9.900',],['title'=>'Электро - оборудование','price'=>'5.400',],['title'=>'Автохимия','price'=>'1.200',],['title'=>'Инструменты','price'=>'2.300',],] as $item)
+            @foreach($home_catalogs as $catalog)
                 <div class="col-12 col-sm-6 col-md-4 col-xl-3">
                     <div class="catalogue-item">
                         <div class="catalogue-left">
-                            <div><a href="javascript:void(0)" class="catalogue-title">{{ $item['title'] }}</a></div>
-                            <div><span class="catalogue-price">Цена: от <span class="cat-price">{{ $item['price'] }}</span> <span class="kzt"></span></span></div>
+                            <div><a href="{{ $url = route('catalogue', ['url'=>$catalog->url]) }}" class="catalogue-title">{{ $catalog->name }}</a></div>
+                            <div><span class="catalogue-price">Цена: от <span class="cat-price">{{ $catalog->parts_min_price }}</span> <span class="kzt"></span></span></div>
                         </div>
                         <div class="catalogue-right">
-                            <a href="javascript:void(0)"><img src="{{ asset('f/catalogue/'.$loop->iteration.'.png') }}" alt="{{ $item['title'] }}"></a>
+                            <a href="{{ $url }}"><img src="{{ asset('u/part_catalogs/'.$catalog->image) }}" alt="{{ $catalog->image_alt }}" title="{{ $catalog->image_title }}"></a>
                         </div>
                     </div>
                 </div>

@@ -9,6 +9,7 @@
                         <tr>
                             <th>Название</th>
                             <th>Статус</th>
+                            <th>Показано в</th>
                             <th>Действие</th>
                         </tr>
                     </thead>
@@ -20,6 +21,15 @@
                                     <td class="text-success">Активно</td>
                                 @else
                                     <td class="text-danger">Неактивно</td>
+                                @endif
+                                @if($item->on_menu && $item->on_footer)
+                                    <td class="text-success">Меню и Футер</td>
+                                @elseif ($item->on_menu && !$item->on_footer)
+                                    <td class="text-cyan">Меню</td>
+                                @elseif(!$item->on_menu && $item->on_footer)
+                                    <td>Футер</td>
+                                @else
+                                    <td class="text-danger">Не показано</td>
                                 @endif
                                 <td>
                                     <a href="{{ route('admin.pages.edit', ['id'=>$item->id]) }}" {!! tooltip('Редактировать') !!} class="icon-btn edit"></a>

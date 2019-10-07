@@ -19,10 +19,12 @@ class Page extends Model
     //region Cache
     private const CACHE_KEY_STATIC = 'pages_static';
     private const CACHE_KEY_MENU = 'pages_menu';
+    private const CACHE_KEY_FOOTER = 'pages_footer';
 
     public static function clearCaches(){
         Cache::forget(self::CACHE_KEY_STATIC);
         Cache::forget(self::CACHE_KEY_MENU);
+        Cache::forget(self::CACHE_KEY_FOOTER);
     }
     //endregion
 
@@ -38,8 +40,14 @@ class Page extends Model
         });
     }
 
+    public static function footerList(){
+        return Cache::rememberForever(self::CACHE_KEY_FOOTER, function(){
+            return self::select('id', 'url', 'title')->where(['active'=>1, 'on_footer'=>1])->sort()->get();
+        });
+    }
+
     public static function adminList(){
-        return self::select('id', 'title', 'active', 'static')->sort()->get();
+        return self::sort()->get();
     }
 
     public static function getStaticPage($static){
@@ -75,6 +83,8 @@ class Page extends Model
             $model['url'] = $url;
         }
         $model['on_menu'] = (int) !empty($inputs['on_menu']);
+        $model['on_footer'] = (int) !empty($inputs['on_footer']);
+        $model['show_image'] = (int) !empty($inputs['show_image']);
         $model['active'] = (int) (!empty($inputs['active']) || ($action=='edit' && $model['static'] == PageManager::getHomePage()));
         merge_model($inputs, $model, ['title', 'seo_title', 'seo_description', 'seo_keywords']);
         if (!$ignore || !$model['static']) {

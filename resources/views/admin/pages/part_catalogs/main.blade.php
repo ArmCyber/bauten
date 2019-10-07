@@ -9,6 +9,7 @@
                     <tr>
                         <th>Имя</th>
                         <th>Количество запчастей</th>
+                        <th>В главном ст.</th>
                         <th>Действие</th>
                     </tr>
                     </thead>
@@ -17,6 +18,11 @@
                         <tr class="item-row" data-id="{!! $item->id !!}">
                             <td class="item-title">{{ $item->name}}</td>
                             <td>{{ $item->parts_count }}</td>
+                            @if($item->in_home && $item->image)
+                                <td class="text-success">Показано</td>
+                            @else
+                                <td class="text-danger">Не показано</td>
+                            @endif
                             <td>
                                 <a href="{{ route('admin.part_catalogs.edit', ['id'=>$item->id]) }}" {!! tooltip('Редактировать') !!} class="icon-btn edit"></a>
                                 <span class="d-inline-block"  style="margin-left:4px;" data-toggle="modal" data-target="#itemDeleteModal"><a href="javascript:void(0)" class="icon-btn delete" {!! tooltip('Удалить') !!}></a></span>

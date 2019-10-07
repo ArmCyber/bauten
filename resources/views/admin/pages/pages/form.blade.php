@@ -32,6 +32,9 @@
                 </div>
             @endif
             @labelauty(['id'=>'on_menu', 'label'=>'Показать в меню', 'checked'=>oldCheck('on_menu', ($edit && empty($item->on_menu))?false:true)])@endlabelauty
+            @if (!$edit || $item->static!='catalogs')
+                @labelauty(['id'=>'on_footer', 'label'=>'Показать в футер', 'checked'=>oldCheck('on_footer', ($edit && !empty($item->on_footer))?true:false)])@endlabelauty
+            @endif
             @if(!$edit || $item->static!=$homepage)
                 @labelauty(['id'=>'active', 'label'=>'Неактивно|Активно', 'checked'=>oldCheck('active', ($edit && empty($item->active))?false:true)])@endlabelauty
             @endif
