@@ -19,6 +19,18 @@ class Group extends Model
         return $query->sort()->get();
     }
 
+    public static function getItemSite($url) {
+        return self::where('url', $url)->whereHas('catalogs', function($q){
+            $q->whereHas('parts', function($q){
+                $q->where('active', 1);
+            });
+        })->with(['catalogs' => function($q){
+            $q->whereHas('parts', function($q){
+                $q->where('active', 1);
+            });
+        }])->firstOrFail();
+    }
+
     public static function action($model, $inputs) {
         if (!$model) {
             $model = new self;
@@ -31,8 +43,20 @@ class Group extends Model
         return $model->save();
     }
 
+    public static function siteList() {
+        return self::whereHas('catalogs', function($q){
+            $q->whereHas('parts', function($q){
+                $q->where('active', 1);
+            });
+        })->with(['catalogs' => function ($q){
+            $q->whereHas('parts', function($q){
+                $q->where('active', 1);
+            });
+        }])->sort()->get();
+    }
+
     public function catalogs() {
-        return $this->hasMany('App\Models\PartCatalog', 'group_id', 'id');
+        return $this->hasMany('App\Models\PartCatalog', 'group_id', 'id')->sort();
     }
 
     public static function deleteItem($model){

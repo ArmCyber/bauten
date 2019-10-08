@@ -1,7 +1,7 @@
 @extends('site.layouts.app')
 @section('main')
 <div class="container py-s">
-    @breadcrumb(['pages'=>[['title'=>$page_title,'url'=>false],['title'=>$catalogue->name]]])@endbreadcrumb
+    @breadcrumb(['pages'=>[['title'=>$page_title,'url'=>false],['title'=>$catalogue_title]]])@endbreadcrumb
     <div class="products-block">
         <div class="products-filters">
             <form action="javascript:void(0)">

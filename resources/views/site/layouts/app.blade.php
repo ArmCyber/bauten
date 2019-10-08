@@ -44,11 +44,11 @@
                                 <div class="fluid-dropdown">
                                     <div class="fluid-dropdown-content">
                                         <div class="menu-catalog-blocks">
-                                            @foreach($catalogs as $key=>$catalog)
+                                            @foreach($groups as $group)
                                                 <div class="menu-catalog-block">
-                                                    <div class="menu-catalog-letter">{{ $key }}</div>
+                                                    <div class="menu-catalog-letter"><a href="{{ route('group', ['url'=>$group->url]) }}">{{ $group->name }}</a></div>
                                                     <div class="menu-catalog-links">
-                                                        @foreach($catalog as $catalog_item)
+                                                        @foreach($group->catalogs as $catalog_item)
                                                             <div class="menu-catalog-link"><a href="{{ route('catalogue', ['url'=>$catalog_item->url]) }}">{{ $catalog_item->name }}</a></div>
                                                         @endforeach
                                                     </div>

@@ -188,11 +188,14 @@ a.menu-dropdown-link {
     padding:6px;
 }
 .menu-catalog-letter {
-    font-size:20px;
+    font-size:18px;
     font-weight:500;
+    >a {
+        color:inherit;
+    }
 }
 .menu-catalog-link {
-    padding-top:4px;
+    padding-top:6px;
     a{
         font-size:16px;
         color:$color;

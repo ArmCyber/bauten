@@ -229,5 +229,6 @@ Route::post(r('contacts').'/send-message', 'Site\InnerController@sendContactsMes
 
 Route::get('product/{url}', 'Site\PartsController@show')->name('part');
 Route::get(r('news').'/{url}', 'Site\InnerController@news_item')->name('news');
-Route::get(r('catalogs').'/{url}', 'Site\CatalogueController@show')->name('catalogue');
+Route::get(r('catalogs').'/{url}', 'Site\CatalogueController@group')->name('group');
+Route::get('category/{url}', 'Site\CatalogueController@category')->name('catalogue');
 Route::get('{url?}', 'Site\AppController@pageManager')->name('page');

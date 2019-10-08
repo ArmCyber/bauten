@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Site;
 
+use App\Models\Group;
 use App\Models\Page;
 use App\Models\PartCatalog;
 use App\Services\PageManager\Facades\PageManager;
@@ -26,6 +27,7 @@ class BaseController extends Controller
         $this->shared['info'] = Banner::get('info');
         $this->shared['requisites'] = $this->shared['info']->requisites->flip();
         $this->shared['catalogs'] = PartCatalog::siteList();
+        $this->shared['groups'] = Group::siteList();
         $this->shared['homepage'] = get_page(PageManager::getHomePage());
         $this->shared['menu'] = Page::getMenu();
         $this->shared['footer_pages'] = Page::footerList();
