@@ -201,12 +201,13 @@ return [
         'seo_description' => 'SEO Описание',
         'code' => 'Код',
         'image' => 'Изображение',
-        'part_catalog_id' => 'Каталог',
+        'part_catalog_id' => 'Категория',
         'brand_id' => 'Бренд',
         'image_alt' => 'Alt',
         'image_title' => 'Title',
         'price' => 'Цена',
         'articule' => 'Артикул',
-        'oem' => 'ОЕМ'
+        'oem' => 'ОЕМ',
+        'group_id' => 'Группа'
     ],
 ];

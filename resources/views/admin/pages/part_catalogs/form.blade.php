@@ -17,6 +17,18 @@
                         <input type="text" name="name" class="form-control" placeholder="Имя" maxlength="255" value="{{ old('name', $item->name??null) }}">
                     </div>
                 </div>
+                <div class="card">
+                    <div class="c-title">Группа</div>
+                    <div class="little-p">
+                        <select name="group_id" class="select2" style="width:100%;">
+                            @php $selected_group = old('group_id', $item->group_id??null) @endphp
+                            <option value="">Не привязать</option>
+                            @foreach($groups as $group)
+                                <option value="{{ $group->id }}" {!! $group->id==$selected_group?'selected':null !!}>{{ $group->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
                 <div class="card px-3 py-2">
                     <div class="row cstm-input">
                         <div class="col-12 p-b-5">
@@ -50,7 +62,7 @@
                     <div class="c-title">Показать в главном ст.</div>
                     <div class="little-p">
                         @labelauty(['id'=>'in_home', 'label'=>'Не показано|Показано', 'checked'=>oldCheck('in_home', ($edit && !empty($item->in_home))?true:false)])@endlabelauty
-                        <p class="text-danger font-12">Каталог в главном странице не будет показано если у него нет изоброжение.</p>
+                        <p class="text-danger font-12">Категория в главном странице не будет показано если у него нет изоброжение.</p>
                     </div>
                 </div>
             </div>
@@ -60,3 +72,13 @@
         </div>
     </form>
 @endsection
+@push('js')
+    @js(aApp('select2/select2.js'))
+    <script>
+        $('.select2').select2();
+    </script>
+@endpush
+@push('css')
+    @css(aApp('select2/select2.css'))
+@endpush
+

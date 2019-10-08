@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Group;
 use App\Models\PartCatalog;
 use App\Services\Notify\Facades\Notify;
 use Illuminate\Http\Request;
@@ -10,14 +11,15 @@ use Illuminate\Support\Facades\Validator;
 class PartCatalogsController extends BaseController
 {
     public function main(){
-        $data = ['title'=>'Каталог запчастей'];
+        $data = ['title'=>'Категория'];
         $data['items'] = PartCatalog::adminList();
         return view('admin.pages.part_catalogs.main', $data);
     }
 
     public function add(){
-        $data = ['title'=>'Добавление каталога запчастей', 'edit'=>false];
+        $data = ['title'=>'Добавление категории', 'edit'=>false];
         $data['back_url'] = route('admin.part_catalogs.main');
+        $data['groups'] = Group::adminList(true);
         return view('admin.pages.part_catalogs.form', $data);
     }
 
@@ -25,7 +27,7 @@ class PartCatalogsController extends BaseController
         $validator = $this->validator($request, false);
         $validator['validator']->validate();
         if(PartCatalog::action(null, $validator['inputs'])) {
-            Notify::success('Каталог запчастей добавлен.');
+            Notify::success('Категория добавлена.');
             return redirect()->route('admin.part_catalogs.main');
         }
         else {
@@ -35,9 +37,10 @@ class PartCatalogsController extends BaseController
     }
 
     public function edit($id){
-        $data = ['title'=>'Редактирование каталога запчастей', 'edit'=>true];
+        $data = ['title'=>'Редактирование категории', 'edit'=>true];
         $data['back_url'] = route('admin.part_catalogs.main');
         $data['item'] = PartCatalog::getItem($id);
+        $data['groups'] = Group::adminList(true);
         return view('admin.pages.part_catalogs.form', $data);
     }
 
@@ -46,7 +49,7 @@ class PartCatalogsController extends BaseController
         $validator = $this->validator($request, $item->id);
         $validator['validator']->validate();
         if(PartCatalog::action($item, $validator['inputs'])) {
-            Notify::success('Каталог запчастей редактирован.');
+            Notify::success('Категория редактирована.');
             return redirect()->route('admin.part_catalogs.edit', ['id'=>$item->id]);
         }
         else {
@@ -77,6 +80,7 @@ class PartCatalogsController extends BaseController
             'image' => 'nullable|image|mimes:jpeg,png',
             'image_alt' => 'nullable|string|max:255',
             'image_title' => 'nullable|string|max:255',
+            'part_catalog_id' => 'nullable|integer|exists:groups,id',
         ];
         if (empty($inputs['generate_url'])) {
             $rules['url'] = 'required|is_url|string|max:255|unique:part_catalogs,url'.$unique;

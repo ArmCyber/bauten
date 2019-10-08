@@ -195,6 +195,17 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
             Route::delete('delete', $c.'delete')->middleware('ajax')->name('delete');
         });
         //endregion
+        //region News
+        Route::middleware('can:admin')->prefix('groups')->name('groups.')->group(function() { $c = 'GroupsController@';
+            Route::get('', $c.'main')->name('main');
+            Route::get('add', $c.'add')->name('add');
+            Route::put('add', $c.'add_put');
+            Route::get('edit/{id}', $c.'edit')->name('edit');
+            Route::patch('edit/{id}', $c.'edit_patch');
+            Route::delete('delete', $c.'delete')->middleware('ajax')->name('delete');
+            Route::patch('sort', $c.'sort')->middleware('ajax')->name('sort');
+        });
+        //endregion
     });
 });
 //endregion

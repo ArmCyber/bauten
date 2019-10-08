@@ -11,7 +11,7 @@ class PartCatalog extends Model
     use UrlUnique;
 
     public static function adminList(){
-        return self::withCount('parts')->sort()->get();
+        return self::withCount('parts')->with('group')->sort()->get();
     }
 
     public static function action($model, $inputs) {
@@ -25,6 +25,7 @@ class PartCatalog extends Model
         $model['image_alt'] = $inputs['image_alt'];
         $model['image_title'] = $inputs['image_title'];
         $model['in_home'] = (int) array_key_exists('in_home', $inputs);
+        $model['group_id'] = $inputs['group_id']?:null;
         $resizes = [
             [
                 'method'=>'resize',
@@ -72,6 +73,10 @@ class PartCatalog extends Model
         })->with(['parts'=>function($q){
             $q->where('active', 1);
         }])->firstOrFail();
+    }
+
+    public function group() {
+        return $this->belongsTo('App\Models\Group', 'group_id', 'id');
     }
 
     public function parts() {

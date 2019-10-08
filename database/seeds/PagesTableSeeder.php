@@ -26,7 +26,7 @@ class PagesTableSeeder extends Seeder
             [
                 'id'=>2,
                 'url'=>'catalogue',
-                'title'=>'Каталогы',
+                'title'=>'Интернет-магазин',
                 'static'=>'catalogs',
                 'created_at'=>$now,
                 'updated_at'=>$now,

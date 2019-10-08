@@ -66,7 +66,7 @@
                 </div>
             </div>
             <div class="card">
-                <div class="c-title">Каталог</div>
+                <div class="c-title">Категория</div>
                 <div class="little-p">
                     <select name="part_catalog_id" class="select2" style="width:100%;">
                         @php $selected_part_catalog = old('part_catalog_id', $item->part_catalog_id??null) @endphp

@@ -148,7 +148,7 @@ CREATE TABLE `galleries` (
   `title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `sort` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `galleries` WRITE;
@@ -176,6 +176,25 @@ LOCK TABLES `generations` WRITE;
 /*!40000 ALTER TABLE `generations` DISABLE KEYS */;
 INSERT INTO `generations` VALUES (1,1,'1',0,1,'2019-10-04 17:06:00','2019-10-04 17:06:00'),(2,1,'2',0,1,'2019-10-04 17:06:04','2019-10-04 17:06:04');
 /*!40000 ALTER TABLE `generations` ENABLE KEYS */;
+UNLOCK TABLES;
+DROP TABLE IF EXISTS `groups`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `groups` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sort` int(10) unsigned NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+LOCK TABLES `groups` WRITE;
+/*!40000 ALTER TABLE `groups` DISABLE KEYS */;
+INSERT INTO `groups` VALUES (1,'Группа 1','gruppa-1',0,'2019-10-08 13:11:48','2019-10-08 13:11:48'),(2,'Группа 2','gruppa-2',0,'2019-10-08 13:11:53','2019-10-08 13:11:53'),(3,'Группа 3','gruppa-3',0,'2019-10-08 13:12:29','2019-10-08 13:12:29');
+/*!40000 ALTER TABLE `groups` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `home_slider`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -230,12 +249,12 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (1,'2019_07_10_171502_create_admins_table',1),(2,'2019_07_12_204343_create_password_resets_table',1),(3,'2019_07_12_232636_create_pages_table',1),(4,'2019_07_23_000000_create_zakhayko_banners_table',1),(5,'2019_08_14_161704_create_marks_table',1),(6,'2019_08_14_161725_create_models_table',1),(7,'2019_08_14_161756_create_generations_table',1),(8,'2019_08_14_221246_create_countries_table',1),(9,'2019_08_14_221310_create_regions_table',1),(10,'2019_08_19_142314_create_parts_table',1),(11,'2019_08_19_165244_create_brands_table',1),(12,'2019_09_02_210329_create_part_catalogs_table',1),(13,'2019_09_06_194022_create_part_cars_table',1),(14,'2019_09_30_183624_create_home_slider_table',1),(15,'2019_10_02_183143_create_galleries_table',1),(16,'2019_10_02_204629_create_filters_table',1),(17,'2019_10_02_214520_create_filter_values_table',1),(18,'2019_10_06_173451_create_terms_table',2),(19,'2019_10_07_143850_add_content_to_pages_table',3),(22,'2019_10_07_150146_create_news_table',4),(24,'2019_10_07_165216_add_url_in_marks_table',5),(25,'2019_10_07_175907_add_url_to_brands_table',6),(26,'2019_10_07_220407_add_on_footer_to_pages_table',7),(28,'2019_10_07_222737_add_image_to_part_catalogs_table',8);
+INSERT INTO `migrations` VALUES (1,'2019_07_10_171502_create_admins_table',1),(2,'2019_07_12_204343_create_password_resets_table',1),(3,'2019_07_12_232636_create_pages_table',1),(4,'2019_07_23_000000_create_zakhayko_banners_table',1),(5,'2019_08_14_161704_create_marks_table',1),(6,'2019_08_14_161725_create_models_table',1),(7,'2019_08_14_161756_create_generations_table',1),(8,'2019_08_14_221246_create_countries_table',1),(9,'2019_08_14_221310_create_regions_table',1),(10,'2019_08_19_142314_create_parts_table',1),(11,'2019_08_19_165244_create_brands_table',1),(12,'2019_09_02_210329_create_part_catalogs_table',1),(13,'2019_09_06_194022_create_part_cars_table',1),(14,'2019_09_30_183624_create_home_slider_table',1),(15,'2019_10_02_183143_create_galleries_table',1),(16,'2019_10_02_204629_create_filters_table',1),(17,'2019_10_02_214520_create_filter_values_table',1),(18,'2019_10_06_173451_create_terms_table',2),(19,'2019_10_07_143850_add_content_to_pages_table',3),(22,'2019_10_07_150146_create_news_table',4),(24,'2019_10_07_165216_add_url_in_marks_table',5),(25,'2019_10_07_175907_add_url_to_brands_table',6),(26,'2019_10_07_220407_add_on_footer_to_pages_table',7),(28,'2019_10_07_222737_add_image_to_part_catalogs_table',8),(30,'2019_10_08_161153_create_groups_table',9),(31,'2019_10_08_165558_add_group_id_to_part_catalogs_table',10);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `models`;
@@ -336,7 +355,7 @@ CREATE TABLE `part_cars` (
   CONSTRAINT `part_cars_mark_id_foreign` FOREIGN KEY (`mark_id`) REFERENCES `marks` (`id`) ON DELETE CASCADE,
   CONSTRAINT `part_cars_model_id_foreign` FOREIGN KEY (`model_id`) REFERENCES `models` (`id`) ON DELETE CASCADE,
   CONSTRAINT `part_cars_part_id_foreign` FOREIGN KEY (`part_id`) REFERENCES `parts` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `part_cars` WRITE;
@@ -349,6 +368,7 @@ DROP TABLE IF EXISTS `part_catalogs`;
 CREATE TABLE `part_catalogs` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `group_id` int(10) unsigned DEFAULT NULL,
   `url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `image` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `image_alt` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -363,7 +383,7 @@ CREATE TABLE `part_catalogs` (
 
 LOCK TABLES `part_catalogs` WRITE;
 /*!40000 ALTER TABLE `part_catalogs` DISABLE KEYS */;
-INSERT INTO `part_catalogs` VALUES (4,'Шины','shiny','9VBa7s6yHD7sUwpLrR.png',NULL,'1',NULL,'2019-10-07 18:41:16','2019-10-07 18:50:43'),(5,'Диски','diski','eTEqO7stV9xI0qthHE.png',NULL,'1',NULL,'2019-10-07 18:41:50','2019-10-07 18:50:09'),(6,'Щетки стеклоочистеля','shchetki-stekloochistelya','0EohB4wCR5TSsih1Eh.png',NULL,'1',NULL,'2019-10-07 18:42:01','2019-10-07 18:52:27'),(7,'Масла','masla','j61YUR3R5ear6bsSZ4.png',NULL,'1',NULL,'2019-10-07 18:42:13','2019-10-07 18:49:59'),(8,'Аксессуары','aksessuary','jpGKULOG3YogIUpg2w.png',NULL,'1',NULL,'2019-10-07 18:52:07','2019-10-07 18:52:07'),(9,'Электро - оборудование','elektro-oborudovanie','GaxRfJt2hZvEn04JXT.png',NULL,'1',NULL,'2019-10-07 18:52:22','2019-10-07 18:52:32'),(10,'Автохимия','avtokhimiya','FH7cX9ngr78FrmymwO.png',NULL,'1',NULL,'2019-10-07 18:52:44','2019-10-07 18:52:44'),(11,'Инструменты','instrumenty','GlMShV93KyOLSNwtlE.png',NULL,'1',NULL,'2019-10-07 18:53:01','2019-10-07 18:53:01');
+INSERT INTO `part_catalogs` VALUES (4,'Шины',NULL,'shiny','9VBa7s6yHD7sUwpLrR.png',NULL,'1',NULL,'2019-10-07 18:41:16','2019-10-07 18:50:43'),(5,'Диски',NULL,'diski','eTEqO7stV9xI0qthHE.png',NULL,'1',NULL,'2019-10-07 18:41:50','2019-10-07 18:50:09'),(6,'Щетки стеклоочистеля',NULL,'shchetki-stekloochistelya','0EohB4wCR5TSsih1Eh.png',NULL,'1',NULL,'2019-10-07 18:42:01','2019-10-07 18:52:27'),(7,'Масла',NULL,'masla','j61YUR3R5ear6bsSZ4.png',NULL,'1',NULL,'2019-10-07 18:42:13','2019-10-07 18:49:59'),(8,'Аксессуары',NULL,'aksessuary','jpGKULOG3YogIUpg2w.png',NULL,'1',NULL,'2019-10-07 18:52:07','2019-10-08 13:45:15'),(9,'Электро - оборудование',NULL,'elektro-oborudovanie','GaxRfJt2hZvEn04JXT.png',NULL,'1',NULL,'2019-10-07 18:52:22','2019-10-07 18:52:32'),(10,'Автохимия',NULL,'avtokhimiya','FH7cX9ngr78FrmymwO.png',NULL,'1',NULL,'2019-10-07 18:52:44','2019-10-07 18:52:44'),(11,'Инструменты',NULL,'instrumenty','GlMShV93KyOLSNwtlE.png',NULL,'1',NULL,'2019-10-07 18:53:01','2019-10-07 18:53:01');
 /*!40000 ALTER TABLE `part_catalogs` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `parts`;
