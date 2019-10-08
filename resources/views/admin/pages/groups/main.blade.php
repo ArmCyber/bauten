@@ -18,6 +18,7 @@
                             <td class="item-title">{{ $item->name}}</td>
                             <td>{{ $item->catalogs_count }}</td>
                             <td>
+                                <a href="{{ route('admin.filters.main', ['id'=>$item->id]) }}" {!! tooltip('Фильтры') !!} class="icon-btn filters"></a>
                                 <a href="{{ route('admin.groups.edit', ['id'=>$item->id]) }}" {!! tooltip('Редактировать') !!} class="icon-btn edit"></a>
                                 <span class="d-inline-block"  style="margin-left:4px;" data-toggle="modal" data-target="#itemDeleteModal"><a href="javascript:void(0)" class="icon-btn delete" {!! tooltip('Удалить') !!}></a></span>
                             </td>

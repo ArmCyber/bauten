@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 @section('content')
-<form action="{!! $edit?route('admin.filters.edit', ['id'=>$item->id]):route('admin.filters.add', ['id'=>$group->id??null]) !!}" method="post">
+<form action="{!! $edit?route('admin.criteria.edit', ['id'=>$item->id]):route('admin.criteria.add', ['id'=>$filter->id]) !!}" method="post">
     @csrf @method($edit?'patch':'put')
     @if ($errors->any())
         <div class="alert alert-danger" role="alert">
@@ -15,14 +15,6 @@
                 <div class="c-title">Название</div>
                 <div class="little-p">
                     <input type="text" name="title" class="form-control" placeholder="Название" maxlength="255" value="{{ old('title', $item->title??null) }}">
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-lg-6">
-            <div class="card">
-                <div class="c-title">Статус</div>
-                <div class="little-p">
-                    @labelauty(['id'=>'active', 'label'=>'Неактивно|Активно', 'checked'=>oldCheck('active', ($edit && empty($item->active))?false:true)])@endlabelauty
                 </div>
             </div>
         </div>

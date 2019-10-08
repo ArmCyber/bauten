@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFiltersTable extends Migration
+class CreateCriteriaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateFiltersTable extends Migration
      */
     public function up()
     {
-        Schema::create('filters', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('title');
-            $table->tinyInteger('type')->unsigned();
-            $table->boolean('is_global')->default(0);
+        Schema::create('criteria', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->integer('filter_id')->unsigned();
+            $table->string('title')->nullable();
             $table->integer('sort')->unsigned()->default(0);
-            $table->boolean('active')->default(1);
             $table->timestamps();
+            $table->foreign('filter_id')->references('id')->on('filters')->onDelete('cascade');
         });
     }
 
@@ -31,6 +30,6 @@ class CreateFiltersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('filters');
+        Schema::dropIfExists('criteria');
     }
 }
