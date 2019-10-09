@@ -1,7 +1,6 @@
 <?php
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Admin\BaseController;
 use App\Services\Notify\Facades\Notify;
 use Zakhayko\Banners\RenderBanners;
 
@@ -19,6 +18,7 @@ class BannersController extends BaseController
                     'width'=>$settings['resize'][1],
                     'height'=>$settings['resize'][2],
                     'upsize'=>empty($settings['resize'][3])?false:true,
+                    'aspectRatio'=>$settings['resize'][4]??false,
                 ];
             }
             else $resize[] = ['method'=>'original'];
@@ -135,6 +135,17 @@ class BannersController extends BaseController
                     'banner_title' => 'input',
                     'banner_show' => 'labelauty',
                     'content' => 'text'
+                ]
+            ]
+        ],
+        'images' => [
+            'data' => [
+                'params' => [
+                    'marks' => [
+                        'type' => 'image',
+                        'resize' => ['resize', null, 56, false, true],
+                        'hint' => false,
+                    ]
                 ]
             ]
         ]

@@ -25,6 +25,7 @@ class BaseController extends Controller
     public function view_share(){
         if ($this->shared) return false;
         $this->shared['info'] = Banner::get('info');
+        $this->shared['default_images'] = Banner::get('images');
         $this->shared['requisites'] = $this->shared['info']->requisites->flip();
         $this->shared['catalogs'] = PartCatalog::siteList();
         $this->shared['groups'] = Group::siteList();

@@ -73,6 +73,8 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
             Route::put('add', $c.'add_put');
             Route::get('edit/{id}', $c.'edit')->name('edit');
             Route::patch('edit/{id}', $c.'edit_patch');
+            Route::get('import', $c.'import')->name('import');
+            Route::post('import', $c.'import_post');
             Route::delete('delete', $c.'delete')->middleware('ajax')->name('delete');
             Route::patch('sort', $c.'sort')->middleware('ajax')->name('sort');
         });
@@ -217,6 +219,36 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
             Route::patch('edit/{id}', $c.'edit_patch');
             Route::delete('delete', $c.'delete')->middleware('ajax')->name('delete');
             Route::patch('sort', $c.'sort')->middleware('ajax')->name('sort');
+        });
+        //endregion
+        //region Years
+        Route::middleware('can:admin')->prefix('years')->name('years.')->group(function() { $c = 'YearsController@';
+            Route::get('', $c.'main')->name('main');
+            Route::get('add', $c.'add')->name('add');
+            Route::put('add', $c.'add_put');
+            Route::get('edit/{id}', $c.'edit')->name('edit');
+            Route::patch('edit/{id}', $c.'edit_patch');
+            Route::delete('delete', $c.'delete')->middleware('ajax')->name('delete');
+        });
+        //endregion
+        //region Engine Types
+        Route::middleware('can:admin')->prefix('engine-types')->name('engine_types.')->group(function() { $c = 'EngineTypesController@';
+            Route::get('', $c.'main')->name('main');
+            Route::get('add', $c.'add')->name('add');
+            Route::put('add', $c.'add_put');
+            Route::get('edit/{id}', $c.'edit')->name('edit');
+            Route::patch('edit/{id}', $c.'edit_patch');
+            Route::delete('delete', $c.'delete')->middleware('ajax')->name('delete');
+        });
+        //endregion
+        //region Engine Types
+        Route::middleware('can:admin')->prefix('engines')->name('engines.')->group(function() { $c = 'EnginesController@';
+            Route::get('', $c.'main')->name('main');
+            Route::get('add', $c.'add')->name('add');
+            Route::put('add', $c.'add_put');
+            Route::get('edit/{id}', $c.'edit')->name('edit');
+            Route::patch('edit/{id}', $c.'edit_patch');
+            Route::delete('delete', $c.'delete')->middleware('ajax')->name('delete');
         });
         //endregion
     });

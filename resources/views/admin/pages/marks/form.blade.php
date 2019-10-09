@@ -50,6 +50,7 @@
                 @endif
                 <div class="c-body">
                     @file(['name'=>'image'])@endfile
+                    @labelauty(['id'=>'show_image', 'class'=>'pt-2', 'label'=>'Показать логотип', 'checked'=>oldCheck('show_image', ($edit && empty($item->show_image))?false:true)])@endlabelauty
                     <div class="pt-2">
                         <input type="text" name="image_alt" class="form-control" maxlength="255" placeholder="Alt" value="{{ old('image_alt', $item->image_alt??null) }}">
                     </div>

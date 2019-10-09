@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Imports\MarksImport;
 use App\Models\Mark;
 use App\Services\Notify\Facades\Notify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MarksController extends BaseController
 {
@@ -55,6 +57,22 @@ class MarksController extends BaseController
         }
     }
 
+    public function import() {
+        $data = [
+            'title' => 'Импортирование марок',
+            'back_url' => route('admin.marks.main')
+        ];
+        return view('admin.pages.marks.import', $data);
+    }
+
+    public function import_post(Request $request) {
+        $request->validate([
+            'file' => 'required|file|mimes:xlsx,xls,csv'
+        ]);
+        $file = $request->file('file');
+        Excel::import(new MarksImport, $file);
+    }
+
     public function delete(Request $request) {
         $result = ['success'=>false];
         $id = $request->input('item_id');
@@ -75,7 +93,7 @@ class MarksController extends BaseController
         $request->merge(['url' => $inputs['url']]);
         $rules = [
             'name' => 'required|string|max:255|unique:part_catalogs,name'.$unique,
-            'image' => ($ignore?'nullable':'required').'|image|mimes:jpeg,png',
+            'image' => 'nullable|image|mimes:jpeg,png',
             'image_alt' => 'nullable|string|max:255',
             'image_title' => 'nullable|string|max:255',
         ];

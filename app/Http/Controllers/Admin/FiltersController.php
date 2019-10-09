@@ -6,10 +6,9 @@ use App\Models\Filter;
 use App\Models\Group;
 use App\Services\Notify\Facades\Notify;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
-class FiltersController extends Controller
+class FiltersController extends BaseController
 {
     public function main($id=null){
         $data = [];

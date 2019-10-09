@@ -5,10 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Term;
 use App\Services\Notify\Facades\Notify;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
 
-class TermsController extends Controller
+class TermsController extends BaseController
 {
     public function main(){
         $data = ['title'=>'Контент страницы "Условия"'];

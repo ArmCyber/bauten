@@ -41,12 +41,12 @@ CREATE TABLE `banners` (
   `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `data` text COLLATE utf8mb4_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `banners` WRITE;
 /*!40000 ALTER TABLE `banners` DISABLE KEYS */;
-INSERT INTO `banners` VALUES (1,'info','data','{\"logo\":\"Pm0K0wbmC4dq8RUtFD.png\",\"logo_footer\":\"Jn5ScwuggUbIRk5naD.png\",\"email\":\"info@bauten.kz\",\"seo_suffix\":\"Bauten\"}'),(2,'info','requisites','{\"address\":\"Алматы Казахстан, с. Мадениет уч. 383\",\"phone\":\"8 (777) 619 1747\",\"email\":\"info@bauten.kz\"}'),(3,'info','requisites','{\"address\":null,\"phone\":\"8 (707) 173 7656\",\"email\":null}'),(4,'info','requisites','{\"address\":null,\"phone\":\"8 (775) 996 1880\",\"email\":null}'),(5,'info','requisites','{\"address\":null,\"phone\":null,\"email\":null}'),(6,'info','socials','{\"icon\":\"r7TaX4Uwv46Rv8PhsZ.svg\",\"title\":\"Bautenautoparts\",\"url\":\"\\/\\/facebook.com\",\"active\":true}'),(7,'info','socials','{\"icon\":null,\"title\":null,\"url\":null,\"active\":false}'),(8,'info','socials','{\"icon\":null,\"title\":null,\"url\":null,\"active\":false}'),(9,'info','socials','{\"icon\":null,\"title\":null,\"url\":null,\"active\":false}'),(10,'info','payment_logos','{\"logo\":\"VBwbBXfryteVdrgiAq.png\",\"title\":\"Visa\",\"alt\":\"Visa\",\"active\":true}'),(11,'info','payment_logos','{\"logo\":\"BVrxvSJCU8GMBef54i.png\",\"title\":\"Mastercard\",\"alt\":\"Mastercard\",\"active\":true}'),(12,'info','payment_logos','{\"logo\":null,\"title\":null,\"alt\":null,\"active\":false}'),(13,'info','payment_logos','{\"logo\":null,\"title\":null,\"alt\":null,\"active\":false}'),(14,'home','block_titles','{\"catalogue\":\"Каталог автозапчастей\",\"parts\":\"Запчасти по маркам\",\"brands\":\"Каталог брендов\",\"news\":\"Новости\"}'),(15,'home','banners','{\"image\":\"CJeBy3AZ2QcNXTSJ4M.png\",\"url\":null,\"alt\":null,\"title\":null,\"active\":true}'),(16,'home','banners','{\"image\":\"bEoplwqXfw3F78LViZ.png\",\"url\":null,\"alt\":null,\"title\":null,\"active\":true}'),(17,'contacts','data','{\"requisites_title\":\"Контактные данные\",\"form_title\":\"Связаться с нами\",\"iframe\":\"https:\\/\\/yandex.ru\\/map-widget\\/v1\\/-\\/CGs8zXLJ\"}'),(18,'about','data','{\"banner\":\"2jIEDChPa3U629Yi2V.jpg\",\"banner_alt\":\"Alt\",\"banner_title\":\"Title\",\"banner_show\":true,\"content\":\"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam tempus nulla sit amet ultrices tincidunt. Integer bibendum dui ac ipsum scelerisque aliquet tempus at ipsum. Etiam imperdiet sit amet urna nec molestie. Nulla et urna odio. Sed sodales mauris justo, sed gravida elit scelerisque ut. Quisque imperdiet turpis pellentesque, egestas est nec, suscipit sem. Integer sagittis tortor in sem tempus bibendum. Donec nec volutpat erat. Integer diam libero, rhoncus molestie imperdiet eu, blandit in sem. Aliquam vehicula diam vitae nisl hendrerit, vel pellentesque felis varius. Fusce et felis neque. Nunc vitae interdum augue.<\\/p>\\r\\n\\r\\n<p>Integer in iaculis nisl. Aliquam non nisi hendrerit, maximus turpis pharetra, finibus diam. Nunc sit amet turpis vulputate, bibendum diam eu, lacinia ipsum. Cras id enim id velit laoreet bibendum sit amet in justo. Donec eu facilisis lectus, et pellentesque augue. Ut porta, odio eu eleifend suscipit, diam massa hendrerit neque, at molestie sapien sapien non urna. Etiam placerat molestie nibh quis imperdiet. Etiam laoreet mauris ex, ut vestibulum sem molestie eget. Praesent placerat, ex id tristique vehicula, odio ex scelerisque nibh, ut fringilla nisi leo id metus. Vivamus gravida hendrerit nisl ut porttitor. Aenean sagittis lorem eget massa tempor, quis ultricies eros accumsan.<\\/p>\\r\\n\\r\\n<p>Proin consequat egestas faucibus. Curabitur neque nulla, gravida at leo et, eleifend sollicitudin dolor. Cras lacinia eleifend ipsum et commodo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam lorem diam, ullamcorper a sem eu, fermentum lobortis quam. Nam blandit non diam at semper. Maecenas consequat, orci ac sodales ornare, justo ipsum iaculis quam, eleifend convallis nulla arcu eget ex. Aenean quis augue urna. Suspendisse elementum lacinia est, eget varius orci dapibus ut. Donec condimentum libero sed purus dignissim, vel aliquet sem molestie.<\\/p>\"}');
+INSERT INTO `banners` VALUES (1,'info','data','{\"logo\":\"Pm0K0wbmC4dq8RUtFD.png\",\"logo_footer\":\"Jn5ScwuggUbIRk5naD.png\",\"email\":\"info@bauten.kz\",\"seo_suffix\":\"Bauten\"}'),(2,'info','requisites','{\"address\":\"Алматы Казахстан, с. Мадениет уч. 383\",\"phone\":\"8 (777) 619 1747\",\"email\":\"info@bauten.kz\"}'),(3,'info','requisites','{\"address\":null,\"phone\":\"8 (707) 173 7656\",\"email\":null}'),(4,'info','requisites','{\"address\":null,\"phone\":\"8 (775) 996 1880\",\"email\":null}'),(5,'info','requisites','{\"address\":null,\"phone\":null,\"email\":null}'),(6,'info','socials','{\"icon\":\"r7TaX4Uwv46Rv8PhsZ.svg\",\"title\":\"Bautenautoparts\",\"url\":\"\\/\\/facebook.com\",\"active\":true}'),(7,'info','socials','{\"icon\":null,\"title\":null,\"url\":null,\"active\":false}'),(8,'info','socials','{\"icon\":null,\"title\":null,\"url\":null,\"active\":false}'),(9,'info','socials','{\"icon\":null,\"title\":null,\"url\":null,\"active\":false}'),(10,'info','payment_logos','{\"logo\":\"VBwbBXfryteVdrgiAq.png\",\"title\":\"Visa\",\"alt\":\"Visa\",\"active\":true}'),(11,'info','payment_logos','{\"logo\":\"BVrxvSJCU8GMBef54i.png\",\"title\":\"Mastercard\",\"alt\":\"Mastercard\",\"active\":true}'),(12,'info','payment_logos','{\"logo\":null,\"title\":null,\"alt\":null,\"active\":false}'),(13,'info','payment_logos','{\"logo\":null,\"title\":null,\"alt\":null,\"active\":false}'),(14,'home','block_titles','{\"catalogue\":\"Каталог автозапчастей\",\"parts\":\"Запчасти по маркам\",\"brands\":\"Каталог брендов\",\"news\":\"Новости\"}'),(15,'home','banners','{\"image\":\"CJeBy3AZ2QcNXTSJ4M.png\",\"url\":null,\"alt\":null,\"title\":null,\"active\":true}'),(16,'home','banners','{\"image\":\"bEoplwqXfw3F78LViZ.png\",\"url\":null,\"alt\":null,\"title\":null,\"active\":true}'),(17,'contacts','data','{\"requisites_title\":\"Контактные данные\",\"form_title\":\"Связаться с нами\",\"iframe\":\"https:\\/\\/yandex.ru\\/map-widget\\/v1\\/-\\/CGs8zXLJ\"}'),(18,'about','data','{\"banner\":\"2jIEDChPa3U629Yi2V.jpg\",\"banner_alt\":\"Alt\",\"banner_title\":\"Title\",\"banner_show\":true,\"content\":\"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam tempus nulla sit amet ultrices tincidunt. Integer bibendum dui ac ipsum scelerisque aliquet tempus at ipsum. Etiam imperdiet sit amet urna nec molestie. Nulla et urna odio. Sed sodales mauris justo, sed gravida elit scelerisque ut. Quisque imperdiet turpis pellentesque, egestas est nec, suscipit sem. Integer sagittis tortor in sem tempus bibendum. Donec nec volutpat erat. Integer diam libero, rhoncus molestie imperdiet eu, blandit in sem. Aliquam vehicula diam vitae nisl hendrerit, vel pellentesque felis varius. Fusce et felis neque. Nunc vitae interdum augue.<\\/p>\\r\\n\\r\\n<p>Integer in iaculis nisl. Aliquam non nisi hendrerit, maximus turpis pharetra, finibus diam. Nunc sit amet turpis vulputate, bibendum diam eu, lacinia ipsum. Cras id enim id velit laoreet bibendum sit amet in justo. Donec eu facilisis lectus, et pellentesque augue. Ut porta, odio eu eleifend suscipit, diam massa hendrerit neque, at molestie sapien sapien non urna. Etiam placerat molestie nibh quis imperdiet. Etiam laoreet mauris ex, ut vestibulum sem molestie eget. Praesent placerat, ex id tristique vehicula, odio ex scelerisque nibh, ut fringilla nisi leo id metus. Vivamus gravida hendrerit nisl ut porttitor. Aenean sagittis lorem eget massa tempor, quis ultricies eros accumsan.<\\/p>\\r\\n\\r\\n<p>Proin consequat egestas faucibus. Curabitur neque nulla, gravida at leo et, eleifend sollicitudin dolor. Cras lacinia eleifend ipsum et commodo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam lorem diam, ullamcorper a sem eu, fermentum lobortis quam. Nam blandit non diam at semper. Maecenas consequat, orci ac sodales ornare, justo ipsum iaculis quam, eleifend convallis nulla arcu eget ex. Aenean quis augue urna. Suspendisse elementum lacinia est, eget varius orci dapibus ut. Donec condimentum libero sed purus dignissim, vel aliquet sem molestie.<\\/p>\"}'),(19,'images','data','{\"marks\":\"Rep1Qldt1IorvMSBMy.png\"}');
 /*!40000 ALTER TABLE `banners` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `brands`;
@@ -135,6 +135,39 @@ LOCK TABLES `criterion_part` WRITE;
 /*!40000 ALTER TABLE `criterion_part` DISABLE KEYS */;
 INSERT INTO `criterion_part` VALUES (8,6,4),(9,1,4),(10,2,4),(11,3,4),(12,4,4),(13,5,4);
 /*!40000 ALTER TABLE `criterion_part` ENABLE KEYS */;
+UNLOCK TABLES;
+DROP TABLE IF EXISTS `engine_types`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `engine_types` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+LOCK TABLES `engine_types` WRITE;
+/*!40000 ALTER TABLE `engine_types` DISABLE KEYS */;
+/*!40000 ALTER TABLE `engine_types` ENABLE KEYS */;
+UNLOCK TABLES;
+DROP TABLE IF EXISTS `engines`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `engines` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `engine_type_id` int(10) unsigned NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+LOCK TABLES `engines` WRITE;
+/*!40000 ALTER TABLE `engines` DISABLE KEYS */;
+/*!40000 ALTER TABLE `engines` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `filters`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -245,9 +278,10 @@ DROP TABLE IF EXISTS `marks`;
 CREATE TABLE `marks` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `image` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `image_alt` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `image_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `show_image` tinyint(1) NOT NULL DEFAULT '1',
   `url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `in_home` tinyint(1) NOT NULL DEFAULT '0',
   `sort` int(10) unsigned NOT NULL DEFAULT '0',
@@ -255,12 +289,12 @@ CREATE TABLE `marks` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `marks` WRITE;
 /*!40000 ALTER TABLE `marks` DISABLE KEYS */;
-INSERT INTO `marks` VALUES (1,'Audi','UDs9MqR9xPThoXyJgc.png','Audi','Audi','audi',1,0,1,'2019-10-04 16:54:59','2019-10-07 13:06:10'),(2,'BMW','KWsJW7vbswgUECZnkU.png','BMW','BMW','bmw',1,0,1,'2019-10-04 16:55:15','2019-10-07 13:06:19'),(3,'Chrysler','RPSTHh9uLO97p0lGyI.png','Chrysler','Chrysler','chrysler',1,0,1,'2019-10-04 16:55:41','2019-10-04 16:55:41'),(4,'Citroen','gxPkJWpfpVU8eCFPBv.png','Citroen','Citroen','citroen',1,0,1,'2019-10-04 16:55:53','2019-10-04 16:55:53'),(5,'Daewoo','UnuYkii5mEtrL3BJVD.png','Daewoo','Daewoo','daewoo',1,0,1,'2019-10-04 16:56:05','2019-10-04 16:56:05'),(6,'Ford','2RUXJC3Qt7XvaFFJla.png','Ford','Ford','ford',1,0,1,'2019-10-04 16:56:15','2019-10-04 16:56:15'),(7,'Honda','6xyhupCIiUldwuBmxi.png','Honda','Honda','honda',1,0,1,'2019-10-04 16:56:27','2019-10-04 16:56:27'),(8,'Hyundai','vnwSMyPBCP4euuUNQl.png','Hyundai','Hyundai','hyundai',1,0,1,'2019-10-04 16:56:48','2019-10-04 16:56:48'),(9,'Isuzu','r0fiw7gCTZfY37BPyx.png','Isuzu','Isuzu','isuzu',1,0,1,'2019-10-04 16:57:21','2019-10-04 16:57:21'),(10,'Kia','Yxjrqo0bzPLn1RnDtM.png','Kia','Kia','kia',1,0,1,'2019-10-04 16:57:38','2019-10-04 16:57:38'),(11,'Lexus','SKWeGkRlY10mT75jUj.png','Lexus','Lexus','lexus',1,0,1,'2019-10-04 16:57:51','2019-10-04 16:57:51');
+INSERT INTO `marks` VALUES (1,'Audi','UDs9MqR9xPThoXyJgc.png','Audi','Audi',1,'audi',1,0,1,'2019-10-04 16:54:59','2019-10-07 13:06:10'),(2,'BMW','KWsJW7vbswgUECZnkU.png','BMW','BMW',1,'bmw',1,0,1,'2019-10-04 16:55:15','2019-10-07 13:06:19'),(3,'Chrysler','RPSTHh9uLO97p0lGyI.png','Chrysler','Chrysler',1,'chrysler',1,0,1,'2019-10-04 16:55:41','2019-10-04 16:55:41'),(4,'Citroen','gxPkJWpfpVU8eCFPBv.png','Citroen','Citroen',1,'citroen',1,0,1,'2019-10-04 16:55:53','2019-10-04 16:55:53'),(5,'Daewoo','UnuYkii5mEtrL3BJVD.png','Daewoo','Daewoo',1,'daewoo',1,0,1,'2019-10-04 16:56:05','2019-10-04 16:56:05'),(6,'Ford','2RUXJC3Qt7XvaFFJla.png','Ford','Ford',1,'ford',1,0,1,'2019-10-04 16:56:15','2019-10-04 16:56:15'),(7,'Honda','6xyhupCIiUldwuBmxi.png','Honda','Honda',1,'honda',1,0,1,'2019-10-04 16:56:27','2019-10-04 16:56:27'),(8,'Hyundai','vnwSMyPBCP4euuUNQl.png','Hyundai','Hyundai',1,'hyundai',1,0,1,'2019-10-04 16:56:48','2019-10-04 16:56:48'),(9,'Isuzu','r0fiw7gCTZfY37BPyx.png','Isuzu','Isuzu',1,'isuzu',1,0,1,'2019-10-04 16:57:21','2019-10-04 16:57:21'),(10,'Kia','Yxjrqo0bzPLn1RnDtM.png','Kia','Kia',1,'kia',1,0,1,'2019-10-04 16:57:38','2019-10-04 16:57:38'),(11,'Lexus','SKWeGkRlY10mT75jUj.png','Lexus','Lexus',1,'lexus',1,0,1,'2019-10-04 16:57:51','2019-10-04 16:57:51');
 /*!40000 ALTER TABLE `marks` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `migrations`;
@@ -271,12 +305,12 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (1,'2019_07_10_171502_create_admins_table',1),(2,'2019_07_12_204343_create_password_resets_table',1),(3,'2019_07_12_232636_create_pages_table',1),(4,'2019_07_23_000000_create_zakhayko_banners_table',1),(5,'2019_08_14_161704_create_marks_table',1),(6,'2019_08_14_161725_create_models_table',1),(7,'2019_08_14_161756_create_generations_table',1),(8,'2019_08_14_221246_create_countries_table',1),(9,'2019_08_14_221310_create_regions_table',1),(10,'2019_08_19_142314_create_parts_table',1),(11,'2019_08_19_165244_create_brands_table',1),(12,'2019_09_02_210329_create_part_catalogs_table',1),(13,'2019_09_06_194022_create_part_cars_table',1),(14,'2019_09_30_183624_create_home_slider_table',1),(15,'2019_10_02_183143_create_galleries_table',1),(18,'2019_10_06_173451_create_terms_table',2),(22,'2019_10_07_150146_create_news_table',4),(30,'2019_10_08_161153_create_groups_table',9),(31,'2019_10_08_165558_add_group_id_to_part_catalogs_table',10),(32,'2019_10_08_191627_create_filters_table',11),(35,'2019_10_08_193606_create_criteria_table',12),(36,'2019_10_09_144929_create_criterion_part_table',13);
+INSERT INTO `migrations` VALUES (1,'2019_07_10_171502_create_admins_table',1),(2,'2019_07_12_204343_create_password_resets_table',1),(3,'2019_07_12_232636_create_pages_table',1),(4,'2019_07_23_000000_create_zakhayko_banners_table',1),(5,'2019_08_14_161704_create_marks_table',1),(6,'2019_08_14_161725_create_models_table',1),(7,'2019_08_14_161756_create_generations_table',1),(8,'2019_08_14_221246_create_countries_table',1),(9,'2019_08_14_221310_create_regions_table',1),(10,'2019_08_19_142314_create_parts_table',1),(11,'2019_08_19_165244_create_brands_table',1),(12,'2019_09_02_210329_create_part_catalogs_table',1),(13,'2019_09_06_194022_create_part_cars_table',1),(14,'2019_09_30_183624_create_home_slider_table',1),(15,'2019_10_02_183143_create_galleries_table',1),(18,'2019_10_06_173451_create_terms_table',2),(22,'2019_10_07_150146_create_news_table',4),(30,'2019_10_08_161153_create_groups_table',9),(31,'2019_10_08_165558_add_group_id_to_part_catalogs_table',10),(32,'2019_10_08_191627_create_filters_table',11),(35,'2019_10_08_193606_create_criteria_table',12),(36,'2019_10_09_144929_create_criterion_part_table',13),(39,'2019_10_09_224942_create_years_table',14),(40,'2019_10_09_225410_create_engine_types_table',15),(41,'2019_10_09_225523_create_engines_table',16);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `models`;
@@ -492,6 +526,23 @@ LOCK TABLES `terms` WRITE;
 /*!40000 ALTER TABLE `terms` DISABLE KEYS */;
 INSERT INTO `terms` VALUES (1,'It is a long established','<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using &#39;Content here, content here&#39;, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for &#39;lorem ipsum&#39; will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>',2,1,'2019-10-06 14:02:40','2019-10-06 14:04:17'),(2,'Lorem Ipsum is','<p>Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>',1,1,'2019-10-06 14:03:49','2019-10-06 14:07:45'),(3,'There are many variations','<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don&#39;t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn&#39;t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</p>',2,1,'2019-10-06 14:05:19','2019-10-06 14:05:19');
 /*!40000 ALTER TABLE `terms` ENABLE KEYS */;
+UNLOCK TABLES;
+DROP TABLE IF EXISTS `years`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `years` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `year` int(10) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+LOCK TABLES `years` WRITE;
+/*!40000 ALTER TABLE `years` DISABLE KEYS */;
+INSERT INTO `years` VALUES (1,2019,'2019-10-09 19:46:26','2019-10-09 19:46:26'),(2,2012,'2019-10-09 19:46:32','2019-10-09 19:46:32'),(3,2015,'2019-10-09 19:46:36','2019-10-09 19:46:36');
+/*!40000 ALTER TABLE `years` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

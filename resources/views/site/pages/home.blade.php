@@ -9,7 +9,7 @@
                     <div class="row row-grid l-m">
                         @foreach($marks as $mark)
                             <div class="col-6 col-sm-4 col-md-3 col-xl-2">
-                                @component('site.components.marks', ['item'=>$mark])@endcomponent
+                                @component('site.components.mark', ['item'=>$mark])@endcomponent
                             </div>
                         @endforeach
                         <div class="col-6 col-sm-4 col-md-3 col-xl-2">

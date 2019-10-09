@@ -6,11 +6,10 @@ use App\Models\Criterion;
 use App\Models\Filter;
 use App\Services\Notify\Facades\Notify;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
-class CriteriaController extends Controller
+class CriteriaController extends BaseController
 {
     public function main($id){
         $data = [];

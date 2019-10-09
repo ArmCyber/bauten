@@ -78,6 +78,7 @@ class Mark extends Model
         ];
         if($image = upload_image('image', 'u/marks/', $resizes, ($ignore && !empty($model->image))?$model->image:false)) $model->image = $image;
         $model['active'] = (int) array_key_exists('active', $inputs);
+        $model['show_image'] = (int) array_key_exists('show_image', $inputs);
         return $model->save();
     }
 
