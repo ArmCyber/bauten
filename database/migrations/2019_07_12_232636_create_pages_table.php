@@ -18,7 +18,13 @@ class CreatePagesTable extends Migration
             $table->string('url')->nullable();
             $table->string('title')->nullable();
             $table->string('static', 64)->nullable();
+            $table->string('image', 64)->nullable();
+            $table->string('image_alt')->nullable();
+            $table->string('image_title')->nullable();
+            $table->boolean('show_image')->default(1);
+            $table->text('content')->nullable();
             $table->boolean('on_menu')->default(1);
+            $table->boolean('on_footer')->default(0);
             $table->boolean('active')->default(1);
             $table->integer('sort')->unsigned()->default(0);
             $table->string('seo_title')->nullable();

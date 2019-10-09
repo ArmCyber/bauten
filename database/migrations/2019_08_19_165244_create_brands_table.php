@@ -18,6 +18,10 @@ class CreateBrandsTable extends Migration
             $table->string('code')->collation('utf8_general_ci')->unique();
             $table->string('name')->nullable();
             $table->string('image', 64)->nullable();
+            $table->string('image_alt')->nullable();
+            $table->string('image_title')->nullable();
+            $table->string('url');
+            $table->boolean('in_home')->default(0);
             $table->bigInteger('sort')->unsigned()->default(0);
             $table->boolean('active')->default(1);
             $table->timestamps();

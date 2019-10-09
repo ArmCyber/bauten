@@ -19,6 +19,8 @@ class CreateMarksTable extends Migration
             $table->string('image', 64);
             $table->string('image_alt')->nullable();
             $table->string('image_title')->nullable();
+            $table->string('url');
+            $table->boolean('in_home')->default(0);
             $table->integer('sort')->unsigned()->default(0);
             $table->boolean('active')->default(1);
             $table->timestamps();

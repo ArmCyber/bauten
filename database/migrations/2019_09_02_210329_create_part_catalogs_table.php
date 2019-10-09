@@ -17,6 +17,10 @@ class CreatePartCatalogsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->collation('utf8_general_ci')->unique();
             $table->string('url');
+            $table->string('image', 64)->nullable();
+            $table->string('image_alt')->nullable();
+            $table->string('image_title')->nullable();
+            $table->string('in_home')->nullable();
             $table->timestamps();
         });
     }

@@ -128,6 +128,8 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
             Route::put('add', $c.'add_put');
             Route::get('edit/{id}', $c.'edit')->name('edit');
             Route::patch('edit/{id}', $c.'edit_patch');
+            Route::get('filters/{id}', $c.'filters')->name('filters');
+            Route::patch('filters/{id}', $c.'filters_patch')->name('filters');
             Route::delete('delete', $c.'delete')->middleware('ajax')->name('delete');
         });
         //endregion

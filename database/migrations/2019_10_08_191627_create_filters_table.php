@@ -20,6 +20,7 @@ class CreateFiltersTable extends Migration
             $table->integer('sort')->unsigned()->default(0);
             $table->boolean('active')->default(1);
             $table->timestamps();
+            $table->foreign('group_id')->references('id')->on('groups')->onDelete('cascade');
         });
     }
 

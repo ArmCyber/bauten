@@ -71,10 +71,11 @@
                 <div class="pr-specs-content">
                     <div class="pr-specs-tbl">
                         <div class="pr-specs-item"><div class="pr-specs-key">Бренд</div><div class="pr-specs-value">{{ $item->brand->name }}</div></div>
-                        {{--x<div class="pr-specs-item"><div class="pr-specs-key">Состав</div><div class="pr-specs-value">Синтетическое</div></div>
-                        <div class="pr-specs-item"><div class="pr-specs-key">Вязкость</div><div class="pr-specs-value"></div></div>
-                        <div class="pr-specs-item"><div class="pr-specs-key">Объем, л</div><div class="pr-specs-value">4</div></div>
-                        <div class="pr-specs-item"><div class="pr-specs-key">Тип</div><div class="pr-specs-value">Масло трансмиссионное АКПП</div></div>--}}
+                        @foreach($item_filters as $item_filter)
+                            <div class="pr-specs-item"><div class="pr-specs-key">{{ $item_filter[0]->filter->title }}</div><div class="pr-specs-value">
+                                @foreach($item_filter as $item_criterion) @if(!$loop->first)<br>@endif <span>{{ $item_criterion->title }}</span> @endforeach
+                            </div></div>
+                        @endforeach
                     </div>
                 </div>
             </div>

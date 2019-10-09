@@ -15,6 +15,46 @@ class Filter extends Model
         return self::where('group_id', $group_id)->sort()->withCount('criteria')->get();
     }
 
+    public static function siteListForGroup($group_id) {
+        return self::where(function($q) use ($group_id){
+            $q->whereNull('group_id')->orWhere('group_id', $group_id);
+        })->where('active', 1)->whereHas('criteria', function($q) use ($group_id){
+            $q->whereHas('parts', function($q) use ($group_id){
+                $q->where('active', 1)->whereHas('catalogue', function($q) use ($group_id){
+                    $q->where('group_id', $group_id);
+                });
+            });
+        })->with(['criteria'=>function($q) use ($group_id){
+            $q->whereHas('parts', function($q) use ($group_id){
+                $q->where('active', 1)->whereHas('catalogue', function($q) use ($group_id){
+                    $q->where('group_id', $group_id);
+                });
+            });
+        }])->sort()->get();
+    }
+
+    public static function siteListForCategory($group_id, $category_id) {
+        return self::where(function($q) use ($group_id, $category_id){
+            $q->whereNull('group_id')->orWhere('group_id', $group_id);
+        })->where('active', 1)->whereHas('criteria', function($q) use ($category_id){
+            $q->whereHas('parts', function($q) use ($category_id){
+                $q->where('active', 1)->where('part_catalog_id', $category_id);
+            });
+        })->with(['criteria'=>function($q) use ($category_id){
+            $q->whereHas('parts', function($q) use ($category_id){
+                $q->where('active', 1)->where('part_catalog_id', $category_id);
+            });
+        }])->sort()->get();
+    }
+
+    public static function adminGroupList($group_id) {
+        return self::select('id', 'title')->whereHas('criteria')->where(function($q) use($group_id){
+            $q->whereNull('group_id')->orWhere('group_id', $group_id);
+        })->with(['criteria' => function($q){
+            $q->select('id', 'title', 'filter_id');
+        }])->orderBy('group_id')->sort()->get();
+    }
+
     public static function getItem($id) {
         return self::findOrFail($id);
     }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Http\Traits\UrlUnique;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
 class Part extends Model
@@ -12,6 +13,10 @@ class Part extends Model
 
     public static function adminList(){
         return self::sort()->get();
+    }
+
+    public static function catalogsList($ids){
+        return self::whereIn('part_catalog_id', $ids)->where('active', 1)->sort()->get();
     }
 
     public static function action($model, $inputs) {
@@ -48,8 +53,18 @@ class Part extends Model
         return self::findOrFail($id);
     }
 
+    public static function getItemForFilters($id) {
+        return self::where('id', $id)->withCount(['catalogue as group_id'=>function($q){
+            $q->select('group_id');
+        }])->with(['criteria' => function($q){
+            $q->select('criteria.id', 'criteria.filter_id');
+        }])->firstOrFail();
+    }
+
     public static function getItemSite($url) {
-        return self::where(['url'=>$url, 'active'=>1])->whereHas('catalogue')->whereHas('brand')->with(['catalogue', 'brand', 'cars'])->firstOrFail();
+        return self::where(['url'=>$url, 'active'=>1])->whereHas('catalogue')->whereHas('brand')->with(['catalogue', 'brand', 'cars', 'criteria'=>function($q){
+            $q->with('filter')->orderBy('id');
+        }])->firstOrFail();
     }
 
     public function catalogue(){
@@ -74,6 +89,10 @@ class Part extends Model
 
     public function cars(){
         return $this->hasMany('App\Models\PartCar', 'part_id', 'id')->withInfo()->sort();
+    }
+
+    public function criteria(){
+        return $this->belongsToMany('App\Models\Criterion');
     }
 
 

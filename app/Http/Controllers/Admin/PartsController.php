@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Brand;
+use App\Models\Criterion;
+use App\Models\Filter;
 use App\Models\Mark;
 use App\Models\Part;
 use App\Models\PartCar;
@@ -69,6 +71,26 @@ class PartsController extends BaseController
             Notify::get('error_occurred');
             return redirect()->back()->withInput();
         }
+    }
+
+    public function filters($id) {
+        $data = [];
+        $data['item'] = Part::getItemForFilters($id);
+        $data['selected_filters'] = $data['item']->criteria->mapToGroups(function($item){
+            return [$item->filter_id => (string) $item->id];
+        });
+        $data['title'] = 'Фильтры запчаста "'.$data['item']->name.'"';
+        $data['back_url'] = route('admin.parts.main');
+        $data['filters'] = Filter::adminGroupList($data['item']->group_id);
+        return view('admin.pages.parts.filters', $data);
+    }
+
+    public function filters_patch($id, Request $request){
+        $item =  Part::getItemForFilters($id);
+        $criteria = Criterion::filterCriteriaRequest($request->input('criteria'), $item->group_id);
+        $item->criteria()->sync($criteria);
+        Notify::get('changes_saved');
+        return redirect()->route('admin.parts.filters', ['id'=>$item->id]);
     }
 
     public function delete(Request $request) {
