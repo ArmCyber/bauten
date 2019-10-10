@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 @section('content')
-<form action="{!! $edit?route('admin.years.edit', ['id'=>$item->id]):route('admin.years.add') !!}" method="post">
+<form action="{!! $edit?route('admin.engine_types.edit', ['id'=>$item->id]):route('admin.engine_types.add') !!}" method="post">
     @csrf @method($edit?'patch':'put')
     @if ($errors->any())
         <div class="alert alert-danger" role="alert">
@@ -12,9 +12,9 @@
     <div class="row">
         <div class="col-12 col-lg-6">
             <div class="card">
-                <div class="c-title">Год</div>
+                <div class="c-title">Название</div>
                 <div class="little-p">
-                    <input type="text" name="year" class="form-control" placeholder="Год" maxlength="4" value="{{ old('year', $item->year??null) }}">
+                    <input type="text" name="name" class="form-control" placeholder="Название" maxlength="255" value="{{ old('name', $item->name??null) }}">
                 </div>
             </div>
         </div>

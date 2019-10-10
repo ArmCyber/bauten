@@ -145,11 +145,12 @@ CREATE TABLE `engine_types` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `engine_types` WRITE;
 /*!40000 ALTER TABLE `engine_types` DISABLE KEYS */;
+INSERT INTO `engine_types` VALUES (1,'Дизельный','2019-10-10 13:37:13','2019-10-10 13:37:13'),(2,'Бензиновый','2019-10-10 13:37:33','2019-10-10 13:37:33');
 /*!40000 ALTER TABLE `engine_types` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `engines`;
@@ -157,16 +158,17 @@ DROP TABLE IF EXISTS `engines`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `engines` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `engine_type_id` int(10) unsigned NOT NULL,
+  `engine_type_id` int(10) unsigned DEFAULT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `engines` WRITE;
 /*!40000 ALTER TABLE `engines` DISABLE KEYS */;
+INSERT INTO `engines` VALUES (1,2,'A100','2019-10-10 13:52:08','2019-10-10 13:53:03');
 /*!40000 ALTER TABLE `engines` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `filters`;
@@ -289,7 +291,7 @@ CREATE TABLE `marks` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `marks` WRITE;

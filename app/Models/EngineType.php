@@ -14,7 +14,7 @@ class EngineType extends Model
         if (!$model) {
             $model = new self;
         }
-        $model['year'] = $inputs['year'];
+        $model['name'] = $inputs['name'];
         return $model->save();
     }
 
@@ -26,7 +26,11 @@ class EngineType extends Model
         return self::findOrFail($id);
     }
 
+    public function engines(){
+        return $this->hasMany('App\Models\Engine', 'engine_type_id', 'id');
+    }
+
     public function scopeSort($q){
-        return $q->orderBy('year', 'desc');
+        return $q->orderBy('name', 'asc');
     }
 }

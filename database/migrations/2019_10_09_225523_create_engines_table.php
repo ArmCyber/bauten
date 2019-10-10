@@ -15,7 +15,7 @@ class CreateEnginesTable extends Migration
     {
         Schema::create('engines', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('engine_type_id')->unsigned()->default(null);
+            $table->integer('engine_type_id')->unsigned()->nullable();
             $table->string('name')->nullable();
             $table->timestamps();
         });
