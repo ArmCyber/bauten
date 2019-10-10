@@ -677,6 +677,13 @@ a.brand-item {
 }
 
 //endregion
+#menu-mobile:not(.mm) {
+    display:none;
+}
+.mm {
+    background: #ffffff;
+    color: #333;
+}
 @include media(1599) {
     //region Header
     #header-top {
@@ -865,6 +872,12 @@ a.brand-item {
         font-size: 17px;
     }
     //endregion
+}
+
+@include media(1199, false) {
+    #menu-mobile {
+        display:none;
+    }
 }
 
 @include media(1199) {

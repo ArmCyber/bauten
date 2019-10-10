@@ -5,6 +5,7 @@
     <link rel="shortcut icon" href="{!! asset('favicon.ico') !!}">
     @css(aApp('bootstrap/css/bootstrap.css'))
     @css(aApp('font-awesome/css/all.css'))
+    @css(aSite('assets/mmenu-light/mmenu-light.css'))
     @css(aSite('css/app.css'))
     @empty($skip_inner_css)
         @css(aSite('css/inner.css'))
@@ -27,7 +28,7 @@
                         <div class="ht-auth">
                             <a href="/register" class="ht-login">Регистрация</a>
                         </div>
-                        <div class="ht-hamburger">
+                        <div class="ht-hamburger" id="menu-toggle">
                             <button class="hamburger">
                                 <span class="ic-hamburger"><span></span></span>
                             </button>
@@ -46,10 +47,16 @@
                                         <div class="menu-catalog-blocks">
                                             @foreach($groups as $group)
                                                 <div class="menu-catalog-block">
-                                                    <div class="menu-catalog-letter"><a href="{{ route('group', ['url'=>$group->url]) }}">{{ $group->name }}</a></div>
+                                                    <div class="menu-catalog-letter"><a href="{{ $url = route('group', ['url'=>$group->url]) }}">{{ $group->name }}</a></div>
                                                     <div class="menu-catalog-links">
+                                                        @push('menu_mobile_catalogs')
+                                                            <li class="font-weight-bold"><a href="{{ $url }}">{{ $group->name }}</a></li>
+                                                        @endpush
                                                         @foreach($group->catalogs as $catalog_item)
-                                                            <div class="menu-catalog-link"><a href="{{ route('catalogue', ['url'=>$catalog_item->url]) }}">{{ $catalog_item->name }}</a></div>
+                                                            <div class="menu-catalog-link"><a href="{{ $url = route('catalogue', ['url'=>$catalog_item->url]) }}">{{ $catalog_item->name }}</a></div>
+                                                            @push('menu_mobile_catalogs')
+                                                                <li><a href="{{ $url }}">{{ $catalog_item->name }}</a></li>
+                                                            @endpush
                                                         @endforeach
                                                     </div>
                                                 </div>
@@ -58,14 +65,26 @@
                                     </div>
                                 </div>
                             </div>
+                            @push('menu_mobile')
+                                <li>
+                                    <span>{{ $menu_item->title }}</span>
+                                    <ul>
+                                        @stack('menu_mobile_catalogs')
+                                    </ul>
+                                </li>
+                            @endpush
                         @else
                             <div class="menu-item{{ ($active_page??null)==$menu_item->id?' active':'' }}"><a href="{{ $url = route('page', ['url'=>$menu_item->url]) }}">{{ $menu_item->title }}</a></div>
+                            @push('menu_mobile')
+                                <li><a href="{{ $url }}">{{ $menu_item->title }}</a></li>
+                            @endpush
                             @push('footer_links')
                                 <div class="footer-link"><a href="{{ $url }}">{{ $menu_item->title }}</a></div>
                             @endpush
                         @endif
                     @endforeach
                 </nav>
+                <nav id="menu-mobile"><ul>@stack('menu_mobile')</ul></nav>
             </div>
         </header>
         <main id="main">@yield('main')</main>
@@ -127,5 +146,7 @@
         </footer>
     </div>
     @js(aApp('jquery/jquery.js'))
+    @js(aSite('assets/mmenu-light/mmenu-light.js'))
+    @js(aSite('js/base.js'))
     @stack('js')
 </body></html>
