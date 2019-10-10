@@ -128,12 +128,12 @@ CREATE TABLE `criterion_part` (
   KEY `criterion_part_part_id_foreign` (`part_id`),
   CONSTRAINT `criterion_part_criterion_id_foreign` FOREIGN KEY (`criterion_id`) REFERENCES `criteria` (`id`) ON DELETE CASCADE,
   CONSTRAINT `criterion_part_part_id_foreign` FOREIGN KEY (`part_id`) REFERENCES `parts` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `criterion_part` WRITE;
 /*!40000 ALTER TABLE `criterion_part` DISABLE KEYS */;
-INSERT INTO `criterion_part` VALUES (8,6,4),(9,1,4),(10,2,4),(11,3,4),(12,4,4),(13,5,4);
+INSERT INTO `criterion_part` VALUES (8,6,4),(9,1,4),(10,2,4),(11,3,4),(12,4,4),(13,5,4),(14,1,5),(15,2,5),(16,3,5),(17,4,5),(18,5,5),(19,6,5);
 /*!40000 ALTER TABLE `criterion_part` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `engine_types`;
@@ -190,7 +190,7 @@ CREATE TABLE `filters` (
 
 LOCK TABLES `filters` WRITE;
 /*!40000 ALTER TABLE `filters` DISABLE KEYS */;
-INSERT INTO `filters` VALUES (1,'Filter 1',NULL,2,1,'2019-10-08 15:26:34','2019-10-09 14:45:39'),(4,'Filter 2',NULL,1,1,'2019-10-08 16:42:28','2019-10-09 14:45:39'),(5,'Filter 5',1,1,1,'2019-10-08 17:12:56','2019-10-08 17:20:34'),(6,'Filter 3',NULL,3,1,'2019-10-08 17:16:36','2019-10-09 14:45:39'),(7,'Filter 6',1,2,1,'2019-10-08 17:20:27','2019-10-08 17:20:34');
+INSERT INTO `filters` VALUES (1,'Filter 1',NULL,1,1,'2019-10-08 15:26:34','2019-10-10 15:50:55'),(4,'Filter 2',NULL,3,1,'2019-10-08 16:42:28','2019-10-10 15:50:55'),(5,'Filter 5',1,1,1,'2019-10-08 17:12:56','2019-10-08 17:20:34'),(6,'Filter 3',NULL,2,1,'2019-10-08 17:16:36','2019-10-10 15:50:55'),(7,'Filter 6',1,2,1,'2019-10-08 17:20:27','2019-10-08 17:20:34');
 /*!40000 ALTER TABLE `filters` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `galleries`;
@@ -250,7 +250,7 @@ CREATE TABLE `groups` (
 
 LOCK TABLES `groups` WRITE;
 /*!40000 ALTER TABLE `groups` DISABLE KEYS */;
-INSERT INTO `groups` VALUES (1,'Группа 1','gruppa-1',0,'2019-10-08 13:11:48','2019-10-08 13:11:48'),(2,'Группа 2','gruppa-2',0,'2019-10-08 13:11:53','2019-10-08 13:11:53'),(3,'Группа 3','gruppa-3',0,'2019-10-08 13:12:29','2019-10-08 13:12:29');
+INSERT INTO `groups` VALUES (1,'Группа 1','gruppa-1',1,'2019-10-08 13:11:48','2019-10-10 15:49:46'),(2,'Группа 2','gruppa-2',2,'2019-10-08 13:11:53','2019-10-10 15:49:46'),(3,'Группа 3','gruppa-3',3,'2019-10-08 13:12:29','2019-10-10 15:49:46');
 /*!40000 ALTER TABLE `groups` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `home_slider`;
