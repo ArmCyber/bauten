@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 @section('content')
-<form action="{!! $edit?route('admin.engine_types.edit', ['id'=>$item->id]):route('admin.engine_types.add') !!}" method="post">
+<form action="{!! $edit?route('admin.engine_criteria.edit', ['id'=>$item->id]):route('admin.engine_criteria.add', ['id'=>$filter->id]) !!}" method="post">
     @csrf @method($edit?'patch':'put')
     @if ($errors->any())
         <div class="alert alert-danger" role="alert">
@@ -14,7 +14,7 @@
             <div class="card">
                 <div class="c-title">Название</div>
                 <div class="little-p">
-                    <input type="text" name="name" class="form-control" placeholder="Название" maxlength="255" value="{{ old('name', $item->name??null) }}">
+                    <input type="text" name="title" class="form-control" placeholder="Название" maxlength="255" value="{{ old('title', $item->title??null) }}">
                 </div>
             </div>
         </div>
@@ -22,6 +22,3 @@
     <div class="col-12 save-btn-fixed"><button type="submit"></button></div>
 </form>
 @endsection
-@push('js')
-    @ckeditor
-@endpush

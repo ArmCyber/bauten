@@ -72,8 +72,8 @@ class CriteriaController extends BaseController
         $result = ['success'=>false];
         $id = $request->input('item_id');
         if ($id && is_id($id)) {
-            $item = Filter::where('id',$id)->first();
-            if ($item && Filter::deleteItem($item)) $result['success'] = true;
+            $item = Criterion::where('id',$id)->first();
+            if ($item && Criterion::deleteItem($item)) $result['success'] = true;
         }
         return response()->json($result);
     }

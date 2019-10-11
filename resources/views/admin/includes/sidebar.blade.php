@@ -22,9 +22,6 @@
     @alink(['url'=>route('admin.marks.main'), 'icon'=>'fas fa-car', 'title'=>'Марки'])@endalink
     @alink(['url'=>route('admin.brands.main'), 'icon'=>'fas fa-list-ol', 'title'=>'Бренды'])@endalink
     @alink(['url'=>route('admin.years.main'), 'icon'=>'fas fa-calendar-week', 'title'=>'Годы'])@endalink
-    @alink(['icon'=>'fas fa-car-side', 'title'=>'Двигатели'])
-        @alink(['url'=>route('admin.engine_types.main'), 'icon'=>'fas fa-gas-pump', 'title'=>'Типы'])@endalink
-        @alink(['url'=>route('admin.engines.main'), 'icon'=>'fas fa-list', 'title'=>'Список'])@endalink
-    @endalink
+    @alink(['url'=>route('admin.engine_filters.main'), 'icon'=>'fas fa-car-side', 'title'=>'Двигатели'])@endalink
     @alink(['url'=>route('admin.admins.main'), 'icon'=>'fas fa-user-tie', 'title'=>'Администраторы'])@endalink
 @endcan
