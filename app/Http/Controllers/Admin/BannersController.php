@@ -148,6 +148,13 @@ class BannersController extends BaseController
                     ]
                 ]
             ]
-        ]
+        ],
+        'auth' => [
+            'register' => [
+                'params' => [
+
+                ]
+            ]
+        ],
     ];
 }

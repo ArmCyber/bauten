@@ -1,11 +1,7 @@
 @extends('site.layouts.app')
 @section('main')
     <div class="container py-s">
-        <div class="breadcrumb page-breadcrumb">
-            <div class="breadcrumb-item"><a href="javascript:void(0)">Главная</a></div>
-            <div class="breadcrumb-item"><a href="javascript:void(0)">Каталог</a></div>
-            <div class="breadcrumb-item">Регистрация</div>
-        </div>
+        @breadcrumb(['pages'=>[['title'=>'Регистрация']]])@endbreadcrumb
         <div class="registration-page row">
             <div class="col-12 col-lg-6">
                 <div class="registration-greetings">

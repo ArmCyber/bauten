@@ -1,5 +1,5 @@
 @extends('banners::components.layout')
-@section('title', 'Контент страницы "О компании"')
+@section('title', 'Контент страницы о компании')
 @php $back_url = route('admin.pages.main') @endphp
 @section('body')
     @bannerBlock(['title'=>'Контент'])
