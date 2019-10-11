@@ -1,7 +1,13 @@
 @extends('admin.layouts.app')
 @section('content')
+@if($user->code)
+    <div class="alert alert-info" role="alert">
+        <p>Ваш уникальный ID: <i>{{ $user->code }}</p>
+    </div>
+@endif
 <form action="{{ route('admin.profile.main')}}" method="post" autocomplete="off">
     @csrf @method('patch')
+
     @if ($errors->any())
         <div class="alert alert-danger" role="alert">
             @foreach ($errors->all() as $error)
@@ -15,6 +21,12 @@
                 <div class="c-title">Имя</div>
                 <div class="little-p">
                     <input type="text" name="name" maxlength="255" class="form-control" autocomplete="name" placeholder="Имя" value="{{ old('name', $user->name) }}">
+                </div>
+            </div>
+            <div class="card">
+                <div class="c-title">Номер телефона</div>
+                <div class="little-p">
+                    <input type="text" name="phone" maxlength="255" class="form-control" autocomplete="phone" placeholder="Номер телефона" value="{{ old('phone', $user->phone) }}">
                 </div>
             </div>
             <div class="card">

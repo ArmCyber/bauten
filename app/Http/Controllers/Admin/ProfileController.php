@@ -35,6 +35,7 @@ class ProfileController extends BaseController
         $rules = [
             'name'=>'required|string|max:255',
             'email'=>'required|string|max:255|email|unique:admins,email,'.$ignore,
+            'phone'=>'required|string|max:255|phone|unique:admins,phone,'.$ignore,
             'current_password'=>[
                 'required',
                 'string',

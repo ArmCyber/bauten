@@ -17,7 +17,7 @@ class Admin extends User
 
     public const ROLES = [
         1 => 'Оператор',
-        2 => 'Контент менеджер',
+        2 => 'Менеджер',
         3 => 'Администратор',
         4 => 'Главный администратор',
     ];
@@ -42,6 +42,7 @@ class Admin extends User
     public static function changeSettings($user, $inputs){
         $user['name'] = $inputs['name'];
         $user['email'] = $inputs['email'];
+        $user['phone'] = $inputs['phone'];
         if (!empty($inputs['change_password'])) {
             $user['password'] = Hash::make($inputs['new_password']);
         }
@@ -54,6 +55,8 @@ class Admin extends User
         if (!$model) $model = new self;
         $model['name'] = $inputs['name'];
         $model['email'] = $inputs['email'];
+        $model['phone'] = $inputs['phone'];
+        $model['code'] = $inputs['role']==config('roles.manager')?$inputs['code']:null;
         if (!empty($inputs['password'])) $model['password'] = Hash::make($inputs['password']);
         $model['active'] = (int) array_key_exists('active', $inputs);
         $model['role'] = $inputs['role'];

@@ -18,14 +18,26 @@
                 </div>
             </div>
             <div class="card">
+                <div class="c-title">Номер телефона</div>
+                <div class="little-p">
+                    <input type="text" name="phone" class="form-control" placeholder="Номер телефона" maxlength="255" value="{{ old('phone', $item->phone??null) }}">
+                </div>
+            </div>
+            <div class="card">
                 <div class="c-title">Роль</div>
                 <div class="little-p">
-                    <select name="role" class="select2" style="width: 100%">
+                    <select name="role" id="role-select" class="select2" style="width: 100%">
                         @php $selectedRole = old('role', $item->role??0) @endphp
                         @foreach($roles as $key=>$role)
                             <option value="{{ $key }}"{!! $key==$selectedRole?' selected':null !!}>{{ $role }}</option>
                         @endforeach
                     </select>
+                </div>
+            </div>
+            <div id="role-card" class="card" @if($selectedRole != config('roles.manager')) style="display: none" @endif>
+                <div class="c-title">Уникальный ID</div>
+                <div class="little-p">
+                    <input type="text" name="code" class="form-control" placeholder="Уникальный ID" maxlength="255" value="{{ old('code', $item->code??null) }}">
                 </div>
             </div>
             <div class="card">
@@ -58,6 +70,10 @@
     @js(aApp('select2/select2.js'))
     <script>
         $('.select2').select2();
+        $('#role-select').on('change', function(){
+            if (parseInt($(this).val())==={{ config('roles.manager') }}) $('#role-card').show();
+            else $('#role-card').hide();
+        });
     </script>
 @endpush
 @push('css')

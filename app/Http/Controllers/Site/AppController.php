@@ -71,11 +71,4 @@ class AppController extends BaseController
         return view('site.pages.dynamic_page', $data);
     }
 
-    //Temporary
-    public function register(){
-        $data = [];
-        $data['countries'] = Country::siteList();
-        $data['regions'] = Country::jsonForRegions($data['countries']);
-        return view('site.temp.register', $data);
-    }
 }

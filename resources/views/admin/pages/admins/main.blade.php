@@ -19,7 +19,7 @@
                         <tr class="item-row" data-id="{!! $item->id !!}">
                             <td>{{ $item->id }}</td>
                             <td class="item-title">{{ $item->email}}</td>
-                            <td data-order="{{ $item->role }}">{{ $roles[$item->role]??'-' }}</td>
+                            <td data-order="{{ $item->role }}">{{ ($roles[$item->role]??'-').($item->role==config('roles.manager') && $item->code?' (ID: '.e($item->code).')':null) }}</td>
                             @if($item->active)
                                 <td class="text-success">Активно</td>
                             @else

@@ -70,13 +70,20 @@ class AdminsController extends BaseController
     }
 
     private function validator($inputs, $ignore=false) {
-        return Validator::make($inputs, [
+        $rules = [
             'name' => 'required|string|max:255',
             'email' => 'required|string|mail|max:255|unique:admins,email'.($ignore?','.$ignore:null),
+            'phone'=>'required|string|max:255|phone|unique:admins,phone'.($ignore?','.$ignore:null),
             'role' => 'required|integer|between:1,'.Auth::user()->role,
-            'password' => ($ignore?'nullable':'required').'|string|min:8|confirmed'
-        ],[
+            'password' => ($ignore?'nullable':'required').'|string|min:8|confirmed',
+        ];
+        if ($inputs['role']==config('roles.manager')) {
+            $rules['code'] = 'required|string|max:255|unique:admins,code'.($ignore?','.$ignore:null);
+        }
+        return Validator::make($inputs, $rules,[
             'role.*' => 'Выберите роль.',
+        ], [
+            'code' => 'Уникальный ID',
         ]);
     }
 }

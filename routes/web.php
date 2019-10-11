@@ -257,9 +257,9 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
 });
 //endregion
 
-//region Temporary
-Route::get('register', 'Site\AppController@register');
-//endregion
+//region Auth
+Route::get('register', 'Site\Auth\RegisterController@showRegistrationForm')->name('register');
+//endRegion
 
 Route::post(r('contacts').'/send-message', 'Site\InnerController@sendContactsMessage')->name('contacts.send_message');
 
