@@ -363,6 +363,10 @@ button.bauten-btn {
     }
 }
 
+.has-error, select.has-error + .select2 .select2-selection {
+    border-color: #dc3545 !important;
+}
+
 .c-select2-inside {
     .select2-container {
         height: 100%;
@@ -764,6 +768,12 @@ img.news-page-image {
 }
 .brands-page .brand-item {
     @include box-shadow(0 0px 10px 0 rgba(31,48,93,0.3));
+}
+.login-form {
+    margin-top:30px;
+    .c-form-group {
+        justify-content: center;
+    }
 }
 @include media(1599) {
     .product-title {

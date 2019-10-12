@@ -152,7 +152,15 @@ class BannersController extends BaseController
         'auth' => [
             'register' => [
                 'params' => [
-
+                    'first_title'=>'input',
+                    'first_text'=>'text',
+                ]
+            ],
+            'register_right' => [
+                'count'=>2,
+                'params' => [
+                    'title' => 'input',
+                    'text' => 'text',
                 ]
             ]
         ],

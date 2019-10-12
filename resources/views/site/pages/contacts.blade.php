@@ -32,31 +32,31 @@
                     <div class="contacts-block-data"><form action="{{ route('contacts.send_message') }}" method="post">@csrf
                         <div class="form-group">
                             <label for="form-name">Имя</label>
-                            <input type="text" class="form-control" id="form-name" name="name" placeholder="Имя" maxlength="200" value="{{ old('name') }}">
-                            @if($errors->has('name'))
-                                <small class="form-text text-danger">{{ $errors->first('name') }}</small>
-                            @endif
+                            <input type="text" class="form-control @error('name') has-error @enderror" id="form-name" name="name" placeholder="Имя" maxlength="200" value="{{ old('name') }}">
+                            @error('name')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="form-phone">Номер телефона</label>
-                            <input type="text" class="form-control" id="form-phone" name="phone" placeholder="Номер телефона" maxlength="200" value="{{ old('phone') }}">
-                            @if($errors->has('phone'))
-                                <small class="form-text text-danger">{{ $errors->first('phone') }}</small>
-                            @endif
+                            <input type="text" class="form-control @error('phone') has-error @enderror" id="form-phone" name="phone" placeholder="Номер телефона" maxlength="200" value="{{ old('phone') }}">
+                            @error('phone')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="form-email">Адрес эл.почты</label>
-                            <input type="text" class="form-control" id="form-email" name="email" placeholder="Адрес эл.почты" maxlength="200" value="{{ old('email') }}">
-                            @if($errors->has('email'))
-                                <small class="form-text text-danger">{{ $errors->first('email') }}</small>
-                            @endif
+                            <input type="text" class="form-control @error('email') has-error @enderror" id="form-email" name="email" placeholder="Адрес эл.почты" maxlength="200" value="{{ old('email') }}">
+                            @error('email')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="form-message">Сообщение</label>
-                            <textarea class="form-control" id="form-message" rows="3" name="message" maxlength="1000">{{ old('message') }}</textarea>
-                            @if($errors->has('message'))
-                                <small class="form-text text-danger">{{ $errors->first('message') }}</small>
-                            @endif
+                            <textarea class="form-control @error('message') has-error @enderror" id="form-message" rows="3" name="message" maxlength="1000">{{ old('message') }}</textarea>
+                            @error('message')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                         <div><button type="submit" class="btn btn-bauten">Отправить</button></div>
                     </form></div>

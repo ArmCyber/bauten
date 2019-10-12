@@ -46,6 +46,7 @@
       <data directive="@endcards" />
       <data directive="@endcomponent" />
       <data directive="@endempty" />
+      <data directive="@enderror" />
       <data directive="@endfile" />
       <data directive="@endfor" />
       <data directive="@endforeach" />

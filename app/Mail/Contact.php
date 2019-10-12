@@ -31,6 +31,6 @@ class Contact extends Mailable
      */
     public function build()
     {
-        return $this->subject('Сообшение от bauten.kz')->view('site.notifications.contact', $this->data);
+        return $this->subject('Сообшение от bauten.kz')->view('site.mails.admin.contact', $this->data);
     }
 }
