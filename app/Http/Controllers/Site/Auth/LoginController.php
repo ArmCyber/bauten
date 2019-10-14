@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Site\Auth;
 use App\Http\Controllers\Site\BaseController;
 use App\Models\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends BaseController
 {
@@ -41,5 +42,31 @@ class LoginController extends BaseController
 
     public function showLoginForm(){
         return view('site.pages.auth.login', []);
+    }
+
+    protected function validateLogin(Request $request)
+    {
+        $request->validate([
+            $this->username() => 'required|string',
+            'password' => 'required|string',
+        ], [
+            'required' => 'Поле обязательно для заполнения.',
+            'string' => 'Поле обязательно для заполнения.',
+        ]);
+    }
+
+    public function login(Request $request)
+    {
+        $this->validateLogin($request);
+        if (method_exists($this, 'hasTooManyLoginAttempts') &&
+            $this->hasTooManyLoginAttempts($request)) {
+            $this->fireLockoutEvent($request);
+            return $this->sendLockoutResponse($request);
+        }
+        if ($this->attemptLogin($request)) {
+            return $this->sendLoginResponse($request);
+        }
+        $this->incrementLoginAttempts($request);
+        return $this->sendFailedLoginResponse($request);
     }
 }

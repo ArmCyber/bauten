@@ -259,6 +259,7 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
 
 //region Auth
 Route::get('login', 'Site\Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Site\Auth\LoginController@login');
 Route::get('register', 'Site\Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Site\Auth\RegisterController@register');
 Route::get('verify/{email}/{token}', 'Site\Auth\VerificationController@showVerificationForm')->name('verification');
