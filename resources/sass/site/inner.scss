@@ -349,24 +349,38 @@ input.filter-checkbox {
     display: none;
 }
 
-button.bauten-btn {
+a.bauten-btn {
+    display: inline-block;
+    text-decoration: none;
+    line-height: 46px;
+}
+.bauten-btn {
     width: 202px;
     height: 47px;
     border: 1px solid $blue;
     background-color: $blue;
     color: #ffffff;
     @include transition(#{color .3s ease, background-color .3s ease});
-
     &:hover {
         color: $blue;
         background-color: #ffffff;
+    }
+    &.bauten-btn-success {
+        border-color: $green;
+        background-color: $green;
+        &:hover {
+            color: $green;
+            background-color: #ffffff;
+        }
     }
 }
 
 .has-error, select.has-error + .select2 .select2-selection {
     border-color: #dc3545 !important;
 }
-
+.color-bauten {
+    color:$blue !important;
+}
 .c-select2-inside {
     .select2-container {
         height: 100%;

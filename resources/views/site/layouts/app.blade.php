@@ -26,7 +26,7 @@
                     </div>
                     <div class="ht-sm text-right">
                         <div class="ht-auth">
-                            <a href="/register" class="ht-login">Регистрация</a>
+                            <a href="{{ route('login') }}" class="ht-login">Вход</a>
                         </div>
                         <div class="ht-hamburger" id="menu-toggle">
                             <button class="hamburger">
