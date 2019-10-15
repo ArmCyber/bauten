@@ -1,5 +1,4 @@
 @extends('admin.layouts.app')
-@section('titleSuffix')| <a href="{!! route('admin.admins.add') !!}" class="text-cyan"><i class="mdi mdi-plus-box"></i> создать</a>@endsection
 @section('content')
     @if(count($items))
         <div class="card">
@@ -9,7 +8,8 @@
                     <tr>
                         <th>ID</th>
                         <th>Адрес эл.почты</th>
-                        <th>Роль</th>
+                        <th>Тип</th>
+                        <th>Менеджер</th>
                         <th>Статус</th>
                         <th>Действие</th>
                     </tr>
@@ -18,16 +18,31 @@
                     @foreach($items as $item)
                         <tr class="item-row" data-id="{!! $item->id !!}">
                             <td>{{ $item->id }}</td>
-                            <td class="item-title">{{ $item->email}}</td>
-                            <td data-order="{{ $item->role }}">{{ ($roles[$item->role]??'-').($item->role==config('roles.manager') && $item->code?' (ID: '.e($item->code).')':null) }}</td>
-                            @if($item->active)
-                                <td class="text-success">Активно</td>
-                            @else
-                                <td class="text-danger">Неактивно</td>
-                            @endif
                             <td>
-                                <a href="{{ route('admin.admins.edit', ['id'=>$item->id]) }}" {!! tooltip('Редактировать') !!} class="icon-btn edit"></a>
-                                <span class="d-inline-block"  style="margin-left:4px;" data-toggle="modal" data-target="#itemDeleteModal"><a href="javascript:void(0)" class="icon-btn delete" {!! tooltip('Удалить') !!}></a></span>
+                                {{ $item->email}}
+                                @if($item->is_online)
+                                    <sup class="online-dot">•</sup>
+                                @endif
+                            </td>
+                            <td>{{ $item->type_name }}</td>
+                            <td>
+                                @if ($item->manager)
+                                    <a href="{{ route('admin.admins.edit', ['id'=>$item->manager->id]) }}">{{ $item->manager->email }}</a>
+                                @else
+                                    -
+                                @endif
+                            </td>
+                            <td data-order="{{ $item->status==0?2:$item->status }}">
+                                @if($item->status==\App\Models\User::STATUS_BLOCKED)
+                                    <span class="text-danger">блокирован</span>
+                                @elseif ($item->status==\App\Models\User::STATUS_PENDING)
+                                    <span class="text-warning">ожидание</span>
+                                @else
+                                    <span class="text-success">активно</span>
+                                @endif
+                            </td>
+                            <td>
+                                <a href="{{ route('admin.users.view', ['id'=>$item->id]) }}" {!! tooltip('Посмотреть') !!} class="icon-btn view"></a>
                             </td>
                         </tr>
                     @endforeach
@@ -54,63 +69,8 @@
 @push('js')
     @js(aApp('datatables/datatables.js'))
     <script>
-        var itemId = $('#pdf-item-id'),
-            modalTitle = $('#pdm-title'),
-            blocked = false,
-            modal = $('#itemDeleteModal');
-        loader = modal.find('.modal-loader');
-        function modalError() {
-            loader.removeClass('shown');
-            blocked = false;
-            toastr.error('Возникла проблема!');
-            modal.modal('hide');
-        }
-        modal.on('show.bs.modal', function(e){
-            if (blocked) return false;
-            var $this = $(this),
-                button = $(e.relatedTarget),
-                thisItemRow = button.parents('.item-row');
-            itemId.val(thisItemRow.data('id'));
-            modalTitle.html(thisItemRow.find('.item-title').html());
-
-        }).on('hide.bs.modal', function(e){
-            if (blocked) return false;
+        $('.init-dataTable').dataTable({
+            "order": [[ 4, "asc" ]]
         });
-        $('#itemDeleteForm').on('submit', function(){
-            if (blocked) return false;
-            blocked = true;
-            var thisItemId = itemId.val();
-            if (thisItemId && thisItemId.match(/^[1-9][0-9]{0,9}$/)) {
-                loader.addClass('shown');
-                $.ajax({
-                    url: '{!! route('admin.admins.delete') !!}',
-                    type: 'post',
-                    dataType: 'json',
-                    data: {
-                        _token: csrf,
-                        _method: 'delete',
-                        item_id: thisItemId,
-                    },
-                    error: function(e){
-                        modalError();
-                        console.log(e.responseText);
-                    },
-                    success: function(e){
-                        if (e.success) {
-                            loader.removeClass('shown');
-                            blocked = false;
-                            toastr.success('Профиль удален');
-                            modal.modal('hide');
-                            $('.item-row[data-id="'+thisItemId+'"]').fadeOut(function(){
-                                $(this).remove();
-                            });
-                        }
-                        else modalError();
-                    }
-                });
-            }
-            else modalError();
-        });
-        $('.init-dataTable').dataTable();
     </script>
 @endpush

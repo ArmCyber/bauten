@@ -13,17 +13,16 @@ class UserVerified extends Mailable
 
     private $data;
 
-    public function __construct($email, $manager)
+    public function __construct($email)
     {
         $this->data = [
             'email' => $email,
-            'manager' => $manager
         ];
     }
 
     public function build()
     {
-        return $this->subject('Пользователь активировал свой профиль на сайте Bauten.kz')
+        return $this->subject('Пользователь подтверждил свой адрес эл.почты на сайте Bauten.kz')
             ->view('site.mails.admin.user_verified', $this->data);
     }
 }

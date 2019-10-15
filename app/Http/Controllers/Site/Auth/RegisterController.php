@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Zakhayko\Banners\Models\Banner;
 
 class RegisterController extends BaseController
@@ -33,8 +34,15 @@ class RegisterController extends BaseController
             'city' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'phone' => 'required|string|phone|max:255',
+            'manager' => [
+                'nullable',
+                'string',
+                Rule::exists('admins', 'code')->where(function($q){
+                    $q->where(['active'=>1, 'role'=>config('roles.manager')]);
+                })
+            ],
         ];
-        if ($data['type']==User::ENTITY) {
+        if ($data['type']==User::TYPE_ENTITY) {
             $rules['company'] = 'required|string|max:255';
             $rules['bin'] = 'required|string|max:255';
         }
@@ -42,13 +50,14 @@ class RegisterController extends BaseController
             'required' => 'Поле обязательно для заполнения.',
             'string' => 'Поле обязательно для заполнения.',
             'integer' => 'Поле обязательно для заполнения.',
-            'exists' => 'Поле обязательно для заполнения.',
             'max' => 'Макс. :max символов.',
             'min' => 'Пароль должен содержать мин 8 символов.',
             'mail' => 'Недействительный адрес эл.почты.',
             'phone' => 'Недействительный номер телефона.',
             'confirmed' => 'Пароль и подверждение не совпадают.',
             'unique' => 'Эл.почта уже существует.',
+            'region_id.exists' => 'Поле обязательно для заполнения.',
+            'manager.exists' => 'Менеджер с таким кодом не найден.',
         ]);
     }
 
@@ -58,21 +67,27 @@ class RegisterController extends BaseController
         $data['banners'] = Banner::get('auth');
         $data['countries'] = Country::siteList();
         $data['regions'] = Country::jsonForRegions($data['countries']);
-        $data['types'] = [
-            'individual' => User::INDIVIDUAL,
-            'entity' => User::ENTITY,
-        ];
+        $data['types'] = User::getTypes();
         return view('site.pages.auth.register', $data);
     }
 
     public function register(Request $request) {
         $inputs = $request->all();
-        if (isset($inputs['type']) && $inputs['type']!=User::ENTITY) $inputs['type']=User::INDIVIDUAL;
+        if (isset($inputs['type']) && $inputs['type']!=User::TYPE_ENTITY) $inputs['type']=User::TYPE_INDIVIDUAL;
         $this->validator($inputs)->validate();
         $verification_token = Str::random(32);
         $user = User::register($inputs, $verification_token);
         $user->sendRegisteredNotification($verification_token, $this->shared['email']?:null);
         return redirect()->route('login')->with(['action'=>'registered'])->withInput(['email'=>$inputs['email']]);
+    }
+
+    public function verify($email, $token) {
+        $user = User::where('email', $email)->firstOrFail();
+        if (!$user->verification || !Hash::check($token, $user->verification)) abort(404);
+        $user['verification'] = null;
+        $user->save();
+        $user->sendVerifiedNotification($this->shared['email']);
+        return redirect()->route('login')->with(['action'=>'verified']);
     }
 
 }

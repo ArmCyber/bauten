@@ -87,7 +87,7 @@
                 <nav id="menu-mobile"><ul>@stack('menu_mobile')</ul></nav>
             </div>
         </header>
-        <main id="main">@yield('main')</main>
+        <main id="main" @isset($main_class) class="{{ $main_class }}" @endif>@yield('main')</main>
         <footer id="footer">
             <div class="container">
                 <div class="row">

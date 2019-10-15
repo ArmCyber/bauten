@@ -5,10 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Models\EngineFilter;
 use App\Services\Notify\Facades\Notify;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
-class EngineFiltersController extends Controller
+class EngineFiltersController extends BaseController
 {
     public function main(){
         $data = [];

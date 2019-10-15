@@ -19,7 +19,7 @@
                                 </label>
                                 <label class="c-radio">
                                     <input type="radio" name="type" class="reg-type-radio" value="{{ $types['individual'] }}" {{ old('type')==$types['individual']?'checked':null }}>
-                                    <span>Физическое Лицо</span>
+                                    <span>Физическое лицо</span>
                                 </label>
                             </div>
                             <div class="c-inputs  {{ old('type')!=$types['individual']?'lp-checked':null }}">
@@ -27,8 +27,9 @@
                                     <div class="c-label"><label for="form-city">Страна</label></div>
                                     <div class="c-control c-select2-inside">
                                         <select name="country_id" class="country-select" style="width: 100%;">
+                                            @php $old_country_id = old('country_id'); @endphp
                                             @foreach($countries as $country)
-                                                <option value="{!! $country->id !!}">{{ $country->title }}</option>
+                                                <option value="{!! $country->id !!}" {!! $country->id==$old_country_id?'selected':null !!}>{{ $country->title }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -37,8 +38,12 @@
                                     <div class="c-label"><label for="form-city">Область</label></div>
                                     <div class="c-control c-select2-inside">
                                         <select name="region_id" class="region-select @error('region_id') has-error @enderror" style="width: 100%;">
-                                            @foreach($regions[$countries[0]->id] as $region)
-                                                <option value="{!! $region['id'] !!}">{{ $region['title'] }}</option>
+                                        @php
+                                            $old_region_id = old('region_id');
+                                            $loop_regions = ($old_country_id && isset($regions[$old_country_id]))?$regions[$old_country_id]:($regions[$countries[0]->id]??[]);
+                                        @endphp
+                                        @foreach($loop_regions as $region)
+                                                <option value="{!! $region['id'] !!}" {!! $region['id']==$old_region_id?'selected':null !!}>{{ $region['title'] }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -105,9 +110,16 @@
                                 <small class="text-danger">{{ $message }}</small>
                                 @enderror
                                 <div class="c-form-group">
-                                    <div class="c-label"><label for="form-password">Повторите пароль</label></div>
+                                    <div class="c-label"><label for="form-password-confirmation">Повторите пароль</label></div>
                                     <div class="c-control"><input type="password" id="form-password-confirmation" name="password_confirmation" maxlength="255"></div>
                                 </div>
+                                <div class="c-form-group">
+                                    <div class="c-label"><label for="form-manager">Менеджер</label></div>
+                                    <div class="c-control"><input type="text" id="form-manager" name="manager" maxlength="255" value="{{ old('manager') }}" placeholder="Оставьте пустое если нет менеджера" @error('manager') class="has-error" @enderror></div>
+                                </div>
+                                @error('manager')
+                                <small class="text-danger">{{ $message }}</small>
+                                @enderror
                                 <div class="c-form-group">
                                     <div class="c-label d-none d-lg-block"></div>
                                     <div class="c-control text-center text-lg-right"><button type="submit" class="bauten-btn">Подтвердить</button></div>

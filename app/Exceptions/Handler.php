@@ -2,9 +2,15 @@
 
 namespace App\Exceptions;
 
+use App\Http\Controllers\Site\ErrorsController;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Session\TokenMismatchException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -48,7 +54,19 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         if ($exception instanceof AuthorizationException) {
-            abort(404);
+//            abort(404);
+            dd('AuthorizationException');
+        }
+        else if ($exception instanceof NotFoundHttpException ||
+            $exception instanceof MethodNotAllowedHttpException ||
+            $exception instanceof ModelNotFoundException||
+            $exception instanceof AccessDeniedHttpException)
+            return (new ErrorsController())->show(404);
+        else if ($exception instanceof TokenMismatchException) {
+            return (new ErrorsController())->show(419);
+        }
+        else if ($exception instanceof ErrorException){
+            dd($exception);
         }
         return parent::render($request, $exception);
     }

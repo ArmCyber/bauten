@@ -4,8 +4,8 @@
         @breadcrumb(['pages'=>[['title'=>'Вход']]])@endbreadcrumb
         <h1 class="page-title">Вход</h1>
         <div class="login-form">
-            @if(session('action')=='registered')
-                <p class="text-center text-success">{{ __('texts.registered') }}</p>
+            @if(session()->has('action'))
+                <p class="text-center text-success">{{ __('texts.actions.'.session('action')) }}</p>
             @endif
             <form action="{{ route('login') }}" method="post">@csrf
                 <div class="c-inputs">

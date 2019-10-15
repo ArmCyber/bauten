@@ -29,8 +29,9 @@ class CreateUsersTable extends Migration
             $table->string('email')->collation('utf8_general_ci')->unique();
             $table->string('password');
             $table->string('verification', 64)->nullable();
-            $table->boolean('active')->default(1);
+            $table->tinyInteger('status')->default(-1);
             $table->rememberToken();
+            $table->timestamp('seen_at')->nullable();
             $table->timestamps();
         });
     }

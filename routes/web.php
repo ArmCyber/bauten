@@ -253,6 +253,15 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
             Route::patch('sort', $c.'sort')->middleware('ajax')->name('sort');
         });
         //endregion
+        //region Users
+        Route::middleware('can:admin')->prefix('users')->name('users.')->group(function() { $c = 'UsersController@';
+            Route::get('', $c.'main')->name('main');
+            Route::get('view/{id}', $c.'view')->name('view');
+            Route::patch('change-manager', $c.'changeManager')->name('change_manager');
+            Route::patch('change-status', $c.'changeStatus')->name('change_status');
+//            Route::delete('delete', $c.'delete')->middleware('ajax')->name('delete');
+        });
+        //endregion
     });
 });
 //endregion
@@ -262,8 +271,7 @@ Route::get('login', 'Site\Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Site\Auth\LoginController@login');
 Route::get('register', 'Site\Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Site\Auth\RegisterController@register');
-Route::get('verify/{email}/{token}', 'Site\Auth\VerificationController@showVerificationForm')->name('verification');
-Route::post('verify/{email}/{token}', 'Site\Auth\VerificationController@verify');
+Route::get('verify/{email}/{token}', 'Site\Auth\RegisterController@verify')->name('verification');
 //endRegion
 
 Route::post(r('contacts').'/send-message', 'Site\InnerController@sendContactsMessage')->name('contacts.send_message');

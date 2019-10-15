@@ -315,12 +315,12 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (1,'2019_07_10_171502_create_admins_table',1),(2,'2019_07_12_204343_create_password_resets_table',1),(3,'2019_07_12_232636_create_pages_table',1),(4,'2019_07_23_000000_create_zakhayko_banners_table',1),(5,'2019_08_14_161704_create_marks_table',1),(6,'2019_08_14_161725_create_models_table',1),(7,'2019_08_14_161756_create_generations_table',1),(8,'2019_08_14_221246_create_countries_table',1),(9,'2019_08_14_221310_create_regions_table',1),(10,'2019_08_19_142314_create_parts_table',1),(11,'2019_08_19_165244_create_brands_table',1),(12,'2019_09_02_210329_create_part_catalogs_table',1),(13,'2019_09_06_194022_create_part_cars_table',1),(14,'2019_09_30_183624_create_home_slider_table',1),(15,'2019_10_02_183143_create_galleries_table',1),(16,'2019_10_06_173451_create_terms_table',2),(17,'2019_10_07_150146_create_news_table',3),(18,'2019_10_08_161153_create_groups_table',4),(19,'2019_10_08_165558_add_group_id_to_part_catalogs_table',5),(20,'2019_10_08_191627_create_filters_table',6),(21,'2019_10_08_193606_create_criteria_table',7),(22,'2019_10_09_144929_create_criterion_part_table',8),(23,'2019_10_09_224942_create_years_table',9),(26,'2019_10_11_144259_create_engine_filters_table',10),(27,'2019_10_11_144400_create_engine_criteria_table',10),(31,'2019_10_11_151219_create_users_table',11);
+INSERT INTO `migrations` VALUES (1,'2019_07_10_171502_create_admins_table',1),(2,'2019_07_12_204343_create_password_resets_table',1),(3,'2019_07_12_232636_create_pages_table',1),(4,'2019_07_23_000000_create_zakhayko_banners_table',1),(5,'2019_08_14_161704_create_marks_table',1),(6,'2019_08_14_161725_create_models_table',1),(7,'2019_08_14_161756_create_generations_table',1),(8,'2019_08_14_221246_create_countries_table',1),(9,'2019_08_14_221310_create_regions_table',1),(10,'2019_08_19_142314_create_parts_table',1),(11,'2019_08_19_165244_create_brands_table',1),(12,'2019_09_02_210329_create_part_catalogs_table',1),(13,'2019_09_06_194022_create_part_cars_table',1),(14,'2019_09_30_183624_create_home_slider_table',1),(15,'2019_10_02_183143_create_galleries_table',1),(16,'2019_10_06_173451_create_terms_table',2),(17,'2019_10_07_150146_create_news_table',3),(18,'2019_10_08_161153_create_groups_table',4),(19,'2019_10_08_165558_add_group_id_to_part_catalogs_table',5),(20,'2019_10_08_191627_create_filters_table',6),(21,'2019_10_08_193606_create_criteria_table',7),(22,'2019_10_09_144929_create_criterion_part_table',8),(23,'2019_10_09_224942_create_years_table',9),(26,'2019_10_11_144259_create_engine_filters_table',10),(27,'2019_10_11_144400_create_engine_criteria_table',10),(32,'2019_10_11_151219_create_users_table',11);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `models`;
@@ -556,18 +556,19 @@ CREATE TABLE `users` (
   `email` varchar(255) CHARACTER SET utf8 NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `verification` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `status` tinyint(4) NOT NULL DEFAULT '-1',
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `seen_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,1,NULL,'adasd','asdsad',2,'Казахстан','Астана','dsadas','8182843009',NULL,NULL,'hayko2000@mail.ru','$2y$10$D0J2VZvpGBuhvGoWLP3SlOpOrpJQqk4jjHRlooi49vInIdfGIfaOK',NULL,1,NULL,'2019-10-14 15:11:27','2019-10-14 15:12:02');
+INSERT INTO `users` VALUES (1,1,3,'Айк','Закарян',4,'Казахстан','Астана','Ереван','+37455325665',NULL,NULL,'zakhayko@gmail.com','$2y$10$yFSwRaqyA4B3Oi9er1SXaOxWnUSww5iEA7C8RF8BeX5DNILGo2.ca',NULL,1,NULL,'2019-10-15 18:06:28','2019-10-15 15:59:56','2019-10-15 19:24:44'),(2,2,NULL,'Test','Test',1,'Казахстан','Астана','Tera','+444444444','Test','Test','hayko2000@mail.ru','$2y$10$yFSwRaqyA4B3Oi9er1SXaOxWnUSww5iEA7C8RF8BeX5DNILGo2.ca',NULL,0,NULL,NULL,'2019-10-15 17:40:38','2019-10-15 17:40:38'),(3,1,NULL,'Test','Test',2,'Казахстан','Астана','test','5555555555',NULL,NULL,'test@mail.ru','$2y$10$Vrn2mCHtjNraauim5rDJWu5.QCf.t3LttbDzth3laUSo3oeaASAIO',NULL,1,NULL,NULL,'2019-10-15 19:14:59','2019-10-15 19:14:59');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `years`;

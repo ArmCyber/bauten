@@ -26,5 +26,6 @@
     @alink(['url'=>route('admin.brands.main'), 'icon'=>'fas fa-list-ol', 'title'=>'Бренды'])@endalink
     @alink(['url'=>route('admin.years.main'), 'icon'=>'fas fa-calendar-week', 'title'=>'Годы'])@endalink
     @alink(['url'=>route('admin.engine_filters.main'), 'icon'=>'fas fa-car-side', 'title'=>'Двигатели'])@endalink
+    @alink(['url'=>route('admin.users.main'), 'icon'=>'fas fa-user', 'title'=>'Пользователи', 'counter'=>$pending_users_count])@endalink
     @alink(['url'=>route('admin.admins.main'), 'icon'=>'fas fa-user-tie', 'title'=>'Администраторы'])@endalink
 @endcan

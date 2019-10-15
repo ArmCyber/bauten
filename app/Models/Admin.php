@@ -63,8 +63,16 @@ class Admin extends User
         return $model->save();
     }
 
+    public static function managerExists($id) {
+        return self::where(['id'=>$id, 'role'=>config('roles.manager'), 'active'=>1])->count()==1;
+    }
+
     public static function adminList(){
         return self::where('role', '<', Auth::user()->role)->sort()->get();
+    }
+
+    public static function getManagers(){
+        return self::select('id', 'email', 'code')->where(['role'=>config('roles.manager'), 'active'=>1])->sort()->get();
     }
 
     public static function getItem($id){

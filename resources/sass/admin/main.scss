@@ -65,6 +65,22 @@ textarea.form-textarea {
 .form-group:last-child {
   margin-bottom:0;
 }
+.online-dot {
+    font-size:16px;
+    color:#28b779;
+    animation: flash 1s linear infinite;
+}
+@keyframes flash {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity:1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
 @media (max-width:1024px) {
   .form-control {
     font-size: 16px;

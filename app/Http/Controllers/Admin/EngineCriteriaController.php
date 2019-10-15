@@ -6,11 +6,10 @@ use App\Models\EngineCriterion;
 use App\Models\EngineFilter;
 use App\Services\Notify\Facades\Notify;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
-class EngineCriteriaController extends Controller
+class EngineCriteriaController extends BaseController
 {
     public function main($id){
         $data = [];
