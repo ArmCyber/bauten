@@ -104,7 +104,7 @@ class User extends Authenticatable
     }
 
     public function getIsOnlineAttribute(){
-        return ($this->seen_at && (now()->getTimestamp()-$this->seen_at->getTimestamp())<900)?true:false; //15 Minutes
+        return ($this->seen_at && (now()->getTimestamp()-$this->seen_at->getTimestamp())<480)?true:false; //8 Minutes
     }
 
     public function updateSeenAt(){
@@ -115,5 +115,24 @@ class User extends Authenticatable
     public static function getPendingUsersCount(){
         $result = self::where('status', self::STATUS_PENDING)->count();
         return $result>9?'9+':$result;
+    }
+
+    public static function detachManager($manager_id) {
+        self::where('manager_id', $manager_id)->update(['manager_id'=>null]);
+    }
+
+    public static function checkUser($request) {
+        $email = $request->input('email');
+        $password = $request->input('password');
+        $user = self::where('email', $email)->first();
+        if (!$user) return false;
+        return Hash::check($password, $user->password)?$user:false;
+    }
+
+    public function cannotAuth(){
+        if ($this->verification) return 'notVerified';
+        if ($this->status==self::STATUS_PENDING) return 'pending';
+        if ($this->status==self::STATUS_BLOCKED) return 'blocked';
+        return false;
     }
 }

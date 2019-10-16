@@ -266,6 +266,16 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
 });
 //endregion
 
+Route::middleware('auth')->group(function(){
+    Route::get('cabinet', function(){
+        return response('HELLO WORLD');
+    });
+    Route::get('logout', function(){
+        \Illuminate\Support\Facades\Auth::logout();
+        return redirect(url()->current());
+    });
+});
+
 //region Auth
 Route::get('login', 'Site\Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Site\Auth\LoginController@login');

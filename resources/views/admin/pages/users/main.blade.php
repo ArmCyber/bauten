@@ -23,6 +23,9 @@
                                 @if($item->is_online)
                                     <sup class="online-dot">•</sup>
                                 @endif
+                                @if($item->verification)
+                                    <span class="text-danger"> (не подтвержден)</span>
+                                @endif
                             </td>
                             <td>{{ $item->type_name }}</td>
                             <td>

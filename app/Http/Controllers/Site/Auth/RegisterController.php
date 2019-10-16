@@ -20,7 +20,7 @@ class RegisterController extends BaseController
 
     public function __construct()
     {
-        $this->middleware('guest:web');
+        $this->middleware('guest');
         parent::__construct();
     }
 

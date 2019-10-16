@@ -33,7 +33,7 @@ CREATE TABLE `admins` (
 
 LOCK TABLES `admins` WRITE;
 /*!40000 ALTER TABLE `admins` DISABLE KEYS */;
-INSERT INTO `admins` VALUES (1,NULL,'Developer','dev@dev.loc','055555555',1,4,'$2y$10$TRhlT00iAMKmgFNjmn7omebe4J9vEcZPYJHloVEUTifozPFhQkTxm',NULL,'2019-10-04 16:49:11','2019-10-11 12:57:53'),(2,NULL,'Administrator','admin@dev.loc','8799999999',1,3,'$2y$10$uNf.p3QYG8joLxREyiLTteYPdJXc5ueXhg.w4saBewY1xJrhi1SgS',NULL,'2019-10-04 16:49:11','2019-10-11 13:21:18'),(3,'zagasdfgsd','Manager','manager@dev.loc','899999999',1,2,'$2y$10$vznTQeQ5g8M8W6D2gvaFUu/YTPgVrslPL2Tp3p/vVJrMxLWo0VWBC',NULL,'2019-10-04 16:49:11','2019-10-11 13:24:07'),(4,NULL,'Operator','operator@dev.loc','8799999997',1,1,'$2y$10$eD2pYhjIYMLaW7TLD0J1y.otxOlfTbBMjEMXyyxYHeHK2/n0encma',NULL,'2019-10-04 16:49:11','2019-10-11 13:19:20');
+INSERT INTO `admins` VALUES (1,NULL,'Developer','dev@dev.loc','055555555',1,4,'$2y$10$TRhlT00iAMKmgFNjmn7omebe4J9vEcZPYJHloVEUTifozPFhQkTxm',NULL,'2019-10-04 16:49:11','2019-10-11 12:57:53'),(2,NULL,'Administrator','admin@dev.loc','8799999999',1,3,'$2y$10$uNf.p3QYG8joLxREyiLTteYPdJXc5ueXhg.w4saBewY1xJrhi1SgS',NULL,'2019-10-04 16:49:11','2019-10-11 13:21:18'),(3,'4286921','Manager','manager@dev.loc','899999999',1,2,'$2y$10$vznTQeQ5g8M8W6D2gvaFUu/YTPgVrslPL2Tp3p/vVJrMxLWo0VWBC',NULL,'2019-10-04 16:49:11','2019-10-16 13:52:17'),(4,NULL,'Operator','operator@dev.loc','8799999997',1,1,'$2y$10$eD2pYhjIYMLaW7TLD0J1y.otxOlfTbBMjEMXyyxYHeHK2/n0encma',NULL,'2019-10-04 16:49:11','2019-10-11 13:19:20');
 /*!40000 ALTER TABLE `admins` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `banners`;
@@ -315,7 +315,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `migrations` WRITE;
@@ -568,7 +568,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,1,3,'Айк','Закарян',4,'Казахстан','Астана','Ереван','+37455325665',NULL,NULL,'zakhayko@gmail.com','$2y$10$yFSwRaqyA4B3Oi9er1SXaOxWnUSww5iEA7C8RF8BeX5DNILGo2.ca',NULL,1,NULL,'2019-10-15 18:06:28','2019-10-15 15:59:56','2019-10-15 19:24:44'),(2,2,NULL,'Test','Test',1,'Казахстан','Астана','Tera','+444444444','Test','Test','hayko2000@mail.ru','$2y$10$yFSwRaqyA4B3Oi9er1SXaOxWnUSww5iEA7C8RF8BeX5DNILGo2.ca',NULL,0,NULL,NULL,'2019-10-15 17:40:38','2019-10-15 17:40:38'),(3,1,NULL,'Test','Test',2,'Казахстан','Астана','test','5555555555',NULL,NULL,'test@mail.ru','$2y$10$Vrn2mCHtjNraauim5rDJWu5.QCf.t3LttbDzth3laUSo3oeaASAIO',NULL,1,NULL,NULL,'2019-10-15 19:14:59','2019-10-15 19:14:59');
+INSERT INTO `users` VALUES (1,1,3,'Айк','Закарян',4,'Казахстан','Астана','Ереван','+37455325665',NULL,NULL,'zakhayko@gmail.com','$2y$10$yFSwRaqyA4B3Oi9er1SXaOxWnUSww5iEA7C8RF8BeX5DNILGo2.ca',NULL,1,NULL,'2019-10-16 13:44:00','2019-10-15 15:59:56','2019-10-16 13:52:26'),(2,2,NULL,'Test','Test',1,'Казахстан','Астана','Tera','+444444444','Test','Test','hayko2000@mail.ru','$2y$10$yFSwRaqyA4B3Oi9er1SXaOxWnUSww5iEA7C8RF8BeX5DNILGo2.ca',NULL,0,NULL,NULL,'2019-10-15 17:40:38','2019-10-15 17:40:38'),(3,1,NULL,'Test','Test',2,'Казахстан','Астана','test','5555555555',NULL,NULL,'test@mail.ru','$2y$10$Vrn2mCHtjNraauim5rDJWu5.QCf.t3LttbDzth3laUSo3oeaASAIO',NULL,1,NULL,NULL,'2019-10-15 19:14:59','2019-10-15 19:14:59');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `years`;

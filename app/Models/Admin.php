@@ -4,12 +4,12 @@ namespace App\Models;
 
 use App\Http\Traits\Resetable;
 use App\Notifications\Admin\ResetPassword;
-use Illuminate\Foundation\Auth\User;
+use Illuminate\Foundation\Auth\User as AuthUser;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class Admin extends User
+class Admin extends AuthUser
 {
     use Notifiable, Resetable;
 
@@ -53,12 +53,16 @@ class Admin extends User
 
     public static function action($model, $inputs) {
         if (!$model) $model = new self;
+        $managerRole = config('roles.manager');
         $model['name'] = $inputs['name'];
         $model['email'] = $inputs['email'];
         $model['phone'] = $inputs['phone'];
-        $model['code'] = $inputs['role']==config('roles.manager')?$inputs['code']:null;
+        $model['code'] = $inputs['role']==$managerRole?$inputs['code']:null;
         if (!empty($inputs['password'])) $model['password'] = Hash::make($inputs['password']);
         $model['active'] = (int) array_key_exists('active', $inputs);
+        if ($model['role']==$managerRole && $inputs['role']!=$managerRole) {
+            User::detachManager($model->id);
+        }
         $model['role'] = $inputs['role'];
         return $model->save();
     }
@@ -80,6 +84,7 @@ class Admin extends User
     }
 
     public static function deleteItem($model){
+        User::detachManager($model->id);
         return $model->delete();
     }
 

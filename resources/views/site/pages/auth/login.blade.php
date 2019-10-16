@@ -7,6 +7,9 @@
             @if(session()->has('action'))
                 <p class="text-center text-success">{{ __('texts.actions.'.session('action')) }}</p>
             @endif
+            @error('global')
+                <p class="text-center text-danger">{{ $message }}</p>
+            @enderror
             <form action="{{ route('login') }}" method="post">@csrf
                 <div class="c-inputs">
                     <div class="c-form-group">
@@ -20,7 +23,7 @@
                     @enderror
                     <div class="c-form-group">
                         <div class="c-label"><label for="form-password">Пароль</label></div>
-                        <div class="c-control"><input type="password" id="form-password" @error('email') class="has-error" @enderror name="password" maxlength="255"></div>
+                        <div class="c-control"><input type="password" id="form-password" @error('password') class="has-error" @enderror name="password" maxlength="255"></div>
                     </div>
                     @error('password')
                     <div class="text-center">
