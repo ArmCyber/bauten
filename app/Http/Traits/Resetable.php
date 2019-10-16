@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Http\Traits;
 
@@ -19,12 +19,12 @@ trait Resetable {
         return self::where('email',$email)->first();
     }
 
-    public static function resetPassword($user, $password)
+    public static function resetPassword($user, $password, $login=true)
     {
         $user->password = Hash::make($password);
         $user->setRememberToken(Str::random(60));
         $user->save();
         self::getResetModel()->where('email', $user->email)->delete();
-        Auth::guard(self::GUARD)->login($user);
+        if ($login) Auth::guard(self::GUARD)->login($user);
     }
 }

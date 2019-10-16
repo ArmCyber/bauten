@@ -4,9 +4,11 @@
             <div class="welcome">
                 <div class="container">
                     <h1 class="welcome-title">{{ $home_slider[0]->title }}</h1>
-                    <div class="welcome-bg">
-                        <div class="welcome-text">{{ $home_slider[0]->description }}</div>
-                    </div>
+                    @if($home_slider[0]->description)
+                        <div class="welcome-bg">
+                            <div class="welcome-text">{{ $home_slider[0]->description }}</div>
+                        </div>
+                    @endif
                 </div>
             </div>
         </section>
@@ -23,9 +25,11 @@
                                     @else
                                         <h1 class="welcome-title">{{ $home_slide->title }}</h1>
                                     @endif
-                                    <div class="welcome-bg">
-                                        <div class="welcome-text">{{ $home_slide->description }}</div>
-                                    </div>
+                                    @if($home_slide->description)
+                                        <div class="welcome-bg">
+                                            <div class="welcome-text">{{ $home_slide->description }}</div>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>

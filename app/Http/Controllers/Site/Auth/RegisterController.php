@@ -30,7 +30,7 @@ class RegisterController extends BaseController
             'region_id' => 'required|integer|exists:regions,id',
             'name' => 'required|string|max:255',
             'email' => 'required|string|mail|max:255|unique:users,email',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'required|string|min:8|max:255|confirmed',
             'city' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'phone' => 'required|string|phone|max:255',

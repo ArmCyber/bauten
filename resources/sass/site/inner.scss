@@ -292,7 +292,6 @@ input.filter-checkbox {
     flex: 0 0 356px;
     max-width: 356px;
     height: 51px;
-
     > input {
         display: block;
         width: 100%;
@@ -302,6 +301,9 @@ input.filter-checkbox {
         @include border-radius(none);
         @include box-shadow(none);
         padding: 0 15px;
+        &:disabled {
+            background-color:#eeeeee;
+        }
     }
 }
 

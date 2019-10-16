@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Http\Traits\Resetable;
 use App\Mail\UserRegistered;
 use App\Mail\UserVerified;
 use App\Notifications\ProfileActivatedNotification;
 use App\Notifications\RegisteredNotification;
+use App\Notifications\ResetPasswordNotification;
 use App\Notifications\VerifiedNotification;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -15,7 +17,8 @@ use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, Resetable;
+
     //region Constants
     public const TYPE_INDIVIDUAL = 1;
     public const TYPE_ENTITY = 2;
@@ -81,6 +84,13 @@ class User extends Authenticatable
     public function sendProfileActivatedNotification(){
         try {
             $this->notify(new ProfileActivatedNotification());
+        } catch (\Exception $e) {}
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        try {
+            $this->notify(new ResetPasswordNotification($this->email, $token));
         } catch (\Exception $e) {}
     }
 

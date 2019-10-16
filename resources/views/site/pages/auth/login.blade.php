@@ -37,7 +37,7 @@
             </form>
             <div class="pt-4 text-center">
                 <a href="{{ route('register') }}" class="bauten-btn bauten-btn-success">Создать профиль</a>
-                <div class="pt-2"><a href="javascript:void(0)" class="color-bauten">Забыли пароль?</a></div>
+                <div class="pt-2"><a href="{{ route('password.request') }}" class="color-bauten">Забыли пароль?</a></div>
             </div>
         </div>
     </div>

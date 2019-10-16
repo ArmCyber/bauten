@@ -267,23 +267,31 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
 });
 //endregion
 
-Route::middleware('auth')->group(function(){
-    Route::post('logout', 'Site\Auth\LoginController@logout')->name('logout');
-    Route::get('cabinet', 'Site\CabinetController@main')->name('cabinet.main');
+//region Site
+Route::namespace('Site')->group(function() {
+    Route::middleware('auth')->group(function(){
+        Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+        Route::get('cabinet', 'CabinetController@main')->name('cabinet.main');
+    });
+
+    //region Auth
+    Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+    Route::post('login', 'Auth\LoginController@login');
+    Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+    Route::post('register', 'Auth\RegisterController@register');
+    Route::get('verify/{email}/{token}', 'Auth\RegisterController@verify')->name('verification');
+    Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+    Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+    Route::get('password/reset/{email}/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+    Route::post('password/reset/{email}/{token}', 'Auth\ResetPasswordController@reset');
+    //endregion
+
+    Route::post(r('contacts').'/send-message', 'InnerController@sendContactsMessage')->name('contacts.send_message');
+
+    Route::get('product/{url}', 'PartsController@show')->name('part');
+    Route::get(r('news').'/{url}', 'InnerController@news_item')->name('news');
+    Route::get(r('catalogs').'/{url}', 'CatalogueController@group')->name('group');
+    Route::get('category/{url}', 'CatalogueController@category')->name('catalogue');
+    Route::get('{url?}', 'AppController@pageManager')->name('page');
 });
-
-//region Auth
-Route::get('login', 'Site\Auth\LoginController@showLoginForm')->name('login');
-Route::post('login', 'Site\Auth\LoginController@login');
-Route::get('register', 'Site\Auth\RegisterController@showRegistrationForm')->name('register');
-Route::post('register', 'Site\Auth\RegisterController@register');
-Route::get('verify/{email}/{token}', 'Site\Auth\RegisterController@verify')->name('verification');
-//endRegion
-
-Route::post(r('contacts').'/send-message', 'Site\InnerController@sendContactsMessage')->name('contacts.send_message');
-
-Route::get('product/{url}', 'Site\PartsController@show')->name('part');
-Route::get(r('news').'/{url}', 'Site\InnerController@news_item')->name('news');
-Route::get(r('catalogs').'/{url}', 'Site\CatalogueController@group')->name('group');
-Route::get('category/{url}', 'Site\CatalogueController@category')->name('catalogue');
-Route::get('{url?}', 'Site\AppController@pageManager')->name('page');
+//endregion
