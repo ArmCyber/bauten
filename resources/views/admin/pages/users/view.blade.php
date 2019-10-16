@@ -18,7 +18,7 @@
             <div class="view-line"><span class="view-label">Телефон:</span> {{ $item->phone??'-' }}</div>
             <div class="view-line"><span class="view-label">Дата регистрации:</span> {{ $item->created_at->format('d.m.Y H:i') }}</div>
             <div class="view-line"><span class="view-label">Статус:</span> {{ $item->status_name }}</div>
-            <div class="view-line"><a href="javascript:void(0)" data-toggle="modal" data-target="passwordResetModal">Сбросить пароль</a></div>
+            <div class="view-line"><a href="javascript:void(0)" data-toggle="modal" data-target="#passwordResetModal">Сбросить пароль</a></div>
             <div class="pt-2">
                 @if($item->status!=\App\Models\User::STATUS_BLOCKED)
                     <button class="btn btn-danger mr-1" data-toggle="modal" data-target="#blockUserModal">Блокировать</button>
@@ -52,6 +52,7 @@
                         @endpush
                 @endif
             </div>
+            <div class="pt-5"><button class="btn btn-outline-danger mr-1" data-toggle="modal" data-target="#deleteUserModal">УДАЛИТЬ ПРОФИЛЬ НАВСЕГДА</button></div>
         </div>
     </div>
     @stack('modals')
@@ -67,6 +68,26 @@
             @endforeach
         </select>
     @endmodal
+    @modal(['id'=>'passwordResetModal', 'saveBtn'=>'Сохранить', 'closeBtn' => 'Отменить', 'centered'=>true,
+        'form'=>['method'=>'post','action'=>route('admin.users.change_password')]])
+        @slot('title')Сброс пароля@endslot
+        <input type="hidden" name="id" value="{{ $item->id }}">
+        @csrf @method('patch')
+        <div class="card">
+            <div class="c-title">Новый пароль</div>
+            <div class="little-p">
+                <input type="text" name="password" class="form-control" placeholder="Новый пароль" maxlength="255" required minlength="8">
+            </div>
+        </div>
+    @endmodal
+    @modal(['id'=>'deleteUserModal', 'saveBtn'=>'УДАЛИТЬ НАВСЕГДА', 'saveBtnClass'=>'btn-danger', 'closeBtn' => 'Отменить', 'centered'=>true,
+    'form'=>['method'=>'post','action'=>route('admin.users.delete')]])
+        @slot('title')<span class="text-danger font-weight-bold">УДАЛЕНИЕ ПРОФИЛЯ</span>@endslot
+        <input type="hidden" name="id" value="{{ $item->id }}">
+        @csrf @method('delete')
+        <p>Вы дейстительно хотите <span class="text-danger font-weight-bold">УДАЛИТЬ ПРОФИЛЬ НАВСЕГДА</span>?</p>
+    @endmodal
+
 @endsection
 @push('js')
     @js(aApp('select2/select2.js'))

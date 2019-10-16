@@ -568,7 +568,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,1,3,'Айк','Закарян',4,'Казахстан','Астана','Ереван','+37455325665',NULL,NULL,'zakhayko@gmail.com','$2y$10$yFSwRaqyA4B3Oi9er1SXaOxWnUSww5iEA7C8RF8BeX5DNILGo2.ca',NULL,1,NULL,'2019-10-16 13:44:00','2019-10-15 15:59:56','2019-10-16 13:52:26'),(2,2,NULL,'Test','Test',1,'Казахстан','Астана','Tera','+444444444','Test','Test','hayko2000@mail.ru','$2y$10$yFSwRaqyA4B3Oi9er1SXaOxWnUSww5iEA7C8RF8BeX5DNILGo2.ca',NULL,0,NULL,NULL,'2019-10-15 17:40:38','2019-10-15 17:40:38'),(3,1,NULL,'Test','Test',2,'Казахстан','Астана','test','5555555555',NULL,NULL,'test@mail.ru','$2y$10$Vrn2mCHtjNraauim5rDJWu5.QCf.t3LttbDzth3laUSo3oeaASAIO',NULL,1,NULL,NULL,'2019-10-15 19:14:59','2019-10-15 19:14:59');
+INSERT INTO `users` VALUES (1,1,3,'Айк','Закарян',4,'Казахстан','Астана','Ереван','+37455325665',NULL,NULL,'zakhayko@gmail.com','$2y$10$oKVUtOk0ar0lRrUQOpAdHuJYaOqlpoj6aDa9L/kaOyjTln8ZNpfLC',NULL,1,'PS5vQyDhaBPR3cumRn6yeOJZT7K56zLnkUogO6J2QbvgfGNooRRUMYiDLGoW','2019-10-16 17:24:37','2019-10-15 15:59:56','2019-10-16 17:24:37'),(2,2,NULL,'Test','Test',1,'Казахстан','Астана','Tera','+444444444','Test','Test','hayko2000@mail.ru','$2y$10$yFSwRaqyA4B3Oi9er1SXaOxWnUSww5iEA7C8RF8BeX5DNILGo2.ca',NULL,-1,NULL,NULL,'2019-10-15 17:40:38','2019-10-15 17:40:38');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `years`;

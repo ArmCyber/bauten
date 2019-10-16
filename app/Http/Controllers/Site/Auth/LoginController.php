@@ -75,6 +75,11 @@ class LoginController extends BaseController
         ]);
     }
 
+    public function logout(){
+        Auth::logout();
+        return redirect()->back();
+    }
+
     protected function authenticated(Request $request, $user)
     {
         return redirect('/');

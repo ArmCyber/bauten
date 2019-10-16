@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\User;
 use App\Services\Notify\Facades\Notify;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class UsersController extends BaseController
 {
@@ -44,18 +45,32 @@ class UsersController extends BaseController
 
     public function changeStatus(Request $request) {
         $user = User::getItem($request->input('id'));
-        $user->status = $request->input('status')==1?1:0;
+        $old_status = $user->status;
+        $new_status = $request->input('status')==1?1:0;
+        $user->status = $new_status;
         $user->save();
+        if($old_status==User::STATUS_PENDING && $new_status=User::STATUS_ACTIVE) {
+            $user->sendProfileActivatedNotification();
+        }
         Notify::get('changes_saved');
         return redirect()->route('admin.users.view', ['id'=>$user->id]);
     }
-//    public function delete(Request $request) {
-//        $result = ['success'=>false];
-//        $id = $request->input('item_id');
-//        if ($id && is_id($id)) {
-//            $item = User::where('id',$id)->where('role', '<', 4)->first();
-//            if ($item && User::deleteItem($item)) $result['success'] = true;
-//        }
-//        return response()->json($result);
-//    }
+
+    public function changePassword(Request $request) {
+        $user = User::getItem($request->input('id'));
+        $password = $request->input('password');
+        if(Validator::make(['password'=>$password], ['password'=>'required|string|min:8'])->fails()){
+            Notify::get('error_occurred');
+            return redirect()->back();
+        }
+        User::changePassword($user, $password);
+        Notify::get('changes_saved');
+        return redirect()->route('admin.users.view', ['id'=>$user->id]);
+    }
+    public function delete(Request $request) {
+        $user = User::getItem($request->input('id'));
+        User::deleteItem($user);
+        Notify::success('Профиль удален.');
+        return redirect()->route('admin.users.main');
+    }
 }

@@ -8,6 +8,7 @@ use App\Models\PartCatalog;
 use App\Services\PageManager\Facades\PageManager;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Zakhayko\Banners\Models\Banner;
 
 class BaseController extends Controller
@@ -16,6 +17,7 @@ class BaseController extends Controller
 
     public function __construct()
     {
+        $this->middleware('user_logged_in');
         $this->middleware(function($request, $next){
             $this->view_share();
             return $next($request);
@@ -35,6 +37,7 @@ class BaseController extends Controller
         $this->shared['menu'] = Page::getMenu();
         $this->shared['footer_pages'] = Page::footerList();
         $this->shared['home_catalogs'] = PartCatalog::homeList();
+        $this->shared['logged_in'] = Auth::check();
         view()->share($this->shared);
         return true;
     }

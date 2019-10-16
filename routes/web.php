@@ -259,7 +259,8 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
             Route::get('view/{id}', $c.'view')->name('view');
             Route::patch('change-manager', $c.'changeManager')->name('change_manager');
             Route::patch('change-status', $c.'changeStatus')->name('change_status');
-//            Route::delete('delete', $c.'delete')->middleware('ajax')->name('delete');
+            Route::patch('change-password', $c.'changePassword')->name('change_password');
+            Route::delete('delete', $c.'delete')->name('delete');
         });
         //endregion
     });
@@ -267,13 +268,8 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
 //endregion
 
 Route::middleware('auth')->group(function(){
-    Route::get('cabinet', function(){
-        return response('HELLO WORLD');
-    });
-    Route::get('logout', function(){
-        \Illuminate\Support\Facades\Auth::logout();
-        return redirect(url()->current());
-    });
+    Route::post('logout', 'Site\Auth\LoginController@logout')->name('logout');
+    Route::get('cabinet', 'Site\CabinetController@main')->name('cabinet.main');
 });
 
 //region Auth

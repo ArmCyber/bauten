@@ -4,12 +4,14 @@ namespace App\Models;
 
 use App\Mail\UserRegistered;
 use App\Mail\UserVerified;
+use App\Notifications\ProfileActivatedNotification;
 use App\Notifications\RegisteredNotification;
 use App\Notifications\VerifiedNotification;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -76,10 +78,17 @@ class User extends Authenticatable
         } catch (\Exception $e) {}
     }
 
+    public function sendProfileActivatedNotification(){
+        try {
+            $this->notify(new ProfileActivatedNotification());
+        } catch (\Exception $e) {}
+    }
+
     public static function adminList(){
         return self::with('manager')->sort()->get();
     }
 
+    /** @return User */
     public static function getItem($id) {
         return self::where('id', $id)->with('manager')->firstOrFail();
     }
@@ -134,5 +143,17 @@ class User extends Authenticatable
         if ($this->status==self::STATUS_PENDING) return 'pending';
         if ($this->status==self::STATUS_BLOCKED) return 'blocked';
         return false;
+    }
+
+    public static function changePassword($user, $password){
+        $user->password = Hash::make($password);
+        $user->setRememberToken(Str::random(60));
+        $user->save();
+        return true;
+    }
+
+    public static function deleteItem($model) {
+        $model->delete();
+        return true;
     }
 }

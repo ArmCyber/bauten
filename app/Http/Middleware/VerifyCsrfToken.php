@@ -28,6 +28,7 @@ class VerifyCsrfToken extends Middleware
         $this->except = [
             route('ckfinder_connector', [], false),
             route('admin.logout', [], false),
+            route('logout', [], false),
         ];
         parent::__construct($app,$encrypter);
     }
