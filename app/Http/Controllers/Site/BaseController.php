@@ -37,7 +37,7 @@ class BaseController extends Controller
         $this->shared['menu'] = Page::getMenu();
         $this->shared['footer_pages'] = Page::footerList();
         $this->shared['home_catalogs'] = PartCatalog::homeList();
-        $this->shared['logged_in'] = Auth::check();
+        $this->shared['user'] = Auth::user();
         view()->share($this->shared);
         return true;
     }

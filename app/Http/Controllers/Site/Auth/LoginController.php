@@ -15,6 +15,8 @@ class LoginController extends BaseController
 
     use AuthenticatesUsers;
 
+    protected $redirectTo = '/';
+
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
@@ -80,8 +82,8 @@ class LoginController extends BaseController
         return redirect()->back();
     }
 
-    protected function authenticated(Request $request, $user)
-    {
-        return redirect('/');
-    }
+//    protected function authenticated(Request $request, $user)
+//    {
+//        return redirect('/');
+//    }
 }

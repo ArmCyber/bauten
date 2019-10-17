@@ -26,7 +26,13 @@
                     </div>
                     <div class="ht-sm text-right">
                         <div class="ht-auth">
-                            <a href="{{ route('login') }}" class="ht-login">Вход</a>
+                            @auth
+                                <a href="{{ route('cabinet.main') }}" class="ht-login">{{ $user->name }}</a>
+                                <a href="javascript:void(0)" class="ht-login-right action-logout">выйти</a>
+                            @else
+                                <a href="{{ route('login') }}" class="ht-login login">Вход</a>
+                                <a href="{{ route('register') }}" class="ht-login-right">Регистрация</a>
+                            @endauth
                         </div>
                         <div class="ht-hamburger" id="menu-toggle">
                             <button class="hamburger">
@@ -148,5 +154,8 @@
     @js(aApp('jquery/jquery.js'))
     @js(aSite('assets/mmenu-light/mmenu-light.js'))
     @js(aSite('js/base.js'))
+    @auth
+        @js(aSite('js/auth.js'))
+    @endauth
     @stack('js')
 </body></html>

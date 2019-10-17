@@ -1,6 +1,6 @@
 @extends('site.layouts.app')
 @section('main')
-    @include('site.blocks.'.($logged_in?'auth.home_search':'guest.home_welcome'))
+    @include('site.blocks.'.($user?'auth.home_search':'guest.home_welcome'))
     <section class="section container">
         <h2 class="section-title">{{ $banners->block_titles->parts }}</h2>
         @if(is_active('marks') && count($marks))

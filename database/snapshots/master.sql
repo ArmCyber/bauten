@@ -274,7 +274,7 @@ CREATE TABLE `home_slider` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `home_slider` WRITE;
@@ -304,7 +304,7 @@ CREATE TABLE `marks` (
 
 LOCK TABLES `marks` WRITE;
 /*!40000 ALTER TABLE `marks` DISABLE KEYS */;
-INSERT INTO `marks` VALUES (1,'Audi','UDs9MqR9xPThoXyJgc.png','Audi','Audi',1,'audi',1,0,1,'2019-10-04 16:54:59','2019-10-07 13:06:10'),(2,'BMW','KWsJW7vbswgUECZnkU.png','BMW','BMW',1,'bmw',1,0,1,'2019-10-04 16:55:15','2019-10-07 13:06:19'),(3,'Chrysler','RPSTHh9uLO97p0lGyI.png','Chrysler','Chrysler',1,'chrysler',1,0,1,'2019-10-04 16:55:41','2019-10-04 16:55:41'),(4,'Citroen','gxPkJWpfpVU8eCFPBv.png','Citroen','Citroen',1,'citroen',1,0,1,'2019-10-04 16:55:53','2019-10-04 16:55:53'),(5,'Daewoo','UnuYkii5mEtrL3BJVD.png','Daewoo','Daewoo',1,'daewoo',1,0,1,'2019-10-04 16:56:05','2019-10-04 16:56:05'),(6,'Ford','2RUXJC3Qt7XvaFFJla.png','Ford','Ford',1,'ford',1,0,1,'2019-10-04 16:56:15','2019-10-04 16:56:15'),(7,'Honda','6xyhupCIiUldwuBmxi.png','Honda','Honda',1,'honda',1,0,1,'2019-10-04 16:56:27','2019-10-04 16:56:27'),(8,'Hyundai','vnwSMyPBCP4euuUNQl.png','Hyundai','Hyundai',1,'hyundai',1,0,1,'2019-10-04 16:56:48','2019-10-04 16:56:48'),(9,'Isuzu','r0fiw7gCTZfY37BPyx.png','Isuzu','Isuzu',1,'isuzu',1,0,1,'2019-10-04 16:57:21','2019-10-04 16:57:21'),(10,'Kia','Yxjrqo0bzPLn1RnDtM.png','Kia','Kia',1,'kia',1,0,1,'2019-10-04 16:57:38','2019-10-04 16:57:38'),(11,'Lexus','SKWeGkRlY10mT75jUj.png','Lexus','Lexus',1,'lexus',1,0,1,'2019-10-04 16:57:51','2019-10-04 16:57:51');
+INSERT INTO `marks` VALUES (1,'Audi','UDs9MqR9xPThoXyJgc.png','Audi','Audi',1,'audi',1,1,1,'2019-10-04 16:54:59','2019-10-17 15:50:44'),(2,'BMW','KWsJW7vbswgUECZnkU.png','BMW','BMW',1,'bmw',1,2,1,'2019-10-04 16:55:15','2019-10-17 15:50:44'),(3,'Chrysler','RPSTHh9uLO97p0lGyI.png','Chrysler','Chrysler',1,'chrysler',1,3,1,'2019-10-04 16:55:41','2019-10-17 15:50:44'),(4,'Citroen','gxPkJWpfpVU8eCFPBv.png','Citroen','Citroen',1,'citroen',1,4,1,'2019-10-04 16:55:53','2019-10-17 15:50:44'),(5,'Daewoo','UnuYkii5mEtrL3BJVD.png','Daewoo','Daewoo',1,'daewoo',1,5,1,'2019-10-04 16:56:05','2019-10-17 15:50:44'),(6,'Ford','2RUXJC3Qt7XvaFFJla.png','Ford','Ford',1,'ford',1,6,1,'2019-10-04 16:56:15','2019-10-17 15:50:44'),(7,'Honda','6xyhupCIiUldwuBmxi.png','Honda','Honda',1,'honda',1,7,1,'2019-10-04 16:56:27','2019-10-17 15:50:44'),(8,'Hyundai','vnwSMyPBCP4euuUNQl.png','Hyundai','Hyundai',1,'hyundai',1,8,1,'2019-10-04 16:56:48','2019-10-17 15:50:44'),(9,'Isuzu','r0fiw7gCTZfY37BPyx.png','Isuzu','Isuzu',1,'isuzu',1,9,1,'2019-10-04 16:57:21','2019-10-17 15:50:44'),(10,'Kia','Yxjrqo0bzPLn1RnDtM.png','Kia','Kia',1,'kia',1,10,1,'2019-10-04 16:57:38','2019-10-17 15:50:44'),(11,'Lexus','SKWeGkRlY10mT75jUj.png','Lexus','Lexus',1,'lexus',1,11,1,'2019-10-04 16:57:51','2019-10-17 15:50:44');
 /*!40000 ALTER TABLE `marks` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `migrations`;
@@ -563,12 +563,12 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,1,3,'Айк','Закарян',4,'Казахстан','Астана','Ереван','+37455325665',NULL,NULL,'zakhayko@gmail.com','$2y$10$2zOXfCV1WgBBN8CwYmwIQ.1GWWuqkYhhJluhZAvPNJ1qpAfTOkWEu',NULL,1,'mTNKp6IBav4GyezyCZLHE0V6lVbFgdeV2x44m3V9V40QQs5FG5vn3yF9pBYd','2019-10-16 18:45:36','2019-10-15 15:59:56','2019-10-16 18:45:36'),(2,2,NULL,'Test','Test',1,'Казахстан','Астана','Tera','+444444444','Test','Test','hayko2000@mail.ru','$2y$10$yFSwRaqyA4B3Oi9er1SXaOxWnUSww5iEA7C8RF8BeX5DNILGo2.ca',NULL,-1,NULL,NULL,'2019-10-15 17:40:38','2019-10-15 17:40:38');
+INSERT INTO `users` VALUES (1,1,3,'Айк','Закарян',4,'Казахстан','Астана','Ереван','+37455325665',NULL,NULL,'zakhayko@gmail.com','$2y$10$2zOXfCV1WgBBN8CwYmwIQ.1GWWuqkYhhJluhZAvPNJ1qpAfTOkWEu',NULL,1,'LLgIR2SHnxQSmjMxwWQ0kDlwNiWjOKtwgvea6ahE17Cd890QXyPM0U14ULvC','2019-10-17 18:24:40','2019-10-15 15:59:56','2019-10-17 18:24:40'),(2,2,NULL,'Test','Test',1,'Казахстан','Астана','Tera','+444444444','Test','Test','hayko2000@mail.ru','$2y$10$yFSwRaqyA4B3Oi9er1SXaOxWnUSww5iEA7C8RF8BeX5DNILGo2.ca',NULL,-1,NULL,NULL,'2019-10-15 17:40:38','2019-10-15 17:40:38');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `years`;
