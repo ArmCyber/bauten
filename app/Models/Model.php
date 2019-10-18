@@ -7,15 +7,10 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class Model extends Eloquent
 {
-    use Sortable;
-
-    protected $sortableDesc = false;
-
     public static function action($model, $inputs, $mark_id=null) {
         if (!$model) {
             $model = new self;
             $model['mark_id'] = $mark_id;
-            $model['sort'] = $model->sortValue();
         }
         $model['name'] = $inputs['name'];
         $model['active'] = (int) array_key_exists('active', $inputs);
@@ -36,5 +31,9 @@ class Model extends Eloquent
 
     public function generations(){
         return $this->hasMany('App\Models\Generation', 'model_id', 'id')->sort();
+    }
+
+    public function scopeSort($q){
+        $q->orderBy('name', 'asc');
     }
 }

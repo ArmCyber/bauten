@@ -4,7 +4,7 @@
     @if(count($items))
         <div class="card">
             <div class="table-responsive p-2">
-                <table class="table table-striped m-b-0 columns-middle">
+                <table class="table table-striped m-b-0 columns-middle init-dataTable">
                     <thead>
                     <tr>
                         <th>Имя</th>
@@ -13,7 +13,7 @@
                         <th>Действие</th>
                     </tr>
                     </thead>
-                    <tbody class="table-sortable" data-action="{!! route('admin.models.sort') !!}">
+                    <tbody>
                     @foreach($items as $item)
                         <tr class="item-row" data-id="{!! $item->id !!}">
                             <td class="item-title">{{ $item->name}}</td>
@@ -108,6 +108,10 @@
                 });
             }
             else modalError();
+        });
+        $('.init-dataTable').dataTable({
+            sort:false,
+            paging: false,
         });
     </script>
 @endpush

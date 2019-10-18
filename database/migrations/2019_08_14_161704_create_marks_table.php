@@ -15,16 +15,15 @@ class CreateMarksTable extends Migration
     {
         Schema::create('marks', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('cid')->collation('utf8_general_ci')->unique()->nullable();
             $table->string('name')->nullable();
             $table->string('image', 64)->nullable();
             $table->string('image_alt')->nullable();
             $table->string('image_title')->nullable();
             $table->boolean('show_image')->default(1)->after('image_title');
-            $table->string('url');
+            $table->string('url')->nullable();
             $table->boolean('in_home')->default(0);
-            $table->integer('sort')->unsigned()->default(0);
             $table->boolean('active')->default(1);
-            $table->timestamps();
         });
     }
 

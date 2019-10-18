@@ -7,9 +7,10 @@
     @if(count($items))
         <div class="card">
             <div class="table-responsive p-2">
-                <table class="table table-striped m-b-0 columns-middle">
+                <table class="table table-striped m-b-0 columns-middle init-dataTable">
                     <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Имя</th>
                         <th>Статус</th>
                         <th>Марки</th>
@@ -17,10 +18,11 @@
                         <th>Действие</th>
                     </tr>
                     </thead>
-                    <tbody class="table-sortable" data-action="{!! route('admin.marks.sort') !!}">
+                    <tbody>
                     @foreach($items as $item)
                         <tr class="item-row" data-id="{!! $item->id !!}">
-                            <td class="item-title">{{ $item->name}}</td>
+                            <td class="item-title">{{ $item->cid }}</td>
+                            <td class="item-title">{{ $item->name }}</td>
                             @if($item->active)
                                 <td class="text-success">Активно</td>
                             @else
@@ -117,6 +119,10 @@
                 });
             }
             else modalError();
+        });
+        $('.init-dataTable').dataTable({
+            sort:false,
+            paging: false,
         });
     </script>
 @endpush

@@ -31,7 +31,7 @@ class BaseController extends Controller
         $this->shared['email'] = $this->shared['info']->data->email;
         $this->shared['default_images'] = Banner::get('images');
         $this->shared['requisites'] = $this->shared['info']->requisites->flip();
-        $this->shared['catalogs'] = PartCatalog::siteList();
+//        $this->shared['catalogs'] = PartCatalog::siteList();
         $this->shared['groups'] = Group::siteList();
         $this->shared['homepage'] = get_page(PageManager::getHomePage());
         $this->shared['menu'] = Page::getMenu();

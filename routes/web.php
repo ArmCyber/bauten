@@ -76,7 +76,6 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
             Route::get('import', $c.'import')->name('import');
             Route::post('import', $c.'import_post');
             Route::delete('delete', $c.'delete')->middleware('ajax')->name('delete');
-            Route::patch('sort', $c.'sort')->middleware('ajax')->name('sort');
         });
         //endregion
         //region Models
@@ -87,7 +86,6 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
             Route::get('edit/{id}', $c.'edit')->name('edit');
             Route::patch('edit/{id}', $c.'edit_patch');
             Route::delete('delete', $c.'delete')->middleware('ajax')->name('delete');
-            Route::patch('sort', $c.'sort')->middleware('ajax')->name('sort');
         });
         //endregion
         //region Generations
@@ -98,7 +96,6 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
             Route::get('edit/{id}', $c.'edit')->name('edit');
             Route::patch('edit/{id}', $c.'edit_patch');
             Route::delete('delete', $c.'delete')->middleware('ajax')->name('delete');
-            Route::patch('sort', $c.'sort')->middleware('ajax')->name('sort');
         });
         //endregion
         //region Countries

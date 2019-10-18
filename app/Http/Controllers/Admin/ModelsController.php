@@ -53,8 +53,6 @@ class ModelsController extends BaseController
         return view('admin.pages.models.form', $data);
     }
 
-    public function sort() { return Model::sortable(); }
-
     public function edit_patch($id, Request $request){
         $item = Model::getItem($id);
         $inputs = $request->all();

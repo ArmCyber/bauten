@@ -690,6 +690,92 @@ a.brand-item {
     background: #ffffff;
     color: #333;
 }
+//region Auth
+.home-search {
+    background-color: #FBF9F9;
+    padding: 15px 0 40px 0;
+}
+.home-search-block {
+    padding:30px 40px;
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    justify-content: space-between;
+    &:not(:last-child) {
+        border-bottom:1px solid #E8E8E8;
+    }
+}
+.home-search-title {
+    font-size:18px;
+    color: $blue;
+    font-weight: 500;
+    width:153px;
+    padding-right:3px;
+}
+.home-search-content {
+    flex:1;
+    font-size:0;
+}
+.home-search-option {
+    display:inline-block;
+    color:#949494;
+    font-size:15px;
+    cursor:pointer;
+    text-decoration: underline;
+    &:hover {
+        text-decoration: none;
+    }
+    &:not(:last-child) {
+        margin-right:18px;
+    }
+}
+.home-search-buttons {
+    padding-left:5px;
+}
+button.home-search-btn  {
+    font-size:15px;
+    background-color:$blue;
+    color:#ffffff;
+    border:1px solid $blue;
+    height:52px;
+    min-width:98px;
+    padding:0 20px;
+}
+input.home-search-control {
+    width:470px;
+    height:52px;
+    background-color: #ffffff;
+    border:1px solid #DCDCDC;
+    padding:0 10px;
+    font-size:15px;
+}
+.home-search-expanded {
+    flex:0 0 100%;
+    max-width: 100%;
+    padding-left:153px;
+}
+.expanded-container {
+    padding-top:15px;
+}
+.search-group-title {
+    font-weight:bold;
+    color:#292929;
+    font-size:18px;
+    padding-bottom:3px;
+}
+.search-group-item {
+    font-size:15px;
+}
+.search-group-select {
+    color:#949494;
+    margin-top:3px;
+    cursor:pointer;
+    &:hover {
+        text-decoration: underline;
+    }
+    //&.selected {}
+}
+//endregion
 @include media(1599) {
     //region Header
     #header-top {

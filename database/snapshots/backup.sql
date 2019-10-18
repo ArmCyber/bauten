@@ -227,7 +227,10 @@ CREATE TABLE `generations` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `model_id` int(10) unsigned NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sort` bigint(20) unsigned NOT NULL DEFAULT '0',
   `active` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `generations_model_id_foreign` (`model_id`),
   CONSTRAINT `generations_model_id_foreign` FOREIGN KEY (`model_id`) REFERENCES `models` (`id`) ON DELETE CASCADE
@@ -236,7 +239,7 @@ CREATE TABLE `generations` (
 
 LOCK TABLES `generations` WRITE;
 /*!40000 ALTER TABLE `generations` DISABLE KEYS */;
-INSERT INTO `generations` VALUES (1,1,'1',1),(2,1,'2',1);
+INSERT INTO `generations` VALUES (1,1,'1',0,1,'2019-10-04 17:06:00','2019-10-04 17:06:00'),(2,1,'2',0,1,'2019-10-04 17:06:04','2019-10-04 17:06:04');
 /*!40000 ALTER TABLE `generations` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `groups`;
@@ -292,15 +295,18 @@ CREATE TABLE `marks` (
   `show_image` tinyint(1) NOT NULL DEFAULT '1',
   `url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `in_home` tinyint(1) NOT NULL DEFAULT '0',
+  `sort` int(10) unsigned NOT NULL DEFAULT '0',
   `active` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `marks_cid_unique` (`cid`)
-) ENGINE=InnoDB AUTO_INCREMENT=167 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `marks` WRITE;
 /*!40000 ALTER TABLE `marks` DISABLE KEYS */;
-INSERT INTO `marks` VALUES (1,'0','TOYOTA','UDs9MqR9xPThoXyJgc.png','Audi','Audi',1,'toyota',1,1),(2,'1','SUBARU','KWsJW7vbswgUECZnkU.png','BMW','BMW',1,'subaru',1,1),(3,'2','SUZUKI','RPSTHh9uLO97p0lGyI.png','Chrysler','Chrysler',1,'suzuki',1,1),(4,'3','MAZDA','gxPkJWpfpVU8eCFPBv.png','Citroen','Citroen',1,'mazda',1,1),(5,'4','MERCEDES-BENZ','UnuYkii5mEtrL3BJVD.png','Daewoo','Daewoo',1,'mercedes-benz',1,1),(6,'5','MITSUBISHI','2RUXJC3Qt7XvaFFJla.png','Ford','Ford',1,'mitsubishi',1,1),(7,'6','NISSAN','6xyhupCIiUldwuBmxi.png','Honda','Honda',1,'nissan',1,1),(8,'7','DAIHATSU','vnwSMyPBCP4euuUNQl.png','Hyundai','Hyundai',1,'daihatsu',1,1),(9,'8','HONDA','r0fiw7gCTZfY37BPyx.png','Isuzu','Isuzu',1,'honda',1,1),(10,'92','Kia','Yxjrqo0bzPLn1RnDtM.png','Kia','Kia',1,'kia',1,1),(11,'10','OPEL','SKWeGkRlY10mT75jUj.png','Lexus','Lexus',1,'opel',1,1),(14,'9','ISUZU',NULL,NULL,NULL,1,'isuzu',0,1),(15,'11','CHEVROLET',NULL,NULL,NULL,1,'chevrolet',0,1),(16,'12','LEXUS',NULL,NULL,NULL,1,'lexus',0,1),(17,'13','SSANGYONG',NULL,NULL,NULL,1,'ssangyong',0,1),(18,'14','HYUNDAI',NULL,NULL,NULL,1,'hyundai',0,1),(19,'16','DAEWOO',NULL,NULL,NULL,1,'daewoo',0,1),(20,'17','INFINITI',NULL,NULL,NULL,1,'infiniti',0,1);
+INSERT INTO `marks` VALUES (1,'0','Audi','UDs9MqR9xPThoXyJgc.png','Audi','Audi',1,'audi',1,1,1,'2019-10-04 16:54:59','2019-10-18 16:09:17'),(2,'1','Bmw','KWsJW7vbswgUECZnkU.png','BMW','BMW',1,'bmw',1,2,1,'2019-10-04 16:55:15','2019-10-18 15:38:02'),(3,'2','Chrysler','RPSTHh9uLO97p0lGyI.png','Chrysler','Chrysler',1,'chrysler',1,3,1,'2019-10-04 16:55:41','2019-10-18 15:38:02'),(4,'3','Citroen','gxPkJWpfpVU8eCFPBv.png','Citroen','Citroen',1,'citroen',1,4,1,'2019-10-04 16:55:53','2019-10-18 15:38:02'),(5,'4','Daewoo','UnuYkii5mEtrL3BJVD.png','Daewoo','Daewoo',1,'daewoo',1,5,1,'2019-10-04 16:56:05','2019-10-18 15:38:02'),(6,'5','Ford','2RUXJC3Qt7XvaFFJla.png','Ford','Ford',1,'ford',1,6,1,'2019-10-04 16:56:15','2019-10-18 15:38:02'),(7,'6','Honda','6xyhupCIiUldwuBmxi.png','Honda','Honda',1,'honda',1,7,1,'2019-10-04 16:56:27','2019-10-18 15:38:02'),(8,'7','Hyundai','vnwSMyPBCP4euuUNQl.png','Hyundai','Hyundai',1,'hyundai',1,8,1,'2019-10-04 16:56:48','2019-10-18 15:38:02'),(9,'8','Isuzu','r0fiw7gCTZfY37BPyx.png','Isuzu','Isuzu',1,'isuzu',1,9,1,'2019-10-04 16:57:21','2019-10-18 15:38:02'),(10,'92','Kia','Yxjrqo0bzPLn1RnDtM.png','Kia','Kia',1,'kia',1,10,1,'2019-10-04 16:57:38','2019-10-18 15:38:02'),(11,'10','Lexus','SKWeGkRlY10mT75jUj.png','Lexus','Lexus',1,'lexus',1,11,1,'2019-10-04 16:57:51','2019-10-18 15:38:02');
 /*!40000 ALTER TABLE `marks` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `migrations`;
@@ -326,7 +332,10 @@ CREATE TABLE `models` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `mark_id` int(10) unsigned NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sort` int(10) unsigned NOT NULL DEFAULT '0',
   `active` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `models_mark_id_foreign` (`mark_id`),
   CONSTRAINT `models_mark_id_foreign` FOREIGN KEY (`mark_id`) REFERENCES `marks` (`id`) ON DELETE CASCADE
@@ -335,7 +344,7 @@ CREATE TABLE `models` (
 
 LOCK TABLES `models` WRITE;
 /*!40000 ALTER TABLE `models` DISABLE KEYS */;
-INSERT INTO `models` VALUES (1,1,'100',1),(3,1,'200',1);
+INSERT INTO `models` VALUES (1,1,'100',0,1,'2019-10-04 17:04:45','2019-10-04 17:04:45'),(3,1,'200',0,1,'2019-10-04 17:05:54','2019-10-04 17:05:54');
 /*!40000 ALTER TABLE `models` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `news`;

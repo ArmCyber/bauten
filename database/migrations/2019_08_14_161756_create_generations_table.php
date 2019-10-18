@@ -17,10 +17,8 @@ class CreateGenerationsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('model_id')->unsigned();
             $table->string('name')->nullable();
-            $table->bigInteger('sort')->unsigned()->default(0);
             $table->boolean('active')->default(1);
             $table->foreign('model_id')->references('id')->on('models')->onDelete('cascade');
-            $table->timestamps();
         });
     }
 

@@ -16,10 +16,12 @@ class Brand extends Model
 
     private const CACHE_KEY = 'brands';
     private const CACHE_KEY_HOME = 'brands_home';
+    private const CACHE_KEY_SEARCH = 'brands_search';
 
     public static function clearCaches(){
         Cache::forget(self::CACHE_KEY);
         Cache::forget(self::CACHE_KEY_HOME);
+        Cache::forget(self::CACHE_KEY_SEARCH);
     }
 
     public static function homeList(){
@@ -31,6 +33,14 @@ class Brand extends Model
     public static function siteList(){
         return Cache::rememberForever(self::CACHE_KEY, function (){
             return self::where('active', 1)->sort()->get();
+        });
+    }
+
+    public static function searchList(){
+        return Cache::rememberForever(self::CACHE_KEY_SEARCH, function (){
+            return self::where('active', 1)->orderBy('name', 'asc')->get()->mapToGroups(function($item, $key) {
+                return [mb_strtoupper(mb_substr($item->name,0,1))=>$item];
+            });
         });
     }
 

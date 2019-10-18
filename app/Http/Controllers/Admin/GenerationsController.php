@@ -52,8 +52,6 @@ class GenerationsController extends BaseController
         return view('admin.pages.generations.form', $data);
     }
 
-    public function sort() { return Generation::sortable(); }
-
     public function edit_patch($id, Request $request){
         $item = Generation::getItem($id);
         $inputs = $request->all();

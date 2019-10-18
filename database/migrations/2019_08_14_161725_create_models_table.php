@@ -17,10 +17,8 @@ class CreateModelsTable extends Migration
             $table->increments('id');
             $table->integer('mark_id')->unsigned();
             $table->string('name')->nullable();
-            $table->integer('sort')->unsigned()->default(0);
             $table->boolean('active')->default(1);
             $table->foreign('mark_id')->references('id')->on('marks')->onDelete('cascade');
-            $table->timestamps();
         });
     }
 

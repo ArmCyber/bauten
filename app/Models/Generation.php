@@ -7,14 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Generation extends Model
 {
-    use Sortable;
-
-    protected $sortableDesc = false;
 
     public static function action($model, $inputs) {
         if (!$model) {
             $model = new self;
-            $model['sort'] = $model->sortValue();
             $model['model_id'] = $inputs['model_id'];
         }
         $model['name'] = $inputs['name'];
@@ -32,5 +28,9 @@ class Generation extends Model
 
     public function model() {
         return $this->belongsTo('App\Models\Model', 'model_id', 'id');
+    }
+
+    public function scopeSort($q){
+        $q->orderBy('name', 'asc');
     }
 }

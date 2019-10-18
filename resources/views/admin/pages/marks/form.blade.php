@@ -12,6 +12,12 @@
     <div class="row">
         <div class="col-12 col-lg-6">
             <div class="card">
+                <div class="c-title">ID</div>
+                <div class="little-p">
+                    <input type="text" name="cid" class="form-control" maxlength="10" placeholder="ID" value="{{ old('cid', $item->cid??null) }}">
+                </div>
+            </div>
+            <div class="card">
                 <div class="c-title">Имя</div>
                 <div class="little-p">
                     <input type="text" name="name" class="form-control" maxlength="255" placeholder="Имя" value="{{ old('name', $item->name??null) }}">

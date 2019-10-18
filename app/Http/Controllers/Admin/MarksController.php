@@ -7,7 +7,6 @@ use App\Models\Mark;
 use App\Services\Notify\Facades\Notify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Maatwebsite\Excel\Facades\Excel;
 
 class MarksController extends BaseController
 {
@@ -60,7 +59,8 @@ class MarksController extends BaseController
     public function import() {
         $data = [
             'title' => 'Импортирование марок',
-            'back_url' => route('admin.marks.main')
+            'back_url' => route('admin.marks.main'),
+            'response' => session('import_response'),
         ];
         return view('admin.pages.marks.import', $data);
     }
@@ -70,7 +70,8 @@ class MarksController extends BaseController
             'file' => 'required|file|mimes:xlsx,xls,csv'
         ]);
         $file = $request->file('file');
-        Excel::import(new MarksImport, $file);
+        $response = MarksImport::import($file);
+        return redirect()->back()->with(['import_response' => $response]);
     }
 
     public function delete(Request $request) {
@@ -83,8 +84,6 @@ class MarksController extends BaseController
         return response()->json($result);
     }
 
-    public function sort() { return Mark::sortable(); }
-
     private function validator($request, $ignore=false) {
         $inputs = $request->all();
         $unique = $ignore===false?null:','.$ignore;
@@ -92,7 +91,8 @@ class MarksController extends BaseController
         $inputs['generated_url'] = !empty($inputs['name'])?to_url($inputs['name']):null;
         $request->merge(['url' => $inputs['url']]);
         $rules = [
-            'name' => 'required|string|max:255|unique:part_catalogs,name'.$unique,
+            'cid' => 'required|integer|digits_between:1,255|unique:marks,cid'.$unique,
+            'name' => 'required|string|max:255|unique:marks,name'.$unique,
             'image' => 'nullable|image|mimes:jpeg,png',
             'image_alt' => 'nullable|string|max:255',
             'image_title' => 'nullable|string|max:255',

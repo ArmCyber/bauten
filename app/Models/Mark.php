@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Http\Traits\Sortable;
+use App\Http\Traits\InsertOrUpdate;
 use App\Http\Traits\UrlUnique;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
@@ -10,7 +10,9 @@ use Illuminate\Support\Facades\File;
 
 class Mark extends Model
 {
-    use Sortable,UrlUnique;
+    use UrlUnique, InsertOrUpdate;
+
+    public $timestamps=false;
 
     protected $sortableDesc = false;
 
@@ -59,11 +61,10 @@ class Mark extends Model
     public static function action($model, $inputs) {
         if (!$model) {
             $model = new self;
-            $model['sort'] = $model->sortValue();
-            $action='add';
             $ignore=false;
         }
         else $ignore = $model->id;
+        $model['cid'] = $inputs['cid'];
         $model['name'] = $inputs['name'];
         $model['image_alt'] = $inputs['image_alt'];
         $model['image_title'] = $inputs['image_title'];
@@ -99,4 +100,7 @@ class Mark extends Model
         return $this->hasMany('App\Models\Model', 'mark_id', 'id')->sort();
     }
 
+    public function scopeSort($q){
+        $q->orderBy('name', 'asc');
+    }
 }
