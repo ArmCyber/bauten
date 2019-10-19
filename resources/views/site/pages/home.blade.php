@@ -2,8 +2,8 @@
 @section('main')
     @include('site.blocks.'.($user?'auth.home_search':'guest.home_welcome'))
     <section class="section container">
-        <h2 class="section-title">{{ $banners->block_titles->parts }}</h2>
         @if(is_active('marks') && count($marks))
+        <h2 class="section-title">{{ $banners->block_titles->parts }}</h2>
             <div class="section-content">
                 <div class="home-parts">
                     <div class="row row-grid l-m">

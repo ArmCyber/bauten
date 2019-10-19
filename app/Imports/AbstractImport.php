@@ -2,7 +2,6 @@
 
 namespace App\Imports;
 
-use App\Models\Mark;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Concerns\ToCollection;
@@ -13,12 +12,12 @@ abstract class AbstractImport implements ToCollection
     protected $errors;
     protected $keys = [];
     protected $rules = [];
-    protected $count = 0;
+    protected $count;
     public $response = [];
     protected $rows;
 
     abstract protected function filter($data);
-    abstract protected function handle();
+    abstract protected function callback();
 
     protected function addError($key, $reason, $attributes=[]) {
         $this->errors->push([
@@ -46,17 +45,18 @@ abstract class AbstractImport implements ToCollection
     {
         $this->rows = collect();
         $this->errors = collect();
+        $this->count = 0;
         foreach($collection as $key=>$row) {
             if($key==0) {
                 if(count($row)<count($this->keys)) {
-                    $this->response['status'] = 0;
-                    break;
+                    $this->addSheet(false);
+                    return;
                 }
                 else {
                     foreach($this->keys as $name => $key) {
-                        if (mb_strtolower($row[$key])!=$name) {
-                            $this->response['status'] = 0;
-                            break;
+                        if (mb_strtolower($row[$key])!=$this->names[$name]) {
+                            $this->addSheet(false);
+                            return;
                         }
                     }
                 }
@@ -65,15 +65,12 @@ abstract class AbstractImport implements ToCollection
             $data = [];
             $anyExist = false;
             foreach($this->keys as $name => $row_key) {
-                if($row[$row_key]!==null) $anyExist = true;
+                if($row[$row_key]) $anyExist = true;
                 $data[$name] = $row[$row_key];
             }
             if(!$anyExist) continue;
             $this->count++;
-            if(Validator::make($data, [
-                'cid' => 'required|integer|digits_between:1,255',
-                'name' => 'required|string|max:255',
-            ])->fails()) {
+            if(Validator::make($data, $this->rules)->fails()) {
                 $this->addError($key+1, 'format');
                 continue;
             }
@@ -86,15 +83,27 @@ abstract class AbstractImport implements ToCollection
                 $this->addError($key+1, $response['reason'], $response['attributes']);
             }
         }
-        $this->handle();
-        $this->response = [
-            'status' => 1,
-            'errors' => $this->errors->sortBy('row'),
-            'count' => $this->count,
-        ];
-        $this->response['failed'] = count($this->errors);
-        $this->response['imported'] = $this->count - $this->response['failed'];
+        $this->callback();
+        $this->addSheet();
         return;
+    }
+
+    public function addSheet($imported = true){
+        if (!$imported) {
+            $response = [
+                'status'=>0,
+            ];
+        }
+        else {
+            $response = [
+                'status' => 1,
+                'errors' => $this->errors->sortBy('row')->values()->toArray(),
+                'count' => $this->count,
+            ];
+            $response['failed'] = count($response['errors']);
+            $response['imported'] = $this->count - $response['failed'];
+        }
+        $this->response[] = $response;
     }
 
     public static function import($file){
@@ -103,9 +112,7 @@ abstract class AbstractImport implements ToCollection
         try {
             Excel::import($object, $file);
         } catch (\Exception $e) {
-            return [
-                'status'=>0,
-            ];
+            return 'failed';
         }
         return $object->response;
     }

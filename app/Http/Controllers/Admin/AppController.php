@@ -14,6 +14,6 @@ class AppController extends BaseController
             'user' => Auth::user(),
             'roles' => Admin::ROLES,
         ];
-        return view('admin.pages.main', $data);
+        return view('admin.pages.general.main', $data);
     }
 }

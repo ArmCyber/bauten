@@ -4,6 +4,7 @@ namespace App\Http\Traits;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 trait InsertOrUpdate {
     public static function insertOrUpdate($values, $duplicates){

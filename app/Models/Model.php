@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-use App\Http\Traits\Sortable;
+use App\Http\Traits\InsertOrUpdate;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class Model extends Eloquent
 {
+    use InsertOrUpdate;
     public static function action($model, $inputs, $mark_id=null) {
         if (!$model) {
             $model = new self;

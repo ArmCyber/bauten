@@ -1,7 +1,6 @@
 @extends('admin.layouts.app')
 @section('titleSuffix')
     | <a href="{!! route('admin.marks.add') !!}" class="text-cyan"><i class="mdi mdi-plus-box"></i> добавить</a>
-    | <a href="{!! route('admin.marks.import') !!}" class="text-cyan"><i class="mdi mdi-file-import"></i> импортировать</a>
 @endsection
 @section('content')
     @if(count($items))

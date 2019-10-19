@@ -73,8 +73,6 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
             Route::put('add', $c.'add_put');
             Route::get('edit/{id}', $c.'edit')->name('edit');
             Route::patch('edit/{id}', $c.'edit_patch');
-            Route::get('import', $c.'import')->name('import');
-            Route::post('import', $c.'import_post');
             Route::delete('delete', $c.'delete')->middleware('ajax')->name('delete');
         });
         //endregion
@@ -259,6 +257,9 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
             Route::patch('change-password', $c.'changePassword')->name('change_password');
             Route::delete('delete', $c.'delete')->name('delete');
         });
+        //endregion
+        //region Import
+        Route::match(['get','post'], 'import/{page}', 'ImportController@render')->name('import');
         //endregion
     });
 });

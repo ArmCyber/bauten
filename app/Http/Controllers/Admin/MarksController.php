@@ -56,24 +56,6 @@ class MarksController extends BaseController
         }
     }
 
-    public function import() {
-        $data = [
-            'title' => 'Импортирование марок',
-            'back_url' => route('admin.marks.main'),
-            'response' => session('import_response'),
-        ];
-        return view('admin.pages.marks.import', $data);
-    }
-
-    public function import_post(Request $request) {
-        $request->validate([
-            'file' => 'required|file|mimes:xlsx,xls,csv'
-        ]);
-        $file = $request->file('file');
-        $response = MarksImport::import($file);
-        return redirect()->back()->with(['import_response' => $response]);
-    }
-
     public function delete(Request $request) {
         $result = ['success'=>false];
         $id = $request->input('item_id');

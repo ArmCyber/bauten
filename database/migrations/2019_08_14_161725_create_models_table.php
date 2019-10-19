@@ -16,9 +16,10 @@ class CreateModelsTable extends Migration
         Schema::create('models', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('mark_id')->unsigned();
-            $table->string('name')->nullable();
+            $table->string('name')->collation('utf8_general_ci')->nullable();
             $table->boolean('active')->default(1);
             $table->foreign('mark_id')->references('id')->on('marks')->onDelete('cascade');
+            $table->unique(['name', 'mark_id']);
         });
     }
 

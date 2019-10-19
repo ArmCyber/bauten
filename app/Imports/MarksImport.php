@@ -21,11 +21,13 @@ class MarksImport extends AbstractImport
 
     protected function filter($data) {
         if ($this->rows->where('cid', $data['cid'])->count()) return $this->skip('duplicate', ['name'=>'id']);
-        if ($this->rows->where('name', $data['name'])->count()) return $this->skip('duplicate', ['name'=>'название марок']);
+        if ($this->rows->filter(function($item) use ($data) {
+            return mb_strtolower($data['name'])==mb_strtolower($item['name']);
+        })->count()) return $this->skip('duplicate', ['name'=>'название марок']);
         return $this->add($data);
     }
 
-    protected function handle(){
+    protected function callback(){
         $cids = $this->rows->pluck('cid');
         $names = $this->rows->pluck('name');
         $result_names = array_map('mb_strtolower', Mark::whereIn('name', $names)->whereNotIn('cid', $cids)->pluck('name')->toArray());
@@ -41,6 +43,7 @@ class MarksImport extends AbstractImport
                 'url' => to_url($row['name']),
             ];
         }
-        Mark::insertOrUpdate($final, ['name', 'url']);
+        Mark::clearCaches();
+        if(count($final)) Mark::insertOrUpdate($final, ['name', 'url']);
     }
 }
