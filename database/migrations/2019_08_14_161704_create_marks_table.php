@@ -20,7 +20,7 @@ class CreateMarksTable extends Migration
             $table->string('image', 64)->nullable();
             $table->string('image_alt')->nullable();
             $table->string('image_title')->nullable();
-            $table->boolean('show_image')->default(1)->after('image_title');
+            $table->boolean('show_image')->default(1);
             $table->string('url')->nullable();
             $table->boolean('in_home')->default(0);
             $table->boolean('active')->default(1);

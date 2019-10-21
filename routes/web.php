@@ -267,11 +267,15 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
 
 //region Site
 Route::namespace('Site')->group(function() {
-    Route::middleware('auth')->group(function(){
-        Route::post('logout', 'Auth\LoginController@logout')->name('logout');
-        Route::get('cabinet', 'CabinetController@main')->name('cabinet.main');
-    });
+//    Route::middleware('auth')->group(function(){
+//
+//    });
+    Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+    Route::get('cabinet', 'CabinetController@main')->name('cabinet.main');
 
+    Route::get('product/{url}', 'PartsController@show')->name('part');
+    Route::get(r('catalogs').'/{url}', 'CatalogueController@group')->name('group');
+    Route::get('category/{url}', 'CatalogueController@category')->name('catalogue');
     //region Auth
     Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
     Route::post('login', 'Auth\LoginController@login');
@@ -285,11 +289,8 @@ Route::namespace('Site')->group(function() {
     //endregion
 
     Route::post(r('contacts').'/send-message', 'InnerController@sendContactsMessage')->name('contacts.send_message');
-
-    Route::get('product/{url}', 'PartsController@show')->name('part');
     Route::get(r('news').'/{url}', 'InnerController@news_item')->name('news');
-    Route::get(r('catalogs').'/{url}', 'CatalogueController@group')->name('group');
-    Route::get('category/{url}', 'CatalogueController@category')->name('catalogue');
+    Route::get(r('brands').'/{url}', 'InnerController@brand_item')->name('brand');
     Route::get('{url?}', 'AppController@pageManager')->name('page');
 });
 //endregion

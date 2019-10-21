@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 class CabinetController extends BaseController
 {
     public function main(){
-        return view('site.pages.cabinet.main');
+        $data = [];
+        return view('site.pages.cabinet.main', $data);
     }
 }

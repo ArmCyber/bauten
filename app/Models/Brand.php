@@ -56,6 +56,8 @@ class Brand extends Model
             $ignore = false;
         } else { $ignore=$model->id; }
         $model['name'] = $inputs['name'];
+        $model['short'] = $inputs['short'];
+        $model['description'] = $inputs['description'];
         $model['code'] = $inputs['code'];
         $model['image_alt'] = $inputs['image_alt'];
         $model['image_title'] = $inputs['image_title'];
@@ -82,5 +84,9 @@ class Brand extends Model
 
     public static function getItem($id){
         return self::findOrFail($id);
+    }
+
+    public static function getItemSite($url) {
+        return self::where(['url'=>$url, 'active'=>1])->firstOrFail();
     }
 }

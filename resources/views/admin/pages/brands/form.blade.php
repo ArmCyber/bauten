@@ -65,7 +65,24 @@
                 </div>
             </div>
         </div>
+        <div class="col-12">
+            <div class="card">
+                <div class="c-title">Короткое описание</div>
+                <div class="little-p">
+                    <textarea class="ckeditor" name="short">{!! old('short', $item->short??null) !!}</textarea>
+                </div>
+            </div>
+            <div class="card">
+                <div class="c-title">Описание</div>
+                <div class="little-p">
+                    <textarea class="ckeditor" name="description">{!! old('description', $item->description??null) !!}</textarea>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="col-12 save-btn-fixed"><button type="submit"></button></div>
 </form>
 @endsection
+@push('js')
+    @ckeditor
+@endpush

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Mail\Contact;
+use App\Models\Brand;
 use App\Models\News;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -44,5 +45,14 @@ class InnerController extends BaseController
         $data['parent'] = get_page('news');
         $data['active_page'] = $data['parent']->id;
         return view('site.pages.news_item', $data);
+    }
+
+    public function brand_item($url) {
+        if (!is_active('brands')) abort(404);
+        $data = [];
+        $data['item'] = Brand::getItemSite($url);
+        $data['parent'] = get_page('brands');
+        $data['active_page'] = $data['parent']->id;
+        return view('site.pages.brand_item', $data);
     }
 }
