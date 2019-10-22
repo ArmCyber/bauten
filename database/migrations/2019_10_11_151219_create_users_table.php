@@ -32,6 +32,7 @@ class CreateUsersTable extends Migration
             $table->tinyInteger('status')->default(-1);
             $table->rememberToken();
             $table->timestamp('seen_at')->nullable();
+            $table->timestamp('logged_in_at')->nullable();
             $table->timestamps();
         });
     }

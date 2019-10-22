@@ -19,7 +19,7 @@
     <div class="auth-submit">
         <div class="auth-left"></div>
         <div class="auth-right">
-            <button type="submit" class="btn btn-astudio">Восстановить</button>
+            <button type="submit" class="btn btn-studionomad">Восстановить</button>
         </div>
     </div>
 @endsection

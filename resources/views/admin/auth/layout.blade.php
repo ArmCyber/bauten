@@ -9,12 +9,11 @@
 <div class="auth-form-section">
     <div class="auth-form-container">
         <div class="auth-form-logo">
-            <a href="https://astudio.am/" target="_blank"><img src="{!! aAdmin('img/auth/logo.png') !!}" alt="AStudio" title="AStudio"></a>
+            <a href="https://studionomad.kz/" target="_blank"><img src="{!! aAdmin('img/auth/logo.png') !!}" alt="STUDIONOMAD" title="STUDIONOMAD"></a>
         </div>
         <div class="auth-form"><form action="@yield('form_action')" method="post">@csrf
             @yield('content')
         </form></div>
-        <div class="auth-support">По вопросам и предложениям звоните: <a href="tel:+37477355555" class="auth-link">+374(77) 35 55 55</a></div>
     </div>
 </div>
 </body></html>

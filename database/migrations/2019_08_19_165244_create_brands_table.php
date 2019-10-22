@@ -17,6 +17,8 @@ class CreateBrandsTable extends Migration
             $table->bigIncrements('id');
             $table->string('code')->collation('utf8_general_ci')->unique();
             $table->string('name')->nullable();
+            $table->text('short')->nullable();
+            $table->text('description')->nullable();
             $table->string('image', 64)->nullable();
             $table->string('image_alt')->nullable();
             $table->string('image_title')->nullable();

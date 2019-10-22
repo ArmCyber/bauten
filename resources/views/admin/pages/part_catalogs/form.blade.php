@@ -59,10 +59,10 @@
                     </div>
                 </div>
                 <div class="card">
-                    <div class="c-title">Показать в главном ст.</div>
+                    <div class="c-title">На главной</div>
                     <div class="little-p">
                         @labelauty(['id'=>'in_home', 'label'=>'Не показано|Показано', 'checked'=>oldCheck('in_home', ($edit && !empty($item->in_home))?true:false)])@endlabelauty
-                        <p class="text-danger font-12">Категория в главном странице не будет показано если у него нет изоброжение.</p>
+                        <p class="text-danger font-12">Категория на главной не будет показано если у него нет изоброжение.</p>
                     </div>
                 </div>
             </div>

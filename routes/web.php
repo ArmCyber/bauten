@@ -216,14 +216,14 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
             Route::patch('sort', $c.'sort')->middleware('ajax')->name('sort');
         });
         //endregion
-        //region Years
-        Route::middleware('can:admin')->prefix('years')->name('years.')->group(function() { $c = 'YearsController@';
+        //region Partner Groups
+        Route::middleware('can:admin')->prefix('partner-groups')->name('partner_groups.')->group(function() { $c = 'PartnerGroupsController@';
             Route::get('', $c.'main')->name('main');
             Route::get('add', $c.'add')->name('add');
             Route::put('add', $c.'add_put');
             Route::get('edit/{id}', $c.'edit')->name('edit');
             Route::patch('edit/{id}', $c.'edit_patch');
-            Route::delete('delete', $c.'delete')->middleware('ajax')->name('delete');
+            Route::delete('delete', $c.'delete')->name('delete');
         });
         //endregion
         //region Engine Filters
@@ -253,6 +253,7 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
             Route::get('', $c.'main')->name('main');
             Route::get('view/{id}', $c.'view')->name('view');
             Route::patch('change-manager', $c.'changeManager')->name('change_manager');
+            Route::patch('change-partner-group', $c.'changePartnerGroup')->name('change_partner_group');
             Route::patch('change-status', $c.'changeStatus')->name('change_status');
             Route::patch('change-password', $c.'changePassword')->name('change_password');
             Route::delete('delete', $c.'delete')->name('delete');
@@ -267,15 +268,14 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
 
 //region Site
 Route::namespace('Site')->group(function() {
-//    Route::middleware('auth')->group(function(){
-//
-//    });
-    Route::post('logout', 'Auth\LoginController@logout')->name('logout');
-    Route::get('cabinet', 'CabinetController@main')->name('cabinet.main');
+    Route::middleware('auth')->group(function(){
+        Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+        Route::get('cabinet', 'Cabinet\MainController@main')->name('cabinet.main');
 
-    Route::get('product/{url}', 'PartsController@show')->name('part');
-    Route::get(r('catalogs').'/{url}', 'CatalogueController@group')->name('group');
-    Route::get('category/{url}', 'CatalogueController@category')->name('catalogue');
+        Route::get('product/{url}', 'PartsController@show')->name('part');
+        Route::get(r('catalogs').'/{url}', 'CatalogueController@group')->name('group');
+        Route::get('category/{url}', 'CatalogueController@category')->name('catalogue');
+    });
     //region Auth
     Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
     Route::post('login', 'Auth\LoginController@login');

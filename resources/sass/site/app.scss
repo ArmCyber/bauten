@@ -386,6 +386,9 @@ a.check-cursor[href="javascript:void(0)"] {
 .swiper-slide {
     background-color: $section-bg;
 }
+.blue {
+    color: $blue !important;
+}
 //endregion
 //region Inner Pages
 @include set-padding(20px);

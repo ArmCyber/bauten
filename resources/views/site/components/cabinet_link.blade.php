@@ -1,0 +1,1 @@
+<div><a href="{{ isset($route)?route($route):'javascript:void(0)' }}" class="cs-link{!! (isset($route) && \Route::is($route))?' active':null !!}{!! !empty($class)?' '.$class:null !!}">{{ $title }}</a></div>

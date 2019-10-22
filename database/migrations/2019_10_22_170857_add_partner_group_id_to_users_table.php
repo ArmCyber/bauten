@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddContentToBrandsTable extends Migration
+class AddPartnerGroupIdToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class AddContentToBrandsTable extends Migration
      */
     public function up()
     {
-        Schema::table('brands', function (Blueprint $table) {
-            $table->text('short')->nullable()->after('name');
-            $table->text('description')->nullable()->after('short');
+        Schema::table('users', function (Blueprint $table) {
+            $table->integer('partner_group_id')->unsigned()->default(1)->after('remember_token');
         });
     }
 
@@ -26,8 +25,8 @@ class AddContentToBrandsTable extends Migration
      */
     public function down()
     {
-        Schema::table('brands', function (Blueprint $table) {
-            $table->dropColumn('short', 'description');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('partner_group_id');
         });
     }
 }

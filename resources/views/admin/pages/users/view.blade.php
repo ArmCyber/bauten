@@ -4,9 +4,11 @@
         <div class="card-body">
             <div class="view-line"><span class="view-label">Имя:</span> {{ $item->name??'-' }}</div>
             <div class="view-line"><span class="view-label">Фамилия:</span> {{ $item->last_name??'-' }}</div>
-            <div class="view-line"><span class="view-label">Менеджер:</span> @if($item->manager) <a href="{{ route('admin.admins.edit', ['id'=>$item->manager->id]) }}">{{ $item->manager->email }}</a> @else нет @endif <a href="javascript:void(0)" class="icon-btn edit" data-id="{{ $item->manager->id??'0' }}" data-toggle="modal" data-target="#changeManagerModal"></a></div>
             <div class="view-line"><span class="view-label">Эл.почта:</span> {{ $item->email }} @if($item->verification) <span class="text-danger">(не подтверждена)</span> @else <span class="text-success">(подтверждена)</span> @endif</div>
-            <div class="view-line"><span class="view-label">Последнее посещение:</span> {{ $item->seen_at?$item->seen_at->format('d.m.Y H:i'):'никогда' }} @if($item->is_online) <span class="text-success">(в сети)</span> @else <span class="text-danger">(не в сети)</span> @endif</div>
+            <div class="view-line"><span class="view-label">Менеджер:</span> @if($item->manager) <a href="{{ route('admin.admins.edit', ['id'=>$item->manager->id]) }}">{{ $item->manager->email }}</a> @else нет @endif <a href="javascript:void(0)" class="icon-btn edit" data-id="{{ $item->manager->id??'0' }}" data-toggle="modal" data-target="#changeManagerModal"></a></div>
+            <div class="view-line"><span class="view-label">Группа партнеров:</span> {{ $item->partner_group->title }} ({{ $item->partner_group->sale }}%) <a href="javascript:void(0)" class="icon-btn edit" data-id="{{ $item->partner_group->id }}" data-toggle="modal" data-target="#changePartnerGroupModal"></a></div>
+            <div class="view-line"><span class="view-label">Последный вход:</span> {{ $item->logged_in_at?$item->logged_in_at->format('d.m.Y H:i'):'никогда' }}</div>
+            <div class="view-line"><span class="view-label">Последнее действие:</span> {{ $item->seen_at?$item->seen_at->format('d.m.Y H:i'):'никогда' }} @if($item->is_online) <span class="text-success">(в сети)</span> @else <span class="text-danger">(не в сети)</span> @endif</div>
             <div class="view-line"><span class="view-label">Тип:</span> {{ $item->type_name }}</div>
             @if ($item->type==\App\Models\User::TYPE_ENTITY)
                 <div class="view-line"><span class="view-label">Компания:</span> {{ $item->company }}</div>
@@ -67,6 +69,18 @@
                 <option value="{{ $manager->id }}" {!! $manager->id==$item->manager_id?'selected':null !!}>{{ $manager->email.($manager->code?'('.$manager->code.')':null) }}</option>
             @endforeach
         </select>
+    @endmodal
+    @modal(['id'=>'changePartnerGroupModal', 'saveBtn'=>'Сохранить', 'closeBtn' => 'Отменить', 'centered'=>true,
+        'form'=>['method'=>'post','action'=>route('admin.users.change_partner_group')]])
+        @slot('title')Изменение группы партнеров@endslot
+        <input type="hidden" name="id" value="{{ $item->id }}">
+        @csrf @method('patch')
+        <select id="partnerGroupIdSelect" name="partner_group_id" class="select2" style="width: 100%">
+            @foreach($partner_groups as $partner_group)
+                <option value="{{ $partner_group->id }}" {!! $partner_group->id==$item->partner_group_id?'selected':null !!}>{{ $partner_group->title }} ({{ $partner_group->sale }}%)</option>
+            @endforeach
+        </select>
+        <div class="pt-3"><label><input type="checkbox" style="width:20px; height:20px; vertical-align: text-top" value="1" name="notify" checked> Отправить оповищение пользователю</label></div>
     @endmodal
     @modal(['id'=>'passwordResetModal', 'saveBtn'=>'Сохранить', 'closeBtn' => 'Отменить', 'centered'=>true,
         'form'=>['method'=>'post','action'=>route('admin.users.change_password')]])

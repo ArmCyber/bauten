@@ -55,6 +55,7 @@ class LoginController extends BaseController
         if ($cannotAuth) {
             $this->sendLoginError(__('auth.'.$cannotAuth));
         }
+        $user->updateLoggedInAt();
         Auth::guard('web')->login($user);
         return $this->sendLoginResponse($request);
     }

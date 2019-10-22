@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Http\Traits\Resetable;
 use App\Mail\UserRegistered;
 use App\Mail\UserVerified;
+use App\Notifications\PartnerGroupChangedNotification;
 use App\Notifications\ProfileActivatedNotification;
 use App\Notifications\RegisteredNotification;
 use App\Notifications\ResetPasswordNotification;
@@ -44,7 +45,7 @@ class User extends Authenticatable
     ];
 
     protected $dates = [
-        'seen_at',
+        'seen_at', 'logged_in_at',
     ];
 
     public static function register($inputs, $verification_token) {
@@ -94,13 +95,19 @@ class User extends Authenticatable
         } catch (\Exception $e) {}
     }
 
+    public function sendPartnerGroupChangedNotification($partner_group) {
+//        try {
+            $this->notify(new PartnerGroupChangedNotification($partner_group));
+//        } catch (\Exception $e) {}
+    }
+
     public static function adminList(){
         return self::with('manager')->sort()->get();
     }
 
     /** @return User */
     public static function getItem($id) {
-        return self::where('id', $id)->with('manager')->firstOrFail();
+        return self::where('id', $id)->with(['manager', 'partner_group'])->firstOrFail();
     }
 
     public function scopeSort($q){
@@ -128,6 +135,11 @@ class User extends Authenticatable
 
     public function updateSeenAt(){
         $this->seen_at = now();
+        $this->save(['timestamps'=>false]);
+    }
+
+    public function updateLoggedInAt(){
+        $this->logged_in_at = now();
         $this->save(['timestamps'=>false]);
     }
 
@@ -160,6 +172,10 @@ class User extends Authenticatable
         $user->setRememberToken(Str::random(60));
         $user->save();
         return true;
+    }
+
+    public function partner_group(){
+        return $this->belongsTo('App\Models\PartnerGroup')->sort();
     }
 
     public static function deleteItem($model) {

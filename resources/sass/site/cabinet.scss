@@ -1,0 +1,69 @@
+@import '../base';
+.cabinet-row {
+    display:flex;
+    align-items: flex-start;
+}
+.cabinet-left {
+    flex:0 0 380px;
+    max-width: 380px;
+    padding-right:20px;
+}
+.cabinet-right {
+    flex:1;
+}
+.cabinet-sidebar {
+    @include box-shadow(0 3px 6px 0 rgba(0,0,0,.16));
+    padding:26px 0;
+}
+.cs-head {
+    text-align: center;
+}
+.avatar-image {
+    display:inline-block;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    font-size:0;
+    width:80px;
+    height:80px;
+    background: $blue url($site + 'img/user.svg') center center no-repeat;
+    color:#ffffff;
+    @include border-radius(50%);
+    overflow: hidden;
+}
+.cs-name {
+    font-size:19px;
+    font-weight: 500;
+}
+.cs-region {
+    font-size:14px;
+    color:#AEAEAE;
+}
+.cs-links {
+    margin-top:20px;
+    >div {
+        padding:1px 0;
+    }
+}
+a.cs-link {
+    display:block;
+    text-decoration: none;
+    color:#8B8B8B;
+    padding:11px 30px;
+    line-height: 1;
+    @include transition(#{background-color .3s ease, color .3s ease});
+    &:hover, &.active {
+        background-color: #D6E3EE;
+        color:$blue;
+    }
+}
+.cabinet-title {
+    font-size:24px;
+    color:$blue;
+}
+.cabinet-info {
+    font-size:18px;
+}
+.cabinet-border {
+    border-top:1px solid #eeeeee;
+}

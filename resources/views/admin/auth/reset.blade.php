@@ -16,7 +16,7 @@
             <a href="{!! route('admin.login') !!}" class="auth-link">&Lt; Назад</a>
         </div>
         <div class="auth-right">
-            <button type="submit" class="btn btn-astudio">Продолжить</button>
+            <button type="submit" class="btn btn-studionomad">Продолжить</button>
         </div>
     </div>
 @endsection

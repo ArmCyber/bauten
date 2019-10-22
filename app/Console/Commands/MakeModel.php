@@ -5,6 +5,6 @@ class MakeModel extends ModelMakeCommand
 {
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\zhak_banners_hayko';
+        return $rootNamespace.'\Models';
     }
 }

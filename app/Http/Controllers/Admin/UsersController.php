@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Admin;
+use App\Models\PartnerGroup;
 use App\Models\User;
 use App\Services\Notify\Facades\Notify;
 use Illuminate\Http\Request;
@@ -21,6 +22,7 @@ class UsersController extends BaseController
         $data = [];
         $data['item'] = User::getItem($id);
         $data['managers'] = Admin::getManagers();
+        $data['partner_groups'] = PartnerGroup::adminList();
         $data['title'] = 'Пользователь "'.$data['item']->email.'"';
         $data['back_url'] = route('admin.users.main');
         return view('admin.pages.users.view', $data);
@@ -38,6 +40,26 @@ class UsersController extends BaseController
         else {
             $user->manager_id = $manager_id;
             $user->save();
+            Notify::get('changes_saved');
+        }
+        return redirect()->route('admin.users.view', ['id'=>$user->id]);
+    }
+
+    public function changePartnerGroup(Request $request) {
+        $user = User::getItem($request->input('id'));
+        $partner_group = PartnerGroup::find($request->input('partner_group_id'));
+        if (!$partner_group) {
+            Notify::error('Группа не найдена');
+        }
+        elseif ($partner_group->id == $user->partner_group_id) {
+            Notify::warning('Пользователь уже в данном группе.');
+        }
+        else {
+            $user->partner_group_id = $partner_group->id;
+            $user->save();
+            if ($request->has('notify')) {
+                $user->sendPartnerGroupChangedNotification($partner_group);
+            }
             Notify::get('changes_saved');
         }
         return redirect()->route('admin.users.view', ['id'=>$user->id]);

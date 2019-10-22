@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateYearsTable extends Migration
+class CreatePartnerGroupsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreateYearsTable extends Migration
      */
     public function up()
     {
-        Schema::create('years', function (Blueprint $table) {
+        Schema::create('partner_groups', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('year')->unsigned();
+            $table->string('title')->nullable();
+            $table->tinyInteger('sale')->unique();
+            $table->text('terms')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ class CreateYearsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('years');
+        Schema::dropIfExists('partner_groups');
     }
 }

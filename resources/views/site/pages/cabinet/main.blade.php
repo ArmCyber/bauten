@@ -1,6 +1,14 @@
-@extends('site.layouts.app')
-@section('main')
-    <div class="container py-s">
-        <h1 class="page-title">Кабинет</h1>
+@extends('site.layouts.cabinet')
+@section('content')
+    <div class="cabinet-title">Добро пожаловать</div>
+    <div class="py-3">
+        <div class="cabinet-key">Ваш последный вход: <b>{{ $user->logged_in_at->format('d.m.Y H:i') }}</b></div>
+    </div>
+    <div class="pt-3 cabinet-border">
+        <div class="cabinet-info">Ваш текуший статус партнера: <b>{{ $partner_group->title }}</b> со скидкой <b>{{ $partner_group->sale }}%</b></div>
+        @if($next_partner_group)
+            <div class="cabinet-key mt-2">Следующий уровень: <b>{{ $next_partner_group->title }} ({{ $next_partner_group->sale }}%)</b></div>
+            <div class="mt-2">{!! $next_partner_group->terms !!}</div>
+        @endif
     </div>
 @endsection

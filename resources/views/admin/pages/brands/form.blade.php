@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="card">
-                <div class="c-title">Показать в главном ст.</div>
+                <div class="c-title">На главной</div>
                 <div class="little-p">
                     @labelauty(['id'=>'in_home', 'label'=>'Не показано|Показано', 'checked'=>oldCheck('in_home', ($edit && !empty($item->in_home))?true:false)])@endlabelauty
                 </div>
@@ -66,7 +66,7 @@
             </div>
         </div>
         <div class="col-12">
-            <div class="card">
+            <div class="card d-none">
                 <div class="c-title">Короткое описание</div>
                 <div class="little-p">
                     <textarea class="ckeditor" name="short">{!! old('short', $item->short??null) !!}</textarea>

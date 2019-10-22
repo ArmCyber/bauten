@@ -23,7 +23,7 @@
             <a href="{!! route('admin.password.reset') !!}" class="auth-link">Забыли пароль?</a>
         </div>
         <div class="auth-right">
-            <button type="submit" class="btn btn-astudio">Войти</button>
+            <button type="submit" class="btn btn-studionomad">Войти</button>
         </div>
     </div>
 @endsection
