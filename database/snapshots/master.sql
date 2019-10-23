@@ -346,7 +346,7 @@ CREATE TABLE `marks` (
 
 LOCK TABLES `marks` WRITE;
 /*!40000 ALTER TABLE `marks` DISABLE KEYS */;
-INSERT INTO `marks` VALUES (1,'0','TOYOTA',NULL,NULL,NULL,1,'toyota',0,1),(2,'1','SUBARU',NULL,NULL,NULL,1,'subaru',0,1),(3,'2','SUZUKI',NULL,NULL,NULL,1,'suzuki',0,1),(4,'3','MAZDA',NULL,NULL,NULL,1,'mazda',0,1),(5,'4','MERCEDES-BENZ',NULL,NULL,NULL,1,'mercedes-benz',0,1),(6,'5','MITSUBISHI',NULL,NULL,NULL,1,'mitsubishi',0,1),(7,'6','NISSAN',NULL,NULL,NULL,1,'nissan',0,1),(8,'7','DAIHATSU',NULL,NULL,NULL,1,'daihatsu',0,1),(9,'8','HONDA',NULL,NULL,NULL,1,'honda',0,1),(10,'9','ISUZU',NULL,NULL,NULL,1,'isuzu',0,1),(11,'10','OPEL',NULL,NULL,NULL,1,'opel',0,1),(12,'11','CHEVROLET',NULL,NULL,NULL,1,'chevrolet',0,1),(13,'12','LEXUS',NULL,NULL,NULL,1,'lexus',0,1),(14,'13','SSANGYONG',NULL,NULL,NULL,1,'ssangyong',0,1),(15,'14','HYUNDAI',NULL,NULL,NULL,1,'hyundai',0,1),(16,'15','KIA',NULL,NULL,NULL,1,'kia',0,1),(17,'16','DAEWOO',NULL,NULL,NULL,1,'daewoo',0,1),(18,'17','INFINITI',NULL,NULL,NULL,1,'infiniti',0,1);
+INSERT INTO `marks` VALUES (1,'0','TOYOTA',NULL,NULL,NULL,1,'toyota',0,1),(2,'1','SUBARU',NULL,NULL,NULL,1,'subaru',0,1),(3,'2','SUZUKI',NULL,NULL,NULL,1,'suzuki',0,1),(4,'3','MAZDA',NULL,NULL,NULL,1,'mazda',1,1),(5,'4','MERCEDES-BENZ',NULL,NULL,NULL,1,'mercedes-benz',0,1),(6,'5','MITSUBISHI',NULL,NULL,NULL,1,'mitsubishi',0,1),(7,'6','NISSAN',NULL,NULL,NULL,1,'nissan',0,1),(8,'7','DAIHATSU',NULL,NULL,NULL,1,'daihatsu',1,1),(9,'8','HONDA',NULL,NULL,NULL,1,'honda',0,1),(10,'9','ISUZU',NULL,NULL,NULL,1,'isuzu',0,1),(11,'10','OPEL',NULL,NULL,NULL,1,'opel',0,1),(12,'11','CHEVROLET',NULL,NULL,NULL,1,'chevrolet',1,1),(13,'12','LEXUS',NULL,NULL,NULL,1,'lexus',0,1),(14,'13','SSANGYONG',NULL,NULL,NULL,1,'ssangyong',1,1),(15,'14','HYUNDAI',NULL,NULL,NULL,1,'hyundai',1,1),(16,'15','KIA',NULL,NULL,NULL,1,'kia',0,1),(17,'16','DAEWOO',NULL,NULL,NULL,1,'daewoo',0,1),(18,'17','INFINITI',NULL,NULL,NULL,1,'infiniti',0,1);
 /*!40000 ALTER TABLE `marks` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `migrations`;
@@ -461,11 +461,12 @@ CREATE TABLE `part_cars` (
   CONSTRAINT `part_cars_mark_id_foreign` FOREIGN KEY (`mark_id`) REFERENCES `marks` (`id`) ON DELETE CASCADE,
   CONSTRAINT `part_cars_model_id_foreign` FOREIGN KEY (`model_id`) REFERENCES `models` (`id`) ON DELETE CASCADE,
   CONSTRAINT `part_cars_part_id_foreign` FOREIGN KEY (`part_id`) REFERENCES `parts` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `part_cars` WRITE;
 /*!40000 ALTER TABLE `part_cars` DISABLE KEYS */;
+INSERT INTO `part_cars` VALUES (1,4,17,394,4866),(2,4,8,15,37),(3,4,9,31,363);
 /*!40000 ALTER TABLE `part_cars` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `part_catalogs`;
@@ -630,7 +631,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,1,3,'Айк','Закарян',4,'Казахстан','Астана','Ереван','+37455325665',NULL,NULL,'zakhayko@gmail.com','$2y$10$2zOXfCV1WgBBN8CwYmwIQ.1GWWuqkYhhJluhZAvPNJ1qpAfTOkWEu',NULL,1,'A66df3Y6o9WU5uerOwhXVsITSUfFObrJ8vGKULJXiccDIOddo0HaxirU9UCl',2,'2019-10-22 18:26:29','2019-10-22 18:02:26','2019-10-15 15:59:56','2019-10-22 18:26:29'),(2,2,NULL,'Test','Test',1,'Казахстан','Астана','Tera','+444444444','Test','Test','hayko2000@mail.ru','$2y$10$yFSwRaqyA4B3Oi9er1SXaOxWnUSww5iEA7C8RF8BeX5DNILGo2.ca',NULL,-1,NULL,1,NULL,NULL,'2019-10-15 17:40:38','2019-10-15 17:40:38');
+INSERT INTO `users` VALUES (1,1,3,'Айк','Закарян',4,'Казахстан','Астана','Ереван','+37455325665',NULL,NULL,'zakhayko@gmail.com','$2y$10$2zOXfCV1WgBBN8CwYmwIQ.1GWWuqkYhhJluhZAvPNJ1qpAfTOkWEu',NULL,1,'A66df3Y6o9WU5uerOwhXVsITSUfFObrJ8vGKULJXiccDIOddo0HaxirU9UCl',2,'2019-10-23 19:59:59','2019-10-23 17:01:23','2019-10-15 15:59:56','2019-10-23 19:59:59'),(2,2,NULL,'Test','Test',1,'Казахстан','Астана','Tera','+444444444','Test','Test','hayko2000@mail.ru','$2y$10$yFSwRaqyA4B3Oi9er1SXaOxWnUSww5iEA7C8RF8BeX5DNILGo2.ca',NULL,-1,NULL,1,NULL,NULL,'2019-10-15 17:40:38','2019-10-15 17:40:38');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
