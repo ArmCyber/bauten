@@ -81,7 +81,11 @@ var Applicability = function(marks, saved_values){
                 markId = parseInt(markIdSelect.val()),
                 generations = self.data.marks.find(x => x.id === markId).models.find(x => x.id === modelId).generations;
             $.each(generations, function(key, generation){
-                self.newOption(generation.name, generation.id).appendTo(generationIdSelect);
+                var text = '#'+generation.cid;
+                if (generation.name) text += ' - '+generation.name;
+                if (generation.years) text += ' ('+generation.years+')';
+                if (generation.engine) text += ' ('+generation.engine+'см3)';
+                self.newOption(text, generation.id).appendTo(generationIdSelect);
             });
             generationIdSelect.removeAttr('disabled');
         }

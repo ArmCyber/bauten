@@ -13,7 +13,9 @@
                 <div class="modal-body">{!! $slot !!}</div>
                 <div class="modal-footer">
                     <button type="button" class="btn {{ $cancelBtnClass??'btn-secondary' }}" data-dismiss="modal">{{ $closeBtn??'Закрыть' }}</button>
+                    @empty($hide_save_btn)
                     <button type="{!! (!empty($form) && empty($form['no-submit']))?'submit':'button' !!}" class="btn {{ $saveBtnClass??'btn-success' }}">{{ $saveBtn??'Сохранить' }}</button>
+                    @endempty
                 </div>
             @if(!empty($form))
                 </form>

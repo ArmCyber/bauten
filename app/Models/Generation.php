@@ -12,6 +12,14 @@ class Generation extends Model
 
     public $timestamps=false;
 
+    protected $appends = [
+        'years',
+    ];
+
+    protected $hidden = [
+        'year', 'year_to',
+    ];
+
     public static function action($model, $inputs) {
         if (!$model) {
             $model = new self;
@@ -41,5 +49,13 @@ class Generation extends Model
 
     public function scopeSort($q){
         $q->orderBy('name', 'asc');
+    }
+
+    public function getYearsAttribute(){
+        $years = $this['year'];
+        if ($this['year_to']) {
+            $years.=' - '.$this['year_to'];
+        }
+        return $years;
     }
 }

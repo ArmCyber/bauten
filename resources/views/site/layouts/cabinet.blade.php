@@ -24,6 +24,3 @@
         </div>
     </div>
 @endsection
-@push('css')
-    @css(aSite('css/cabinet.css'))
-@endpush

@@ -10,6 +10,9 @@
     @empty($skip_inner_css)
         @css(aSite('css/inner.css'))
     @endempty
+    @auth
+        @css(aSite('css/authenticated.css'))
+    @endauth
     @stack('css')
 </head><body>
     <div id="page" class="page">

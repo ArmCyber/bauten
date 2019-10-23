@@ -14,7 +14,7 @@ class GenerationsController extends BaseController
         $data = [];
         $data['model'] = Model::getItem($id);
         $data['items'] = $data['model']->generations;
-        $data['title'] = 'Модификации моделя "'.$data['model']->name.'"';
+        $data['title'] = 'Модификации моделя "'.$data['model']->mark->name.' '.$data['model']->name.'"';
         $data['back_url'] = route('admin.models.main', ['id'=>$data['model']->mark_id]);
         return view('admin.pages.generations.main', $data);
     }

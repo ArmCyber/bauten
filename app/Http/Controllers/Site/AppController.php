@@ -27,6 +27,7 @@ class AppController extends BaseController
         $data['brands'] = Brand::homeList();
         if(auth()->check()) {
             $data['search_brands'] = Brand::searchList();
+            $data['search_marks'] = Mark::searchList();
         }
         return view('site.pages.home', $data);
     }

@@ -36,10 +36,16 @@ class Mark extends Model
         });
     }
 
+    public static function searchList(){
+        return self::where('active', 1)->orderBy('name', 'asc')->get()->mapToGroups(function($item, $key) {
+            return [mb_strtoupper(mb_substr($item->name,0,1))=>$item];
+        });
+    }
+
     public static function fullAdminList(){
-        return self::select('id', 'name')->with(['models'=>function($q){
+        return self::select('id', 'name', 'cid')->with(['models'=>function($q){
             $q->select('id', 'name', 'mark_id')->with(['generations'=>function($q){
-                return $q->select('id', 'name', 'model_id');
+                return $q->select('id', 'cid', 'name', 'model_id', 'engine', 'year', 'year_to');
             }]);
         }])->sort()->get();
     }
@@ -80,6 +86,8 @@ class Mark extends Model
         if($image = upload_image('image', 'u/marks/', $resizes, ($ignore && !empty($model->image))?$model->image:false)) $model->image = $image;
         $model['active'] = (int) array_key_exists('active', $inputs);
         $model['show_image'] = (int) array_key_exists('show_image', $inputs);
+        $model['in_home'] = (int) array_key_exists('in_home', $inputs);
+        self::clearCaches();
         return $model->save();
     }
 
@@ -93,6 +101,7 @@ class Mark extends Model
 
     public static function deleteItem($model){
         if ($model->image) File::delete(public_path('u/marks/'.$model->image));
+        self::clearCaches();
         return $model->delete();
     }
 

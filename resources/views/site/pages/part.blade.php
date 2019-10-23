@@ -93,7 +93,15 @@
                             </thead>
                             <tbody>
                             @foreach($item->cars as $car)
-                                <tr><td class="tbl-mark">{{ $car->mark->name??'?' }}</td><td>{{ $car->model_id==0?'-':($car->model->name??'?') }}</td><td>{{ $car->generation_id==0?'-':($car->generation->name??'?') }}</td></tr>
+                                @php
+                                    if($car->generation_id==0) $this_name = '-';
+                                    else {
+                                        $this_name = $car->generation->name;
+                                        if ($car->generation->engine) $this_name.=' ('.$car->generation->engine.'см3)';
+                                        if ($car->generation->years) $this_name.=' ('.$car->generation->years.')';
+                                    }
+                                @endphp
+                                <tr><td class="tbl-mark">{{ $car->mark->name??'?' }}</td><td>{{ $car->model_id==0?'-':($car->model->name??'?') }}</td><td>{{ $this_name }}</td></tr>
                             @endforeach
                             </tbody>
                         </table>

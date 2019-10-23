@@ -66,7 +66,8 @@ abstract class AbstractImport implements ToCollection
             $anyExist = false;
             foreach($this->keys as $name => $row_key) {
                 if($row[$row_key]) $anyExist = true;
-                $data[$name] = $row[$row_key]?trim($row[$row_key]):null;
+                $this_name = trim($row[$row_key]);
+                $data[$name] = $this_name?:null;
             }
             if(!$anyExist) continue;
             $this->count++;

@@ -44,7 +44,7 @@ class MarksController extends BaseController
 
     public function edit_patch($id, Request $request){
         $item = Mark::getItem($id);
-        $validator = $this->validator($request, true);
+        $validator = $this->validator($request, $item->id);
         $validator['validator']->validate();
         if(Mark::action($item, $validator['inputs'])) {
             Notify::success('Марка редактирована.');
