@@ -7,6 +7,7 @@
                 <table class="table table-striped m-b-0 columns-middle init-dataTable">
                     <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Имя</th>
                         <th>Статус</th>
                         <th>Действие</th>
@@ -15,6 +16,7 @@
                     <tbody>
                     @foreach($items as $item)
                         <tr class="item-row" data-id="{!! $item->id !!}">
+                            <td>{{ $item->cid}}</td>
                             <td class="item-title">{{ $item->name}}</td>
                             @if($item->active)
                                 <td class="text-success">Активно</td>

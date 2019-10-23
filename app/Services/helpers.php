@@ -126,6 +126,28 @@ if (!function_exists('upload_file')) {
         return \App\Services\FileManager\Facades\FileManager::uploadFile($key, $path, $delete);
     }
 }
+if (!function_exists('get_range_data')) {
+    function get_range_data($from, $to)
+    {
+        $from = (int) $from;
+        $to = (int) $to;
+        $result = [null, null];
+        if ($from) {
+            if (!$to || $from==$to) {
+                $result[0] = $from;
+            }
+            elseif($from>$to) {
+                $result[0] = $to;
+                $result[1] = $from;
+            }
+            else {
+                $result[0] = $from;
+                $result[1] = $to;
+            }
+        } elseif($to) $result[0] = $to;
+        return $result;
+    }
+}
 //endregion
 if (!function_exists('to_url')) {
     function to_url($string)

@@ -29,7 +29,8 @@
     @alink(['url'=>route('admin.users.main'), 'icon'=>'fas fa-user', 'title'=>'Пользователи', 'counter'=>$pending_users_count])@endalink
     @alink(['url'=>route('admin.admins.main'), 'icon'=>'fas fa-user-tie', 'title'=>'Администраторы'])@endalink
     @alink(['title' => 'Импортирование', 'icon'=>'mdi mdi-file-import'])
-        @alink(['url'=>route('admin.import', ['page'=>'marks']), 'icon'=>'fas fa-car', 'title'=>'Импортирование Марок'])@endalink
-        @alink(['url'=>route('admin.import', ['page'=>'models']), 'icon'=>'fas fa-list', 'title'=>'Импортирование Моделей'])@endalink
+        @alink(['url'=>route('admin.import', ['page'=>'marks']), 'icon'=>'fas fa-car', 'title'=>'Марки'])@endalink
+        @alink(['url'=>route('admin.import', ['page'=>'models']), 'icon'=>'fas fa-list', 'title'=>'Модели'])@endalink
+        @alink(['url'=>route('admin.import', ['page'=>'generations']), 'icon'=>'fas fa-list-alt', 'title'=>'Модификации'])@endalink
     @endalink
 @endcan

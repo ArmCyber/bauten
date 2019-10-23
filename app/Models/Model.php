@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class Model extends Eloquent
 {
+    public $timestamps=false;
+
     use InsertOrUpdate;
     public static function action($model, $inputs, $mark_id=null) {
         if (!$model) {

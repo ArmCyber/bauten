@@ -7,6 +7,7 @@ use App\Models\Model;
 use App\Services\Notify\Facades\Notify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class ModelsController extends BaseController
 {
@@ -33,7 +34,7 @@ class ModelsController extends BaseController
     public function add_put($id, Request $request){
         $mark = Mark::getItem($id);
         $inputs = $request->all();
-        $this->validator($inputs)->validate();
+        $this->validator($inputs, $mark->id)->validate();
         if(Model::action(null, $inputs, $mark->id)) {
             Notify::success('Модель добавлен.');
             return redirect()->route('admin.models.main', ['id'=>(int) $mark->id]);
@@ -56,7 +57,7 @@ class ModelsController extends BaseController
     public function edit_patch($id, Request $request){
         $item = Model::getItem($id);
         $inputs = $request->all();
-        $this->validator($inputs)->validate();
+        $this->validator($inputs, $item->mark_id, $item->id)->validate();
         if(Model::action($item, $inputs)) {
             Notify::success('Модель редактирован.');
             return redirect()->route('admin.models.edit', ['id'=>$item->id]);
@@ -77,9 +78,11 @@ class ModelsController extends BaseController
         return response()->json($result);
     }
 
-    private function validator($inputs, $ignore=false) {
+    private function validator($inputs, $mark_id, $ignore=false) {
+        $unique = Rule::unique('models')->where('mark_id', $mark_id);
+        if ($ignore) $unique = $unique->ignore($ignore);
         return Validator::make($inputs, [
-            'name' => 'nullable|string|max:255',
+            'name' => ['required','string','max:255',$unique],
         ]);
     }
 }

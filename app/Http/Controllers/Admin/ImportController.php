@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Imports\GenerationsImport;
 use App\Imports\MarksImport;
 use App\Imports\ModelsImport;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ class ImportController extends BaseController
             if(Validator::make($request->only('file'), [
                 'file' => 'required|file|mimes:xlsx,xls,csv'
             ])->fails()) {
-                $response = ['status'=>0];
+                $response = 'unvalidated';
             }
             else {
                 $file = $request->file('file');
@@ -43,6 +44,10 @@ class ImportController extends BaseController
         'models' => [
             'importer' => ModelsImport::class,
             'title' => 'Импортирование моделей',
+        ],
+        'generations' => [
+            'importer' => GenerationsImport::class,
+            'title' => 'Импортирование модификации',
         ]
     ];
 }

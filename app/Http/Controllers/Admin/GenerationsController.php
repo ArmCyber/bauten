@@ -55,7 +55,7 @@ class GenerationsController extends BaseController
     public function edit_patch($id, Request $request){
         $item = Generation::getItem($id);
         $inputs = $request->all();
-        $this->validator($inputs)->validate();
+        $this->validator($inputs, $item->id)->validate();
         if(Generation::action($item, $inputs)) {
             Notify::success('Модель редактирован.');
             return redirect()->route('admin.generations.edit', ['id'=>$item->id]);
@@ -76,9 +76,14 @@ class GenerationsController extends BaseController
         return response()->json($result);
     }
 
-    private function validator($inputs) {
+    private function validator($inputs, $ignore=null) {
+        $unique = $ignore===false?null:','.$ignore;
         return Validator::make($inputs, [
-            'title' => 'nullable|string|max:255'
+            'cid' => 'required|integer|digits_between:1,255|unique:generations,cid'.$unique,
+            'name' => 'nullable|string|max:255',
+            'engine' => 'nullable|integer|digits_between:1,10',
+            'year' => 'nullable|integer|digits:4',
+            'year_to' => 'nullable|integer|digits:4',
         ]);
     }
 }

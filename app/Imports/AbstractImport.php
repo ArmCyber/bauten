@@ -66,7 +66,7 @@ abstract class AbstractImport implements ToCollection
             $anyExist = false;
             foreach($this->keys as $name => $row_key) {
                 if($row[$row_key]) $anyExist = true;
-                $data[$name] = $row[$row_key];
+                $data[$name] = $row[$row_key]?trim($row[$row_key]):null;
             }
             if(!$anyExist) continue;
             $this->count++;
@@ -109,11 +109,11 @@ abstract class AbstractImport implements ToCollection
     public static function import($file){
         $class_name = get_called_class();
         $object = new $class_name;
-        try {
+//        try {
             Excel::import($object, $file);
-        } catch (\Exception $e) {
-            return 'failed';
-        }
+//        } catch (\Exception $e) {
+//            return 'failed';
+//        }
         return $object->response;
     }
 }

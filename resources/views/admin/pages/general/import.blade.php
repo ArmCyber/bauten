@@ -2,10 +2,11 @@
 @section('content')
 <form action="{!! url()->current() !!}" method="post" enctype="multipart/form-data">@csrf
     @if ($response)
-        @if($response=='failed')
+        @if($response=='unvalidated')
+            <div class="alert alert-danger" role="alert">Выберите Excel файл.</div>
+        @elseif($response=='failed')
             <div class="alert alert-danger" role="alert">Импортирование не произашло. Причина: неправильный формат файла.</div>
         @else
-            <div class="alert alert-success" role="alert">Импортирование произашло.</div>
             @php $multiple_sheets = count($response)>1 @endphp
             @foreach($response as $sheet)
                 @if($sheet['status'])
