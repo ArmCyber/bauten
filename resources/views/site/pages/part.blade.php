@@ -89,8 +89,8 @@
                                 <th>Марка</th>
                                 <th>Модель</th>
                                 <th>Модификация</th>
+
                             </tr>
-                            </thead>
                             <tbody>
                             @foreach($item->cars as $car)
                                 <tr><td class="tbl-mark">{{ $car->mark->name??'?' }}</td><td>{{ $car->model_id==0?'-':($car->model->name??'?') }}</td><td>{{ $car->generation_id!=0?$car->generation->full_name:'-' }}</td></tr>
