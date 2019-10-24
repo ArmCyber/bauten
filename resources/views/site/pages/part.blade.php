@@ -93,42 +93,27 @@
                             </thead>
                             <tbody>
                             @foreach($item->cars as $car)
-                                @php
-                                    if($car->generation_id==0) $this_name = '-';
-                                    else {
-                                        $this_name = $car->generation->name;
-                                        if ($car->generation->engine) $this_name.=' ('.$car->generation->engine.'см3)';
-                                        if ($car->generation->years) $this_name.=' ('.$car->generation->years.')';
-                                    }
-                                @endphp
-                                <tr><td class="tbl-mark">{{ $car->mark->name??'?' }}</td><td>{{ $car->model_id==0?'-':($car->model->name??'?') }}</td><td>{{ $this_name }}</td></tr>
+                                <tr><td class="tbl-mark">{{ $car->mark->name??'?' }}</td><td>{{ $car->model_id==0?'-':($car->model->name??'?') }}</td><td>{{ $car->generation_id!=0?$car->generation->full_name:'-' }}</td></tr>
                             @endforeach
                             </tbody>
                         </table>
                     </div>
                 </div>
             @endif
-            {{--<div class="product-table">
-                <div class="prod-tbl-title">Применяемость по двигателям</div>
-                <div class="prod-tbl-block">
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Марка</th>
-                            <th>Модель</th>
-                            <th>Модификация</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr><td class="tbl-mark">GDI</td><td>3.2</td><td>Турбо</td></tr>
-                        <tr><td class="tbl-mark">GDI</td><td>4.5</td><td>Турбо</td></tr>
-                        <tr><td class="tbl-mark">GDI</td><td>1.3</td><td>Турбо</td></tr>
-                        <tr><td class="tbl-mark">GDI</td><td>4.4</td><td>Турбо</td></tr>
-                        <tr><td class="tbl-mark">GDI</td><td>5.3</td><td>Турбо</td></tr>
-                        </tbody>
-                    </table>
+            @if(count($item_engine_filters))
+                <div class="product-page-specs mt-4">
+                    <div class="prod-tbl-title">Применяемость по двигателям</div>
+                    <div class="pr-specs-content">
+                        <div class="pr-specs-tbl">
+                            @foreach($item_engine_filters as $item_filter)
+                                <div class="pr-specs-item"><div class="pr-specs-key">{{ $item_filter[0]->filter->title }}</div><div class="pr-specs-value">
+                                        @foreach($item_filter as $item_criterion) @if(!$loop->first)<br>@endif <span>{{ $item_criterion->title }}</span> @endforeach
+                                    </div></div>
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
-            </div>--}}
+            @endif
         </div>
     </div>
 </div>

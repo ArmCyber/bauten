@@ -35,4 +35,10 @@ class EngineFilter extends Model
     public function criteria(){
         return $this->hasMany('App\Models\EngineCriterion')->sort();
     }
+
+    public static function adminGroupList() {
+        return self::select('id', 'title')->whereHas('criteria')->with(['criteria' => function($q){
+            $q->select('id', 'title', 'engine_filter_id');
+        }])->sort()->get();
+    }
 }

@@ -15,6 +15,11 @@ class EngineCriterion extends Model
         return self::findOrFail($id);
     }
 
+    public static function filterCriteriaRequest($criteria) {
+        if (!$criteria) return [];
+        return self::whereIn('id', $criteria)->pluck('id')->toArray();
+    }
+
     public static function action($model, $inputs, $filter_id=null) {
         if (!$model) {
             $model = new self;
@@ -30,6 +35,10 @@ class EngineCriterion extends Model
     }
 
     public function filter() {
-        return $this->belongsTo('App\Models\EngineFilter');
+        return $this->belongsTo('App\Models\EngineFilter', 'engine_filter_id', 'id');
+    }
+
+    public function parts(){
+        return $this->belongsToMany('App\Models\Part');
     }
 }

@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 @section('content')
-<form action="{{ route('admin.parts.filters', ['id' => $item->id]) }}" method="post" id="part-form" enctype="multipart/form-data">
+<form action="{{ url()->current() }}" method="post" id="part-form" enctype="multipart/form-data">
     @csrf @method('patch')
     @if ($errors->any())
         <div class="alert alert-danger" role="alert">

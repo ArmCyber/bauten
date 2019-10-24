@@ -127,6 +127,8 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
             Route::patch('edit/{id}', $c.'edit_patch');
             Route::get('filters/{id}', $c.'filters')->name('filters');
             Route::patch('filters/{id}', $c.'filters_patch')->name('filters');
+            Route::get('engine-filters/{id}', $c.'engineFilters')->name('engine_filters');
+            Route::patch('engine-filters/{id}', $c.'engineFilters_patch')->name('engine_filters');
             Route::delete('delete', $c.'delete')->middleware('ajax')->name('delete');
         });
         //endregion
@@ -275,6 +277,8 @@ Route::namespace('Site')->group(function() {
         Route::get('product/{url}', 'PartsController@show')->name('part');
         Route::get(r('catalogs').'/{url}', 'CatalogueController@group')->name('group');
         Route::get('category/{url}', 'CatalogueController@category')->name('catalogue');
+
+        Route::get('get-search-data', 'SearchController@getSearchData')->middleware('ajax')->name('search.get_data');
     });
     //region Auth
     Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');

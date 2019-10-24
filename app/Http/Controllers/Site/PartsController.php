@@ -14,6 +14,9 @@ class PartsController extends BaseController
         $data['item_filters'] = $data['item']->criteria->sortBy('sort')->sortBy('filter_id')->sortBy(function ($item){
             return $item->filter->sort;
         })->groupBy('filter_id');
+        $data['item_engine_filters'] = $data['item']->engine_criteria->sortBy('sort')->sortBy('filter_id')->sortBy(function ($item){
+            return $item->filter->sort;
+        })->groupBy('engine_filter_id');
         $data['gallery'] = Gallery::get('parts', $data['item']->id);
         $data['page_title'] = get_page('catalogs')->title;
         return view('site.pages.part', $data);

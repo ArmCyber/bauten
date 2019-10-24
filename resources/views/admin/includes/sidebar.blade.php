@@ -21,11 +21,11 @@
         @alink(['url'=>route('admin.part_catalogs.main'), 'icon'=>'fas fa-list', 'title'=>'Категории'])@endalink
         @alink(['url'=>route('admin.parts.main'), 'icon'=>'fas fa-car-battery', 'title'=>'Запчасти'])@endalink
         @alink(['url'=>route('admin.filters.main'), 'icon'=>'fas fa-filter', 'title'=>'Глобальные фильтры'])@endalink
+        @alink(['url'=>route('admin.engine_filters.main'), 'icon'=>'fas fa-car-side', 'title'=>'Фильтры двигателя'])@endalink
     @endalink
     @alink(['url'=>route('admin.marks.main'), 'icon'=>'fas fa-car', 'title'=>'Марки'])@endalink
     @alink(['url'=>route('admin.brands.main'), 'icon'=>'fas fa-list-ol', 'title'=>'Бренды'])@endalink
     @alink(['url'=>route('admin.partner_groups.main'), 'icon'=>'fas fa-handshake', 'title'=>'Группы партнеров'])@endalink
-    @alink(['url'=>route('admin.engine_filters.main'), 'icon'=>'fas fa-car-side', 'title'=>'Двигатели'])@endalink
     @alink(['url'=>route('admin.users.main'), 'icon'=>'fas fa-user', 'title'=>'Пользователи', 'counter'=>$pending_users_count])@endalink
     @alink(['url'=>route('admin.admins.main'), 'icon'=>'fas fa-user-tie', 'title'=>'Администраторы'])@endalink
     @alink(['title' => 'Импортирование', 'icon'=>'mdi mdi-file-import'])

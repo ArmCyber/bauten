@@ -116,9 +116,12 @@ a {
   @include newBtn('children', #198bbe, #2255a4) {
     @include fas(f1ae);
   }
-  @include newBtn('filters', #198bbe, #2255a4) {
+@include newBtn('filters', #198bbe, #2255a4) {
     @include fas(f0b0);
-  }
+}
+@include newBtn('filters-alt', #c0c000, #cdcd00) {
+    @include fas(f0b0);
+}
   @include newBtn('add', #198bbe, #2255a4) {
     @include fas(f067);
   }

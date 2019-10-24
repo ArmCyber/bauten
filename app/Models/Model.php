@@ -39,4 +39,10 @@ class Model extends Eloquent
     public function scopeSort($q){
         $q->orderBy('name', 'asc');
     }
+
+    public static function getSearchData($mark_id) {
+        return self::where(['mark_id'=>$mark_id, 'active'=>1])->sort()->get()->mapToGroups(function($item, $key) {
+            return [mb_strtoupper(mb_substr($item->name,0,1))=>$item];
+        });
+    }
 }

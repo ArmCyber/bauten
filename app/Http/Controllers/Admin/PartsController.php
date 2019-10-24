@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Brand;
 use App\Models\Criterion;
+use App\Models\EngineCriterion;
+use App\Models\EngineFilter;
 use App\Models\Filter;
 use App\Models\Mark;
 use App\Models\Part;
@@ -91,6 +93,26 @@ class PartsController extends BaseController
         $item->criteria()->sync($criteria);
         Notify::get('changes_saved');
         return redirect()->route('admin.parts.filters', ['id'=>$item->id]);
+    }
+
+    public function engineFilters($id) {
+        $data = [];
+        $data['item'] = Part::getItemForEngineFilters($id);
+        $data['selected_filters'] = $data['item']->engine_criteria->mapToGroups(function($item){
+            return [$item->engine_filter_id => (string) $item->id];
+        });
+        $data['title'] = 'Фильтры двигателя запчаста "'.$data['item']->name.'"';
+        $data['back_url'] = route('admin.parts.main');
+        $data['filters'] = EngineFilter::adminGroupList();
+        return view('admin.pages.parts.filters', $data);
+    }
+
+    public function engineFilters_patch($id, Request $request){
+        $item =  Part::getItemForEngineFilters($id);
+        $criteria = EngineCriterion::filterCriteriaRequest($request->input('criteria'));
+        $item->engine_criteria()->sync($criteria);
+        Notify::get('changes_saved');
+        return redirect()->route('admin.parts.engine_filters', ['id'=>$item->id]);
     }
 
     public function delete(Request $request) {

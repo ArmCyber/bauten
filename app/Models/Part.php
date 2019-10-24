@@ -61,6 +61,12 @@ class Part extends Model
         }])->firstOrFail();
     }
 
+    public static function getItemForEngineFilters($id) {
+        return self::where('id', $id)->with(['engine_criteria' => function($q){
+            $q->select('engine_criteria.id', 'engine_criteria.engine_filter_id');
+        }])->firstOrFail();
+    }
+
     public static function getItemSite($url) {
         return self::where(['url'=>$url, 'active'=>1])->whereHas('catalogue')->whereHas('brand')->with(['catalogue', 'brand', 'cars', 'criteria'=>function($q){
             $q->with('filter')->orderBy('id');
@@ -93,6 +99,10 @@ class Part extends Model
 
     public function criteria(){
         return $this->belongsToMany('App\Models\Criterion');
+    }
+
+    public function engine_criteria(){
+        return $this->belongsToMany('App\Models\EngineCriterion');
     }
 
 

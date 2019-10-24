@@ -1,7 +1,7 @@
 @extends('site.layouts.app')
 @section('main')
     <div class="container py-s">
-        @breadcrumb(['pages'=>[['title'=>'Вход', 'url'=>route('login')], ['title'=>'Регистрация']]])@endbreadcrumb
+        @breadcrumb(['pages'=>[['title'=>'Регистрация']]])@endbreadcrumb
         <div class="registration-page row">
             <div class="col-12 col-lg-6">
                 <div class="registration-greetings">

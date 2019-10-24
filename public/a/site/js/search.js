@@ -29,12 +29,54 @@ $('.home-search').on('click', '.home-search-single', function(){
         if (dataType==='mark') {
             ajaxModels.html('');
             ajaxGenerations.html('');
-            getData({
-
-            }, self);
+            if (self.hasClass('selected')) self.removeClass('selected');
+            else getData(self, function(e){
+                ajaxModels.html(e);
+                ajaxModels.children().slideDown(200);
+            });
+        }
+        else if (dataType==='model') {
+            ajaxGenerations.html('');
+            if (self.hasClass('selected')) self.removeClass('selected');
+            else getData(self, function(e){
+                ajaxGenerations.html(e);
+                ajaxGenerations.children().slideDown(200);
+            });
+        }
+        else if (dataType==='generation') {
+            if (self.hasClass('selected')) self.removeClass('selected');
+            else {
+                $('.home-search-single[data-type="'+dataType+'"]').removeClass('selected');
+                self.addClass('selected');
+            }
         }
 });
-var getData = function(options, item){
-    var searchBlock = item.parents('.home-search-block');
+var getData = function(item, callback){
+    var searchBlock = item.parents('.home-search-block'),
+        dataType = item.data('type');
     searchBlock.addClass('loader-shown');
+
+    $('.home-search-single[data-type="'+dataType+'"]').removeClass('selected');
+    $.ajax({
+        url: window.ajaxUrl,
+        type: 'get',
+        data: {
+            'type': dataType,
+            'key': item.data('id'),
+        },
+        success: function(e){
+            if (e) callback(e);
+            item.addClass('selected');
+            searchBlock.removeClass('loader-shown');
+        },
+        error: function(e) {
+            window.location.href='';
+        }
+    });
 };
+$('#home-search-clear').on('click', function(){
+    ajaxModels.html('');
+    ajaxGenerations.html('');
+    $('.home-search-multi.selected, .home-search-single.selected').removeClass('selected');
+});
+

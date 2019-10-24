@@ -98,8 +98,8 @@
                 </div>
             </div>
             <div class="home-search-buttons">
-                <button class="home-search-btn">Применить</button>
-                <button class="home-search-btn">Сбросить</button>
+                <button id="home-search-apply" class="home-search-btn">Применить</button>
+                <button id="home-search-clear" class="home-search-btn">Сбросить</button>
             </div>
         </div>
     </div>
@@ -110,5 +110,8 @@
 @endmodal
 @push('js')
     @js(aApp('bootstrap/js/bootstrap.js'))
+    <script>
+        window.ajaxUrl = "{{ route('search.get_data') }}";
+    </script>
     @js(aSite('js/search.js'))
 @endpush

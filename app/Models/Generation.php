@@ -58,4 +58,17 @@ class Generation extends Model
         }
         return $years;
     }
+
+    public static function getSearchData($model_id) {
+        return self::where(['model_id'=>$model_id, 'active'=>1])->sort()->get()->mapToGroups(function($item, $key) {
+            return [$item->name?mb_strtoupper(mb_substr($item->name,0,1)):'#'=>$item];
+        });
+    }
+
+    public function getFullNameAttribute() {
+        $result = $this->name;
+//        if ($this->engine) $this_name.=' ('.$this->engine.'см3)';
+        if ($this->years) $result.=' ('.$this->years.')';
+        return $result;
+    }
 }
