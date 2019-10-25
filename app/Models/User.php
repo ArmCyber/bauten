@@ -135,12 +135,16 @@ class User extends Authenticatable
 
     public function updateSeenAt(){
         $this->seen_at = now();
-        $this->save(['timestamps'=>false]);
+        $this->timestamps = false;
+        $this->save();
+        $this->timestamps = true;
     }
 
     public function updateLoggedInAt(){
         $this->logged_in_at = now();
-        $this->save(['timestamps'=>false]);
+        $this->timestamps = false;
+        $this->save();
+        $this->timestamps = true;
     }
 
     public static function getPendingUsersCount(){

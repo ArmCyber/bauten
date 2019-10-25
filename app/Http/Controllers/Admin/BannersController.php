@@ -145,6 +145,10 @@ class BannersController extends BaseController
                         'type' => 'image',
                         'resize' => ['resize', null, 56, false, true],
                         'hint' => false,
+                    ],
+                    'parts' => [
+                        'type' => 'image',
+                        'original_file' => true,
                     ]
                 ]
             ]

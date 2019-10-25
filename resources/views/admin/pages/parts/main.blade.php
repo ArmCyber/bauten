@@ -7,7 +7,7 @@
                 <table class="table table-striped m-b-0 columns-middle init-dataTable">
                     <thead>
                     <tr>
-                        <th>Код</th>
+                        <th>Артикул</th>
                         <th>Имя</th>
                         <th>Статус</th>
                         <th>Действие</th>

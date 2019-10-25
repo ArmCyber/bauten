@@ -155,6 +155,12 @@ if (!function_exists('to_url')) {
         return mb_substr(Str::slug($string), 0, 250);
     }
 }
+if (!function_exists('to_url_suf')) {
+    function to_url_suf($string)
+    {
+        return to_url($string).'-'.mt_rand(1, 9999);
+    }
+}
 if (!function_exists('file_name')) {
     function file_name($size = 20, $ext = '')
     {

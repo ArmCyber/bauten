@@ -5,38 +5,45 @@
     <div class="product-page">
         <div class="product-page-head">
             <div class="row l-m">
-                <div class="col-12 col-md-5">
-                    <div class="product-images">
-                        <div class="product-gallery-lg">
-                            <div id="product-gallery" class="swiper-container">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide"><div class="product-gallery-item"><img src="{{ asset('u/parts/'.$item->image) }}" alt="{{ $item->name }}" title="{{ $item->title }}"></div></div>
-                                    @foreach($gallery as $gallery_item)
-                                        <div class="swiper-slide"><div class="product-gallery-item"><img src="{{ $gallery_item->image() }}" alt="{{ $gallery_item->alt }}" title="{{ $gallery_item->title }}"></div></div>
-                                        @push('gallery_thumbs')
-                                            <div class="swiper-slide pr-thumb-slide"><div class="product-gallery-item pr-thumb-item"><img src="{{ $gallery_item->image() }}" alt="{{ $gallery_item->alt }}" title="{{ $gallery_item->title }}"></div></div>
-                                        @endpush
-                                    @endforeach
+                @if(($item->image && $item->show_image) || count($gallery))
+                    @php $images_av=true; @endphp
+                    <div class="col-12 col-md-5">
+                        <div class="product-images">
+                            <div class="product-gallery-lg">
+                                <div id="product-gallery" class="swiper-container">
+                                    <div class="swiper-wrapper">
+                                        @if($item->image && $item->show_image)
+                                            <div class="swiper-slide"><div class="product-gallery-item"><img src="{{ asset('u/parts/'.$item->image) }}" alt="{{ $item->name }}" title="{{ $item->title }}"></div></div>
+                                        @endif
+                                        @foreach($gallery as $gallery_item)
+                                            <div class="swiper-slide"><div class="product-gallery-item"><img src="{{ $gallery_item->image() }}" alt="{{ $gallery_item->alt }}" title="{{ $gallery_item->title }}"></div></div>
+                                            @push('gallery_thumbs')
+                                                <div class="swiper-slide pr-thumb-slide"><div class="product-gallery-item pr-thumb-item"><img src="{{ $gallery_item->image() }}" alt="{{ $gallery_item->alt }}" title="{{ $gallery_item->title }}"></div></div>
+                                            @endpush
+                                        @endforeach
+                                    </div>
                                 </div>
                             </div>
+                            @if(count($gallery))
+                                <div id="product-thumbs" class="swiper-container">
+                                    <div class="swiper-wrapper">
+                                        <div class="swiper-slide pr-thumb-slide"><div class="product-gallery-item pr-thumb-item"><img src="{{ asset('u/parts/'.$item->image) }}" alt="{{ $item->name }}" title="{{ $item->title }}"></div></div>
+                                        @stack('gallery_thumbs')
+                                    </div>
+                                </div>
+                            @endif
                         </div>
-                        @if(count($gallery))
-                        <div id="product-thumbs" class="swiper-container">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide pr-thumb-slide"><div class="product-gallery-item pr-thumb-item"><img src="{{ asset('u/parts/'.$item->image) }}" alt="{{ $item->name }}" title="{{ $item->title }}"></div></div>
-                                @stack('gallery_thumbs')
-                            </div>
-                        </div>
-                        @endif
                     </div>
-                </div>
-                <div class="col-12 col-md-7">
+                @endif
+                <div class="col-12{!! isset($images_av)?' col-md-7':' mt-3' !!}">
                     <div class="product-page-content">
                         <div class="product-page-info">
                             <h1 class="product-page-title">{{ $item->name }}</h1>
                             <div class="product-page-codes">
-                                <div class="product-page-code">Артикул: <span>{{ $item->articule }}</span></div>
-                                <div class="product-page-code">ОЕМ: <span>{{ $item->oem }}</span></div>
+                                <div class="product-page-code">Артикул: <span>{{ $item->code }}</span></div>
+                                @if($item->oem)
+                                    <div class="product-page-code">ОЕМ: <span>{{ $item->oem }}</span></div>
+                                @endif
                             </div>
                         </div>
                         @if($item->description)

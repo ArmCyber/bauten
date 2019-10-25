@@ -2,14 +2,17 @@
 
 namespace App\Models;
 
+use App\Http\Traits\GetIncrement;
+use App\Http\Traits\InsertOrUpdate;
 use App\Http\Traits\UrlUnique;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
 class Part extends Model
 {
-    use UrlUnique;
+    use UrlUnique, GetIncrement, InsertOrUpdate;
+
+    public $timestamps = false;
 
     public static function adminList(){
         return self::sort()->get();
@@ -30,13 +33,16 @@ class Part extends Model
         $model['name'] = $inputs['name'];
         $model['code'] = $inputs['code'];
         $model['price'] = $inputs['price'];
-        $model['articule'] = $inputs['articule'];
+        $model['available'] = $inputs['available'];
+        $model['min_count'] = $inputs['min_count'];
+        $model['multiplication'] = $inputs['multiplication'];
         $model['oem'] = $inputs['oem'];
         $model['description'] = $inputs['description'];
         $model['part_catalog_id'] = $inputs['part_catalog_id'];
         $model['brand_id'] = $inputs['brand_id'];
         $model['url'] = self::actionUrl($inputs, $ignore);
         $model['active'] = (int) array_key_exists('active', $inputs);
+        $model['show_image'] = (int) array_key_exists('show_image', $inputs);
         if($image = upload_file('image', 'u/parts/', ($ignore && !empty($model->image))?$model->image:false)) $model->image = $image;
         $model->save();
         PartCar::sync($model->id, $inputs['mark_id']??[], $inputs['model_id']??[], $inputs['generation_id']??[], (bool) $ignore);

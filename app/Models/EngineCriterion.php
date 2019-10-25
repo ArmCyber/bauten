@@ -20,6 +20,12 @@ class EngineCriterion extends Model
         return self::whereIn('id', $criteria)->pluck('id')->toArray();
     }
 
+    public static function searchList(){
+        return self::whereHas('parts', function($q){
+            $q->where('active', 1);
+        })->get();
+    }
+
     public static function action($model, $inputs, $filter_id=null) {
         if (!$model) {
             $model = new self;
@@ -39,6 +45,6 @@ class EngineCriterion extends Model
     }
 
     public function parts(){
-        return $this->belongsToMany('App\Models\Part');
+        return $this->belongsToMany('App\Models\Part', 'engine_criterion_part', 'engine_criterion_id', 'part_id');
     }
 }

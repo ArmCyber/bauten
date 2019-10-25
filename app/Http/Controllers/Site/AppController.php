@@ -3,14 +3,12 @@
 namespace App\Http\Controllers\Site;
 
 use App\Models\Brand;
-use App\Models\Country;
+use App\Models\EngineCriterion;
 use App\Models\HomeSlide;
 use App\Models\Mark;
 use App\Models\News;
-use App\Models\PartCatalog;
 use App\Models\Term;
 use App\Services\PageManager\StaticPages;
-use Illuminate\Http\Request;
 use Zakhayko\Banners\Models\Banner;
 
 class AppController extends BaseController
@@ -28,6 +26,7 @@ class AppController extends BaseController
         if(auth()->check()) {
             $data['search_brands'] = Brand::searchList();
             $data['search_marks'] = Mark::searchList();
+            $data['engine_criteria'] = EngineCriterion::searchList();
         }
         return view('site.pages.home', $data);
     }

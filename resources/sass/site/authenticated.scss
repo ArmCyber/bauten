@@ -118,7 +118,10 @@ button.home-search-btn  {
     min-width:98px;
     padding:0 20px;
 }
-input.home-search-control {
+.home-search-input {
+    font-size:15px;
+}
+select.home-search-control {
     width:470px;
     height:52px;
     background-color: #ffffff;

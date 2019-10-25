@@ -136,14 +136,16 @@ class PartsController extends BaseController
         $request->merge(['url' => $inputs['url']]);
         $rules = [
             'name' => 'nullable|string|max:255',
-            'code' => 'required|string|max:255|unique:parts,code'.$unique,
-            'image' => ($ignore?'nullable':'required').'|image',
+            'code' => 'required|integer|digits_between:1,255|unique:parts,code'.$unique,
+            'image' => 'nullable|image',
             'part_catalog_id' => 'required|integer|exists:part_catalogs,id',
             'brand_id' => 'required|integer|exists:brands,id',
             'generated_url'=>'required_with:generate_url|string|nullable',
-            'price' => 'required|numeric|between:1,10000000000',
-            'articule' => 'required|string|max:255|unique:parts,articule'.$unique,
-            'oem' => 'required|string|max:255|unique:parts,oem'.$unique,
+            'price' => 'required|numeric|between:1,1000000000',
+            'available' => 'nullable|integer|digits_between:1,10',
+            'min_count' => 'required|numeric|between:1,1000000000',
+            'multiplication' => 'required|numeric|between:1,1000000000',
+            'oem' => 'nullable|string|max:255|unique:parts,oem'.$unique,
             'description' => 'nullable|string',
         ];
         if (empty($inputs['generate_url'])) {

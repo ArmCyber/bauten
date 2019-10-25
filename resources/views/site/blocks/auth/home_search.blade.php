@@ -94,7 +94,11 @@
             <div class="home-search-title"><label class="all-inherit" for="home-search-engine">ДВИГАТЕЛЬ</label></div>
             <div class="home-search-content">
                 <div class="home-search-input">
-                    <input type="text" class="home-search-control" id="home-search-engine">
+                    <select class="home-search-control" id="home-search-engine" multiple>
+                        @foreach($engine_criteria as $criterion)
+                            <option value="{{ $criterion->id }}">{{ $criterion->title }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
             <div class="home-search-buttons">
@@ -108,8 +112,12 @@
     @slot('title')Выберите максимум {{ $max_take }} елементов.@endslot
     <p class="font-14">Выберите максимум {{ $max_take }} елементов.</p>
 @endmodal
+@push('css')
+    @css(aApp('select2/select2.css'))
+@endpush
 @push('js')
     @js(aApp('bootstrap/js/bootstrap.js'))
+    @js(aApp('select2/select2.js'))
     <script>
         window.ajaxUrl = "{{ route('search.get_data') }}";
     </script>

@@ -40,13 +40,7 @@
                     <div class="row row-grid">
                         @foreach($items as $item)
                             <div class="col-12 col-sm-6 col-md-4 col-lg-6 col-xl-4">
-                                <div class="product-item">
-                                    <div class="product-image"><a href="{{ $item_url = route('part', ['url'=>$item->url]) }}">
-                                        <img src="{{ asset('u/parts/'.$item->image) }}" alt="{{ $item->name }}">
-                                    </a></div>
-                                    <div class="product-title"><a href="{{ $item_url }}">{{ $item->name }}</a></div>
-                                    <div class="product-price"><span class="catalogue-price">Цена: <span class="cat-price">{{ $item->price }}</span> <span class="kzt"></span></span></div>
-                                </div>
+                                @component('site.components.part', ['item'=>$item])@endcomponent
                             </div>
                         @endforeach
                         {{--@for($i=1; $i<=4; $i++)

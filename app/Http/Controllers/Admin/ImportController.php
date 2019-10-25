@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Imports\GenerationsImport;
 use App\Imports\MarksImport;
 use App\Imports\ModelsImport;
+use App\Imports\PartsImport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -48,6 +49,10 @@ class ImportController extends BaseController
         'generations' => [
             'importer' => GenerationsImport::class,
             'title' => 'Импортирование модификации',
+        ],
+        'parts' => [
+            'importer' => PartsImport::class,
+            'title' => 'Импортирование запчастей',
         ]
     ];
 }

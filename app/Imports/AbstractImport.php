@@ -54,7 +54,7 @@ abstract class AbstractImport implements ToCollection
                 }
                 else {
                     foreach($this->keys as $name => $key) {
-                        if (mb_strtolower($row[$key])!=$this->names[$name]) {
+                        if (trim(mb_strtolower($row[$key]))!=$this->names[$name]) {
                             $this->addSheet(false);
                             return;
                         }
@@ -67,7 +67,7 @@ abstract class AbstractImport implements ToCollection
             foreach($this->keys as $name => $row_key) {
                 if($row[$row_key]) $anyExist = true;
                 $this_name = trim($row[$row_key]);
-                $data[$name] = $this_name?:null;
+                $data[$name] = $this_name!==''?$this_name:null;
             }
             if(!$anyExist) continue;
             $this->count++;
@@ -84,7 +84,7 @@ abstract class AbstractImport implements ToCollection
                 $this->addError($key+1, $response['reason'], $response['attributes']);
             }
         }
-        $this->callback();
+        if (count($this->rows)) $this->callback();
         $this->addSheet();
         return;
     }

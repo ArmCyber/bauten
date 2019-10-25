@@ -74,9 +74,33 @@ var getData = function(item, callback){
         }
     });
 };
+$('#home-search-engine').select2({
+    minimumInputLength: 1,
+});
 $('#home-search-clear').on('click', function(){
     ajaxModels.html('');
     ajaxGenerations.html('');
     $('.home-search-multi.selected, .home-search-single.selected').removeClass('selected');
+    $('#home-search-engine').val('').trigger('change');
 });
-
+$('#home-search-apply').on('click', function(){
+    var parts = $('.search-group-select[data-type="product"].selected'),
+        brands = $('.search-group-select[data-type="brand"].selected'),
+        mark = $('.search-group-select[data-type="mark"].selected'),
+        model = $('.search-group-select[data-type="model"].selected'),
+        generation = $('.search-group-select[data-type="generation"].selected'),
+        engine = $('#home-search-engine').val(),
+        qs = '';
+    if(parts.length>0) {
+        qs+='?parts=';
+        var thisIds = [];
+        var i = 0;
+        $.each(parts, function(i,e){
+            i++;
+            if (i>5) return false;
+            thisIds.push($(e).data('id'));
+        });
+        qs+=thisIds.join(',');
+    }
+    console.log(qs);
+});
