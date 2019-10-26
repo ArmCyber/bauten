@@ -113,6 +113,6 @@ class Part extends Model
 
 
     public function scopeSort($q) {
-        return $q->orderBy('id', 'asc');
+        return $q->orderBy('price', 'asc');
     }
 }

@@ -70,9 +70,7 @@ class PartCatalog extends Model
     public static function getItemSite($url) {
         return self::where('url', $url)->whereHas('parts', function($q){
             $q->where('active', 1);
-        })->with(['parts'=>function($q){
-            $q->where('active', 1);
-        }])->firstOrFail();
+        })->firstOrFail();
     }
 
     public function group() {

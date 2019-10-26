@@ -114,7 +114,7 @@ button.home-search-btn  {
     background-color:$blue;
     color:#ffffff;
     border:1px solid $blue;
-    height:52px;
+    height:51px;
     min-width:98px;
     padding:0 20px;
 }
@@ -202,3 +202,8 @@ select.home-search-control {
     100% { transform: rotate(360deg); }
 }
 //endregion
+@include media(1599) {
+    button.home-search-btn {
+        height: 45px;
+    }
+}

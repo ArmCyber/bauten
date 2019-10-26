@@ -9,7 +9,7 @@
                             <div class="search-group-title">{{ $key }}</div>
                             <div class="search-group-items">
                                 @foreach($generations as $generation)
-                                    <div class="search-group-item"><span class="search-group-select home-search-single" data-type="generation" data-id="{{ $generation->id }}">{{ $generation->full_name }}</span></div>
+                                    <div class="search-group-item"><span class="search-group-select home-search-car" data-type="generation" data-id="{{ $generation->id }}">{{ $generation->full_name }}</span></div>
                                 @endforeach
                             </div>
                         </div>

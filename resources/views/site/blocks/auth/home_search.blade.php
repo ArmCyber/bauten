@@ -4,7 +4,7 @@
             <div class="home-search-title">ЗАПЧАСТИ</div>
             <div class="home-search-content">
                 @foreach($home_catalogs->take($max_take = settings('max_take', 5)) as $catalog)
-                    <span class="home-search-option home-search-multi" data-type="product" data-id="{{ $catalog->id }}">{{ $catalog->name }}</span>
+                    <span class="home-search-option home-search-single" data-type="product" data-id="{{ $catalog->id }}">{{ $catalog->name }}</span>
                 @endforeach
             </div>
             <div class="home-search-buttons">
@@ -19,7 +19,7 @@
                                     <div class="search-group-title">{{ $group->name }}</div>
                                     <div class="search-group-items">
                                         @foreach($group->catalogs as $catalog_item)
-                                            <div class="search-group-item"><span class="search-group-select home-search-multi" data-type="product" data-id="{{ $catalog_item->id }}">{{ $catalog_item->name }}</span></div>
+                                            <div class="search-group-item"><span class="search-group-select home-search-single" data-type="product" data-id="{{ $catalog_item->id }}">{{ $catalog_item->name }}</span></div>
                                         @endforeach
                                     </div>
                                 </div>
@@ -62,7 +62,7 @@
             <div class="home-search-title">МАРКА</div>
             <div class="home-search-content">
                 @foreach($marks->take($max_take) as $mark)
-                    <span class="home-search-option home-search-single" data-type="mark" data-id="{{ $mark->id }}">{{ $mark->name }}</span>
+                    <span class="home-search-option home-search-car" data-type="mark" data-id="{{ $mark->id }}">{{ $mark->name }}</span>
                 @endforeach
             </div>
             <div class="home-search-buttons">
@@ -77,7 +77,7 @@
                                     <div class="search-group-title">{{ $key }}</div>
                                     <div class="search-group-items">
                                         @foreach($search_mark_group as $mark)
-                                            <div class="search-group-item"><span class="search-group-select home-search-single" data-type="mark" data-id="{{ $mark->id }}">{{ $mark->name }}</span></div>
+                                            <div class="search-group-item"><span class="search-group-select home-search-car" data-type="mark" data-id="{{ $mark->id }}">{{ $mark->name }}</span></div>
                                         @endforeach
                                     </div>
                                 </div>

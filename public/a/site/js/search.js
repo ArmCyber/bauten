@@ -23,7 +23,19 @@ $('.home-search-multi').on('click', function(){
         else selector.addClass('selected');
     }
 });
-$('.home-search').on('click', '.home-search-single', function(){
+$('.home-search-single').on('click', function(){
+    var self = $(this),
+        dataType = self.data('type'),
+        dataId = self.data('id');
+    if (self.hasClass('selected')) {
+        $('.home-search-single[data-type="'+dataType+'"]').removeClass('selected');
+    }
+    else {
+        $('.home-search-single[data-type="'+dataType+'"]').removeClass('selected');
+        $('.home-search-single[data-type="'+dataType+'"][data-id="'+dataId+'"]').addClass('selected');
+    }
+});
+$('.home-search').on('click', '.home-search-car', function(){
         var self = $(this),
             dataType = self.data('type');
         if (dataType==='mark') {
@@ -46,7 +58,7 @@ $('.home-search').on('click', '.home-search-single', function(){
         else if (dataType==='generation') {
             if (self.hasClass('selected')) self.removeClass('selected');
             else {
-                $('.home-search-single[data-type="'+dataType+'"]').removeClass('selected');
+                $('.home-search-car[data-type="'+dataType+'"]').removeClass('selected');
                 self.addClass('selected');
             }
         }
@@ -56,7 +68,7 @@ var getData = function(item, callback){
         dataType = item.data('type');
     searchBlock.addClass('loader-shown');
 
-    $('.home-search-single[data-type="'+dataType+'"]').removeClass('selected');
+    $('.home-search-car[data-type="'+dataType+'"]').removeClass('selected');
     $.ajax({
         url: window.ajaxUrl,
         type: 'get',
@@ -80,7 +92,7 @@ $('#home-search-engine').select2({
 $('#home-search-clear').on('click', function(){
     ajaxModels.html('');
     ajaxGenerations.html('');
-    $('.home-search-multi.selected, .home-search-single.selected').removeClass('selected');
+    $('.home-search-multi.selected, .home-search-car.selected').removeClass('selected');
     $('#home-search-engine').val('').trigger('change');
 });
 $('#home-search-apply').on('click', function(){

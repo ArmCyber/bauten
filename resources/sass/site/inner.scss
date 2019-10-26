@@ -12,10 +12,13 @@ label {
     max-width: 25%;
     padding-right: 10px;
 }
-
 .products-content {
-    flex: 0 0 75%;
-    max-width: 75%;
+    flex: 0 0 100%;
+    max-width: 100%;
+    .products-filters+& {
+        flex: 0 0 75%;
+        max-width: 75%;
+    }
 }
 
 .products-filter {
@@ -916,11 +919,14 @@ img.news-page-image {
     .sort-select-title {
         margin-right: 25px;
     }
-    .products-filters {
-        @include m(max-width flex-basis, 35%);
+    .products-filters+.products-content {
+        @include m(max-width flex-basis, 100%);
     }
-    .products-content {
-        @include m(max-width flex-basis, 65%);
+    .products-filters {
+        display: none;
+    }
+    .products-sort {
+        display: none;
     }
     .registration-title {
         font-size: 27px;
@@ -948,17 +954,8 @@ img.news-page-image {
 }
 
 @include media(991) {
-    .products-filters {
-        display: none;
-    }
-    .products-content {
-        @include m(max-width flex-basis, 100%);
-    }
     .product-title {
         font-size: 17px;
-    }
-    .products-sort {
-        display: none;
     }
     .registration-page {
         text-align: center;

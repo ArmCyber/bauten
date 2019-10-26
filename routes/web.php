@@ -279,6 +279,7 @@ Route::namespace('Site')->group(function() {
         Route::get('category/{url}', 'CatalogueController@category')->name('catalogue');
 
         Route::get('get-search-data', 'SearchController@getSearchData')->middleware('ajax')->name('search.get_data');
+        Route::post('get-filter-data', 'CatalogueController@getFilterData')->middleware('ajax')->name('filter.get_data');
     });
     //region Auth
     Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');

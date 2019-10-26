@@ -10,10 +10,16 @@ use Illuminate\Http\Request;
 
 class CatalogueController extends BaseController
 {
+    private function getFilters(){
+        $request = request();
+
+    }
+
     public function group($url) {
         $data = [];
         $group = Group::getItemSite($url);
         $catalog_ids = $group->catalogs->pluck('id')->toArray();
+        $filters = $this->getFilters();
         $data['items'] = Part::catalogsList($catalog_ids);
         $page = get_page('catalogs');
         $data['active_page'] = $page->id;
@@ -27,7 +33,8 @@ class CatalogueController extends BaseController
         $data = [];
         $catalogue = PartCatalog::getItemSite($url);
         $data['catalogue_title'] = $catalogue->name;
-        $data['items'] = $catalogue->parts;
+        $filters = $this->getFilters();
+        $data['items'] = Part::catalogsList([$catalogue->id]);
         $page = get_page('catalogs');
         $data['active_page'] = $page->id;
         $data['page_title'] = $page->title;

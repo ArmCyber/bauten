@@ -9,7 +9,7 @@
                             <div class="search-group-title">{{ $key }}</div>
                             <div class="search-group-items">
                                 @foreach($models as $model)
-                                    <div class="search-group-item"><span class="search-group-select home-search-single" data-type="model" data-id="{{ $model->id }}">{{ $model->name }}</span></div>
+                                    <div class="search-group-item"><span class="search-group-select home-search-car" data-type="model" data-id="{{ $model->id }}">{{ $model->name }}</span></div>
                                 @endforeach
                             </div>
                         </div>
