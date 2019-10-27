@@ -362,6 +362,7 @@ a.bauten-btn {
     width: 202px;
     height: 47px;
     border: 1px solid $blue;
+    text-align: center;
     background-color: $blue;
     color: #ffffff;
     @include transition(#{color .3s ease, background-color .3s ease});
@@ -420,7 +421,7 @@ a.bauten-btn {
 }
 
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
-    background-color: $blue;
+    background-color: $blue !important;
 }
 
 .select2-container--default .select2-search--dropdown .select2-search__field {

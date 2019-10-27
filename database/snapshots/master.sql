@@ -101,6 +101,22 @@ LOCK TABLES `brands` WRITE;
 INSERT INTO `brands` VALUES (1,'1','A-ONE Taiwan',NULL,'<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>','VblwLcqn5sxlxmVI8W.png',NULL,NULL,'a-one',1,2,1,'2019-10-04 17:07:27','2019-10-22 18:09:44'),(2,'2','AGP Malaysia',NULL,NULL,'qa3EyHS2FMzDg06llo.png','2','3','agp',1,3,1,'2019-10-07 14:59:42','2019-10-18 14:34:49'),(3,'3','BAUTEN рулевая рейка реставрация',NULL,NULL,'r1od7JHxVQMsEzlupL.png',NULL,NULL,'bauten',1,4,1,'2019-10-07 15:12:52','2019-10-18 14:34:49'),(4,'4','BAW Taiwan','<p>short</p>','<p>description</p>','eBe3R3uICS0eVLAcIf.png',NULL,NULL,'baw',1,1,1,'2019-10-07 15:14:32','2019-10-21 17:39:10'),(5,'5','CAMELLIA Japan',NULL,NULL,'cR0lJW3KoV8kI6LJTA.png',NULL,NULL,'camellia',1,5,1,'2019-10-07 15:14:44','2019-10-18 14:34:49'),(6,'6','CASP Taiwan',NULL,NULL,'WWEtCaBnPPkoWfX8wJ.png',NULL,NULL,'casp',1,6,1,'2019-10-07 15:14:55','2019-10-18 14:34:49'),(7,'7','Cft',NULL,NULL,'t8cHK1jUiNbuFs9p1n.png',NULL,NULL,'cft',1,7,1,'2019-10-07 15:15:07','2019-10-18 14:34:49'),(8,'8','Depo',NULL,NULL,'yRtTjuk2klx7iwF4oO.png',NULL,NULL,'depo',1,8,1,'2019-10-07 15:15:19','2019-10-18 14:34:49'),(9,'9','Visa',NULL,NULL,'L7obyzDUkyl0JEXlxl.png',NULL,NULL,'visa',1,9,1,'2019-10-07 15:15:39','2019-10-18 14:34:49'),(11,'10','Deye',NULL,NULL,'6OT8Pnkarj28bTUWEz.png',NULL,NULL,'deye',1,10,1,'2019-10-07 15:17:14','2019-10-18 14:34:49'),(12,'11','Did',NULL,NULL,'xHSHWZHIhy3MJXZ6D3.png',NULL,NULL,'did',1,11,1,'2019-10-07 15:17:25','2019-10-18 14:34:49');
 /*!40000 ALTER TABLE `brands` ENABLE KEYS */;
 UNLOCK TABLES;
+DROP TABLE IF EXISTS `change_emails`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `change_emails` (
+  `user_id` bigint(20) unsigned NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `verification` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`user_id`),
+  CONSTRAINT `change_emails_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+LOCK TABLES `change_emails` WRITE;
+/*!40000 ALTER TABLE `change_emails` DISABLE KEYS */;
+/*!40000 ALTER TABLE `change_emails` ENABLE KEYS */;
+UNLOCK TABLES;
 DROP TABLE IF EXISTS `countries`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -377,12 +393,12 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (1,'2019_07_10_171502_create_admins_table',1),(2,'2019_07_12_204343_create_password_resets_table',1),(3,'2019_07_12_232636_create_pages_table',1),(4,'2019_07_23_000000_create_zakhayko_banners_table',1),(5,'2019_08_14_161704_create_marks_table',1),(6,'2019_08_14_161725_create_models_table',1),(7,'2019_08_14_161756_create_generations_table',1),(8,'2019_08_14_221246_create_countries_table',1),(9,'2019_08_14_221310_create_regions_table',1),(10,'2019_08_19_142314_create_parts_table',1),(11,'2019_08_19_165244_create_brands_table',1),(12,'2019_09_02_210329_create_part_catalogs_table',1),(13,'2019_09_06_194022_create_part_cars_table',1),(14,'2019_09_30_183624_create_home_slider_table',1),(15,'2019_10_02_183143_create_galleries_table',1),(16,'2019_10_06_173451_create_terms_table',1),(17,'2019_10_07_150146_create_news_table',1),(18,'2019_10_08_161153_create_groups_table',1),(19,'2019_10_08_165558_add_group_id_to_part_catalogs_table',1),(20,'2019_10_08_191627_create_filters_table',1),(21,'2019_10_08_193606_create_criteria_table',1),(22,'2019_10_09_144929_create_criterion_part_table',1),(24,'2019_10_11_144259_create_engine_filters_table',1),(25,'2019_10_11_144400_create_engine_criteria_table',1),(26,'2019_10_11_151219_create_users_table',1),(34,'2019_10_22_170311_create_partner_groups_table',2),(35,'2019_10_22_170857_add_partner_group_id_to_users_table',2),(37,'2019_10_22_221136_create_favourites_table',3),(38,'2019_10_22_221849_create_basket_table',4),(39,'2019_10_24_170751_create_engine_criterion_part_table',5);
+INSERT INTO `migrations` VALUES (1,'2019_07_10_171502_create_admins_table',1),(2,'2019_07_12_204343_create_password_resets_table',1),(3,'2019_07_12_232636_create_pages_table',1),(4,'2019_07_23_000000_create_zakhayko_banners_table',1),(5,'2019_08_14_161704_create_marks_table',1),(6,'2019_08_14_161725_create_models_table',1),(7,'2019_08_14_161756_create_generations_table',1),(8,'2019_08_14_221246_create_countries_table',1),(9,'2019_08_14_221310_create_regions_table',1),(10,'2019_08_19_142314_create_parts_table',1),(11,'2019_08_19_165244_create_brands_table',1),(12,'2019_09_02_210329_create_part_catalogs_table',1),(13,'2019_09_06_194022_create_part_cars_table',1),(14,'2019_09_30_183624_create_home_slider_table',1),(15,'2019_10_02_183143_create_galleries_table',1),(16,'2019_10_06_173451_create_terms_table',1),(17,'2019_10_07_150146_create_news_table',1),(18,'2019_10_08_161153_create_groups_table',1),(19,'2019_10_08_165558_add_group_id_to_part_catalogs_table',1),(20,'2019_10_08_191627_create_filters_table',1),(21,'2019_10_08_193606_create_criteria_table',1),(22,'2019_10_09_144929_create_criterion_part_table',1),(24,'2019_10_11_144259_create_engine_filters_table',1),(25,'2019_10_11_144400_create_engine_criteria_table',1),(26,'2019_10_11_151219_create_users_table',1),(34,'2019_10_22_170311_create_partner_groups_table',2),(35,'2019_10_22_170857_add_partner_group_id_to_users_table',2),(37,'2019_10_22_221136_create_favourites_table',3),(38,'2019_10_22_221849_create_basket_table',4),(39,'2019_10_24_170751_create_engine_criterion_part_table',5),(40,'2019_10_27_202229_create_change_emails_table',6);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `models`;
@@ -652,7 +668,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,1,3,'Айк','Закарян',4,'Казахстан','Астана','Ереван','+37455325665',NULL,NULL,'zakhayko@gmail.com','$2y$10$2zOXfCV1WgBBN8CwYmwIQ.1GWWuqkYhhJluhZAvPNJ1qpAfTOkWEu',NULL,1,'SOCO5fhVp1RjsWPzr9QN8WVSZxuSwsugwJtRnSl1iQX3sEICuvYospml4JD6',2,'2019-10-27 14:45:08','2019-10-27 12:48:25','2019-10-15 15:59:56','2019-10-25 14:58:43'),(2,2,NULL,'Test','Test',1,'Казахстан','Астана','Tera','+444444444','Test','Test','hayko2000@mail.ru','$2y$10$yFSwRaqyA4B3Oi9er1SXaOxWnUSww5iEA7C8RF8BeX5DNILGo2.ca',NULL,-1,NULL,1,NULL,NULL,'2019-10-15 17:40:38','2019-10-15 17:40:38');
+INSERT INTO `users` VALUES (1,2,3,'Айк','Закарян',1,'Казахстан','Астана','Ереван','+374553256655','COMPANY','BIN','zakhayko@gmail.com','$2y$10$j13u95VxaZKl89aIQhB26eGb1MKAjLUwzCsR/42r2d8qCl2LoneGq',NULL,1,'BrFWisdp6JFvcnbhzIVlqGzsMSJvT8EyawLZCbNJsQb22WRH1e4VXMJNXmEu',2,'2019-10-27 19:16:40','2019-10-27 19:16:23','2019-10-15 15:59:56','2019-10-27 19:16:34'),(2,2,NULL,'Test','Test',1,'Казахстан','Астана','Tera','+444444444','Test','Test','hayko2000@mail.ru','$2y$10$yFSwRaqyA4B3Oi9er1SXaOxWnUSww5iEA7C8RF8BeX5DNILGo2.ca',NULL,-1,NULL,1,NULL,NULL,'2019-10-15 17:40:38','2019-10-15 17:40:38');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

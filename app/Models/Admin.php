@@ -45,6 +45,10 @@ class Admin extends AuthUser
         } catch (\Exception $e){}
     }
 
+    public static function getSeniorManager(){
+        return self::where('role', config('roles.senior_manager'))->first();
+    }
+
     public static function changeSettings($user, $inputs){
         $user['name'] = $inputs['name'];
         $user['email'] = $inputs['email'];

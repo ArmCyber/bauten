@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Site;
 
+use App\Models\Admin;
 use App\Models\Group;
 use App\Models\Page;
 use App\Models\PartCatalog;
@@ -38,6 +39,9 @@ class BaseController extends Controller
         $this->shared['footer_pages'] = Page::footerList();
         $this->shared['home_catalogs'] = PartCatalog::homeList();
         $this->shared['user'] = Auth::user();
+        if ($this->shared['user']){
+            $this->shared['user_manager'] = $this->shared['user']->manager?:Admin::getSeniorManager();
+        }
         view()->share($this->shared);
         return true;
     }

@@ -1,7 +1,6 @@
 @extends('site.layouts.app')
 @section('main')
-    <div class="container py-s">
-        @breadcrumb(['pages'=>[['title'=>'Личный кабинет']]])@endbreadcrumb
+    <div class="container pt-2s pb-s">
         <div class="cabinet-row">
             <div class="cabinet-left">
                 <div class="cabinet-sidebar">
@@ -15,7 +14,7 @@
                         @component('site.components.cabinet_link', ['route'=>null, 'title'=>'Корзина'])@endcomponent
                         @component('site.components.cabinet_link', ['route'=>null, 'title'=>'Сохроненные'])@endcomponent
                         @component('site.components.cabinet_link', ['route'=>null, 'title'=>'Покупки'])@endcomponent
-                        @component('site.components.cabinet_link', ['route'=>null, 'title'=>'Настройки'])@endcomponent
+                        @component('site.components.cabinet_link', ['route'=>'cabinet.profile', 'title'=>'Профиль'])@endcomponent
                         @component('site.components.cabinet_link', ['route'=>null, 'title'=>'Выход', 'class'=>'action-logout'])@endcomponent
                     </div>
                 </div>

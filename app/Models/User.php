@@ -51,7 +51,7 @@ class User extends Authenticatable
     public static function register($inputs, $verification_token) {
         $user = new self;
         merge_model($inputs, $user, ['type', 'name', 'last_name', 'region_id', 'city', 'phone', 'email']);
-        $region = Region::find($inputs['region_id'])->with('country')->first();
+        $region = Region::find($inputs['region_id']);
         if ($inputs['type']==self::TYPE_ENTITY) {
             $user['company'] = $inputs['company'];
             $user['bin'] = $inputs['bin'];
@@ -62,6 +62,23 @@ class User extends Authenticatable
         $user['verification'] = Hash::make($verification_token);
         $user->save();
         return $user;
+    }
+
+    public static function updateSettings($user, $inputs) {
+        $user['name'] = $inputs['name'];
+        $user['last_name'] = $inputs['last_name'];
+        $user['phone'] = $inputs['phone'];
+        $region = Region::find($inputs['region_id']);
+        $user['region_id'] = $region->id;
+        $user['country_name'] = $region->country->title;
+        $user['region_name'] = $region->title;
+        $user['city'] = $inputs['city'];
+        if ($user->is_entity) {
+            $user['company'] = $inputs['company'];
+            $user['bin'] = $inputs['bin'];
+        }
+        $user->save();
+
     }
 
     public function sendRegisteredNotification($token, $admin_email = null) {
@@ -96,9 +113,9 @@ class User extends Authenticatable
     }
 
     public function sendPartnerGroupChangedNotification($partner_group) {
-//        try {
+        try {
             $this->notify(new PartnerGroupChangedNotification($partner_group));
-//        } catch (\Exception $e) {}
+        } catch (\Exception $e) {}
     }
 
     public static function adminList(){
@@ -116,6 +133,10 @@ class User extends Authenticatable
 
     public function manager(){
         return $this->belongsTo('App\Models\Admin', 'manager_id', 'id')->where('role', config('roles.manager'));
+    }
+
+    public function region(){
+        return $this->belongsTo('App\Models\Region', 'region_id', 'id');
     }
 
     public function getTypeNameAttribute() {
@@ -180,6 +201,10 @@ class User extends Authenticatable
 
     public function partner_group(){
         return $this->belongsTo('App\Models\PartnerGroup')->sort();
+    }
+
+    public function getIsEntityAttribute() {
+        return $this->type==self::TYPE_ENTITY;
     }
 
     public static function deleteItem($model) {

@@ -272,14 +272,21 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
 Route::namespace('Site')->group(function() {
     Route::middleware('auth')->group(function(){
         Route::post('logout', 'Auth\LoginController@logout')->name('logout');
-        Route::get('cabinet', 'Cabinet\MainController@main')->name('cabinet.main');
-
         Route::get('product/{url}', 'PartsController@show')->name('part');
         Route::get(r('catalogs').'/{url}', 'CatalogueController@group')->name('group');
         Route::get('category/{url}', 'CatalogueController@category')->name('catalogue');
 
         Route::get('get-search-data', 'SearchController@getSearchData')->middleware('ajax')->name('search.get_data');
         Route::post('get-filter-data', 'CatalogueController@getFilterData')->middleware('ajax')->name('filter.get_data');
+
+        Route::prefix('cabinet')->namespace('Cabinet')->name('cabinet.')->group(function(){
+            Route::get('', 'MainController@main')->name('main');
+            Route::get('profile', 'ProfileController@main')->name('profile');
+            Route::get('profile/settings', 'ProfileController@settings')->name('profile.settings');
+            Route::post('profile/settings', 'ProfileController@settings_post');
+            Route::get('profile/change-password', 'ProfileController@changePassword')->name('profile.change_password');
+            Route::post('profile/change-password', 'ProfileController@changePassword_post');
+        });
     });
     //region Auth
     Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
