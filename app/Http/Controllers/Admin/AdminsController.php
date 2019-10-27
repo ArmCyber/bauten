@@ -41,7 +41,7 @@ class AdminsController extends BaseController
         $data = ['title'=>'Редактирование профиля администратора', 'edit'=>true];
         $data['back_url'] = route('admin.admins.main');
         $data['item'] = Admin::getItem($id);
-        $data['roles'] = Admin::getAvailableRoles();
+        $data['roles'] = Admin::getAvailableRoles($id);
         return view('admin.pages.admins.form', $data);
     }
 
@@ -70,15 +70,19 @@ class AdminsController extends BaseController
     }
 
     private function validator($inputs, $ignore=false) {
+        $unique = $ignore?','.$ignore:null;
         $rules = [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|mail|max:255|unique:admins,email'.($ignore?','.$ignore:null),
-            'phone'=>'required|string|max:255|phone|unique:admins,phone'.($ignore?','.$ignore:null),
-            'role' => 'required|integer|between:1,'.Auth::user()->role,
+            'email' => 'required|string|mail|max:255|unique:admins,email'.$unique,
+            'phone'=>'required|string|max:255|phone|unique:admins,phone'.$unique,
+            'role' => ['required', 'integer', 'between:1,'.Auth::user()->role],
             'password' => ($ignore?'nullable':'required').'|string|min:8|confirmed',
         ];
         if ($inputs['role']==config('roles.manager')) {
-            $rules['code'] = 'required|string|max:255|unique:admins,code'.($ignore?','.$ignore:null);
+            $rules['code'] = 'required|string|max:255|unique:admins,code'.$unique;
+        }
+        elseif ($inputs['role']==config('roles.senior_manager')) {
+            $rules['role'][] = 'unique:admins,role'.$unique;
         }
         return Validator::make($inputs, $rules,[
             'role.*' => 'Выберите роль.',

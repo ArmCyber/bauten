@@ -2,6 +2,7 @@
 return [
     'operator' => 1,
     'manager' => 2,
-    'admin' => 3,
-    'superadmin' => 4,
+    'senior_manager' => 3,
+    'admin' => 4,
+    'superadmin' => 5,
 ];

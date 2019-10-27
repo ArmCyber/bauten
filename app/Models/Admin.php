@@ -18,13 +18,19 @@ class Admin extends AuthUser
     public const ROLES = [
         1 => 'Оператор',
         2 => 'Менеджер',
-        3 => 'Администратор',
-        4 => 'Главный администратор',
+        3 => 'Старший менеджер',
+        4 => 'Администратор',
+        5 => 'Главный администратор',
     ];
 
-    public static function getAvailableRoles(){
+    public static function getAvailableRoles($id=null){
+        $seniorManagerRole = config('roles.senior_manager');
+        $hasSeniorManager = self::where('role', $seniorManagerRole);
+        if ($id) $hasSeniorManager->where('id', '<>', $id);
+        $count = $hasSeniorManager->count();
         $role = Auth::user()->role;
-        return collect(self::ROLES)->filter(function($value, $key) use ($role){
+        return collect(self::ROLES)->filter(function($value, $key) use ($role, $count, $seniorManagerRole){
+            if($count && $key==$seniorManagerRole) return false;
             return $key<$role;
         })->toArray();
     }

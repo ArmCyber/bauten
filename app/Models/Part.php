@@ -18,8 +18,8 @@ class Part extends Model
         return self::sort()->get();
     }
 
-    public static function catalogsList($ids){
-        return self::whereIn('part_catalog_id', $ids)->where('active', 1)->sort()->get();
+    public static function catalogsList($ids, $criteria = [], $sort = []){
+        return self::whereIn('part_catalog_id', $ids)->where('active', 1)->filtered($criteria)->sort($sort)->get();
     }
 
     public static function action($model, $inputs) {
@@ -111,8 +111,18 @@ class Part extends Model
         return $this->belongsToMany('App\Models\EngineCriterion');
     }
 
+    public function scopeFiltered($q, array $criteria) {
+        if (count($criteria)) {
+            foreach($criteria as $group) {
+                $q->whereHas('criteria', function($q) use ($group){
+                    $q->whereIn('criteria.id', $group);
+                });
+            }
+        }
+        return $q;
+    }
 
-    public function scopeSort($q) {
-        return $q->orderBy('price', 'asc');
+    public function scopeSort($q, $sort=[]) {
+        return $q->orderBy($sort[0]??'price', $sort[1]??'asc');
     }
 }

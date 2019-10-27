@@ -2,7 +2,7 @@
 @section('main')
 <div class="container py-s">
     @breadcrumb(['pages'=>[['title'=>$page_title,'url'=>false],['title'=>$catalogue_title]]])@endbreadcrumb
-    <form id="filter-form" action="{{ url()->current() }}" method="get">
+    <form id="filter-form" action="javascript:void(0)" method="get">
         <div class="products-block">
             @if($has_filter = (count($filters)>0))
                 <div class="products-filters">
@@ -13,7 +13,7 @@
                                 <div class="filter-values">
                                     @foreach($filter->criteria as $criterion)
                                         <label class="filter-value">
-                                            <input type="checkbox" class="filter-checkbox" name="criterion[]" value="{{ $criterion->id }}">
+                                            <input type="checkbox" class="filter-checkbox criterion-checkbox" value="{{ $criterion->id }}" {!! in_array($criterion->id, $filtered['criteria'])?'checked':null !!}>
                                             <span>{{ $criterion->title }}</span>
                                         </label>
                                     @endforeach
@@ -31,13 +31,13 @@
                     <div>
                         <span class="sort-select-title">Сортировать по</span>
                         <select name="sort" id="sort-select">
-                            <option value="price">Ценам</option>
+                            <option value="price" {!! $filtered['sort'] == 'price'?'selected':'false' !!}>Ценам</option>
 {{--                            <option>Дате</option>--}}
 {{--                            <option>Именам</option>--}}
                         </select>
                         <select name="sort_type" id="sort-type-select">
-                            <option value="asc">по возрастанию</option>
-                            <option value="desc">по убыванию</option>
+                            <option value="0" {!! $filtered['sort_type']=='asc'?'selected':'false' !!}>по возрастанию</option>
+                            <option value="1" {!! $filtered['sort_type']=='desc'?'selected':'false' !!}>по убыванию</option>
                         </select>
                         <button class="home-search-btn filter-apply">Применить</button>
                     </div>
@@ -62,6 +62,7 @@
 @push('js')
     <script>
         window.csrf = "{{ csrf_token() }}";
+        window.filtersUrl = "{{ url()->current() }}";
     </script>
     @js(aSite('assets/styler/styler.js'))
     @js(aSite('js/catalogue.js'))

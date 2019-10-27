@@ -28,12 +28,12 @@ CREATE TABLE `admins` (
   UNIQUE KEY `admins_email_unique` (`email`),
   UNIQUE KEY `admins_phone_unique` (`phone`),
   UNIQUE KEY `admins_code_unique` (`code`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `admins` WRITE;
 /*!40000 ALTER TABLE `admins` DISABLE KEYS */;
-INSERT INTO `admins` VALUES (1,NULL,'Developer','dev@dev.loc','055555555',1,4,'$2y$10$TRhlT00iAMKmgFNjmn7omebe4J9vEcZPYJHloVEUTifozPFhQkTxm',NULL,'2019-10-04 16:49:11','2019-10-11 12:57:53'),(2,NULL,'Administrator','admin@dev.loc','8799999999',1,3,'$2y$10$uNf.p3QYG8joLxREyiLTteYPdJXc5ueXhg.w4saBewY1xJrhi1SgS',NULL,'2019-10-04 16:49:11','2019-10-11 13:21:18'),(3,'4286921','Manager','manager@dev.loc','899999999',1,2,'$2y$10$vznTQeQ5g8M8W6D2gvaFUu/YTPgVrslPL2Tp3p/vVJrMxLWo0VWBC',NULL,'2019-10-04 16:49:11','2019-10-16 13:52:17'),(4,NULL,'Operator','operator@dev.loc','8799999997',1,1,'$2y$10$eD2pYhjIYMLaW7TLD0J1y.otxOlfTbBMjEMXyyxYHeHK2/n0encma',NULL,'2019-10-04 16:49:11','2019-10-11 13:19:20');
+INSERT INTO `admins` VALUES (1,NULL,'Developer','dev@dev.loc','055555555',1,5,'$2y$10$TRhlT00iAMKmgFNjmn7omebe4J9vEcZPYJHloVEUTifozPFhQkTxm',NULL,'2019-10-04 16:49:11','2019-10-11 12:57:53'),(2,NULL,'Administrator','admin@dev.loc','8799999999',1,4,'$2y$10$uNf.p3QYG8joLxREyiLTteYPdJXc5ueXhg.w4saBewY1xJrhi1SgS',NULL,'2019-10-04 16:49:11','2019-10-27 14:51:24'),(3,'4286921','Manager','manager@dev.loc','899999999',1,2,'$2y$10$vznTQeQ5g8M8W6D2gvaFUu/YTPgVrslPL2Tp3p/vVJrMxLWo0VWBC',NULL,'2019-10-04 16:49:11','2019-10-16 13:52:17'),(4,NULL,'Operator','operator@dev.loc','8799999997',1,1,'$2y$10$eD2pYhjIYMLaW7TLD0J1y.otxOlfTbBMjEMXyyxYHeHK2/n0encma',NULL,'2019-10-04 16:49:11','2019-10-11 13:19:20'),(5,NULL,'Старший менеджер','senior_manager@dev.loc','111111111',1,3,'$2y$10$OuwZHTeWAlq8V7LUnfXH4uhsy2K/zgFGIXdmDWIzqHagPbRbyzaH6',NULL,'2019-10-27 14:52:03','2019-10-27 15:00:00');
 /*!40000 ALTER TABLE `admins` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `banners`;
@@ -159,7 +159,7 @@ CREATE TABLE `criterion_part` (
 
 LOCK TABLES `criterion_part` WRITE;
 /*!40000 ALTER TABLE `criterion_part` DISABLE KEYS */;
-INSERT INTO `criterion_part` VALUES (8,6,4),(9,1,4),(10,2,4),(11,3,4),(12,4,4),(13,5,4),(14,1,5),(15,2,5),(16,3,5),(17,4,5),(18,5,5),(19,6,5);
+INSERT INTO `criterion_part` VALUES (9,1,4),(10,2,4),(12,4,4),(13,5,4),(14,1,5),(15,2,5),(16,3,5),(17,4,5),(18,5,5),(19,6,5);
 /*!40000 ALTER TABLE `criterion_part` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `engine_criteria`;
@@ -652,7 +652,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,1,3,'Айк','Закарян',4,'Казахстан','Астана','Ереван','+37455325665',NULL,NULL,'zakhayko@gmail.com','$2y$10$2zOXfCV1WgBBN8CwYmwIQ.1GWWuqkYhhJluhZAvPNJ1qpAfTOkWEu',NULL,1,'SOCO5fhVp1RjsWPzr9QN8WVSZxuSwsugwJtRnSl1iQX3sEICuvYospml4JD6',2,'2019-10-26 14:32:27','2019-10-26 14:27:57','2019-10-15 15:59:56','2019-10-25 14:58:43'),(2,2,NULL,'Test','Test',1,'Казахстан','Астана','Tera','+444444444','Test','Test','hayko2000@mail.ru','$2y$10$yFSwRaqyA4B3Oi9er1SXaOxWnUSww5iEA7C8RF8BeX5DNILGo2.ca',NULL,-1,NULL,1,NULL,NULL,'2019-10-15 17:40:38','2019-10-15 17:40:38');
+INSERT INTO `users` VALUES (1,1,3,'Айк','Закарян',4,'Казахстан','Астана','Ереван','+37455325665',NULL,NULL,'zakhayko@gmail.com','$2y$10$2zOXfCV1WgBBN8CwYmwIQ.1GWWuqkYhhJluhZAvPNJ1qpAfTOkWEu',NULL,1,'SOCO5fhVp1RjsWPzr9QN8WVSZxuSwsugwJtRnSl1iQX3sEICuvYospml4JD6',2,'2019-10-27 14:45:08','2019-10-27 12:48:25','2019-10-15 15:59:56','2019-10-25 14:58:43'),(2,2,NULL,'Test','Test',1,'Казахстан','Астана','Tera','+444444444','Test','Test','hayko2000@mail.ru','$2y$10$yFSwRaqyA4B3Oi9er1SXaOxWnUSww5iEA7C8RF8BeX5DNILGo2.ca',NULL,-1,NULL,1,NULL,NULL,'2019-10-15 17:40:38','2019-10-15 17:40:38');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
