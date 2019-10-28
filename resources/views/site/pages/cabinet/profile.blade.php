@@ -3,16 +3,28 @@
     <div class="cabinet-title">Настройки профиля</div>
     <div class="cabinet-block">
         <div class="cabinet-block-title">Ваши данные</div>
-        @if(session('notify') == 'changes_saved')
+        @if(($notify = session('notify')) == 'changes_saved')
             <div class="pt-1">
                 <div class="text-success font-weight-middle">Изменении сохранены.</div>
+            </div>
+        @elseif($notify == 'email_sent')
+            <div class="pt-1">
+                <div class="text-success font-weight-middle">Ссылка подверждения нового эл.адреса отправлена на эл.почту.</div>
+            </div>
+        @elseif($notify == 'change_email_canceled')
+            <div class="pt-1">
+                <div class="text-success font-weight-middle">Заявка измениния эл.адреса отменена.</div>
             </div>
         @endif
         <div class="cabinet-block-content">
             <div class="cabinet-block-info">Тип: <b>{{ $user->type_name }}</b></div>
             <div class="cabinet-block-info">Имя: <b>{{ $user->name }}</b></div>
             <div class="cabinet-block-info">Фамилия: <b>{{ $user->last_name }}</b></div>
-            <div class="cabinet-block-info">E-mail: <b>{{ $user->email }}</b></div>
+            <div class="cabinet-block-info">E-mail: <b>{{ $user->email }}
+                @if($change_email)
+                    <span class="text-warning">({{ $change_email->email }})</span>
+                @endif
+            </b></div>
             <div class="cabinet-block-info">Телефон: <b>{{ $user->phone }}</b></div>
             @if($user->is_entity)
                 <div class="cabinet-block-info">Компания: <b>{{ $user->company }}</b></div>
@@ -23,7 +35,11 @@
             <div class="cabinet-block-info">Город: <b>{{ $user->city }}</b></div>
             <div class="pt-3">
                 <a href="{{ route('cabinet.profile.settings') }}" class="bauten-btn">Изменить личные данные</a>
-                <a href="#" class="bauten-btn">Изменить e-mail</a>
+                @if(!$change_email)
+                    <a href="{{ route('cabinet.profile.change_email') }}" class="bauten-btn">Изменить e-mail</a>
+                @else
+                    <a href="{{ route('cabinet.profile.change_email.cancel') }}" class="bauten-btn">Отменить новый e-mail</a>
+                @endif
                 <a href="{{ route('cabinet.profile.change_password') }}" class="bauten-btn">Изменить пароль</a>
             </div>
         </div>

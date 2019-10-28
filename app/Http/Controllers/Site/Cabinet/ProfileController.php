@@ -6,12 +6,16 @@ use App\Http\Controllers\Site\BaseController;
 use App\Models\Country;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends BaseController
 {
     public function main(){
-        return view('site.pages.cabinet.profile');
+        $data = [
+            'change_email' => User::getChangeEmail($this->shared['user']->id),
+        ];
+        return view('site.pages.cabinet.profile', $data);
     }
 
     public function settings(){
@@ -67,5 +71,52 @@ class ProfileController extends BaseController
         ]);
         User::changePassword($this->shared['user'], $request->input('new_password'));
         return redirect()->route('cabinet.profile')->with('notify', 'changes_saved');
+    }
+
+    public function changeEmail(){
+        if(User::getChangeEmail($this->shared['user']->id)) return redirect()->route('cabinet.profile');
+        config(['fake_route'=>'cabinet.profile']);
+        return view('site.pages.cabinet.profile_change_email');
+    }
+
+    public function changeEmail_post(Request $request){
+        if(User::getChangeEmail($this->shared['user']->id)) return redirect()->route('cabinet.profile');
+        $current_password = $this->shared['user']->password;
+        $current_email = $this->shared['user']->email;
+        $request->validate([
+            'new_email' => ['required','string','mail','max:255','unique:users,email,'.$this->shared['user']->id, function($attribute, $value, $fail) use ($current_email){
+                if (mb_strtolower($value)==$current_email) $fail('Новый e-mail совпадает с текущей.');
+            }],
+            'password' => ['required', 'string', function($attribute, $value, $fail) use ($current_password){
+                if (!Hash::check($value, $current_password)) $fail('Неправильный пароль.');
+            }],
+        ], [
+            'required' => 'Поле обязательно для заполнения.',
+            'string' => 'Поле обязательно для заполнения.',
+            'confirmed' => 'Новый пароль и подверждение не совпадают.',
+            'max' => 'Макс. :max символов.',
+            'min' => 'Пароль должен содержать мин 8 символов.',
+            'mail' => 'Недействительный адрес эл.почты.',
+            'unique' => 'Эл.почта уже существует.',
+        ]);
+        User::createNewEmailVerification($this->shared['user'], mb_strtolower($request->input('new_email')));
+        return redirect()->route('cabinet.profile')->with('notify', 'email_sent');
+    }
+
+    public function verifyNewEmail($token) {
+        $change_email = User::getChangeEmailFromToken($token);
+        if (!$change_email) abort(404);
+        $user = User::find($change_email->user_id);
+        $user->email = $change_email->email;
+        $user->save();
+        User::deleteChangeEmails($change_email->email);
+        if ($this->shared['user']) Auth::logout();
+        return redirect('login')->with('action', 'email_changed');
+    }
+
+    public function cancelChangeEmail() {
+        if(!User::getChangeEmail($this->shared['user']->id)) return redirect()->route('cabinet.profile');
+        User::deleteChangeEmail($this->shared['user']->id);
+        return redirect()->route('cabinet.profile')->with('notify', 'change_email_canceled');
     }
 }

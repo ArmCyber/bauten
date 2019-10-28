@@ -286,8 +286,12 @@ Route::namespace('Site')->group(function() {
             Route::post('profile/settings', 'ProfileController@settings_post');
             Route::get('profile/change-password', 'ProfileController@changePassword')->name('profile.change_password');
             Route::post('profile/change-password', 'ProfileController@changePassword_post');
+            Route::get('profile/change-email', 'ProfileController@changeEmail')->name('profile.change_email');
+            Route::post('profile/change-email', 'ProfileController@changeEmail_post');
+            Route::get('profile/change-email/cancel', 'ProfileController@cancelChangeEmail')->name('profile.change_email.cancel');
         });
     });
+    Route::get('profile/change-email/{token}', 'Cabinet\ProfileController@verifyNewEmail')->name('profile.verify_new_email');
     //region Auth
     Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
     Route::post('login', 'Auth\LoginController@login');

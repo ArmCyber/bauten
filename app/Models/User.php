@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use App\Http\Traits\Resetable;
+use App\Mail\NewEmailVerificationToken;
 use App\Mail\UserRegistered;
 use App\Mail\UserVerified;
+use App\Notifications\NewEmailVerificationNotification;
 use App\Notifications\PartnerGroupChangedNotification;
 use App\Notifications\ProfileActivatedNotification;
 use App\Notifications\RegisteredNotification;
@@ -12,6 +14,7 @@ use App\Notifications\ResetPasswordNotification;
 use App\Notifications\VerifiedNotification;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
@@ -27,6 +30,12 @@ class User extends Authenticatable
     public const STATUS_ACTIVE = 1;
     public const STATUS_BLOCKED = 0;
     public const STATUS_PENDING = -1;
+
+    public const CHANGE_EMAILS_TABLE = 'change_emails';
+
+    public static function change_emails() {
+        return DB::table(self::CHANGE_EMAILS_TABLE);
+    }
 
     public static function getTypes() {
         return [
@@ -118,6 +127,12 @@ class User extends Authenticatable
         } catch (\Exception $e) {}
     }
 
+    public function sendNewEmailVerificationToken($email, $token){
+//        try {
+            Mail::to($email)->send(new NewEmailVerificationToken($this, $token));
+//        } catch (\Exception $e) {}
+    }
+
     public static function adminList(){
         return self::with('manager')->sort()->get();
     }
@@ -203,6 +218,10 @@ class User extends Authenticatable
         return $this->belongsTo('App\Models\PartnerGroup')->sort();
     }
 
+    public static function getChangeEmail($user_id){
+        return self::change_emails()->where('user_id', $user_id)->first();
+    }
+
     public function getIsEntityAttribute() {
         return $this->type==self::TYPE_ENTITY;
     }
@@ -210,5 +229,27 @@ class User extends Authenticatable
     public static function deleteItem($model) {
         $model->delete();
         return true;
+    }
+
+    public static function createNewEmailVerification($user, $email) {
+        $token = Str::random(32);
+        self::change_emails()->insert([
+            'user_id' => $user->id,
+            'email' => $email,
+            'verification' => $token,
+        ]);
+        $user->sendNewEmailVerificationToken($email, $token);
+    }
+
+    public static function deleteChangeEmail($user_id) {
+        self::change_emails()->where('user_id', $user_id)->delete();
+    }
+
+    public static function deleteChangeEmails($email) {
+        self::change_emails()->where('email', $email)->delete();
+    }
+
+    public static function getChangeEmailFromToken($token) {
+        return self::change_emails()->where('verification', $token)->first();
     }
 }

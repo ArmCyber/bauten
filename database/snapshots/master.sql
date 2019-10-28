@@ -663,12 +663,12 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,2,3,'Айк','Закарян',1,'Казахстан','Астана','Ереван','+374553256655','COMPANY','BIN','zakhayko@gmail.com','$2y$10$j13u95VxaZKl89aIQhB26eGb1MKAjLUwzCsR/42r2d8qCl2LoneGq',NULL,1,'BrFWisdp6JFvcnbhzIVlqGzsMSJvT8EyawLZCbNJsQb22WRH1e4VXMJNXmEu',2,'2019-10-27 19:16:40','2019-10-27 19:16:23','2019-10-15 15:59:56','2019-10-27 19:16:34'),(2,2,NULL,'Test','Test',1,'Казахстан','Астана','Tera','+444444444','Test','Test','hayko2000@mail.ru','$2y$10$yFSwRaqyA4B3Oi9er1SXaOxWnUSww5iEA7C8RF8BeX5DNILGo2.ca',NULL,-1,NULL,1,NULL,NULL,'2019-10-15 17:40:38','2019-10-15 17:40:38');
+INSERT INTO `users` VALUES (1,2,3,'Айк','Закарян',1,'Казахстан','Астана','Ереван','+374553256655','COMPANY','BIN','zakhayko@gmail.com','$2y$10$j13u95VxaZKl89aIQhB26eGb1MKAjLUwzCsR/42r2d8qCl2LoneGq',NULL,1,'pC5SsziMuloPuJHwHwXzSWF7LE7yM4LpaBWuMizv28vnU4b2ar5YKI77dduc',2,'2019-10-28 12:56:28','2019-10-28 12:55:48','2019-10-15 15:59:56','2019-10-28 12:55:44'),(2,2,NULL,'Test','Test',1,'Казахстан','Астана','Tera','+444444444','Test','Test','hayko2000@mail.ru','$2y$10$yFSwRaqyA4B3Oi9er1SXaOxWnUSww5iEA7C8RF8BeX5DNILGo2.ca',NULL,-1,NULL,1,NULL,NULL,'2019-10-15 17:40:38','2019-10-15 17:40:38');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
