@@ -1,7 +1,7 @@
 @extends('site.layouts.app')
 @section('main')
-<div class="container py-s">
-    @breadcrumb(['pages'=>[['title'=>$page_title,'url'=>false],['title'=>$catalogue_title]]])@endbreadcrumb
+<div class="container pt-2s pb-s">
+{{--    @breadcrumb(['pages'=>[['title'=>$page_title,'url'=>false],['title'=>$catalogue_title]]])@endbreadcrumb--}}
     <form id="filter-form" action="javascript:void(0)" method="get">
         <div class="products-block">
             @if($has_filter = (count($filters)>0))

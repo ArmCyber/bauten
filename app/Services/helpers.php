@@ -149,6 +149,19 @@ if (!function_exists('get_range_data')) {
     }
 }
 //endregion
+//region Math
+if (!function_exists('gcd')) {
+    function gcd( $a, $b){
+        if ($a == 0) return $b;
+        return gcd($b % $a, $a);
+    }
+}
+if (!function_exists('lcm')) {
+    function lcm( $a, $b) {
+        return ($a * $b) / gcd($a, $b);
+    }
+}
+//endregion
 if (!function_exists('to_url')) {
     function to_url($string)
     {

@@ -125,4 +125,19 @@ class Part extends Model
     public function scopeSort($q, $sort=[]) {
         return $q->orderBy($sort[0]??'price', $sort[1]??'asc');
     }
+
+    public function getMinCountCeilAttribute() {
+        return ceil($this->min_count/$this->multiplication)*$this->multiplication;
+    }
+
+    public function getMaxCountAttribute(){
+        $available = $this->available;
+        if ($available===null) $available = 9999;
+        if ($available<$this->min_count_ceil) return 0;
+        return floor($available/$this->multiplication)*$this->multiplication;
+    }
+
+    public function getPriceSaleAttribute(){
+        return $this->price*(100 - auth()->user()->sale)/100;
+    }
 }

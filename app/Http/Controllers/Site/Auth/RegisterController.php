@@ -77,6 +77,7 @@ class RegisterController extends BaseController
         $this->validator($inputs)->validate();
         $inputs['email'] = mb_strtolower($inputs['email']);
         $verification_token = Str::random(32);
+        User::deleteChangeEmails($inputs['email']);
         $user = User::register($inputs, $verification_token);
         $user->sendRegisteredNotification($verification_token, $this->shared['email']?:null);
         return redirect()->route('login')->with(['action'=>'registered'])->withInput(['email'=>$inputs['email']]);

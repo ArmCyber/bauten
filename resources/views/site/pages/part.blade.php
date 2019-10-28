@@ -1,7 +1,7 @@
 @extends('site.layouts.app')
 @section('main')
-<div class="container pt-s">
-    @breadcrumb(['pages'=>[['title'=>$page_title,'url'=>false],['title'=>$item->catalogue->name, 'url'=>route('catalogue', ['url'=>$item->catalogue->url])]]])@endbreadcrumb
+<div class="container pt-2s">
+{{--    @breadcrumb(['pages'=>[['title'=>$page_title,'url'=>false],['title'=>$item->catalogue->name, 'url'=>route('catalogue', ['url'=>$item->catalogue->url])]]])@endbreadcrumb--}}
     <div class="product-page">
         <div class="product-page-head">
             <div class="row l-m">
@@ -51,21 +51,33 @@
                         @endif
                         <div class="product-page-pricing">
                             <div class="product-page-price">
-                                Цена: <span class="ppp">{{ $item->price }}</span> <span class="kzt"></span>
+                                Цена: <span class="ppp">{{ $item->price_sale }}</span> <span class="kzt"></span>
                             </div>
-{{--                            <div class="product-page-mincount">Мин. количество: 40 шт.</div>--}}
+                            @if($item->price!=$item->price_sale)
+                                <div class="product-page-mincount">Цена без скидки: {{ $item->price }} <span class="kzt"></span>.</div>
+                            @endif
+                            @if($item->min_count!=1)
+                                <div class="product-page-mincount">Мин. количество: {{ $item->min_count_ceil }} шт.</div>
+                            @endif
+                            @if($item->multiplication!=1)
+                                <div class="product-page-mincount">В ящике: {{ $item->multiplication }} шт.</div>
+                            @endif
                         </div>
-                        {{--<div class="product-page-form">
-                            <div class="product-page-count">
-                                <div class="number-group">
-                                    <button class="number-btn number-input-minus">-</button>
-                                    <input type="text" value="1" maxlength="4" class="number-input">
-                                    <button class="number-btn number-input-plus">+</button>
-                                </div>
-                            </div>
-                            <div class="product-page-submit"><button>В корзину</button></div>
-                        </div>
-                        <div class="product-page-price mt-3">Общая стоимность: <span class="ppp">48000</span> <span class="kzt"></span></div>--}}
+                        @if(!$item->max_count)
+                            <div class="h4 text-danger pt-2">Нет на остатке</div>
+                        @else
+{{--                            <div class="product-page-form">--}}
+{{--                                <div class="product-page-count">--}}
+{{--                                    <div class="number-group">--}}
+{{--                                        <button class="number-btn number-input-minus">-</button>--}}
+{{--                                        <input type="text" value="{{ $item->min_count_ceil }}" data-multiplication="{{ $item->multiplication }}" data-price="{{ $item->price_sale }}" data-available="{{ $item->max_count }}" maxlength="4" class="number-input">--}}
+{{--                                        <button class="number-btn number-input-plus">+</button>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="product-page-submit"><button>В корзину</button></div>--}}
+{{--                            </div>--}}
+{{--                            <div class="product-page-price mt-3">Общая стоимность: <span class="ppp" id="full-price">{{ $item->min_count_ceil*$item->price_sale }}</span> <span class="kzt"></span></div>--}}
+                        @endif
                     </div>
                 </div>
             </div>

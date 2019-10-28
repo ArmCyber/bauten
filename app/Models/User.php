@@ -252,4 +252,8 @@ class User extends Authenticatable
     public static function getChangeEmailFromToken($token) {
         return self::change_emails()->where('verification', $token)->first();
     }
+
+    public function getSaleAttribute(){
+        return $this->partner_group->sale;
+    }
 }
