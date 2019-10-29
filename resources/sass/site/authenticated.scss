@@ -245,6 +245,9 @@ select.home-search-control {
         }
     }
 }
+input:read-only {
+    cursor: default  !important;
+}
 @include media(1599) {
     button.home-search-btn {
         height: 45px;
