@@ -193,6 +193,12 @@ select.home-search-control {
         @include m(top left, calc(50% - #{$size/2}));
         animation: spin 2s linear infinite;
     }
+    &.loader-sm:before {
+        $size: 25px;
+        @include m(width height, $size);
+        @include m(top left, calc(50% - #{$size/2}));
+        border-width: 3px;
+    }
     .loader-shown & {
         display:block;
     }

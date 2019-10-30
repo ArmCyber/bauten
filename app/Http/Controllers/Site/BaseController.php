@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Models\Admin;
+use App\Models\Basket;
 use App\Models\Group;
 use App\Models\Page;
 use App\Models\PartCatalog;
@@ -41,6 +42,8 @@ class BaseController extends Controller
         $this->shared['user'] = Auth::user();
         if ($this->shared['user']){
             $this->shared['user_manager'] = $this->shared['user']->manager?:Admin::getSeniorManager();
+            $this->shared['basket_parts'] = Basket::getUserParts();
+            $this->shared['basket_part_ids'] = $this->shared['basket_parts']->pluck('part_id');
         }
         view()->share($this->shared);
         return true;

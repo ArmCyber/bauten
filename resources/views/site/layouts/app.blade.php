@@ -46,53 +46,58 @@
                 </div>
             </div>
             <div id="header-menu">
-                <nav id="menu" class="container">
-                    @foreach($menu as $menu_item)
-                        @if ($menu_item->static=='catalogs')
-                            <div class="menu-item has-fluid-dropdown{{ ($active_page??null)==$menu_item->id?' active':'' }}">
-                                <a href="javascript:void(0)">{{ $menu_item->title }}</a>
-                                <div class="fluid-dropdown">
-                                    <div class="fluid-dropdown-content">
-                                        <div class="menu-catalog-blocks">
-                                            @foreach($groups as $group)
-                                                <div class="menu-catalog-block">
-                                                    <div class="menu-catalog-letter"><a href="{{ $url = route('group', ['url'=>$group->url]) }}">{{ $group->name }}</a></div>
-                                                    <div class="menu-catalog-links">
-                                                        @push('menu_mobile_catalogs')
-                                                            <li class="font-weight-bold"><a href="{{ $url }}">{{ $group->name }}</a></li>
-                                                        @endpush
-                                                        @foreach($group->catalogs as $catalog_item)
-                                                            <div class="menu-catalog-link"><a href="{{ $url = route('catalogue', ['url'=>$catalog_item->url]) }}">{{ $catalog_item->name }}</a></div>
+                <div class="container header-menu-container">
+                    <nav id="menu">
+                        @foreach($menu as $menu_item)
+                            @if ($menu_item->static=='catalogs')
+                                <div class="menu-item has-fluid-dropdown{{ ($active_page??null)==$menu_item->id?' active':'' }}">
+                                    <a href="javascript:void(0)">{{ $menu_item->title }}</a>
+                                    <div class="fluid-dropdown">
+                                        <div class="fluid-dropdown-content">
+                                            <div class="menu-catalog-blocks">
+                                                @foreach($groups as $group)
+                                                    <div class="menu-catalog-block">
+                                                        <div class="menu-catalog-letter"><a href="{{ $url = route('group', ['url'=>$group->url]) }}">{{ $group->name }}</a></div>
+                                                        <div class="menu-catalog-links">
                                                             @push('menu_mobile_catalogs')
-                                                                <li><a href="{{ $url }}">{{ $catalog_item->name }}</a></li>
+                                                                <li class="font-weight-bold"><a href="{{ $url }}">{{ $group->name }}</a></li>
                                                             @endpush
-                                                        @endforeach
+                                                            @foreach($group->catalogs as $catalog_item)
+                                                                <div class="menu-catalog-link"><a href="{{ $url = route('catalogue', ['url'=>$catalog_item->url]) }}">{{ $catalog_item->name }}</a></div>
+                                                                @push('menu_mobile_catalogs')
+                                                                    <li><a href="{{ $url }}">{{ $catalog_item->name }}</a></li>
+                                                                @endpush
+                                                            @endforeach
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            @endforeach
+                                                @endforeach
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            @push('menu_mobile')
-                                <li>
-                                    <span>{{ $menu_item->title }}</span>
-                                    <ul>
-                                        @stack('menu_mobile_catalogs')
-                                    </ul>
-                                </li>
-                            @endpush
-                        @else
-                            <div class="menu-item{{ ($active_page??null)==$menu_item->id?' active':'' }}"><a href="{{ $url = route('page', ['url'=>$menu_item->url]) }}">{{ $menu_item->title }}</a></div>
-                            @push('menu_mobile')
-                                <li><a href="{{ $url }}">{{ $menu_item->title }}</a></li>
-                            @endpush
-                            @push('footer_links')
-                                <div class="footer-link"><a href="{{ $url }}">{{ $menu_item->title }}</a></div>
-                            @endpush
-                        @endif
-                    @endforeach
-                </nav>
+                                @push('menu_mobile')
+                                    <li>
+                                        <span>{{ $menu_item->title }}</span>
+                                        <ul>
+                                            @stack('menu_mobile_catalogs')
+                                        </ul>
+                                    </li>
+                                @endpush
+                            @else
+                                <div class="menu-item{{ ($active_page??null)==$menu_item->id?' active':'' }}"><a href="{{ $url = route('page', ['url'=>$menu_item->url]) }}">{{ $menu_item->title }}</a></div>
+                                @push('menu_mobile')
+                                    <li><a href="{{ $url }}">{{ $menu_item->title }}</a></li>
+                                @endpush
+                                @push('footer_links')
+                                    <div class="footer-link"><a href="{{ $url }}">{{ $menu_item->title }}</a></div>
+                                @endpush
+                            @endif
+                        @endforeach
+                    </nav>
+                    <div class="header-menu-buttons">
+                        <a href="{{ route('cabinet.basket') }}" class="header-menu-button"><i class="fas fa-shopping-basket"></i><span id="basket-counter" @if(($basket_parts_count = count($basket_part_ids))==0)style="display: none"@endif>{{ $basket_parts_count>9?'9+':$basket_parts_count }}</span></a>
+                    </div>
+                </div>
                 <nav id="menu-mobile"><ul>@stack('menu_mobile')</ul></nav>
             </div>
         </header>
@@ -158,6 +163,9 @@
     @js(aSite('assets/mmenu-light/mmenu-light.js'))
     @js(aSite('js/base.js'))
     @auth
+        <script>
+            window.basketPartIds = {!! $basket_part_ids->toJson() !!};
+        </script>
         @js(aSite('js/auth.js'))
     @endauth
     @stack('js')

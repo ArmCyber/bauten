@@ -57,27 +57,28 @@
                                 <div class="product-page-mincount">Цена без скидки: {{ $item->price }} <span class="kzt"></span>.</div>
                             @endif
                             @if($item->min_count!=1)
-                                <div class="product-page-mincount">Мин. количество: {{ $item->min_count_ceil }} шт.</div>
+                                <div class="product-page-mincount">Мин. количество: {{ $item->min_count }} шт.</div>
                             @endif
                             @if($item->multiplication!=1)
                                 <div class="product-page-mincount">Количество в упаковке: {{ $item->multiplication }} шт.</div>
                             @endif
                         </div>
-                        @if(!$item->max_count)
-                            <div class="h4 text-danger pt-2">Нет на остатке</div>
-                        @else
-                            <div class="product-page-form">
-                                <div class="product-page-count">
-                                    <div class="number-group">
-                                        <button class="number-btn number-input-minus">-</button>
-                                        <input type="text" value="{{ $item->min_count_ceil }}" data-multiplication="{{ $item->multiplication }}" data-price="{{ $item->price_sale }}" data-available="{{ $item->max_count }}" class="number-input" readonly>
-                                        <button class="number-btn number-input-plus">+</button>
+                        @if($item->max_count)
+                            <div class="product-page-shop not-in-stock-hidden">
+                                <div class="product-page-form">
+                                    <div class="product-page-count">
+                                        <div class="number-group">
+                                            <button class="number-btn number-input-minus">-</button>
+                                            <input type="text" value="{{ $item->min_count_ceil }}" data-multiplication="{{ $item->multiplication }}" data-price="{{ $item->price_sale }}" data-available="{{ $item->max_count }}" class="number-input" readonly>
+                                            <button class="number-btn number-input-plus">+</button>
+                                        </div>
                                     </div>
+                                    <div class="product-page-submit position-relative"><button id="to-basket">В корзину</button><span class="loader loader-sm"></span></div>
                                 </div>
-                                <div class="product-page-submit"><button>В корзину</button></div>
+                                <div class="product-page-price mt-3">Общая стоимность: <span class="ppp" id="full-price">{{ $item->min_count_ceil*$item->price_sale }}</span> <span class="kzt"></span></div>
                             </div>
-                            <div class="product-page-price mt-3">Общая стоимность: <span class="ppp" id="full-price">{{ $item->min_count_ceil*$item->price_sale }}</span> <span class="kzt"></span></div>
                         @endif
+                        <div class="h4 text-danger pt-2 not-in-stock">Нет на складе</div>
                     </div>
                 </div>
             </div>
@@ -136,31 +137,36 @@
         </div>
     </div>
 </div>
-<div class="pb-s">
-    <div class="recommended-products section-bg">
-        <div class="container">
-            <div class="prod-tbl-title pb-3 pb-lg-5">С этим советуем</div>
-            <div class="row row-grid">
-                @foreach([['Щетки стеклоочистителя "Torino" бескаркасная с силиконом 14"', '6.300', 1], ['Набор для утапливания поршней тормозного цил. 12пр', '7.800', 2], ['Ремкомплект бескамерных шин "AUTOPROFI"', '1.200', 3],['Щетки стеклоочистителя "Torino" бескаркасная с силиконом 14"', '6.300', 1]] as $item)
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3">
-                        <div class="product-item">
-                            <div class="product-image">
-                                <img src="{{ asset('f/cat-page/'.$item[2].'.png') }}" alt="">
-                            </div>
-                            <div class="product-title">{{ $item[0] }}</div>
-                            <div class="product-price"><span class="catalogue-price">Цена: от <span class="cat-price">{{ $item[1] }}</span> <span class="kzt"></span></span></div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-    </div>
-</div>
+{{--<div class="pb-s">--}}
+{{--    <div class="recommended-products section-bg">--}}
+{{--        <div class="container">--}}
+{{--            <div class="prod-tbl-title pb-3 pb-lg-5">С этим советуем</div>--}}
+{{--            <div class="row row-grid">--}}
+{{--                @foreach([['Щетки стеклоочистителя "Torino" бескаркасная с силиконом 14"', '6.300', 1], ['Набор для утапливания поршней тормозного цил. 12пр', '7.800', 2], ['Ремкомплект бескамерных шин "AUTOPROFI"', '1.200', 3],['Щетки стеклоочистителя "Torino" бескаркасная с силиконом 14"', '6.300', 1]] as $item)--}}
+{{--                    <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3">--}}
+{{--                        <div class="product-item">--}}
+{{--                            <div class="product-image">--}}
+{{--                                <img src="{{ asset('f/cat-page/'.$item[2].'.png') }}" alt="">--}}
+{{--                            </div>--}}
+{{--                            <div class="product-title">{{ $item[0] }}</div>--}}
+{{--                            <div class="product-price"><span class="catalogue-price">Цена: от <span class="cat-price">{{ $item[1] }}</span> <span class="kzt"></span></span></div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                @endforeach--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</div>--}}
 @endsection
 @push('css')
     @css(aApp('swiper/swiper.css'))
 @endpush
 @push('js')
+    <script>
+        window.partId = {{ $item->id }};
+        window.basketUrl = "{{ route('cabinet.basket.add') }}";
+        window.csrf = "{{ csrf_token() }}";
+    </script>
     @js(aApp('swiper/swiper.js'))
     @js(aSite('js/product.js'))
 @endpush

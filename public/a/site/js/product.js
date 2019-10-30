@@ -42,3 +42,50 @@ if ($('#product-thumbs').length) {
         }
     });
 }
+var toBasket = $('#to-basket'),
+    toBasketLoader = toBasket.next(),
+    basketCounter = $('#basket-counter');
+toBasket.on('click', function(){
+    toBasket.removeClass('anim');
+    toBasketLoader.show();
+    var count = numberInput.val();
+    $.ajax({
+        url: window.basketUrl,
+        type: 'post',
+        dataType: 'json',
+        data: {
+            _token: window.csrf,
+            part: window.partId,
+            count: count,
+        },
+        success: function(e) {
+            var maxCount = parseInt(e.max_count);
+            available = maxCount;
+            checkBasketCounter(window.partId);
+            if (maxCount<multiplication) {
+                $('.product-page-shop').delete();
+            }
+            else {
+                minCount = multiplication;
+                numberInput.val(multiplication).trigger('change');
+                fullPrice.text(parseFloat((multiplication*price).toFixed(2)));
+
+            }
+            toBasketLoader.hide();
+            toBasket.addClass('anim');
+        },
+        error: function(e) {
+            // console.error(e.responseText);
+            window.location.href = '';
+        }
+    });
+});
+var checkBasketCounter = function(partId) {
+    partId = parseInt(partId);
+    if (window.basketPartIds.indexOf(partId)===-1) {
+        window.basketPartIds.push(partId);
+        var length = window.basketPartIds.length;
+        if (length>9) length='9+';
+        basketCounter.html(length).show();
+    }
+};

@@ -30,12 +30,12 @@
                 <div class="products-sort">
                     <div>
                         <span class="sort-select-title">Сортировать по</span>
-                        <select name="sort" id="sort-select">
+                        <select name="sort" id="sort-select" data-smart-positioning="false">
                             <option value="price" {!! $filtered['sort'] == 'price'?'selected':'false' !!}>Ценам</option>
 {{--                            <option>Дате</option>--}}
 {{--                            <option>Именам</option>--}}
                         </select>
-                        <select name="sort_type" id="sort-type-select">
+                        <select name="sort_type" id="sort-type-select" data-smart-positioning="false">
                             <option value="0" {!! $filtered['sort_type']=='asc'?'selected':'false' !!}>по возрастанию</option>
                             <option value="1" {!! $filtered['sort_type']=='desc'?'selected':'false' !!}>по убыванию</option>
                         </select>

@@ -1,5 +1,5 @@
 <div class="modal fade" id="{!! $id !!}" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog {!! !empty($centered)?'modal-dialog-centered':null !!}" role="document">
+    <div class="modal-dialog {!! !empty($centered)?'modal-dialog-centered':null !!} {!! $dialog_class??null !!}" role="document">
         <div class="modal-content position-relative">
             @if(!empty($form))
                 <form action="{{ $form['action']??url()->current() }}" {!! exists('id="', $form['id'], '"') !!} method="{{ $form['method']??'post' }}" @if(!empty($form['multipart']))enctype="multipart/form-data"@endif>

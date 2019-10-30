@@ -521,6 +521,9 @@ input.number-input {
     min-width: 0;
     padding: 0 5px;
 }
+.not-in-stock-hidden + .not-in-stock {
+    display: none !important;
+}
 
 button.number-btn {
     display: block;
@@ -551,7 +554,9 @@ button.number-btn {
         font-size: 22px;
         padding: 0 15px;
         @include transition(#{background-color .3s ease, color .3s ease});
-
+        &.anim {
+            animation: success 1s linear;
+        }
         &:after {
             content: "";
             display: inline-block;
@@ -571,6 +576,24 @@ button.number-btn {
                 @include filter(brightness(0) invert(1));
             }
         }
+    }
+}
+
+@keyframes success {
+    0% {
+        background-color: #ffffff;
+        border-color:$blue;
+        color:$blue
+    }
+    50% {
+        background-color: #ffffff;
+        border-color:$green;
+        color:$green;
+    }
+    100% {
+        background-color: #ffffff;
+        border-color:$blue;
+        color:$blue
     }
 }
 
@@ -816,6 +839,18 @@ img.news-page-image {
 .error-message {
     margin-top:5px;
     font-size:20px;
+}
+.modal-content {
+    @include border-radius(0);
+}
+.modal-header {
+    padding:8px;
+}
+.modal-footer {
+    padding:8px;
+}
+.modal-body {
+    padding:8px;
 }
 @include media(1599) {
     .product-title {

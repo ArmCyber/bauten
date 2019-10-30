@@ -14,6 +14,8 @@ class Part extends Model
 
     public $timestamps = false;
 
+    private $mutedAttributes = [];
+
     public static function adminList(){
         return self::sort()->get();
     }
@@ -127,17 +129,51 @@ class Part extends Model
     }
 
     public function getMinCountCeilAttribute() {
-        return ceil($this->min_count/$this->multiplication)*$this->multiplication;
+        if (!array_key_exists('min_count_ceil', $this->mutedAttributes)) {
+            $minCount = $this->min_count;
+            $basket_part = $this->basket_part;
+            if ($basket_part) {
+                if ($basket_part->count>=$minCount) $minCount = 1;
+                else $minCount = $minCount-$basket_part->count;
+            }
+            $this->mutedAttributes['min_count_ceil'] = ceil($minCount/$this->multiplication)*$this->multiplication;
+        }
+        return $this->mutedAttributes['min_count_ceil'];
     }
 
     public function getMaxCountAttribute(){
-        $available = $this->available;
-        if ($available===null) $available = 9999;
-        if ($available<$this->min_count_ceil) return 0;
-        return floor($available/$this->multiplication)*$this->multiplication;
+        if (!array_key_exists('max_count', $this->mutedAttributes)) {
+            $available = $this->available;
+            if ($available===null) $available = 9999;
+            $basket_part = $this->basket_part;
+            if ($basket_part) $available-=$basket_part->count;
+            if ($available<$this->min_count_ceil) return 0;
+            $this->mutedAttributes['max_count'] = floor($available/$this->multiplication)*$this->multiplication;
+        }
+        return $this->mutedAttributes['max_count'];
+    }
+
+    public function getBasketPartAttribute() {
+        if (!array_key_exists('basket_part', $this->mutedAttributes)) {
+            $basket_parts = view()->shared('basket_parts');
+            if ($basket_parts) {
+                $part = $basket_parts->where('part_id', $this->id)->first();
+                if ($part) $this->mutedAttributes['basket_part'] = $part;
+                else $this->mutedAttributes['basket_part'] = false;
+            }
+            else $this->mutedAttributes['basket_part'] = false;
+        }
+        return $this->mutedAttributes['basket_part'];
     }
 
     public function getPriceSaleAttribute(){
-        return $this->price*(100 - auth()->user()->sale)/100;
+        if (!array_key_exists('price_sale', $this->mutedAttributes)) {
+            $this->mutedAttributes['price_sale'] = $this->price*(100 - auth()->user()->sale)/100;
+        }
+        return $this->mutedAttributes['price_sale'];
+    }
+
+    public static function getActiveItem($id) {
+        return self::where(['id'=>$id, 'active'=>1])->first();
     }
 }

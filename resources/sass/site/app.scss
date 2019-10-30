@@ -95,14 +95,47 @@ a.ht-login{
 }
 
 #header-menu {
-    height: 50px;
     background-color: $blue;
 }
-
-#menu {
-    height: 100%;
+.header-menu-container {
     display:flex;
+    align-items: center;
+    justify-content: space-between;
     position: relative;
+}
+#menu {
+    height: 50px;
+    display:flex;
+}
+.header-menu-buttons {
+
+}
+a.header-menu-button {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+    position:relative;
+    color:$blue;
+    font-size:20px;
+    width:40px;
+    height:40px;
+    background-color: #ffffff;
+    border: 1px solid $blue;
+    >span {
+        position:absolute;
+        top: -5px;
+        right: -6px;
+        width: 18px;
+        height: 18px;
+        line-height: 18px;
+        font-size: 11px;
+        font-weight: 500;
+        background-color: white;
+        border-radius: 50%;
+        border: 1px solid $blue;
+    }
 }
 
 .menu-item {
@@ -690,7 +723,13 @@ a.brand-item {
     align-items: center;
     justify-content: center;
 }
-
+a.link-bauten {
+    color:$blue;
+    font-weight: 500;
+    &:hover {
+        color:$blue
+    }
+}
 //endregion
 #menu-mobile:not(.mm) {
     display:none;

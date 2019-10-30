@@ -11,7 +11,9 @@
                     </div>
                     <div class="cs-links">
                         @component('site.components.cabinet_link', ['route'=>'cabinet.main', 'title'=>'Главная'])@endcomponent
-                        @component('site.components.cabinet_link', ['route'=>null, 'title'=>'Корзина'])@endcomponent
+                        @component('site.components.cabinet_link', ['route'=>'cabinet.basket'])
+                            @slot('title')Корзина (<span id="sidebar-basket">{{ count($basket_part_ids) }}</span>)@endslot
+                        @endcomponent
                         @component('site.components.cabinet_link', ['route'=>null, 'title'=>'Сохроненные'])@endcomponent
                         @component('site.components.cabinet_link', ['route'=>null, 'title'=>'Покупки'])@endcomponent
                         @component('site.components.cabinet_link', ['route'=>'cabinet.profile', 'title'=>'Профиль'])@endcomponent

@@ -289,6 +289,9 @@ Route::namespace('Site')->group(function() {
             Route::get('profile/change-email', 'ProfileController@changeEmail')->name('profile.change_email');
             Route::post('profile/change-email', 'ProfileController@changeEmail_post');
             Route::get('profile/change-email/cancel', 'ProfileController@cancelChangeEmail')->name('profile.change_email.cancel');
+            Route::get('basket', 'ShopController@basket')->name('basket');
+            Route::post('basket/add', 'ShopController@addToBasket')->name('basket.add');
+            Route::post('basket/delete', 'ShopController@deleteFromBasket')->name('basket.delete');
         });
     });
     Route::get('profile/change-email/{token}', 'Cabinet\ProfileController@verifyNewEmail')->name('profile.verify_new_email');
