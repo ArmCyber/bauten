@@ -9,7 +9,7 @@
 <div class="auth-form-section">
     <div class="auth-form-container">
         <div class="auth-form-logo">
-            <a href="https://studionomad.kz/" target="_blank"><img src="{!! aAdmin('img/auth/logo.png') !!}" alt="STUDIONOMAD" title="STUDIONOMAD"></a>
+            <a href="https://studionomad.kz/" target="_blank"><img src="{!! aAdmin('img/auth/logo.jpg') !!}" alt="STUDIONOMAD" title="STUDIONOMAD"></a>
         </div>
         <div class="auth-form"><form action="@yield('form_action')" method="post">@csrf
             @yield('content')

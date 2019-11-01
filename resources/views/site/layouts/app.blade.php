@@ -94,9 +94,11 @@
                             @endif
                         @endforeach
                     </nav>
-                    <div class="header-menu-buttons">
-                        <a href="{{ route('cabinet.basket') }}" class="header-menu-button"><i class="fas fa-shopping-basket"></i><span id="basket-counter" @if(($basket_parts_count = count($basket_part_ids))==0)style="display: none"@endif>{{ $basket_parts_count>9?'9+':$basket_parts_count }}</span></a>
-                    </div>
+                    @auth
+                        <div class="header-menu-buttons">
+                            <a href="{{ route('cabinet.basket') }}" class="header-menu-button"><i class="fas fa-shopping-basket"></i><span id="basket-counter" @if(($basket_parts_count = count($basket_part_ids))==0)style="display: none"@endif>{{ $basket_parts_count>9?'9+':$basket_parts_count }}</span></a>
+                        </div>
+                    @endauth
                 </div>
                 <nav id="menu-mobile"><ul>@stack('menu_mobile')</ul></nav>
             </div>

@@ -28,7 +28,8 @@ class PageManager {
         return in_array($name, $this->getUsedRoutes());
     }
     private function setStaticPages(){
-        $staticPages = Page::getStaticPages();
+        if (!app()->runningInConsole()) $staticPages = Page::getStaticPages();
+        else $staticPages = collect();
         $this->staticPagesCollection = $staticPages;
         $this->staticPages = $staticPages->mapWithKeys(function($item){
             return [$item->static=>$item->url];

@@ -40,17 +40,85 @@
         'saveBtnClass'=>'btn-bauten',
         'closeBtn' => 'Отменить',
         'dialog_class' => 'modal-xl',
-        'form'=>['id'=>'order-form', 'action'=>'javascript:void(0)']])
-    @slot('title')Оформление заказа@endslot
+        'form'=>['id'=>'order-form', 'action'=>route('cabinet.order')]])
+    @slot('title')Оформление заказа@endslot @csrf
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group">
+                <label for="form-name">Имя</label>
+                <input type="text" id="form-name" class="form-control @error('name') has-error @enderror" name="name" value="{{ old('name', $user->name) }}" maxlength="255">
+                @error('name')
+                <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <label for="form-last-name">Фамилия</label>
+                <input type="text" id="form-last-name" class="form-control @error('last_name') has-error @enderror" name="last_name" value="{{ old('last_name', $user->last_name) }}" maxlength="255">
+                @error('last_name')
+                <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <label for="form-phone">Телефон</label>
+                <input type="text" id="form-phone" class="form-control @error('phone') has-error @enderror" name="phone" value="{{ old('phone', $user->phone) }}" maxlength="255">
+                @error('phone')
+                <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+        </div>
+        @if($user->isEntity)
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="form-company">Компания</label>
+                    <input type="text" id="form-company" class="form-control @error('company') has-error @enderror" name="company" value="{{ old('company', $user->company) }}" maxlength="255">
+                    @error('company')
+                    <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="form-bin">БИН</label>
+                    <input type="text" id="form-bin" class="form-control @error('bin') has-error @enderror" name="bin" value="{{ old('bin', $user->bin) }}" maxlength="255">
+                    @error('bin')
+                    <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+            </div>
+        @endif
+        <div class="col-6">
+            <div class="form-group cabinet-select2">
+                <label for="form-delivery">Метод доставки</label>
+                <select name="delivery" id="form-delivery" class="select2" style="width: 100%;">
+                    <option value="0">Самовывоз</option>
+                    <option value="1">Доставка до двери</option>
+                </select>
+                @error('delivery')
+                <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+        </div>
+        <div class="col-6">
 
+        </div>
+    </div>
     @endmodal
 @endsection
 @push('js')
     @js(aApp('bootstrap/js/bootstrap.js'))
+    @js(aApp('select2/select2.js'))
     <script>
         var allPrice = {{ $allPrice??0 }},
             deleteItemUrl = '{{ route('cabinet.basket.delete') }}',
             csrf = '{{ csrf_token() }}';
+        $('.select2').select2();
     </script>
     @js(aSite('js/basket.js'))
+@endpush
+@push('css')
+    @css(aApp('select2/select2.css'))
 @endpush

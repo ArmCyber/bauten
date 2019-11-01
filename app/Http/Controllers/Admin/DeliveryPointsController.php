@@ -3,29 +3,26 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Country;
-use App\Models\Region;
+use App\Models\DeliveryPoint;
 use App\Services\Notify\Facades\Notify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 
-class RegionsController extends BaseController
+class DeliveryPointsController extends BaseController
 {
-    public function main($id){
+    public function main(){
         $data = [];
-        $data['country'] = Country::getItem($id);
-        $data['items'] = $data['country']->regions;
-        $data['title'] = 'Области страны "'.$data['country']->title.'"';
-        $data['back_url'] = route('admin.countries.main');
-        return view('admin.pages.regions.main', $data);
+        $data['items'] = DeliveryPoint::adminList();
+        $data['title'] = 'Насиленные пункты';
+        return view('admin.pages.delivery_points.main', $data);
     }
 
-    public function add($id){
+    public function add(){
         $data = ['edit'=>false];
-        $data['country'] = Country::getItem($id);
-        $data['title'] = 'Добавление области страны "'.$data['country']->title.'"';
-        $data['back_url'] = route('admin.regions.main', ['id'=>$data['country']->id]);
-        return view('admin.pages.regions.form', $data);
+        $data['countries'] = Country::adminListForDeliveryPoints();
+        $data['title'] = 'Добавление насиленного пункта';
+        $data['back_url'] = route('admin.delivery_points.main');
+        return view('admin.pages.delivery_points.form', $data);
     }
 
     public function add_put($id, Request $request){
