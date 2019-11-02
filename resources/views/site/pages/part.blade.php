@@ -40,10 +40,13 @@
                         <div class="product-page-info">
                             <h1 class="product-page-title">{{ $item->name }}</h1>
                             <div class="product-page-codes">
-                                <div class="product-page-code">Артикул: <span>{{ $item->code }}</span></div>
-                                @if($item->oem)
-                                    <div class="product-page-code">ОЕМ: <span>{{ $item->oem }}</span></div>
-                                @endif
+                                <div class="product-pages-save"><div title="Сохранить" class="product-favourite product-page-favourite{!! in_array($item->id, $favourite_ids)?' saved':null !!}" data-id="{{ $item->id }}"></div></div>
+                                <div class="product-page-codes-cont">
+                                    <div class="product-page-code">Артикул: <span>{{ $item->code }}</span></div>
+                                    @if($item->oem)
+                                        <div class="product-page-code">ОЕМ: <span>{{ $item->oem }}</span></div>
+                                    @endif
+                                </div>
                             </div>
                         </div>
                         @if($item->description)

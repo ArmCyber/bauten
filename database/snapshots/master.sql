@@ -66,12 +66,12 @@ CREATE TABLE `basket` (
   KEY `basket_user_id_foreign` (`user_id`),
   CONSTRAINT `basket_part_id_foreign` FOREIGN KEY (`part_id`) REFERENCES `parts` (`id`) ON DELETE CASCADE,
   CONSTRAINT `basket_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `basket` WRITE;
 /*!40000 ALTER TABLE `basket` DISABLE KEYS */;
-INSERT INTO `basket` VALUES (21,43,1,5),(22,7,1,4);
+INSERT INTO `basket` VALUES (22,7,1,7),(23,6,1,1);
 /*!40000 ALTER TABLE `basket` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `brands`;
@@ -284,12 +284,12 @@ CREATE TABLE `favourites` (
   KEY `favourites_user_id_foreign` (`user_id`),
   CONSTRAINT `favourites_part_id_foreign` FOREIGN KEY (`part_id`) REFERENCES `parts` (`id`) ON DELETE CASCADE,
   CONSTRAINT `favourites_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `favourites` WRITE;
 /*!40000 ALTER TABLE `favourites` DISABLE KEYS */;
-INSERT INTO `favourites` VALUES (6,6,1),(8,16,1),(9,17,1),(10,18,1);
+INSERT INTO `favourites` VALUES (11,6,1),(19,7,1);
 /*!40000 ALTER TABLE `favourites` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `filters`;
@@ -703,7 +703,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,2,3,'Айк',4,'Армения','Ереван','Ереван','+374553256655','COMPANY','BIN','zakhayko@gmail.com','$2y$10$j13u95VxaZKl89aIQhB26eGb1MKAjLUwzCsR/42r2d8qCl2LoneGq',NULL,1,'dmzLTuuCg7YxjsGvQQjKPpgamTNsVB0ob9ORdS9CnI2wlUojKaXYdF5PdKmk',2,'2019-11-02 10:12:44','2019-11-02 09:21:00','2019-10-15 15:59:56','2019-10-29 11:16:35'),(2,2,NULL,'Test',1,'Казахстан','Астана','Tera','+444444444','Test','Test','hayko2000@mail.ru','$2y$10$yFSwRaqyA4B3Oi9er1SXaOxWnUSww5iEA7C8RF8BeX5DNILGo2.ca',NULL,-1,NULL,1,NULL,NULL,'2019-10-15 17:40:38','2019-10-15 17:40:38'),(4,1,NULL,'test',2,'Казахстан','Алматы','Qatar','87715115555',NULL,NULL,'tests@test.com','$2y$10$szHSyORnHvLfe7iayljYU.3pNXrFqjt0Ss8YpW.qlQ4s1kfrzXqU2','$2y$10$H.TLs3QpAn5kHM8zr5hDYeyMWCdCT9qPxyVpAnVUpWQfR86UjZyR.',-1,NULL,1,NULL,NULL,'2019-10-29 09:36:54','2019-10-29 09:36:54'),(5,1,NULL,'test',2,'Казахстан','Алматы','Qatar','87715115555',NULL,NULL,'madenov@bauten.kz','$2y$10$SbMJo3eWewnDuId5c6w./es4MV72xZce3J./1Bq2qCDRiwCx6L4aS','$2y$10$y120tGs6xOCDuxFGfKfu9Ond24oucb9MnQFxJXPOefnmLyGWoQDb2',-1,NULL,1,NULL,NULL,'2019-10-29 09:37:54','2019-10-29 09:37:54'),(6,1,NULL,'test',2,'Казахстан','Алматы','Qatar','87715115511',NULL,NULL,'zakaz@bauten.kz','$2y$10$u.Ae7bdJt66UMz//IwOx2OUcUKXN6TCcgv1LxdPYgvBV5HhHoSHC6','$2y$10$wdJlgcp13mhS8JVW22TXSeCMtytpwXAo7U7OknVhfpLk7dXnQRRQ6',-1,NULL,1,NULL,NULL,'2019-10-30 05:54:05','2019-10-30 05:54:05');
+INSERT INTO `users` VALUES (1,2,3,'Айк',4,'Армения','Ереван','Ереван','+374553256655','COMPANY','BIN','zakhayko@gmail.com','$2y$10$j13u95VxaZKl89aIQhB26eGb1MKAjLUwzCsR/42r2d8qCl2LoneGq',NULL,1,'dmzLTuuCg7YxjsGvQQjKPpgamTNsVB0ob9ORdS9CnI2wlUojKaXYdF5PdKmk',2,'2019-11-02 10:58:26','2019-11-02 09:21:00','2019-10-15 15:59:56','2019-10-29 11:16:35'),(2,2,NULL,'Test',1,'Казахстан','Астана','Tera','+444444444','Test','Test','hayko2000@mail.ru','$2y$10$yFSwRaqyA4B3Oi9er1SXaOxWnUSww5iEA7C8RF8BeX5DNILGo2.ca',NULL,-1,NULL,1,NULL,NULL,'2019-10-15 17:40:38','2019-10-15 17:40:38'),(4,1,NULL,'test',2,'Казахстан','Алматы','Qatar','87715115555',NULL,NULL,'tests@test.com','$2y$10$szHSyORnHvLfe7iayljYU.3pNXrFqjt0Ss8YpW.qlQ4s1kfrzXqU2','$2y$10$H.TLs3QpAn5kHM8zr5hDYeyMWCdCT9qPxyVpAnVUpWQfR86UjZyR.',-1,NULL,1,NULL,NULL,'2019-10-29 09:36:54','2019-10-29 09:36:54'),(5,1,NULL,'test',2,'Казахстан','Алматы','Qatar','87715115555',NULL,NULL,'madenov@bauten.kz','$2y$10$SbMJo3eWewnDuId5c6w./es4MV72xZce3J./1Bq2qCDRiwCx6L4aS','$2y$10$y120tGs6xOCDuxFGfKfu9Ond24oucb9MnQFxJXPOefnmLyGWoQDb2',-1,NULL,1,NULL,NULL,'2019-10-29 09:37:54','2019-10-29 09:37:54'),(6,1,NULL,'test',2,'Казахстан','Алматы','Qatar','87715115511',NULL,NULL,'zakaz@bauten.kz','$2y$10$u.Ae7bdJt66UMz//IwOx2OUcUKXN6TCcgv1LxdPYgvBV5HhHoSHC6','$2y$10$wdJlgcp13mhS8JVW22TXSeCMtytpwXAo7U7OknVhfpLk7dXnQRRQ6',-1,NULL,1,NULL,NULL,'2019-10-30 05:54:05','2019-10-30 05:54:05');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

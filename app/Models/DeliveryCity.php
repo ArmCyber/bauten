@@ -8,6 +8,10 @@ class DeliveryCity extends Model
 {
     public $timestamps = false;
 
+    protected $casts = [
+        'price' => 'integer',
+    ];
+
     public static function action($model, $inputs) {
         if (!$model) {
             $model = new self;

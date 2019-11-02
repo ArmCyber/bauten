@@ -191,16 +191,21 @@ input.filter-checkbox {
 }
 
 .product-favourite {
-    position:absolute;
-    right:10px;
-    top:10px;
-    font-size:30px;
     color:$blue;
     @include far(f02e);
     cursor:pointer;
     &.saved {
         font-weight: 600;
     }
+}
+.product-card-favourite {
+    position:absolute;
+    right:10px;
+    top:10px;
+    font-size:30px;
+}
+.product-page-favourite{
+    font-size:35px;
 }
 
 .product-image {
@@ -461,6 +466,10 @@ a.bauten-btn {
     border-top: 1px solid #707070;
     margin-top: 8px;
     padding-top: 8px;
+    display:flex;
+}
+.product-page-codes-cont {
+    margin-left:10px;
 }
 
 .product-page-code {

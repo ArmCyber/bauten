@@ -84,7 +84,7 @@
                 </div>
             </div>
             @if (count($regions))
-                <div class="col-6">
+                <div class="col-6 for-delivery" style="display:none">
                     <div class="form-group cabinet-select2">
                         <label for="form-region">Регион</label>
                         <select class="select2" id="form-region" style="width: 100%" name="region_id">
@@ -97,7 +97,7 @@
                         @enderror
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-6 for-delivery" style="display:none">
                     <div class="form-group cabinet-select2">
                         <label for="form-cities">Насиленный пункт</label>
                         <select class="select2" id="form-cities" style="width: 100%" name="city_id">
@@ -110,7 +110,7 @@
                         @enderror
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-6 for-delivery" style="display:none">
                     <div class="form-group cabinet-select2">
                         <label for="form-address">Адрес</label>
                         <input type="text" id="form-address" class="form-control @error('address') has-error @enderror" name="address" value="{{ old('address') }}" maxlength="255">
@@ -135,8 +135,11 @@
             </div>
         </div>
         <div class="modal-prices text-right">
-            <div class="cabinet-title text-right">Сумма: <span class="all-price">{{ $allPrice }}</span> <span class="kzt"></span></div>
-
+            <div class="cabinet-title-sm text-right">Сумма: <span class="all-price">{{ $allPrice }}</span> <span class="kzt"></span></div>
+            <div class="for-delivery" style="display: none">
+                <div class="cabinet-title-sm text-right">Доставка: <span class="delivery-price">{{ $delivery_price = ($regions[0]->cities[0]->price??0) }}</span> <span class="kzt"></span></div>
+                <div class="cabinet-title-sm text-right">Общее: <span class="full-price">{{ $delivery_price + $allPrice }}</span> <span class="kzt"></span></div>
+            </div>
         </div>
         @endmodal
     @endif
@@ -148,7 +151,8 @@
         var allPrice = {{ $allPrice??0 }},
             deleteItemUrl = '{{ route('cabinet.basket.delete') }}',
             csrf = '{{ csrf_token() }}',
-            regions = {!! $regions->toJson(JSON_UNESCAPED_UNICODE) !!}
+            regions = {!! $regions->toJson(JSON_UNESCAPED_UNICODE) !!},
+            deliveryPrices = {!! $delivery_prices->toJson() !!};
         $('.select2').select2();
     </script>
     @js(aSite('js/basket.js'))

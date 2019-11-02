@@ -1,10 +1,29 @@
-var basketCounter = $('#basket-counter');
+var basketCounter = $('#basket-counter'),
+    allPriceBlock = $('.all-price'),
+    cities = $('#form-cities'),
+    forDelivery = $('.for-delivery'),
+    deliveryPriceBlock = $('.delivery-price'),
+    fullPriceBlock = $('.full-price'),
+    formDelivery = $('#form-delivery');
+var parsePrice = function(value){
+    return parseFloat(parseFloat(value).toFixed(2));
+};
+var updateAllPrice = function(value) {
+    allPriceBlock.text(value);
+    if (formDelivery.val()==='1') {
+        var deliveryPrice = parseFloat(deliveryPriceBlock.text());
+        fullPriceBlock.text(parsePrice(deliveryPrice + value));
+    }
+};
+
 $('.delete-basket-item').on('click', function(){
     var self=$(this),
         thisId = parseInt(self.data('id')),
-        thisPrice = parseFloat(self.data('price'));
-    allPrice = parseFloat((allPrice - thisPrice).toFixed(2));
-    $('.all-price').text(allPrice);
+        thisPrice = parseFloat(self.data('price')),
+        allPrice = parsePrice(allPrice - thisPrice);
+
+    console.log(allPrice);
+    allPriceBlock.text(allPrice);
     var index = basketPartIds.indexOf(thisId);
     if (index!==-1) {
         basketPartIds.splice(index, 1);
@@ -31,7 +50,6 @@ $('.delete-basket-item').on('click', function(){
     });
     $(this).parents('tr').remove();
 });
-var cities = $('#form-cities');
 $('#form-region').on('change', function(){
     cities.html('');
     var id = $(this).val();
@@ -41,3 +59,8 @@ $('#form-region').on('change', function(){
     });
     cities.trigger('change');
 });
+formDelivery.on('change', function(){
+    if ($(this).val()==='1') forDelivery.show();
+    else forDelivery.hide();
+});
+
