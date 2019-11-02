@@ -18,8 +18,8 @@
         @endif
         <div class="cabinet-block-content">
             <div class="cabinet-block-info">Тип: <b>{{ $user->type_name }}</b></div>
-            <div class="cabinet-block-info">Имя: <b>{{ $user->name }}</b></div>
-            <div class="cabinet-block-info">Фамилия: <b>{{ $user->last_name }}</b></div>
+            <div class="cabinet-block-info">ФИО: <b>{{ $user->name }}</b></div>
+{{--            <div class="cabinet-block-info">Фамилия: <b>{{ $user->last_name }}</b></div>--}}
             <div class="cabinet-block-info">E-mail: <b>{{ $user->email }}
                 @if($change_email)
                     <span class="text-warning">({{ $change_email->email }})</span>

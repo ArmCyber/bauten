@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->tinyInteger('type')->unsigned()->default(1);
             $table->integer('manager_id')->unsigned()->nullable();
             $table->string('name')->nullable();
-            $table->string('last_name')->nullable();
+//            $table->string('last_name')->nullable();
             $table->integer('region_id')->unsigned()->nullable();
             $table->string('country_name')->nullable();
             $table->string('region_name')->nullable();

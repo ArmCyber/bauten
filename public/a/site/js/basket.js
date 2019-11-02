@@ -4,7 +4,7 @@ $('.delete-basket-item').on('click', function(){
         thisId = parseInt(self.data('id')),
         thisPrice = parseFloat(self.data('price'));
     allPrice = parseFloat((allPrice - thisPrice).toFixed(2));
-    $('#all-price').text(allPrice);
+    $('.all-price').text(allPrice);
     var index = basketPartIds.indexOf(thisId);
     if (index!==-1) {
         basketPartIds.splice(index, 1);
@@ -30,4 +30,14 @@ $('.delete-basket-item').on('click', function(){
         }
     });
     $(this).parents('tr').remove();
+});
+var cities = $('#form-cities');
+$('#form-region').on('change', function(){
+    cities.html('');
+    var id = $(this).val();
+    var this_cities = regions.find(x => x.id==id);
+    $.each(this_cities.cities, function(key, el){
+        $('<option></option>').attr('value', el.id).text(el.title).appendTo(cities);
+    });
+    cities.trigger('change');
 });

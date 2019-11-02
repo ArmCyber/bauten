@@ -15,13 +15,6 @@ class Country extends Model
         return self::withCount('regions')->sort()->get();
     }
 
-
-    public static function adminListForDeliveryPoints(){
-        return self::select('id', 'title')->whereHas('regions')->with(['regions'=>function($q){
-            $q->select('id', 'title', 'country_id');
-        }])->sort()->get();
-    }
-
     public static function action($model, $inputs) {
         if (!$model) {
             $model = new self;

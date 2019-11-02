@@ -44,6 +44,7 @@ class BaseController extends Controller
             $this->shared['user_manager'] = $this->shared['user']->manager?:Admin::getSeniorManager();
             $this->shared['basket_parts'] = Basket::getUserParts();
             $this->shared['basket_part_ids'] = $this->shared['basket_parts']->pluck('part_id');
+            $this->shared['favourite_ids'] = $this->shared['user']->favourites->pluck('id')->toArray();
         }
         view()->share($this->shared);
         return true;

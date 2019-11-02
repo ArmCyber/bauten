@@ -32,7 +32,7 @@ class RegisterController extends BaseController
             'email' => 'required|string|mail|max:255|unique:users,email',
             'password' => 'required|string|min:8|max:255|confirmed',
             'city' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
+//            'last_name' => 'required|string|max:255',
             'phone' => 'required|string|phone|max:255',
             'manager' => [
                 'nullable',
@@ -44,7 +44,7 @@ class RegisterController extends BaseController
         ];
         if ($data['type']==User::TYPE_ENTITY) {
             $rules['company'] = 'required|string|max:255';
-            $rules['bin'] = 'required|string|max:255';
+            $rules['bin'] = 'required|string|size:12';
         }
         return Validator::make($data, $rules, [
             'required' => 'Поле обязательно для заполнения.',
@@ -52,6 +52,7 @@ class RegisterController extends BaseController
             'integer' => 'Поле обязательно для заполнения.',
             'max' => 'Макс. :max символов.',
             'min' => 'Пароль должен содержать мин 8 символов.',
+            'size' => 'Бин должен содержать 12 символов.',
             'mail' => 'Недействительный адрес эл.почты.',
             'phone' => 'Недействительный номер телефона.',
             'confirmed' => 'Пароль и подверждение не совпадают.',

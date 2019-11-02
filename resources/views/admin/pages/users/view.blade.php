@@ -2,8 +2,8 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <div class="view-line"><span class="view-label">Имя:</span> {{ $item->name??'-' }}</div>
-            <div class="view-line"><span class="view-label">Фамилия:</span> {{ $item->last_name??'-' }}</div>
+            <div class="view-line"><span class="view-label">ФИО:</span> {{ $item->name??'-' }}</div>
+{{--            <div class="view-line"><span class="view-label">Фамилия:</span> {{ $item->last_name??'-' }}</div>--}}
             <div class="view-line"><span class="view-label">Эл.почта:</span> {{ $item->email }} @if($item->verification) <span class="text-danger">(не подтверждена)</span> @else <span class="text-success">(подтверждена)</span> @endif</div>
             <div class="view-line"><span class="view-label">Менеджер:</span> @if($item->manager) <a href="{{ route('admin.admins.edit', ['id'=>$item->manager->id]) }}">{{ $item->manager->email }}</a> @else нет @endif <a href="javascript:void(0)" class="icon-btn edit" data-id="{{ $item->manager->id??'0' }}" data-toggle="modal" data-target="#changeManagerModal"></a></div>
             <div class="view-line"><span class="view-label">Группа партнеров:</span> {{ $item->partner_group->title }} ({{ $item->partner_group->sale }}%) <a href="javascript:void(0)" class="icon-btn edit" data-id="{{ $item->partner_group->id }}" data-toggle="modal" data-target="#changePartnerGroupModal"></a></div>

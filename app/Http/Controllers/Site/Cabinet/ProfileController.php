@@ -31,18 +31,19 @@ class ProfileController extends BaseController
             'region_id' => 'required|integer|exists:regions,id',
             'name' => 'required|string|max:255',
             'city' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
+//            'last_name' => 'required|string|max:255',
             'phone' => 'required|string|phone|max:255',
         ];
         if ($this->shared['user']->is_entity) {
             $rules['company'] = 'required|string|max:255';
-            $rules['bin'] = 'required|string|max:255';
+            $rules['bin'] = 'required|string|size:12';
         }
         $request->validate($rules, [
             'required' => 'Поле обязательно для заполнения.',
             'string' => 'Поле обязательно для заполнения.',
             'integer' => 'Поле обязательно для заполнения.',
             'max' => 'Макс. :max символов.',
+            'size' => 'Бин должен содержать 12 символов.',
             'phone' => 'Недействительный номер телефона.',
             'region_id.exists' => 'Поле обязательно для заполнения.',
         ]);

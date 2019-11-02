@@ -61,19 +61,19 @@
                                 <small class="text-danger">{{ $message }}</small>
                                 @enderror
                                 <div class="c-form-group">
-                                    <div class="c-label"><label for="form-name">Имя</label></div>
+                                    <div class="c-label"><label for="form-name">ФИО</label></div>
                                     <div class="c-control"><input type="text" id="form-name" name="name" maxlength="255" value="{{ old('name') }}" @error('name') class="has-error" @enderror></div>
                                 </div>
                                 @error('name')
                                 <small class="text-danger">{{ $message }}</small>
                                 @enderror
-                                <div class="c-form-group">
-                                    <div class="c-label"><label for="form-lname">Фамилия</label></div>
-                                    <div class="c-control"><input type="text" id="form-lname" name="last_name" maxlength="255" value="{{ old('last_name') }}" @error('last_name') class="has-error" @enderror></div>
-                                </div>
-                                @error('last_name')
-                                <small class="text-danger">{{ $message }}</small>
-                                @enderror
+{{--                                <div class="c-form-group">--}}
+{{--                                    <div class="c-label"><label for="form-lname">Фамилия</label></div>--}}
+{{--                                    <div class="c-control"><input type="text" id="form-lname" name="last_name" maxlength="255" value="{{ old('last_name') }}" @error('last_name') class="has-error" @enderror></div>--}}
+{{--                                </div>--}}
+{{--                                @error('last_name')--}}
+{{--                                <small class="text-danger">{{ $message }}</small>--}}
+{{--                                @enderror--}}
                                 <div class="c-form-group lp-only">
                                     <div class="c-label"><label for="form-company">Компания</label></div>
                                     <div class="c-control"><input type="text" id="form-company" name="company" maxlength="255" value="{{ old('company') }}" @error('company') class="has-error" @enderror></div>

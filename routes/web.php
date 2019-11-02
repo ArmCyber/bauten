@@ -118,15 +118,24 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
             Route::patch('sort', $c.'sort')->middleware('ajax')->name('sort');
         });
         //endregion
-        //region Delivery Points
-        Route::middleware('can:admin')->prefix('delivery-points')->name('delivery_points.')->group(function() { $c = 'DeliveryPointsController@';
+        //region Delivery Regions
+        Route::middleware('can:admin')->prefix('delivery-regions')->name('delivery_regions.')->group(function() { $c = 'DeliveryRegionsController@';
             Route::get('', $c.'main')->name('main');
             Route::get('add', $c.'add')->name('add');
             Route::put('add', $c.'add_put');
             Route::get('edit/{id}', $c.'edit')->name('edit');
             Route::patch('edit/{id}', $c.'edit_patch');
             Route::delete('delete', $c.'delete')->middleware('ajax')->name('delete');
-            Route::patch('sort', $c.'sort')->middleware('ajax')->name('sort');
+        });
+        //endregion
+        //region Delivery Cities
+        Route::middleware('can:admin')->prefix('delivery-cities')->name('delivery_cities.')->group(function() { $c = 'DeliveryCitiesController@';
+            Route::get('{id}', $c.'main')->name('main');
+            Route::get('add/{id}', $c.'add')->name('add');
+            Route::put('add/{id}', $c.'add_put');
+            Route::get('edit/{id}', $c.'edit')->name('edit');
+            Route::patch('edit/{id}', $c.'edit_patch');
+            Route::delete('delete', $c.'delete')->middleware('ajax')->name('delete');
         });
         //endregion
         //region Parts
@@ -143,7 +152,7 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
             Route::delete('delete', $c.'delete')->middleware('ajax')->name('delete');
         });
         //endregion
-        //region Parts
+        //region Brands
         Route::middleware('can:admin')->prefix('brands')->name('brands.')->group(function() { $c = 'BrandsController@';
             Route::get('', $c.'main')->name('main');
             Route::get('add', $c.'add')->name('add');
@@ -304,6 +313,8 @@ Route::namespace('Site')->group(function() {
             Route::post('basket/add', 'ShopController@addToBasket')->name('basket.add');
             Route::post('basket/delete', 'ShopController@deleteFromBasket')->name('basket.delete');
             Route::post('basket/order', 'ShopController@order')->name('order');
+            Route::get('favourites', 'FavouritesController@main')->name('favourites');
+            Route::post('favourites/add', 'FavouritesController@add')->middleware('ajax')->name('favourites.add');
         });
     });
     Route::get('profile/change-email/{token}', 'Cabinet\ProfileController@verifyNewEmail')->name('profile.verify_new_email');

@@ -214,5 +214,7 @@ return [
         'available' => 'Остаток',
         'multiplication' => 'Мин. количество заказа',
         'min_count' => 'Кол. в пакете',
+        'country_id' => 'Страна',
+        'region_id' => 'Регион',
     ],
 ];

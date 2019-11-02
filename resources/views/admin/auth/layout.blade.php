@@ -3,7 +3,7 @@
     <title>Панель администратора - {!! config('admin.author') !!}</title>
     <meta name="robots" content="noindex, nofollow">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link href="{{ aAdmin('img/favicon.ico') }}" rel="shortcut icon" type="image/x-icon">
+    <link href="{{ asset('favicon.ico') }}" rel="shortcut icon" type="image/x-icon">
     {!! newCss(aAdmin('css/auth.css')) !!}
 </head><body>
 <div class="auth-form-section">

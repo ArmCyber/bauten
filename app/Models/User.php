@@ -6,7 +6,6 @@ use App\Http\Traits\Resetable;
 use App\Mail\NewEmailVerificationToken;
 use App\Mail\UserRegistered;
 use App\Mail\UserVerified;
-use App\Notifications\NewEmailVerificationNotification;
 use App\Notifications\PartnerGroupChangedNotification;
 use App\Notifications\ProfileActivatedNotification;
 use App\Notifications\RegisteredNotification;
@@ -59,7 +58,7 @@ class User extends Authenticatable
 
     public static function register($inputs, $verification_token) {
         $user = new self;
-        merge_model($inputs, $user, ['type', 'name', 'last_name', 'region_id', 'city', 'phone', 'email']);
+        merge_model($inputs, $user, ['type', 'name', 'region_id', 'city', 'phone', 'email']);
         $region = Region::find($inputs['region_id']);
         if ($inputs['type']==self::TYPE_ENTITY) {
             $user['company'] = $inputs['company'];
@@ -75,7 +74,7 @@ class User extends Authenticatable
 
     public static function updateSettings($user, $inputs) {
         $user['name'] = $inputs['name'];
-        $user['last_name'] = $inputs['last_name'];
+//        $user['last_name'] = $inputs['last_name'];
         $user['phone'] = $inputs['phone'];
         $region = Region::find($inputs['region_id']);
         $user['region_id'] = $region->id;
@@ -255,5 +254,9 @@ class User extends Authenticatable
 
     public function getSaleAttribute(){
         return $this->partner_group->sale;
+    }
+
+    public function favourites(){
+        return $this->belongsToMany('App\Models\Part', 'favourites', 'user_id', 'part_id')->where('parts.active', 1)->withPivot('id')->orderBy('pivot_id', 'desc');
     }
 }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Site\Cabinet;
 
 use App\Http\Controllers\Site\BaseController;
 use App\Models\Basket;
+use App\Models\Country;
+use App\Models\DeliveryRegion;
 use App\Models\Part;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -33,8 +35,12 @@ class ShopController extends BaseController
     }
 
     public function basket() {
+        $data = [];
         $this->shared['basket_parts']->load('part');
-        return view('site.pages.cabinet.basket');
+        if ($this->shared['basket_parts']) {
+            $data['regions'] = DeliveryRegion::siteList();
+        }
+        return view('site.pages.cabinet.basket', $data);
     }
 
     public function deleteFromBasket(Request $request) {

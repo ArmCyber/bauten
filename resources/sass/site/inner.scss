@@ -1,6 +1,7 @@
 @import '../base';
 label {
     margin-bottom:.2rem;
+    cursor: default;
 }
 .products-block {
     display: flex;
@@ -186,6 +187,20 @@ input.filter-checkbox {
     display: flex;
     flex-direction: column;
     background-color: #ffffff;
+    position: relative;
+}
+
+.product-favourite {
+    position:absolute;
+    right:10px;
+    top:10px;
+    font-size:30px;
+    color:$blue;
+    @include far(f02e);
+    cursor:pointer;
+    &.saved {
+        font-weight: 600;
+    }
 }
 
 .product-image {
@@ -286,7 +301,7 @@ input.filter-checkbox {
 
     > label {
         margin-bottom: 0;
-        cursor: pointer;
+        cursor: default;
     }
 }
 

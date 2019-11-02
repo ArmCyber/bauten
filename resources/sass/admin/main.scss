@@ -481,6 +481,7 @@ input.labelauty-in-table+label {
   padding-top:1px;
   text-align: center;
   background-color: #cc0000;
+  flex-shrink: 0;
   color:#ffffff;
   &:before {
     content:'';

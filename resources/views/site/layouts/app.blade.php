@@ -2,7 +2,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bauten</title>
-    <link rel="shortcut icon" href="{!! asset('favicon.ico') !!}">
+    <link rel="shortcut icon" href="{!! asset('favicon.ico') !!}" type="image/x-icon">
     @css(aApp('bootstrap/css/bootstrap.css'))
     @css(aApp('font-awesome/css/all.css'))
     @css(aSite('assets/mmenu-light/mmenu-light.css'))
@@ -168,7 +168,7 @@
         <script>
             window.basketPartIds = {!! $basket_part_ids->toJson() !!};
         </script>
-        @js(aSite('js/auth.js'))
+        @js(aSite('js/authenticated.js'))
     @endauth
     @stack('js')
 </body></html>

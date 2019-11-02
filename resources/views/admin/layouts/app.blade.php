@@ -4,7 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <link href="{!! aAdmin('img/favicon.ico') !!}" rel="shortcut icon" type="image/x-icon">
+    <link href="{!! asset('favicon.ico') !!}" rel="shortcut icon" type="image/x-icon">
     <title>@yield('title', $title??null) - {!! config('admin.author') !!}</title>
     @css(aApp('jquery-ui/jquery-ui.css'))
     @css(aApp('font-awesome/css/all.css'))
