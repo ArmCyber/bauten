@@ -28,6 +28,10 @@ class Basket extends Model
         return self::where('user_id', auth()->user()->id)->get();
     }
 
+    public static function clear(){
+        return self::where('user_id', auth()->user()->id)->delete();
+    }
+
     public function part(){
         return $this->belongsTo('App\Models\Part');
     }

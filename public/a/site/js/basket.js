@@ -10,20 +10,22 @@ var parsePrice = function(value){
 };
 var updateAllPrice = function(value) {
     allPriceBlock.text(value);
-    if (formDelivery.val()==='1') {
-        var deliveryPrice = parseFloat(deliveryPriceBlock.text());
-        fullPriceBlock.text(parsePrice(deliveryPrice + value));
-    }
+    updateFullPrice();
+};
+
+var updateFullPrice = function(){
+    var price_all = parseFloat($(allPriceBlock[0]).text()),
+        price_delivery = parseFloat(deliveryPriceBlock.text()),
+        price_full = parsePrice(price_all + price_delivery);
+    fullPriceBlock.text(price_full);
 };
 
 $('.delete-basket-item').on('click', function(){
     var self=$(this),
         thisId = parseInt(self.data('id')),
-        thisPrice = parseFloat(self.data('price')),
-        allPrice = parsePrice(allPrice - thisPrice);
-
-    console.log(allPrice);
-    allPriceBlock.text(allPrice);
+        thisPrice = parseFloat(self.data('price'));
+    allPrice = parsePrice(allPrice - thisPrice);
+    updateAllPrice(allPrice);
     var index = basketPartIds.indexOf(thisId);
     if (index!==-1) {
         basketPartIds.splice(index, 1);
@@ -63,4 +65,10 @@ formDelivery.on('change', function(){
     if ($(this).val()==='1') forDelivery.show();
     else forDelivery.hide();
 });
-
+cities.on('change', function(){
+    var self = $(this),
+        selfId = parseInt(self.val()),
+        deliveryPrice = deliveryPrices[selfId];
+    deliveryPriceBlock.text(deliveryPrice);
+    updateFullPrice();
+});

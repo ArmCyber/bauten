@@ -253,7 +253,7 @@ class User extends Authenticatable
     }
 
     public function getSaleAttribute(){
-        return $this->partner_group->sale;
+        return $this->partner_group->sale??0;
     }
 
     public function favourites(){
