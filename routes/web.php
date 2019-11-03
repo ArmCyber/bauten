@@ -281,6 +281,13 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
             Route::delete('delete', $c.'delete')->name('delete');
         });
         //endregion
+        //region Orders
+        Route::middleware('can:admin')->prefix('orders')->name('orders.')->group(function() { $c = 'OrdersController@';
+            Route::get('', $c.'main')->name('main');
+//            Route::get('view/{id}', $c.'view')->name('view');
+//            Route::delete('delete', $c.'delete')->name('delete');
+        });
+        //endregion
         //region Import
         Route::match(['get','post'], 'import/{page}', 'ImportController@render')->name('import');
         //endregion
@@ -309,12 +316,13 @@ Route::namespace('Site')->group(function() {
             Route::get('profile/change-email', 'ProfileController@changeEmail')->name('profile.change_email');
             Route::post('profile/change-email', 'ProfileController@changeEmail_post');
             Route::get('profile/change-email/cancel', 'ProfileController@cancelChangeEmail')->name('profile.change_email.cancel');
-            Route::get('basket', 'ShopController@basket')->name('basket');
-            Route::post('basket/add', 'ShopController@addToBasket')->name('basket.add');
-            Route::post('basket/delete', 'ShopController@deleteFromBasket')->name('basket.delete');
-            Route::post('basket/order', 'ShopController@order')->name('order');
+            Route::get('basket', 'BasketController@basket')->name('basket');
+            Route::post('basket/add', 'BasketController@addToBasket')->name('basket.add');
+            Route::post('basket/delete', 'BasketController@deleteFromBasket')->name('basket.delete');
             Route::get('favourites', 'FavouritesController@main')->name('favourites');
             Route::post('favourites/add', 'FavouritesController@add')->middleware('ajax')->name('favourites.add');
+            Route::post('order', 'OrdersController@order')->name('order');
+            Route::get('orders', 'OrdersController@main')->name('orders');
         });
     });
     Route::get('profile/change-email/{token}', 'Cabinet\ProfileController@verifyNewEmail')->name('profile.verify_new_email');
