@@ -15,7 +15,7 @@
                             <div class="c-radios">
                                 <label class="c-radio">
                                     <input type="radio" id="legal-person-radio" class="reg-type-radio" name="type" value="{{ $types['entity'] }}" {{ old('type')!=$types['individual']?'checked':null }}>
-                                    <span>Юридическое лицо</span>
+                                    <span>Компания</span>
                                 </label>
                                 <label class="c-radio">
                                     <input type="radio" name="type" class="reg-type-radio" value="{{ $types['individual'] }}" {{ old('type')==$types['individual']?'checked':null }}>

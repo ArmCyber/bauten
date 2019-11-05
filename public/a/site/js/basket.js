@@ -17,7 +17,7 @@ var updateFullPrice = function(){
     var price_all = parseFloat($(allPriceBlock[0]).text()),
         price_delivery = parseFloat(deliveryPriceBlock.text()),
         price_full = parsePrice(price_all + price_delivery);
-    fullPriceBlock.text(price_full);
+    fullPriceBlock.text(Math.ceil(price_full));
 };
 
 $('.delete-basket-item').on('click', function(){

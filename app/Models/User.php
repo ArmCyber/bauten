@@ -154,7 +154,7 @@ class User extends Authenticatable
     }
 
     public function getTypeNameAttribute() {
-        if ($this->type == self::TYPE_ENTITY) return 'Юридическое лицо';
+        if ($this->type == self::TYPE_ENTITY) return 'Компания';
         return 'Физическое лицо';
     }
 

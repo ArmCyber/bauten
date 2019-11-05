@@ -283,8 +283,9 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
         //endregion
         //region Orders
         Route::middleware('can:admin')->prefix('orders')->name('orders.')->group(function() { $c = 'OrdersController@';
-            Route::get('', $c.'main')->name('main');
-//            Route::get('view/{id}', $c.'view')->name('view');
+            Route::get('pending', $c.'pending')->name('pending');
+            Route::get('view/{id}', $c.'view')->name('view');
+            Route::delete('delete', $c.'delete')->name('delete');
 //            Route::delete('delete', $c.'delete')->name('delete');
         });
         //endregion

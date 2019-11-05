@@ -22,7 +22,7 @@ class UserVerified extends Mailable
 
     public function build()
     {
-        return $this->subject('Пользователь подтверждил свой адрес эл.почты на сайте Bauten.kz')
+        return $this->subject('Пользователь подтверждил свой адрес эл.почты на сайте Bauten.org')
             ->view('site.mails.admin.user_verified', $this->data);
     }
 }

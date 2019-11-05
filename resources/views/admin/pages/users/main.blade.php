@@ -56,15 +56,6 @@
     @else
         <h4 class="text-danger">@lang('admin/all.empty')</h4>
     @endif
-    @modal(['id'=>'itemDeleteModal', 'centered'=>true, 'loader'=>true,
-        'saveBtn'=>'Удалить',
-        'saveBtnClass'=>'btn-danger',
-        'closeBtn' => 'Отменить',
-        'form'=>['id'=>'itemDeleteForm', 'action'=>'javascript:void(0)']])
-    @slot('title')Удаление профиля@endslot
-    <input type="hidden" id="pdf-item-id">
-    <p class="font-14">Вы действительно хотите удалить профиль &Lt;<span id="pdm-title"></span>&Gt;?</p>
-    @endmodal
 @endsection
 @push('css')
     @css(aApp('datatables/datatables.css'))

@@ -35,4 +35,10 @@ class OrdersController extends BaseController
         Notify::success('Ваш заказ отправлен.');
         return redirect()->route('cabinet.main');
     }
+
+    public function pending(){
+        $data = [];
+
+        return view('site.pages.cabinet.orders', $data);
+    }
 }

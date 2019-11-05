@@ -24,7 +24,7 @@ class UsersController extends BaseController
         $data['managers'] = Admin::getManagers();
         $data['partner_groups'] = PartnerGroup::adminList();
         $data['title'] = 'Пользователь "'.$data['item']->email.'"';
-        $data['back_url'] = route('admin.users.main');
+//        $data['back_url'] = route('admin.users.main');
         return view('admin.pages.users.view', $data);
     }
 

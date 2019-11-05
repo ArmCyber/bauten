@@ -9,6 +9,24 @@ class Order extends Model
     public const STATUS_DECLINED = -1;
     public const STATUS_PENDING = 0;
 
+    public const STATUSES = [
+        self::STATUS_PENDING => 'pending',
+        self::STATUS_DECLINED => 'declined',
+    ];
+
+    public const STATUS_NAMES = [
+        self::STATUS_PENDING => 'Ожидаемый',
+        self::STATUS_DECLINED => 'Откланенный',
+    ];
+
+    public static function getItem($id) {
+        return self::where('id', $id)->with('order_parts')->firstOrFail();
+    }
+
+    public static function getPendingOrders(){
+        return self::where('status', self::STATUS_PENDING)->with('parts')->with('user')->get();
+    }
+
     public static function makeOrder($inputs) {
         $basket_parts = view()->shared('basket_parts');
         $basket_parts->load('part');
@@ -40,7 +58,7 @@ class Order extends Model
             $order['address'] = $inputs['address'];
             $order['delivery_price'] = $city->price;
         }
-        $order['total'] = $order['sum'] + $order['delivery_price']??0;
+        $order['total'] = ceil($order['sum'] + $order['delivery_price']??0);
         $order['status'] = 0;
         $order['sale'] = $user->sale;
         $order->save();
@@ -48,6 +66,26 @@ class Order extends Model
     }
 
     public function parts(){
-        return $this->belongsToMany('App\Models\Part');
+        return $this->belongsToMany('App\Models\Part')->withPivot('count', 'price', 'real_price', 'name');
+    }
+
+    public function user(){
+        return $this->belongsTo('App\Models\User');
+    }
+
+    public function order_parts(){
+        return $this->hasMany('App\Models\OrderPart')->with('part');
+    }
+
+    public function getStatusNameAttribute() {
+        return self::STATUS_NAMES[$this->status]??null;
+    }
+
+    public function getStatusTypeAttribute(){
+        return self::STATUSES[$this->status]??null;
+    }
+
+    public static function deleteItem($model) {
+        return $model->delete();
     }
 }
