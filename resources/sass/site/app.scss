@@ -383,6 +383,15 @@ a.footer-soc {
 
 //endregion
 //region Generic
+.swiper-container.show-after-init:not(.swiper-container-initialized) {
+    display:none !important;
+}
+.swiper-container.equal-heights .swiper-slide {
+    height:auto !important;
+}
+.p-shadow {
+    padding: 5px 5px 7px 5px;
+}
 .text-warning {
     color:#e6ae07 !important;
 }

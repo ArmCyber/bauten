@@ -216,5 +216,6 @@ return [
         'min_count' => 'Кол. в пакете',
         'country_id' => 'Страна',
         'region_id' => 'Регион',
+        'articule' => 'Артикул',
     ],
 ];

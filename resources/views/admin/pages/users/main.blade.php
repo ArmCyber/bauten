@@ -45,6 +45,7 @@
                                 @endif
                             </td>
                             <td>
+                                <a href="{{ route('admin.users.recommended_parts', ['id'=>$item->id]) }}" {!! tooltip('Рекомендованные товары') !!} class="icon-btn parts"></a>
                                 <a href="{{ route('admin.users.view', ['id'=>$item->id]) }}" {!! tooltip('Посмотреть') !!} class="icon-btn view"></a>
                             </td>
                         </tr>

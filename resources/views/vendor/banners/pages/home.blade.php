@@ -5,6 +5,11 @@
     @bannerBlock(['title'=>'Контент'])
         <div class="row">
             <div class="col-12 col-dxl-6">
+                @card(['title'=>'Блок "Товары для вас"'])
+                    @banner('block_titles.recommended_parts', 'Название')
+                @endcard
+            </div>
+            <div class="col-12 col-dxl-6">
                 @card(['title'=>'Блок "Каталог автозапчастей"'])
                     @banner('block_titles.catalogue', 'Название')
                 @endcard

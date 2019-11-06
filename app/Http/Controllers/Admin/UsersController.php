@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Admin;
+use App\Models\Part;
 use App\Models\PartnerGroup;
 use App\Models\User;
 use App\Services\Notify\Facades\Notify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class UsersController extends BaseController
 {
@@ -89,10 +91,47 @@ class UsersController extends BaseController
         Notify::get('changes_saved');
         return redirect()->route('admin.users.view', ['id'=>$user->id]);
     }
+
     public function delete(Request $request) {
         $user = User::getItem($request->input('id'));
         User::deleteItem($user);
         Notify::success('Профиль удален.');
         return redirect()->route('admin.users.main');
+    }
+
+    public function recommendedParts($id){
+        $data = [];
+        $data['user'] = User::getItem($id);
+        $data['items'] = $data['user']->recommended_parts;
+        $data['back_url'] = route('admin.users.main');
+        $data['title'] = 'Рекомендованные товары полязователя "'.$data['user']->email.'"';
+        return view('admin.pages.users.recommended_parts', $data);
+    }
+
+    public function recommendedParts_add(Request $request, $id) {
+        $user = User::getItem($id);
+        $request->validate([
+            'code' => [
+                'required',
+                'string',
+                'exists:parts,code',
+            ]
+        ]);
+        $part = Part::getItemFromCode($request->code);
+        if ($user->recommended_parts()->where('parts.id', $part->id)->count()) {
+            return redirect()->back()->withErrors(['code'=>'Запчасть уже прикреплен.'])->withInput();
+        }
+        $user->recommended_parts()->attach($part->id);
+        Notify::success('Запчасть прикреплен.');
+        return redirect()->route('admin.users.recommended_parts', ['id' => $user->id]);
+    }
+
+    public function recommendedParts_delete(Request $request, $id) {
+        $user = User::getItem($id);
+        $itemId = (int) $request->input('item_id');
+        if ($itemId) {
+            $user->recommended_parts()->detach($itemId);
+        }
+        return response()->json(['success'=>1]);
     }
 }

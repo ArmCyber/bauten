@@ -98,6 +98,7 @@ class BannersController extends BaseController
                     'parts' => 'input',
                     'brands' => 'input',
                     'news' => 'input',
+                    'recommended_parts' => 'input',
                 ]
             ],
 

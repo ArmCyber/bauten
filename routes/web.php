@@ -279,6 +279,9 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
             Route::patch('change-status', $c.'changeStatus')->name('change_status');
             Route::patch('change-password', $c.'changePassword')->name('change_password');
             Route::delete('delete', $c.'delete')->name('delete');
+            Route::get('recommended-parts/{id}', $c.'recommendedParts')->name('recommended_parts');
+            Route::put('recommended-parts/add/{id}', $c.'recommendedParts_add')->name('recommended_parts.add');
+            Route::delete('recommended-parts/delete/{id}', $c.'recommendedParts_delete')->name('recommended_parts.delete');
         });
         //endregion
         //region Orders

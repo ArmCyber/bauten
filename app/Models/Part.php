@@ -61,6 +61,10 @@ class Part extends Model
         return self::findOrFail($id);
     }
 
+    public static function getItemFromCode($code){
+        return self::where('code', $code)->firstOrFail();
+    }
+
     public static function getItemForFilters($id) {
         return self::where('id', $id)->withCount(['catalogue as group_id'=>function($q){
             $q->select('group_id');
@@ -175,5 +179,9 @@ class Part extends Model
 
     public static function getActiveItem($id) {
         return self::where(['id'=>$id, 'active'=>1])->first();
+    }
+
+    public function parts_with(){
+        return $this->belongsToMany('App\Models\Part', 'part_with_part', 'part_id', 'recommended_part_id')->sort();
     }
 }

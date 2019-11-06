@@ -17,17 +17,18 @@ class AppController extends BaseController
 
     private function static_home($page) {
         $data = ['active_page'=>$page->id];
-        $data['skip_inner_css'] = true;
         $data['banners'] = Banner::get('home');
         $data['home_slider'] = HomeSlide::siteList();
         $data['news'] = News::homeList();
         $data['marks'] = Mark::homeList();
         $data['brands'] = Brand::homeList();
-        if(auth()->check()) {
+        if($this->shared['user']) {
             $data['search_brands'] = Brand::searchList();
             $data['search_marks'] = Mark::searchList();
             $data['engine_criteria'] = EngineCriterion::searchList();
+            $data['recommended_parts'] = $this->shared['user']->recommended_parts;
         }
+        else $data['skip_inner_css'] = true;
         return view('site.pages.home', $data);
     }
 

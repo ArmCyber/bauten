@@ -108,6 +108,49 @@
         </div>
     </div>
 </div>
+@if (count($recommended_parts))
+    <section class="section section-bg">
+        <div class="container">
+            <h2 class="section-title">{{ $banners->block_titles->recommended_parts }}</h2>
+            <div id="recommended-parts-slider" class="swiper-container show-after-init equal-heights">
+                <div class="swiper-wrapper">
+                    @foreach($recommended_parts as $item)
+                        <div class="swiper-slide p-shadow">
+                            @component('site.components.part', ['item'=>$item])@endcomponent
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </section>
+    @push('js')
+        @js(aApp('swiper/swiper.js'))
+        <script>
+            new Swiper('#recommended-parts-slider', {
+                loop: true,
+                autoplay: {
+                    delay: 3000,
+                },
+                slidesPerView: 1,
+                spaceBetween: 5,
+                breakpoints: {
+                    576: {
+                        slidesPerView: 2
+                    },
+                    992: {
+                        slidesPerView: 3
+                    },
+                    1200: {
+                        slidesPerView: 4
+                    }
+                }
+            });
+        </script>
+    @endpush
+    @push('css')
+        @css(aApp('swiper/swiper.css'))
+    @endpush
+@endif
 @modal(['id'=>'maxTakeModal', 'centered'=>true, 'closeBtn' => 'Закрыть', 'hide_save_btn'=>true])
     @slot('title')Выберите максимум {{ $max_take }} елементов.@endslot
     <p class="font-14">Выберите максимум {{ $max_take }} елементов.</p>
