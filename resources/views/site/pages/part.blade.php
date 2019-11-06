@@ -140,26 +140,48 @@
         </div>
     </div>
 </div>
-{{--<div class="pb-s">--}}
-{{--    <div class="recommended-products section-bg">--}}
-{{--        <div class="container">--}}
-{{--            <div class="prod-tbl-title pb-3 pb-lg-5">С этим советуем</div>--}}
-{{--            <div class="row row-grid">--}}
-{{--                @foreach([['Щетки стеклоочистителя "Torino" бескаркасная с силиконом 14"', '6.300', 1], ['Набор для утапливания поршней тормозного цил. 12пр', '7.800', 2], ['Ремкомплект бескамерных шин "AUTOPROFI"', '1.200', 3],['Щетки стеклоочистителя "Torino" бескаркасная с силиконом 14"', '6.300', 1]] as $item)--}}
-{{--                    <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3">--}}
-{{--                        <div class="product-item">--}}
-{{--                            <div class="product-image">--}}
-{{--                                <img src="{{ asset('f/cat-page/'.$item[2].'.png') }}" alt="">--}}
-{{--                            </div>--}}
-{{--                            <div class="product-title">{{ $item[0] }}</div>--}}
-{{--                            <div class="product-price"><span class="catalogue-price">Цена: от <span class="cat-price">{{ $item[1] }}</span> <span class="kzt"></span></span></div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                @endforeach--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--</div>--}}
+
+@if(count($attached_parts))
+    <div class="pb-s">
+        <div class="recommended-products section-bg">
+            <div class="container">
+                <div class="prod-tbl-title pb-3 pb-lg-5">С этим советуем</div>
+                <div id="attached-parts-slider" class="swiper-container show-after-init equal-heights">
+                    <div class="swiper-wrapper">
+                        @foreach($attached_parts as $item)
+                            <div class="swiper-slide p-shadow">
+                                @component('site.components.part', ['item'=>$item])@endcomponent
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @push('pageScripts')
+        <script>
+            new Swiper('#attached-parts-slider', {
+                loop: false,
+                autoplay: {
+                    delay: 3000,
+                },
+                slidesPerView: 1,
+                spaceBetween: 5,
+                breakpoints: {
+                    576: {
+                        slidesPerView: 2
+                    },
+                    992: {
+                        slidesPerView: 3
+                    },
+                    1200: {
+                        slidesPerView: 4
+                    }
+                }
+            });
+        </script>
+    @endpush
+@endif
 @endsection
 @push('css')
     @css(aApp('swiper/swiper.css'))
@@ -172,4 +194,5 @@
     </script>
     @js(aApp('swiper/swiper.js'))
     @js(aSite('js/product.js'))
+    @stack('pageScripts')
 @endpush

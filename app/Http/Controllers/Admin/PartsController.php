@@ -125,6 +125,45 @@ class PartsController extends BaseController
         return response()->json($result);
     }
 
+    public function attachedParts($id){
+        $data = [];
+        $data['part'] = Part::getItem($id);
+        $data['items'] = $data['part']->attached_parts;
+        $data['back_url'] = route('admin.parts.main');
+        $data['title'] = 'Советуемые запчасти запчаста "'.$data['part']->code.'"';
+        return view('admin.pages.parts.attached_parts', $data);
+    }
+
+    public function attachedParts_add(Request $request, $id) {
+        $part = Part::getItem($id);
+        $request->validate([
+            'code' => [
+                'required',
+                'string',
+                'exists:parts,code',
+            ]
+        ]);
+        $attached_part = Part::getItemFromCode($request->code);
+        if ($part->attached_parts()->where('parts.id', $attached_part->id)->count()) {
+            return redirect()->back()->withErrors(['code'=>'Запчасть уже прикреплен.'])->withInput();
+        }
+        else if ($part->id == $attached_part->id) {
+            return redirect()->back()->withErrors(['code'=>'Запчасть не может прикрепится к себе.'])->withInput();
+        }
+        $part->attached_parts()->attach($attached_part->id);
+        Notify::success('Запчасть прикреплен.');
+        return redirect()->route('admin.parts.attached_parts', ['id' => $part->id]);
+    }
+
+    public function attachedParts_delete(Request $request, $id) {
+        $part = Part::getItem($id);
+        $itemId = (int) $request->input('item_id');
+        if ($itemId) {
+            $part->attached_parts()->detach($itemId);
+        }
+        return response()->json(['success'=>1]);
+    }
+
     /**
      * @throws ValidationException
      */

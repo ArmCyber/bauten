@@ -150,6 +150,9 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
             Route::get('engine-filters/{id}', $c.'engineFilters')->name('engine_filters');
             Route::patch('engine-filters/{id}', $c.'engineFilters_patch')->name('engine_filters');
             Route::delete('delete', $c.'delete')->middleware('ajax')->name('delete');
+            Route::get('attached-parts/{id}', $c.'attachedParts')->name('attached_parts');
+            Route::put('attached-parts/add/{id}', $c.'attachedParts_add')->name('attached_parts.add');
+            Route::delete('attached-parts/delete/{id}', $c.'attachedParts_delete')->name('attached_parts.delete');
         });
         //endregion
         //region Brands

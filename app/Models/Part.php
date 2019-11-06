@@ -181,7 +181,11 @@ class Part extends Model
         return self::where(['id'=>$id, 'active'=>1])->first();
     }
 
-    public function parts_with(){
-        return $this->belongsToMany('App\Models\Part', 'part_with_part', 'part_id', 'recommended_part_id')->sort();
+    public function attached_parts(){
+        return $this->belongsToMany('App\Models\Part', 'attached_parts', 'part_id', 'attached_part_id')->sort();
+    }
+
+    public function attached_parts_site(){
+        return $this->belongsToMany('App\Models\Part', 'attached_parts', 'part_id', 'attached_part_id')->where('active', 1)->sort();
     }
 }

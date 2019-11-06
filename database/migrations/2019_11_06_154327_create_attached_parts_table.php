@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePartWithPartTable extends Migration
+class CreateAttachedPartsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreatePartWithPartTable extends Migration
      */
     public function up()
     {
-        Schema::create('part_with_part', function (Blueprint $table) {
+        Schema::create('attached_parts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('part_id')->unsigned();
-            $table->bigInteger('recommended_part_id')->unsigned();
+            $table->bigInteger('attached_part_id')->unsigned();
             $table->foreign('part_id')->references('id')->on('parts')->onDelete('cascade');
-            $table->foreign('recommended_part_id')->references('id')->on('parts')->onDelete('cascade');
+            $table->foreign('attached_part_id')->references('id')->on('parts')->onDelete('cascade');
         });
     }
 
@@ -29,6 +29,6 @@ class CreatePartWithPartTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('part_with_part');
+        Schema::dropIfExists('attached_parts');
     }
 }

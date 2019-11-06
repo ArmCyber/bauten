@@ -127,7 +127,7 @@
         @js(aApp('swiper/swiper.js'))
         <script>
             new Swiper('#recommended-parts-slider', {
-                loop: true,
+                loop: false,
                 autoplay: {
                     delay: 3000,
                 },

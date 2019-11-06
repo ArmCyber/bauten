@@ -19,6 +19,7 @@ class PartsController extends BaseController
         })->groupBy('engine_filter_id');
         $data['gallery'] = Gallery::get('parts', $data['item']->id);
         $data['page_title'] = get_page('catalogs')->title;
+        $data['attached_parts'] = $data['item']->attached_parts_site;
         return view('site.pages.part', $data);
     }
 }

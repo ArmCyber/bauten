@@ -36,6 +36,26 @@ LOCK TABLES `admins` WRITE;
 INSERT INTO `admins` VALUES (1,NULL,'Developer','dev@dev.loc','055555555',1,5,'$2y$10$TRhlT00iAMKmgFNjmn7omebe4J9vEcZPYJHloVEUTifozPFhQkTxm',NULL,'2019-10-04 16:49:11','2019-10-11 12:57:53'),(2,NULL,'Administrator','admin@dev.loc','8799999999',1,4,'$2y$10$uNf.p3QYG8joLxREyiLTteYPdJXc5ueXhg.w4saBewY1xJrhi1SgS',NULL,'2019-10-04 16:49:11','2019-10-27 14:51:24'),(3,'4286921','Manager','manager@dev.loc','899999999',1,2,'$2y$10$vznTQeQ5g8M8W6D2gvaFUu/YTPgVrslPL2Tp3p/vVJrMxLWo0VWBC',NULL,'2019-10-04 16:49:11','2019-10-16 13:52:17'),(4,NULL,'Operator','operator@dev.loc','8799999997',1,1,'$2y$10$eD2pYhjIYMLaW7TLD0J1y.otxOlfTbBMjEMXyyxYHeHK2/n0encma',NULL,'2019-10-04 16:49:11','2019-10-11 13:19:20'),(5,NULL,'Старший менеджер','senior_manager@dev.loc','111111111',1,3,'$2y$10$OuwZHTeWAlq8V7LUnfXH4uhsy2K/zgFGIXdmDWIzqHagPbRbyzaH6',NULL,'2019-10-27 14:52:03','2019-10-27 15:00:00');
 /*!40000 ALTER TABLE `admins` ENABLE KEYS */;
 UNLOCK TABLES;
+DROP TABLE IF EXISTS `attached_parts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `attached_parts` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `part_id` bigint(20) unsigned NOT NULL,
+  `attached_part_id` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `attached_parts_part_id_foreign` (`part_id`),
+  KEY `attached_parts_attached_part_id_foreign` (`attached_part_id`),
+  CONSTRAINT `attached_parts_attached_part_id_foreign` FOREIGN KEY (`attached_part_id`) REFERENCES `parts` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `attached_parts_part_id_foreign` FOREIGN KEY (`part_id`) REFERENCES `parts` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+LOCK TABLES `attached_parts` WRITE;
+/*!40000 ALTER TABLE `attached_parts` DISABLE KEYS */;
+INSERT INTO `attached_parts` VALUES (6,4,7),(7,4,6);
+/*!40000 ALTER TABLE `attached_parts` ENABLE KEYS */;
+UNLOCK TABLES;
 DROP TABLE IF EXISTS `banners`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -284,12 +304,12 @@ CREATE TABLE `favourites` (
   KEY `favourites_user_id_foreign` (`user_id`),
   CONSTRAINT `favourites_part_id_foreign` FOREIGN KEY (`part_id`) REFERENCES `parts` (`id`) ON DELETE CASCADE,
   CONSTRAINT `favourites_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `favourites` WRITE;
 /*!40000 ALTER TABLE `favourites` DISABLE KEYS */;
-INSERT INTO `favourites` VALUES (28,6,1),(32,8,1);
+INSERT INTO `favourites` VALUES (28,6,1),(32,8,1),(33,7,1);
 /*!40000 ALTER TABLE `favourites` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `filters`;
@@ -429,12 +449,12 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (1,'2019_07_10_171502_create_admins_table',1),(2,'2019_07_12_204343_create_password_resets_table',1),(3,'2019_07_12_232636_create_pages_table',1),(4,'2019_07_23_000000_create_zakhayko_banners_table',1),(5,'2019_08_14_161704_create_marks_table',1),(6,'2019_08_14_161725_create_models_table',1),(7,'2019_08_14_161756_create_generations_table',1),(8,'2019_08_14_221246_create_countries_table',1),(9,'2019_08_14_221310_create_regions_table',1),(10,'2019_08_19_142314_create_parts_table',1),(11,'2019_08_19_165244_create_brands_table',1),(12,'2019_09_02_210329_create_part_catalogs_table',1),(13,'2019_09_06_194022_create_part_cars_table',1),(14,'2019_09_30_183624_create_home_slider_table',1),(15,'2019_10_02_183143_create_galleries_table',1),(16,'2019_10_06_173451_create_terms_table',1),(17,'2019_10_07_150146_create_news_table',1),(18,'2019_10_08_161153_create_groups_table',1),(19,'2019_10_08_165558_add_group_id_to_part_catalogs_table',1),(20,'2019_10_08_191627_create_filters_table',1),(21,'2019_10_08_193606_create_criteria_table',1),(22,'2019_10_09_144929_create_criterion_part_table',1),(24,'2019_10_11_144259_create_engine_filters_table',1),(25,'2019_10_11_144400_create_engine_criteria_table',1),(26,'2019_10_11_151219_create_users_table',1),(34,'2019_10_22_170311_create_partner_groups_table',2),(35,'2019_10_22_170857_add_partner_group_id_to_users_table',2),(37,'2019_10_22_221136_create_favourites_table',3),(38,'2019_10_22_221849_create_basket_table',4),(39,'2019_10_24_170751_create_engine_criterion_part_table',5),(40,'2019_10_27_202229_create_change_emails_table',6),(47,'2019_11_01_192027_create_delivery_regions_table',7),(48,'2019_11_01_192039_create_delivery_cities_table',7),(59,'2019_11_03_153023_create_orders_table',8),(60,'2019_11_03_153143_create_order_part_table',8),(61,'2019_11_06_154011_create_recommended_parts_table',9),(62,'2019_11_06_154327_create_part_with_part_table',10);
+INSERT INTO `migrations` VALUES (1,'2019_07_10_171502_create_admins_table',1),(2,'2019_07_12_204343_create_password_resets_table',1),(3,'2019_07_12_232636_create_pages_table',1),(4,'2019_07_23_000000_create_zakhayko_banners_table',1),(5,'2019_08_14_161704_create_marks_table',1),(6,'2019_08_14_161725_create_models_table',1),(7,'2019_08_14_161756_create_generations_table',1),(8,'2019_08_14_221246_create_countries_table',1),(9,'2019_08_14_221310_create_regions_table',1),(10,'2019_08_19_142314_create_parts_table',1),(11,'2019_08_19_165244_create_brands_table',1),(12,'2019_09_02_210329_create_part_catalogs_table',1),(13,'2019_09_06_194022_create_part_cars_table',1),(14,'2019_09_30_183624_create_home_slider_table',1),(15,'2019_10_02_183143_create_galleries_table',1),(16,'2019_10_06_173451_create_terms_table',1),(17,'2019_10_07_150146_create_news_table',1),(18,'2019_10_08_161153_create_groups_table',1),(19,'2019_10_08_165558_add_group_id_to_part_catalogs_table',1),(20,'2019_10_08_191627_create_filters_table',1),(21,'2019_10_08_193606_create_criteria_table',1),(22,'2019_10_09_144929_create_criterion_part_table',1),(24,'2019_10_11_144259_create_engine_filters_table',1),(25,'2019_10_11_144400_create_engine_criteria_table',1),(26,'2019_10_11_151219_create_users_table',1),(34,'2019_10_22_170311_create_partner_groups_table',2),(35,'2019_10_22_170857_add_partner_group_id_to_users_table',2),(37,'2019_10_22_221136_create_favourites_table',3),(38,'2019_10_22_221849_create_basket_table',4),(39,'2019_10_24_170751_create_engine_criterion_part_table',5),(40,'2019_10_27_202229_create_change_emails_table',6),(47,'2019_11_01_192027_create_delivery_regions_table',7),(48,'2019_11_01_192039_create_delivery_cities_table',7),(59,'2019_11_03_153023_create_orders_table',8),(60,'2019_11_03_153143_create_order_part_table',8),(61,'2019_11_06_154011_create_recommended_parts_table',9),(63,'2019_11_06_154327_create_attached_parts_table',10);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `models`;
@@ -618,25 +638,6 @@ LOCK TABLES `part_catalogs` WRITE;
 INSERT INTO `part_catalogs` VALUES (4,'Шины',3,'shiny','9VBa7s6yHD7sUwpLrR.png',NULL,'1',NULL,'2019-10-07 18:41:16','2019-10-08 18:01:30'),(5,'Диски',2,'diski','eTEqO7stV9xI0qthHE.png',NULL,'1',NULL,'2019-10-07 18:41:50','2019-10-08 18:01:04'),(6,'Щетки стеклоочистеля',2,'shchetki-stekloochistelya','0EohB4wCR5TSsih1Eh.png',NULL,'1',NULL,'2019-10-07 18:42:01','2019-10-08 18:01:37'),(7,'Масла',3,'masla','j61YUR3R5ear6bsSZ4.png',NULL,'1',NULL,'2019-10-07 18:42:13','2019-10-08 18:01:21'),(8,'Аксессуары',1,'aksessuary','jpGKULOG3YogIUpg2w.png',NULL,'1',NULL,'2019-10-07 18:52:07','2019-10-08 18:00:56'),(9,'Электро - оборудование',3,'elektro-oborudovanie','GaxRfJt2hZvEn04JXT.png',NULL,'1',NULL,'2019-10-07 18:52:22','2019-10-08 18:01:45'),(10,'Автохимия',1,'avtokhimiya','FH7cX9ngr78FrmymwO.png',NULL,'1',NULL,'2019-10-07 18:52:44','2019-10-08 18:00:48'),(11,'Инструменты',2,'instrumenty','GlMShV93KyOLSNwtlE.png',NULL,'1',NULL,'2019-10-07 18:53:01','2019-10-08 18:01:12'),(12,'Бампер передний',2,'bamper-peredniy',NULL,NULL,NULL,NULL,'2019-10-25 16:47:08','2019-10-25 16:47:08'),(13,'Бампер задний',1,'bamper-zadniy',NULL,NULL,NULL,NULL,'2019-10-25 16:47:08','2019-10-25 16:47:08'),(14,'Дверь',1,'dver',NULL,NULL,NULL,NULL,'2019-10-25 16:47:08','2019-10-25 16:47:08'),(15,'Капот',1,'kapot',NULL,NULL,NULL,NULL,'2019-10-25 16:47:08','2019-10-25 16:47:08'),(16,'Кронштейн для крепления бампера',1,'kronshteyn-dlya-krepleniya-bampera',NULL,NULL,NULL,NULL,'2019-10-25 16:47:08','2019-10-25 16:47:08'),(17,'Крыло',1,'krylo',NULL,NULL,NULL,NULL,'2019-10-25 16:47:08','2019-10-25 16:47:08'),(18,'Крышка багажника',2,'kryshka-bagazhnika',NULL,NULL,NULL,NULL,'2019-10-25 16:47:08','2019-10-25 16:47:08'),(19,'Молдинг кузова',2,'molding-kuzova',NULL,NULL,NULL,NULL,'2019-10-25 16:47:08','2019-10-25 16:47:08'),(20,'Накладка',1,'nakladka',NULL,NULL,NULL,NULL,'2019-10-25 16:47:08','2019-10-25 16:47:08'),(21,'Решетка радиатора',3,'reshetka-radiatora',NULL,NULL,NULL,NULL,'2019-10-25 16:47:08','2019-10-25 16:47:08'),(22,'Усилитель бампера',1,'usilitel-bampera',NULL,NULL,NULL,NULL,'2019-10-25 16:47:08','2019-10-25 16:47:08'),(23,'Опора амортизатора',1,'opora-amortizatora',NULL,NULL,NULL,NULL,'2019-10-25 16:47:08','2019-10-25 16:47:08'),(24,'Рычаг',3,'rychag',NULL,NULL,NULL,NULL,'2019-10-25 16:47:08','2019-10-25 16:47:08'),(25,'Крестовина рулевой колонки',3,'krestovina-rulevoy-kolonki',NULL,NULL,NULL,NULL,'2019-10-25 16:47:08','2019-10-25 16:47:08'),(26,'Рулевая рейка',3,'rulevaya-reyka',NULL,NULL,NULL,NULL,'2019-10-25 16:47:08','2019-10-25 16:47:08'),(27,'Втулки стабилизатора',2,'vtulki-stabilizatora',NULL,NULL,NULL,NULL,'2019-10-25 16:47:08','2019-10-25 16:47:08'),(28,'Наконечник рулевой тяги',3,'nakonechnik-rulevoy-tyagi',NULL,NULL,NULL,NULL,'2019-10-25 16:47:08','2019-10-25 16:47:08'),(29,'Стойка стабилизатора',2,'stoyka-stabilizatora',NULL,NULL,NULL,NULL,'2019-10-25 16:47:08','2019-10-25 16:47:08'),(30,'Тормозные диски',2,'tormoznye-diski',NULL,NULL,NULL,NULL,'2019-10-25 16:47:08','2019-10-25 16:47:08'),(31,'Рулевая тяга',1,'rulevaya-tyaga',NULL,NULL,NULL,NULL,'2019-10-25 16:47:08','2019-10-25 16:47:08'),(32,'Шаровая опора',2,'sharovaya-opora',NULL,NULL,NULL,NULL,'2019-10-25 16:47:08','2019-10-25 16:47:08'),(33,'Натяжитель цепи ГРМ',1,'natyazhitel-tsepi-grm',NULL,NULL,NULL,NULL,'2019-10-25 16:47:08','2019-10-25 16:47:08'),(34,'Цепь ГРМ',3,'tsep-grm',NULL,NULL,NULL,NULL,'2019-10-25 16:47:08','2019-10-25 16:47:08'),(35,'Цепь привода распредвала',3,'tsep-privoda-raspredvala',NULL,NULL,NULL,NULL,'2019-10-25 16:47:08','2019-10-25 16:47:08'),(36,'Бачок для жидкости омывателя',3,'bachok-dlya-zhidkosti-omyvatelya',NULL,NULL,NULL,NULL,'2019-10-25 16:47:08','2019-10-25 16:47:08'),(37,'Вентилятор охлаждения радиатора',1,'ventilyator-okhlazhdeniya-radiatora',NULL,NULL,NULL,NULL,'2019-10-25 16:47:08','2019-10-25 16:47:08'),(38,'Фары оптика',2,'fary-optika',NULL,NULL,NULL,NULL,'2019-10-25 16:47:08','2019-10-25 16:47:08'),(39,'Решетка бампера',3,'reshetka-bampera',NULL,NULL,NULL,NULL,'2019-10-25 16:47:08','2019-10-25 16:47:08');
 /*!40000 ALTER TABLE `part_catalogs` ENABLE KEYS */;
 UNLOCK TABLES;
-DROP TABLE IF EXISTS `part_with_part`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `part_with_part` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `part_id` bigint(20) unsigned NOT NULL,
-  `recommended_part_id` bigint(20) unsigned NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `part_with_part_part_id_foreign` (`part_id`),
-  KEY `part_with_part_recommended_part_id_foreign` (`recommended_part_id`),
-  CONSTRAINT `part_with_part_part_id_foreign` FOREIGN KEY (`part_id`) REFERENCES `parts` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `part_with_part_recommended_part_id_foreign` FOREIGN KEY (`recommended_part_id`) REFERENCES `parts` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
-LOCK TABLES `part_with_part` WRITE;
-/*!40000 ALTER TABLE `part_with_part` DISABLE KEYS */;
-/*!40000 ALTER TABLE `part_with_part` ENABLE KEYS */;
-UNLOCK TABLES;
 DROP TABLE IF EXISTS `partner_groups`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -795,7 +796,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,2,3,'Айк',4,'Армения','Ереван','Ереван','+374553256655','COMPANY','BIN','zakhayko@gmail.com','$2y$10$j13u95VxaZKl89aIQhB26eGb1MKAjLUwzCsR/42r2d8qCl2LoneGq',NULL,1,'qnXMsO7LxXixgl3RaPOZEmtna3b15nB4jbe6vmwepHkLwxjijlQl443ogy2O',2,'2019-11-06 14:09:41','2019-11-06 13:38:40','2019-10-15 15:59:56','2019-10-29 11:16:35'),(2,2,NULL,'Test',1,'Казахстан','Астана','Tera','+444444444','Test','Test','hayko2000@mail.ru','$2y$10$yFSwRaqyA4B3Oi9er1SXaOxWnUSww5iEA7C8RF8BeX5DNILGo2.ca',NULL,-1,NULL,1,NULL,NULL,'2019-10-15 17:40:38','2019-10-15 17:40:38'),(4,1,NULL,'test',2,'Казахстан','Алматы','Qatar','87715115555',NULL,NULL,'tests@test.com','$2y$10$szHSyORnHvLfe7iayljYU.3pNXrFqjt0Ss8YpW.qlQ4s1kfrzXqU2','$2y$10$H.TLs3QpAn5kHM8zr5hDYeyMWCdCT9qPxyVpAnVUpWQfR86UjZyR.',-1,NULL,1,NULL,NULL,'2019-10-29 09:36:54','2019-10-29 09:36:54');
+INSERT INTO `users` VALUES (1,2,3,'Айк',4,'Армения','Ереван','Ереван','+374553256655','COMPANY','BIN','zakhayko@gmail.com','$2y$10$j13u95VxaZKl89aIQhB26eGb1MKAjLUwzCsR/42r2d8qCl2LoneGq',NULL,1,'qnXMsO7LxXixgl3RaPOZEmtna3b15nB4jbe6vmwepHkLwxjijlQl443ogy2O',2,'2019-11-06 15:08:10','2019-11-06 13:38:40','2019-10-15 15:59:56','2019-10-29 11:16:35'),(2,2,NULL,'Test',1,'Казахстан','Астана','Tera','+444444444','Test','Test','hayko2000@mail.ru','$2y$10$yFSwRaqyA4B3Oi9er1SXaOxWnUSww5iEA7C8RF8BeX5DNILGo2.ca',NULL,-1,NULL,1,NULL,NULL,'2019-10-15 17:40:38','2019-10-15 17:40:38'),(4,1,NULL,'test',2,'Казахстан','Алматы','Qatar','87715115555',NULL,NULL,'tests@test.com','$2y$10$szHSyORnHvLfe7iayljYU.3pNXrFqjt0Ss8YpW.qlQ4s1kfrzXqU2','$2y$10$H.TLs3QpAn5kHM8zr5hDYeyMWCdCT9qPxyVpAnVUpWQfR86UjZyR.',-1,NULL,1,NULL,NULL,'2019-10-29 09:36:54','2019-10-29 09:36:54');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

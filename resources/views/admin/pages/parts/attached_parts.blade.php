@@ -1,6 +1,22 @@
 @extends('admin.layouts.app')
-@section('titleSuffix')| <a href="{!! route('admin.parts.add') !!}" class="text-cyan"><i class="mdi mdi-plus-box"></i> добавить</a>@endsection
 @section('content')
+    <div class="row">
+        <div class="col-12 col-dxl-6">
+            @card(['title'=>'Прикрепление запчаста'])
+                <form action="{{ route('admin.parts.attached_parts.add', ['id'=>$part->id]) }}" method="post">@csrf @method('put')
+                    @error('code')
+                    <div class="mb-2 text-danger">{{ $message }}</div>
+                    @enderror
+                    <div>
+                        <input type="text" name="code" class="form-control" placeholder="Артикул" maxlength="255" value="{{ old('code') }}">
+                    </div>
+                    <div class="mt-2">
+                        <button class="btn btn-success" type="submit">Прикреплять</button>
+                    </div>
+                </form>
+            @endcard
+        </div>
+    </div>
     @if(count($items))
         <div class="card">
             <div class="table-responsive p-2">
@@ -8,8 +24,8 @@
                     <thead>
                     <tr>
                         <th>Артикул</th>
-                        <th>Имя</th>
-                        <th>Статус</th>
+                        <th>Название</th>
+                        <th>Статус запчаста</th>
                         <th>Действие</th>
                     </tr>
                     </thead>
@@ -17,19 +33,14 @@
                     @foreach($items as $item)
                         <tr class="item-row" data-id="{!! $item->id !!}">
                             <td>{{ $item->code }}</td>
-                            <td class="item-title">{{ $item->name}}</td>
+                            <td>{{ $item->name }}</td>
                             @if($item->active)
                                 <td class="text-success">Активно</td>
                             @else
                                 <td class="text-danger">Неактивно</td>
                             @endif
                             <td>
-                                <a href="{{ route('admin.parts.attached_parts', ['id'=>$item->id]) }}" {!! tooltip('С этим советуем') !!} class="icon-btn parts"></a>
-                                <a href="{{ route('admin.parts.filters', ['id'=>$item->id]) }}" {!! tooltip('Фильтры') !!} class="icon-btn filters"></a>
-                                <a href="{{ route('admin.parts.engine_filters', ['id'=>$item->id]) }}" {!! tooltip('Фильтры двигателя') !!} class="icon-btn filters-alt"></a>
-                                <a href="{{ route('admin.gallery', ['gallery'=>'parts', 'id'=>$item->id]) }}" {!! tooltip('Галерея') !!} class="icon-btn gallery"></a>
-                                <a href="{{ route('admin.parts.edit', ['id'=>$item->id]) }}" {!! tooltip('Редактировать') !!} class="icon-btn edit"></a>
-                                <span class="d-inline-block"  style="margin-left:4px;" data-toggle="modal" data-target="#itemDeleteModal"><a href="javascript:void(0)" class="icon-btn delete" {!! tooltip('Удалить') !!}></a></span>
+                                <span class="d-inline-block"  style="margin-left:4px;" data-toggle="modal" data-target="#itemDeleteModal"><a href="javascript:void(0)" class="icon-btn delete" {!! tooltip('Открепить') !!}></a></span>
                             </td>
                         </tr>
                     @endforeach
@@ -41,13 +52,13 @@
         <h4 class="text-danger">@lang('admin/all.empty')</h4>
     @endif
     @modal(['id'=>'itemDeleteModal', 'centered'=>true, 'loader'=>true,
-        'saveBtn'=>'Удалить',
+        'saveBtn'=>'Открепить',
         'saveBtnClass'=>'btn-danger',
         'closeBtn' => 'Отменить',
         'form'=>['id'=>'itemDeleteForm', 'action'=>'javascript:void(0)']])
     @slot('title')Удаление запчаста@endslot
     <input type="hidden" id="pdf-item-id">
-    <p class="font-14">Вы действительно хотите удалить запчаст &Lt;<span id="pdm-title"></span>&Gt;?</p>
+    <p class="font-14">Вы действительно хотите открепить запчаст?</p>
     @endmodal
 @endsection
 @push('css')
@@ -85,7 +96,7 @@
             if (thisItemId && thisItemId.match(/^[1-9][0-9]{0,9}$/)) {
                 loader.addClass('shown');
                 $.ajax({
-                    url: '{!! route('admin.parts.delete') !!}',
+                    url: '{!! route('admin.parts.attached_parts.delete', ['id'=>$part->id]) !!}',
                     type: 'post',
                     dataType: 'json',
                     data: {
@@ -101,7 +112,7 @@
                         if (e.success) {
                             loader.removeClass('shown');
                             blocked = false;
-                            toastr.success('Запчаст удален.');
+                            toastr.success('Запчаст откреплен.');
                             modal.modal('hide');
                             $('.item-row[data-id="'+thisItemId+'"]').fadeOut(function(){
                                 $(this).remove();
@@ -113,9 +124,6 @@
             }
             else modalError();
         });
-        $('.init-dataTable').dataTable({
-            sort:false,
-            paging: false,
-        });
+        $('.init-dataTable').dataTable();
     </script>
 @endpush
