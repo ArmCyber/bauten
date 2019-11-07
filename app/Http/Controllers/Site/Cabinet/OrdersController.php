@@ -38,7 +38,6 @@ class OrdersController extends BaseController
 
     public function pending(){
         $data = [];
-
         return view('site.pages.cabinet.orders', $data);
     }
 }

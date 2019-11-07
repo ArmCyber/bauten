@@ -9,7 +9,10 @@ use Illuminate\Http\Request;
 class FavouritesController extends BaseController
 {
     public function main(){
-        return view('site.pages.cabinet.favourites');
+        $data = [
+            'seo' => $this->staticSEO('Сохраненные товары'),
+        ];
+        return view('site.pages.cabinet.favourites', $data);
     }
 
     public function add(Request $request) {

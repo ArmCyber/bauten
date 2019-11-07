@@ -37,6 +37,7 @@ class BasketController extends BaseController
 
     public function basket() {
         $data = [];
+        $data['seo'] = $this->staticSEO('Корзина');
         $this->shared['basket_parts']->load('part');
         if ($this->shared['basket_parts']) {
             $data['regions'] = DeliveryRegion::siteList();

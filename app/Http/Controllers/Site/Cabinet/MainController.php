@@ -12,6 +12,7 @@ class MainController extends BaseController
         $data = [];
         $data['partner_group'] = $this->shared['user']->partner_group;
         $data['next_partner_group'] = PartnerGroup::getNextStatus($data['partner_group']);
+        $data['seo'] = $this->staticSEO('Личный кабинет');
         return view('site.pages.cabinet.main', $data);
     }
 }

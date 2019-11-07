@@ -14,6 +14,7 @@ class ProfileController extends BaseController
     public function main(){
         $data = [
             'change_email' => User::getChangeEmail($this->shared['user']->id),
+            'seo' => $this->staticSEO('Настройки профиля'),
         ];
         return view('site.pages.cabinet.profile', $data);
     }
@@ -23,6 +24,7 @@ class ProfileController extends BaseController
         config(['fake_route'=>'cabinet.profile']);
         $data['countries'] = Country::siteList();
         $data['regions'] = Country::jsonForRegions($data['countries']);
+        $data['seo'] = $this->staticSEO('Изменение личных данных');
         return view('site.pages.cabinet.profile_settings', $data);
     }
 
@@ -53,7 +55,10 @@ class ProfileController extends BaseController
 
     public function changePassword(){
         config(['fake_route'=>'cabinet.profile']);
-        return view('site.pages.cabinet.profile_change_password');
+        $data = [
+            'seo' => $this->staticSEO('Изменение пароля'),
+        ];
+        return view('site.pages.cabinet.profile_change_password', $data);
     }
 
     public function changePassword_post(Request $request){
@@ -77,7 +82,10 @@ class ProfileController extends BaseController
     public function changeEmail(){
         if(User::getChangeEmail($this->shared['user']->id)) return redirect()->route('cabinet.profile');
         config(['fake_route'=>'cabinet.profile']);
-        return view('site.pages.cabinet.profile_change_email');
+        $data = [
+            'seo' => $this->staticSEO('Изменение адреса эл.почты'),
+        ];
+        return view('site.pages.cabinet.profile_change_email', $data);
     }
 
     public function changeEmail_post(Request $request){
