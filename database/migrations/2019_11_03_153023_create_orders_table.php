@@ -27,8 +27,10 @@ class CreateOrdersTable extends Migration
             $table->float('sum')->unsigned()->default(0);
             $table->integer('delivery_price')->unsigned()->default(0);
             $table->integer('total')->unsigned()->default(0);
-            $table->enum('payment_method', ['cash', 'bank', 'online'])->default('cash');
+            $table->enum('payment_method', ['cash', 'bank'])->default('cash');
+            $table->tinyInteger('accepted')->default(0);
             $table->tinyInteger('status')->default(0);
+            $table->boolean('paid')->default(0);
             $table->tinyInteger('sale')->default(0);
             $table->timestamps();
         });

@@ -8,5 +8,6 @@
         </div>
         <div class="about-page-content dynamic-text pt-s text-justify">{!! $item->description !!}</div>
     </div>
+    @component('site.components.gallery', ['gallery' => $gallery])@endcomponent
 </div>
 @endsection

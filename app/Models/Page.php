@@ -110,6 +110,7 @@ class Page extends Model
     public static function deletePage($model){
         self::clearCaches();
         if ($model->image) File::delete(public_path('u/pages/'.$model->image));
+        Gallery::clear('pages', $model->id);
         return $model->delete();
     }
 

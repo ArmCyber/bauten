@@ -12,5 +12,6 @@
             @endforeach
         </div>
     </div>
+    @component('site.components.gallery', ['gallery' => $gallery])@endcomponent
 </div>
 @endsection

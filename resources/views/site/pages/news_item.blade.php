@@ -7,5 +7,6 @@
         <h1 class="news-page-title d-none d-lg-block">{{ $item->title }}</h1>
         {!! $item->content !!}
     </div>
+    @component('site.components.gallery', ['gallery' => $gallery])@endcomponent
 </div>
 @endsection

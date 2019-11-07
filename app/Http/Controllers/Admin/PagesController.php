@@ -12,10 +12,16 @@ class PagesController extends BaseController
         'contacts' => ['admin.banners', ['banners'=>'contacts']],
         'about' => ['admin.banners', ['banners'=>'about']],
     ];
+
+    private const GALLERY_PAGES = [
+        'news' => 'news',
+        'terms' => 'terms',
+        'contacts' => 'contacts',
+        'marks' => 'marks',
+        'brands' => 'brands',
+    ];
+
     /*
-        private const GALLERY_PAGES = [
-            //
-        ];
 
         private const VIDEO_GALLERY_PAGES = [
             //
@@ -24,7 +30,7 @@ class PagesController extends BaseController
     public function main(){
         $data = [];
         $data['content_pages'] = self::CONTENT_PAGES;
-//        $data['gallery_pages'] = self::GALLERY_PAGES;
+        $data['gallery_pages'] = self::GALLERY_PAGES;
 //        $data['video_gallery_pages'] = self::VIDEO_GALLERY_PAGES;
         $data['title'] = 'Страницы';
         $data['items'] = Page::adminList();

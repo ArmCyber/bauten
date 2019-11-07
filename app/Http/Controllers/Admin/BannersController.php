@@ -125,20 +125,6 @@ class BannersController extends BaseController
                 ]
             ]
         ],
-        'about' => [
-            'data' => [
-                'params' => [
-                    'banner' => [
-                        'type' => 'image',
-                        'original_file' => 'true',
-                    ],
-                    'banner_alt' => 'input',
-                    'banner_title' => 'input',
-                    'banner_show' => 'labelauty',
-                    'content' => 'text'
-                ]
-            ]
-        ],
         'images' => [
             'data' => [
                 'params' => [

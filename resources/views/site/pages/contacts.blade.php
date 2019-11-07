@@ -67,5 +67,6 @@
     <div class="contacts-map">
         <iframe class="contacts-iframe" src="{{ $banners->data->iframe }}" allowfullscreen=""></iframe>
     </div>
+    @component('site.components.gallery', ['gallery' => $gallery])@endcomponent
 </div>
 @endsection

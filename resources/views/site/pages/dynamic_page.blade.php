@@ -11,5 +11,6 @@
         @endif
         <div class="about-page-content dynamic-text pt-s">{!! $page->content !!}</div>
     </div>
+    @component('site.components.gallery', ['gallery' => $gallery])@endcomponent
 </div>
 @endsection

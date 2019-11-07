@@ -14,7 +14,7 @@ class CreateGalleriesTable extends Migration
     public function up()
     {
         Schema::create('galleries', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('gallery');
             $table->integer('key')->unsigned()->nullable();
             $table->string('image', 64);

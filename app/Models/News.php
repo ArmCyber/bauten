@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Http\Traits\UrlUnique;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\File;
 
 class News extends Model
 {
@@ -46,6 +47,8 @@ class News extends Model
 
     public static function deleteItem($model){
         self::clearCaches();
+        if ($model->image) File::delete(public_path('u/news/'.$model->image));
+        Gallery::clear('news_item', $model->id);
         return $model->delete();
     }
 

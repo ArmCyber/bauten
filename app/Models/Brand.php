@@ -82,6 +82,7 @@ class Brand extends Model
     public static function deleteItem($model){
         self::clearCaches();
         if ($model->image) File::delete(public_path('u/brands/').$model->image);
+        Gallery::clear('brand_item', $model->id);
         return $model->delete();
     }
 

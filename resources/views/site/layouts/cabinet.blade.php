@@ -7,7 +7,7 @@
                     <div class="cs-head">
                         <div class="cs-avatar"><span class="avatar-image"></span></div>
                         <div class="cs-name">{{ $user->name }}</div>
-                        <div class="cs-region">{{ $user->country_name }}, {{ $user->region_name }}</div>
+                        <div class="cs-region">{{ $user->region }}, {{ $user->city }}</div>
                     </div>
                     <div class="cs-links">
                         @component('site.components.cabinet_link', ['route'=>'cabinet.main', 'title'=>'Главная'])@endcomponent

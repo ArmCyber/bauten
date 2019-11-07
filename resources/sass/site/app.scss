@@ -377,6 +377,10 @@ a.footer-soc {
     @include force(3, 1);
 }
 
+.force-4-3 {
+    @include force(4, 3);
+}
+
 .force-16-9 {
     @include force(16, 9);
 }

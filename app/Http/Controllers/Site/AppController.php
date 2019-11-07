@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Models\Brand;
 use App\Models\EngineCriterion;
+use App\Models\Gallery;
 use App\Models\HomeSlide;
 use App\Models\Mark;
 use App\Models\News;
@@ -37,6 +38,7 @@ class AppController extends BaseController
         $data = ['active_page'=>$page->id, 'page_title'=>$page->title];
         $data['items'] = Term::siteList();
         $data['seo'] = $this->renderSEO($page);
+        $data['gallery'] = Gallery::get('terms');
         return view('site.pages.terms', $data);
     }
 
@@ -44,20 +46,15 @@ class AppController extends BaseController
         $data = ['active_page'=>$page->id, 'page_title'=>$page->title];
         $data['banners'] = Banner::get('contacts');
         $data['seo'] = $this->renderSEO($page);
+        $data['gallery'] = Gallery::get('contacts');
         return view('site.pages.contacts', $data);
-    }
-
-    private function static_about($page) {
-        $data = ['active_page'=>$page->id, 'page_title'=>$page->title];
-        $data['banners'] = Banner::get('about');
-        $data['seo'] = $this->renderSEO($page);
-        return view('site.pages.about', $data);
     }
 
     private function static_marks($page) {
         $data = ['active_page'=>$page->id, 'page_title'=>$page->title];
         $data['items'] = Mark::siteList();
         $data['seo'] = $this->renderSEO($page);
+        $data['gallery'] = Gallery::get('marks');
         return view('site.pages.marks', $data);
     }
 
@@ -65,6 +62,7 @@ class AppController extends BaseController
         $data = ['active_page'=>$page->id, 'page_title'=>$page->title];
         $data['items'] = Brand::siteList();
         $data['seo'] = $this->renderSEO($page);
+        $data['gallery'] = Gallery::get('brands');
         return view('site.pages.brands', $data);
     }
 
@@ -72,6 +70,7 @@ class AppController extends BaseController
         $data = ['active_page'=>$page->id, 'page_title'=>$page->title];
         $data['items'] = News::siteList();
         $data['seo'] = $this->renderSEO($page);
+        $data['gallery'] = Gallery::get('news');
         return view('site.pages.news', $data);
     }
 
@@ -79,6 +78,7 @@ class AppController extends BaseController
         $data = ['active_page'=>$page->id, 'page_title'=>$page->title];
         $data['page'] = $page;
         $data['seo'] = $this->renderSEO($page);
+        $data['gallery'] = Gallery::get('pages', $page->id);
         return view('site.pages.dynamic_page', $data);
     }
 

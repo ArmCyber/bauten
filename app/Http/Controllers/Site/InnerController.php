@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Mail\Contact;
 use App\Models\Brand;
+use App\Models\Gallery;
 use App\Models\News;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -45,6 +46,7 @@ class InnerController extends BaseController
         $data['parent'] = get_page('news');
         $data['active_page'] = $data['parent']->id;
         $data['seo'] = $this->renderSEO($data['item']);
+        $data['gallery'] = Gallery::get('news_item', $data['item']->id);
         return view('site.pages.news_item', $data);
     }
 
@@ -55,6 +57,7 @@ class InnerController extends BaseController
         $data['parent'] = get_page('brands');
         $data['seo'] = $this->renderSEO($data['item'], 'name');
         $data['active_page'] = $data['parent']->id;
+        $data['gallery'] = Gallery::get('brand_item', $data['item']->id);
         return view('site.pages.brand_item', $data);
     }
 }

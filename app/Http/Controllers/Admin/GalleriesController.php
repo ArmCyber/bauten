@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Brand;
 use App\Models\Part;
 use App\Services\Notify\Facades\Notify;
-use App\Models\Career;
 use App\Models\Gallery;
 use App\Models\News;
 use App\Models\Page;
-use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -19,7 +18,7 @@ class GalleriesController extends BaseController
         'title'=>'Галерея',
     ];
     private $settings = [
-        'use_thumb' => true,
+        'use_thumbs' => true,
         'thumb_method'=>'fit',
         'thumb_width'=>280,
         'thumb_height'=>210,
@@ -128,5 +127,48 @@ class GalleriesController extends BaseController
             'upsize'=>true,
             'aspectRatio'=>true,
         ]);
+    }
+
+    private function gallery_pages($key) {
+        $item = Page::getPage($key);
+        $this->data['title'] = 'Галерея страницы "'.$item->title.'"';
+        $this->data['back_url'] = route('admin.pages.main');
+    }
+
+    private function gallery_news() {
+        $this->data['title'] = 'Галерея страницы "Новости"';
+        $this->data['back_url'] = route('admin.pages.main');
+    }
+
+    private function gallery_terms() {
+        $this->data['title'] = 'Галерея страницы "Условия"';
+        $this->data['back_url'] = route('admin.pages.main');
+    }
+
+    private function gallery_contacts() {
+        $this->data['title'] = 'Галерея страницы "Контакты"';
+        $this->data['back_url'] = route('admin.pages.main');
+    }
+
+    private function gallery_marks() {
+        $this->data['title'] = 'Галерея страницы "Марки"';
+        $this->data['back_url'] = route('admin.pages.main');
+    }
+
+    private function gallery_brands() {
+        $this->data['title'] = 'Галерея страницы "Бренды"';
+        $this->data['back_url'] = route('admin.pages.main');
+    }
+
+    private function gallery_news_item($key) {
+        $item = News::getItem($key);
+        $this->data['title'] = 'Галерея новости "'.$item->title.'"';
+        $this->data['back_url'] = route('admin.news.main');
+    }
+
+    private function gallery_brand_item($key) {
+        $item = Brand::getItem($key);
+        $this->data['title'] = 'Галерея бренда "'.$item->name.'"';
+        $this->data['back_url'] = route('admin.news.main');
     }
 }

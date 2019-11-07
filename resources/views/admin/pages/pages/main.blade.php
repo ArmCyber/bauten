@@ -34,17 +34,17 @@
                                 <td>
                                     <a href="{{ route('admin.pages.edit', ['id'=>$item->id]) }}" {!! tooltip('Редактировать') !!} class="icon-btn edit"></a>
                                     @if (!$item->static)
-{{--                                        <a href="{{ route('admin.gallery', ['gallery'=>'pages', 'key'=>$item->id]) }}" {!! tooltip('Галерея') !!} class="icon-btn gallery"></a>--}}
+                                        <a href="{{ route('admin.gallery', ['gallery'=>'pages', 'key'=>$item->id]) }}" {!! tooltip('Галерея') !!} class="icon-btn gallery"></a>
 {{--                                        <a href="{{ route('admin.video_gallery', ['gallery'=>'pages', 'key'=>$item->id]) }}" {!! tooltip('Видеогалерея') !!} class="icon-btn video-gallery"></a>--}}
                                         <span class="d-inline-block"  style="margin-left:4px;" data-toggle="modal" data-target="#itemDeleteModal"><a href="javascript:void(0)" class="icon-btn delete" {!! tooltip('Удалить') !!}></a></span>
                                     @else
                                         @if(array_key_exists($item->static, $content_pages))
                                             <a href="{{ route($content_pages[$item->static][0], $content_pages[$item->static][1]??[]) }}" {!! tooltip('Контент') !!} class="icon-btn content"></a>
                                         @endif
-                                        {{--
                                         @if(array_key_exists($item->static, $gallery_pages))
                                             <a href="{{ route('admin.gallery', ['gallery'=>$gallery_pages[$item->static]]) }}" {!! tooltip('Галерея') !!} class="icon-btn gallery"></a>
                                         @endif
+                                        {{--
                                         @if(array_key_exists($item->static, $video_gallery_pages))
                                             <a href="{{ route('admin.video_gallery', ['gallery'=>$video_gallery_pages[$item->static]]) }}" {!! tooltip('Видеогалерея') !!} class="icon-btn video-gallery"></a>
                                         @endif
