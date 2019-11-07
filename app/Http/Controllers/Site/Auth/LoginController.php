@@ -24,7 +24,10 @@ class LoginController extends BaseController
     }
 
     public function showLoginForm(){
-        return view('site.pages.auth.login', []);
+        $data = [
+            'seo' => $this->staticSEO('Вход'),
+        ];
+        return view('site.pages.auth.login', $data);
     }
 
     protected function validateLogin(Request $request)

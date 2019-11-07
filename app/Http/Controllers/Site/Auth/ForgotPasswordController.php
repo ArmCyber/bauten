@@ -36,7 +36,10 @@ class ForgotPasswordController extends BaseController
 
     public function showLinkRequestForm()
     {
-        return view('site.pages.auth.password_email');
+        $data = [
+            'seo' => $this->staticSEO('Восстоновление пароля'),
+        ];
+        return view('site.pages.auth.password_email', $data);
     }
 
     public function sendResetLinkEmail(Request $request)

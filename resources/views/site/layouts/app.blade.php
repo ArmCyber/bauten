@@ -1,7 +1,9 @@
 <!doctype html><html lang="ru"><head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bauten</title>
+    <title>{{ $seo['title']??null }}</title>
+    @if(!empty($seo['keywords'])) <meta name="keywords" content="{{ $seo['keywords'] }}"> @endif
+    @if(!empty($seo['description'])) <meta name="description" content="{{ $seo['description'] }}"> @endif
     <link rel="shortcut icon" href="{!! asset('favicon.ico') !!}" type="image/x-icon">
     @css(aApp('bootstrap/css/bootstrap.css'))
     @css(aApp('font-awesome/css/all.css'))

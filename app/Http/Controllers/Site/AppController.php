@@ -22,6 +22,7 @@ class AppController extends BaseController
         $data['news'] = News::homeList();
         $data['marks'] = Mark::homeList();
         $data['brands'] = Brand::homeList();
+        $data['seo'] = $this->renderSEO($page);
         if($this->shared['user']) {
             $data['search_brands'] = Brand::searchList();
             $data['search_marks'] = Mark::searchList();
@@ -35,42 +36,49 @@ class AppController extends BaseController
     private function static_terms($page) {
         $data = ['active_page'=>$page->id, 'page_title'=>$page->title];
         $data['items'] = Term::siteList();
+        $data['seo'] = $this->renderSEO($page);
         return view('site.pages.terms', $data);
     }
 
     private function static_contacts($page) {
         $data = ['active_page'=>$page->id, 'page_title'=>$page->title];
         $data['banners'] = Banner::get('contacts');
+        $data['seo'] = $this->renderSEO($page);
         return view('site.pages.contacts', $data);
     }
 
     private function static_about($page) {
         $data = ['active_page'=>$page->id, 'page_title'=>$page->title];
         $data['banners'] = Banner::get('about');
+        $data['seo'] = $this->renderSEO($page);
         return view('site.pages.about', $data);
     }
 
     private function static_marks($page) {
         $data = ['active_page'=>$page->id, 'page_title'=>$page->title];
         $data['items'] = Mark::siteList();
+        $data['seo'] = $this->renderSEO($page);
         return view('site.pages.marks', $data);
     }
 
     private function static_brands($page) {
         $data = ['active_page'=>$page->id, 'page_title'=>$page->title];
         $data['items'] = Brand::siteList();
+        $data['seo'] = $this->renderSEO($page);
         return view('site.pages.brands', $data);
     }
 
     private function static_news($page) {
         $data = ['active_page'=>$page->id, 'page_title'=>$page->title];
         $data['items'] = News::siteList();
+        $data['seo'] = $this->renderSEO($page);
         return view('site.pages.news', $data);
     }
 
     private function dynamic_page($page) {
         $data = ['active_page'=>$page->id, 'page_title'=>$page->title];
         $data['page'] = $page;
+        $data['seo'] = $this->renderSEO($page);
         return view('site.pages.dynamic_page', $data);
     }
 

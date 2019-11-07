@@ -48,6 +48,7 @@ class ResetPasswordController extends BaseController
         $data = [
             'email' => $user->email,
             'token' => $token,
+            'seo' => $this->staticSEO('Восстоновление пароля'),
         ];
         return view('site.pages.auth.password_reset', $data);
     }

@@ -22,7 +22,7 @@ class ErrorsController extends BaseController
                 'title'=>$t['title']??null,
                 'message'=>$t['message']??null,
             ],
-//            'seo'=>$this->staticSEO($t['title']??null),
+            'seo'=>$this->staticSEO($t['title']??null),
             'main_class'=>'error-page',
         ];
         return response()->view('site.pages.error', $data)->setStatusCode($code);

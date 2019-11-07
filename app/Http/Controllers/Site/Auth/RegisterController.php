@@ -69,6 +69,7 @@ class RegisterController extends BaseController
         $data['countries'] = Country::siteList();
         $data['regions'] = Country::jsonForRegions($data['countries']);
         $data['types'] = User::getTypes();
+        $data['seo'] = $this->staticSEO('Регистрация');
         return view('site.pages.auth.register', $data);
     }
 

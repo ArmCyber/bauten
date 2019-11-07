@@ -26,6 +26,7 @@ class SearchController extends BaseController
         if (!count($data['items'])) return response('');
         return view('site.ajax.search_models', $data);
     }
+
     public function searchDataGenerations($model_id){
         $data = [];
         $data['items'] = Generation::getSearchData($model_id);

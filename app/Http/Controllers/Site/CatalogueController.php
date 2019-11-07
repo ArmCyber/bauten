@@ -51,6 +51,7 @@ class CatalogueController extends BaseController
         $data['active_page'] = $page->id;
         $data['page_title'] = $page->title;
         $data['catalogue_title'] = $group->name;
+        $data['seo'] = $this->staticSEO($data['catalogue_title']);
         return view('site.pages.catalogue', $data);
     }
 
@@ -65,6 +66,7 @@ class CatalogueController extends BaseController
         $page = get_page('catalogs');
         $data['active_page'] = $page->id;
         $data['page_title'] = $page->title;
+        $data['seo'] = $this->staticSEO($data['catalogue_title']);
         return view('site.pages.catalogue', $data);
     }
 }

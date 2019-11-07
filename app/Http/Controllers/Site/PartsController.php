@@ -20,6 +20,7 @@ class PartsController extends BaseController
         $data['gallery'] = Gallery::get('parts', $data['item']->id);
         $data['page_title'] = get_page('catalogs')->title;
         $data['attached_parts'] = $data['item']->attached_parts_site;
+        $data['seo'] = $this->staticSEO($data['item']->name);
         return view('site.pages.part', $data);
     }
 }

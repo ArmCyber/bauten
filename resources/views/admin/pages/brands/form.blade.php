@@ -80,6 +80,7 @@
             </div>
         </div>
     </div>
+    @seo(['item'=>$item??null])@endseo
     <div class="col-12 save-btn-fixed"><button type="submit"></button></div>
 </form>
 @endsection

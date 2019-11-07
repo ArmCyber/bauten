@@ -23,6 +23,9 @@ class CreateBrandsTable extends Migration
             $table->string('image_alt')->nullable();
             $table->string('image_title')->nullable();
             $table->string('url');
+            $table->string('seo_title')->nullable();
+            $table->text('seo_description')->nullable();
+            $table->string('seo_keywords')->nullable();
             $table->boolean('in_home')->default(0);
             $table->bigInteger('sort')->unsigned()->default(0);
             $table->boolean('active')->default(1);

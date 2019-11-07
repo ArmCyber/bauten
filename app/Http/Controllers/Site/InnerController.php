@@ -44,6 +44,7 @@ class InnerController extends BaseController
         $data['item'] = News::getItemSite($url);
         $data['parent'] = get_page('news');
         $data['active_page'] = $data['parent']->id;
+        $data['seo'] = $this->renderSEO($data['item']);
         return view('site.pages.news_item', $data);
     }
 
@@ -52,6 +53,7 @@ class InnerController extends BaseController
         $data = [];
         $data['item'] = Brand::getItemSite($url);
         $data['parent'] = get_page('brands');
+        $data['seo'] = $this->renderSEO($data['item'], 'name');
         $data['active_page'] = $data['parent']->id;
         return view('site.pages.brand_item', $data);
     }

@@ -40,6 +40,7 @@ class BaseController extends Controller
         $this->shared['footer_pages'] = Page::footerList();
         $this->shared['home_catalogs'] = PartCatalog::homeList();
         $this->shared['user'] = Auth::user();
+        $this->shared['suffix'] = $this->shared['info']->data->seo_suffix;
         if ($this->shared['user']){
             $this->shared['user_manager'] = $this->shared['user']->manager?:Admin::getSeniorManager();
             $this->shared['basket_parts'] = Basket::getUserParts();
@@ -48,5 +49,31 @@ class BaseController extends Controller
         }
         view()->share($this->shared);
         return true;
+    }
+
+    protected function renderSEO($item, $title_field='title') {
+        $seo = [
+            'title' => $item->seo_title,
+            'keywords' => $item->seo_keywords,
+            'description' => $item->seo_description,
+        ];
+        if (!$seo['title']) {
+            $title = $item->{$title_field};
+            if ($this->shared['suffix']) {
+                if ($title) $title.= ' - ';
+                $title.=$this->shared['suffix'];
+            }
+            $seo['title'] = $title;
+        }
+        return $seo;
+    }
+
+    protected function staticSEO($title){
+        $seo = ['title' => $title];
+        if ($this->shared['suffix']) {
+            if ($seo['title']) $seo['title'] .= ' - ';
+            $seo['title'].= $this->shared['suffix'];
+        }
+        return $seo;
     }
 }

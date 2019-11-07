@@ -61,6 +61,9 @@ class Brand extends Model
         $model['code'] = $inputs['code'];
         $model['image_alt'] = $inputs['image_alt'];
         $model['image_title'] = $inputs['image_title'];
+        $model['seo_title'] = $inputs['seo_title'];
+        $model['seo_keywords'] = $inputs['seo_keywords'];
+        $model['seo_description'] = $inputs['seo_description'];
         $model['active'] = (int) array_key_exists('active', $inputs);
         $model['in_home'] = (int) array_key_exists('in_home', $inputs);
         $model['url'] = self::actionUrl($inputs, $ignore);
