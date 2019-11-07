@@ -19,9 +19,7 @@ class CreateUsersTable extends Migration
             $table->integer('manager_id')->unsigned()->nullable();
             $table->string('name')->nullable();
 //            $table->string('last_name')->nullable();
-            $table->integer('region_id')->unsigned()->nullable();
-            $table->string('country_name')->nullable();
-            $table->string('region_name')->nullable();
+            $table->string('region')->nullable();
             $table->string('city')->nullable();
             $table->string('phone')->nullable();
             $table->string('company')->nullable();

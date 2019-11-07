@@ -44,30 +44,10 @@
                     @endif
                 </div>
                 <div class="cabinet-form-col">
-                    <div class="form-group cabinet-select2">
-                        <label for="form-country">Страна</label>
-                        <select name="country_id" id="form-country" class="country-select" style="width: 100%;">
-                            @php $old_country_id = old('country_id', $user->region->country_id); @endphp
-                            @foreach($countries as $country)
-                                <option value="{!! $country->id !!}" {!! $country->id==$old_country_id?'selected':null !!}>{{ $country->title }}</option>
-                            @endforeach
-                        </select>
-                        @error('country_id')
-                        <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-                    <div class="form-group cabinet-select2">
+                    <div class="form-group">
                         <label for="form-region">Регион</label>
-                        <select name="region_id" id="form-region" class="region-select @error('region_id') has-error @enderror" style="width: 100%;">
-                            @php
-                                $old_region_id = old('region_id', $user->region->id);
-                                $loop_regions = ($old_country_id && isset($regions[$old_country_id]))?$regions[$old_country_id]:($regions[$countries[0]->id]??[]);
-                            @endphp
-                            @foreach($loop_regions as $region)
-                                <option value="{!! $region['id'] !!}" {!! $region['id']==$old_region_id?'selected':null !!}>{{ $region['title'] }}</option>
-                            @endforeach
-                        </select>
-                        @error('region_id')
+                        <input type="text" id="form-region" class="form-control @error('region') has-error @enderror" name="region" value="{{ old('region', $user->region) }}" maxlength="255">
+                        @error('region')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
@@ -86,13 +66,3 @@
         </form>
     </div>
 @endsection
-@push('css')
-    @css(aApp('select2/select2.css'))
-@endpush
-@push('js')
-    @js(aApp('select2/select2.js'))
-    <script>
-        var regions = {!! $regions->toJson(JSON_UNESCAPED_UNICODE) !!}
-    </script>
-    @js(aSite('js/registration.js'))
-@endpush

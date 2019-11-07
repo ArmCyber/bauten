@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Site\Auth;
 
 use App\Http\Controllers\Site\BaseController;
-use App\Models\Country;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -27,7 +26,7 @@ class RegisterController extends BaseController
     protected function validator(array $data)
     {
         $rules = [
-            'region_id' => 'required|integer|exists:regions,id',
+            'region' => 'required|string|max:255',
             'name' => 'required|string|max:255',
             'email' => 'required|string|mail|max:255|unique:users,email',
             'password' => 'required|string|min:8|max:255|confirmed',
@@ -57,7 +56,6 @@ class RegisterController extends BaseController
             'phone' => 'Недействительный номер телефона.',
             'confirmed' => 'Пароль и подверждение не совпадают.',
             'unique' => 'Эл.почта уже существует.',
-            'region_id.exists' => 'Поле обязательно для заполнения.',
             'manager.exists' => 'Менеджер с таким кодом не найден.',
         ]);
     }
@@ -66,8 +64,6 @@ class RegisterController extends BaseController
     {
         $data = [];
         $data['banners'] = Banner::get('auth');
-        $data['countries'] = Country::siteList();
-        $data['regions'] = Country::jsonForRegions($data['countries']);
         $data['types'] = User::getTypes();
         $data['seo'] = $this->staticSEO('Регистрация');
         return view('site.pages.auth.register', $data);

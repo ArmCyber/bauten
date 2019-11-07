@@ -24,32 +24,13 @@
                             </div>
                             <div class="c-inputs  {{ old('type')!=$types['individual']?'lp-checked':null }}">
                                 <div class="c-form-group">
-                                    <div class="c-label"><label for="form-country">Страна</label></div>
-                                    <div class="c-control c-select2-inside">
-                                        <select name="country_id" class="country-select" id="form-country" style="width: 100%;">
-                                            @php $old_country_id = old('country_id'); @endphp
-                                            @foreach($countries as $country)
-                                                <option value="{!! $country->id !!}" {!! $country->id==$old_country_id?'selected':null !!}>{{ $country->title }}</option>
-                                            @endforeach
-                                        </select>
+                                    <div class="c-label"><label for="form-region">Регион</label></div>
+                                    <div class="c-control">
+                                        <input type="text" id="form-region" name="region" maxlength="255" value="{{ old('region') }}" @error('region') class="has-error" @enderror>
                                     </div>
                                 </div>
-                                <div class="c-form-group">
-                                    <div class="c-label"><label for="form-region">Область</label></div>
-                                    <div class="c-control c-select2-inside">
-                                        <select name="region_id" id="form-region" class="region-select @error('region_id') has-error @enderror" style="width: 100%;">
-                                        @php
-                                            $old_region_id = old('region_id');
-                                            $loop_regions = ($old_country_id && isset($regions[$old_country_id]))?$regions[$old_country_id]:($regions[$countries[0]->id]??[]);
-                                        @endphp
-                                        @foreach($loop_regions as $region)
-                                                <option value="{!! $region['id'] !!}" {!! $region['id']==$old_region_id?'selected':null !!}>{{ $region['title'] }}</option>
-                                        @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                @error('region_id')
-                                    <small class="text-danger">{{ $message }}</small>
+                                @error('region')
+                                <small class="text-danger">{{ $message }}</small>
                                 @enderror
                                 <div class="c-form-group">
                                     <div class="c-label"><label for="form-city">Город</label></div>
@@ -145,13 +126,8 @@
     </div>
 @endsection
 @push('css')
-    @css(aApp('select2/select2.css'))
     @css(aSite('css/inner.css'))
 @endpush
 @push('js')
-    @js(aApp('select2/select2.js'))
-    <script>
-        var regions = {!! $regions->toJson(JSON_UNESCAPED_UNICODE) !!}
-    </script>
     @js(aSite('js/registration.js'))
 @endpush

@@ -14,8 +14,7 @@
                 <div class="view-line"><span class="view-label">Компания:</span> {{ $item->company }}</div>
                 <div class="view-line"><span class="view-label">Бин:</span> {{ $item->bin }}</div>
             @endif
-            <div class="view-line"><span class="view-label">Страна:</span> {{ $item->country_name??'-' }}</div>
-            <div class="view-line"><span class="view-label">Область:</span> {{ $item->region_name??'-' }}</div>
+            <div class="view-line"><span class="view-label">Регион:</span> {{ $item->region??'-' }}</div>
             <div class="view-line"><span class="view-label">Город:</span> {{ $item->city??'-' }}</div>
             <div class="view-line"><span class="view-label">Телефон:</span> {{ $item->phone??'-' }}</div>
             <div class="view-line"><span class="view-label">Дата регистрации:</span> {{ $item->created_at->format('d.m.Y H:i') }}</div>

@@ -30,8 +30,7 @@
                 <div class="cabinet-block-info">Компания: <b>{{ $user->company }}</b></div>
                 <div class="cabinet-block-info">БИН: <b>{{ $user->bin }}</b></div>
             @endif
-            <div class="cabinet-block-info">Страна: <b>{{ $user->country_name }}</b></div>
-            <div class="cabinet-block-info">Регион: <b>{{ $user->region_name }}</b></div>
+            <div class="cabinet-block-info">Регион: <b>{{ $user->region }}</b></div>
             <div class="cabinet-block-info">Город: <b>{{ $user->city }}</b></div>
             <div class="pt-3">
                 <a href="{{ route('cabinet.profile.settings') }}" class="bauten-btn">Изменить личные данные</a>

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Site\Cabinet;
 
 use App\Http\Controllers\Site\BaseController;
-use App\Models\Country;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,15 +21,13 @@ class ProfileController extends BaseController
     public function settings(){
         $data = [];
         config(['fake_route'=>'cabinet.profile']);
-        $data['countries'] = Country::siteList();
-        $data['regions'] = Country::jsonForRegions($data['countries']);
         $data['seo'] = $this->staticSEO('Изменение личных данных');
         return view('site.pages.cabinet.profile_settings', $data);
     }
 
     public function settings_post(Request $request) {
         $rules = [
-            'region_id' => 'required|integer|exists:regions,id',
+            'region' => 'required|string|max:255',
             'name' => 'required|string|max:255',
             'city' => 'required|string|max:255',
 //            'last_name' => 'required|string|max:255',
@@ -47,7 +44,6 @@ class ProfileController extends BaseController
             'max' => 'Макс. :max символов.',
             'size' => 'Бин должен содержать 12 символов.',
             'phone' => 'Недействительный номер телефона.',
-            'region_id.exists' => 'Поле обязательно для заполнения.',
         ]);
         User::updateSettings($this->shared['user'], $request->all());
         return redirect()->route('cabinet.profile')->with('notify', 'changes_saved');
