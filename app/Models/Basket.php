@@ -25,7 +25,11 @@ class Basket extends Model
     }
 
     public static function getUserParts(){
-        return self::where('user_id', auth()->user()->id)->get();
+        return self::where('user_id', auth()->user()->id)->with('part')->get();
+    }
+
+    public static function getPartsForUser($id){
+        return self::where('user_id', $id)->with('part')->get();
     }
 
     public static function clear(){

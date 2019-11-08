@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Admin;
+use App\Models\Basket;
 use App\Models\Part;
 use App\Models\PartnerGroup;
 use App\Models\User;
@@ -26,6 +27,7 @@ class UsersController extends BaseController
         $data['managers'] = Admin::getManagers();
         $data['partner_groups'] = PartnerGroup::adminList();
         $data['title'] = 'Пользователь "'.$data['item']->email.'"';
+        $data['basket_parts'] = Basket::getPartsForUser($data['item']->id);
 //        $data['back_url'] = route('admin.users.main');
         return view('admin.pages.users.view', $data);
     }
@@ -133,5 +135,25 @@ class UsersController extends BaseController
             $user->recommended_parts()->detach($itemId);
         }
         return response()->json(['success'=>1]);
+    }
+
+    public function favourites($id){
+        $user = User::getItem($id);
+        $data = [
+            'title' => 'Сохраненные товары пользователя "'.$user->email.'"',
+            'back_url' => route('admin.users.view', ['id'=>$user->id]),
+            'items' => $user->all_favourites,
+        ];
+        return view('admin.pages.users.favourites', $data);
+    }
+
+    public function basketParts($id) {
+        $user = User::getItem($id);
+        $data = [
+            'title' => 'Товары в корзине пользователя "'.$user->email.'"',
+            'back_url' => route('admin.users.view', ['id'=>$user->id]),
+        ];
+        $data['items'] = Basket::getPartsForUser($user->id);
+        return view('admin.pages.users.basket_parts', $data);
     }
 }

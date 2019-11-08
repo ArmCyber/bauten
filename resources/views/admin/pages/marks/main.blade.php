@@ -119,9 +119,7 @@
             }
             else modalError();
         });
-        $('.init-dataTable').dataTable({
-            sort:false,
-            paging: false,
-        });
+        $('.init-dataTable').dataTable();
+
     </script>
 @endpush

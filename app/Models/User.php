@@ -250,6 +250,10 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Models\Part', 'favourites', 'user_id', 'part_id')->where('parts.active', 1)->withPivot('id')->orderBy('pivot_id', 'desc');
     }
 
+    public function all_favourites(){
+        return $this->belongsToMany('App\Models\Part', 'favourites', 'user_id', 'part_id')->withPivot('id')->orderBy('pivot_id', 'desc');
+    }
+
     public function recommended_parts(){
         return $this->belongsToMany('App\Models\Part', 'recommended_parts', 'user_id', 'part_id')->sort();
     }

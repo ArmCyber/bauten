@@ -95,7 +95,7 @@
                                     <div class="c-control"><input type="password" id="form-password-confirmation" name="password_confirmation" maxlength="255"></div>
                                 </div>
                                 <div class="c-form-group">
-                                    <div class="c-label"><label for="form-manager">Менеджер</label></div>
+                                    <div class="c-label"><label for="form-manager">ID Менеджера</label></div>
                                     <div class="c-control"><input type="text" id="form-manager" name="manager" maxlength="255" value="{{ old('manager') }}" placeholder="Оставьте пустое если нет менеджера" @error('manager') class="has-error" @enderror></div>
                                 </div>
                                 @error('manager')

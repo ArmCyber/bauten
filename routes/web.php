@@ -263,6 +263,8 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
             Route::get('recommended-parts/{id}', $c.'recommendedParts')->name('recommended_parts');
             Route::put('recommended-parts/add/{id}', $c.'recommendedParts_add')->name('recommended_parts.add');
             Route::delete('recommended-parts/delete/{id}', $c.'recommendedParts_delete')->name('recommended_parts.delete');
+            Route::get('favourites/{id}', $c.'favourites')->name('favourites');
+            Route::get('basket-parts/{id}', $c.'basketParts')->name('basket_parts');
         });
         //endregion
         //region Orders

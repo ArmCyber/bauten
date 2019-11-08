@@ -329,7 +329,7 @@ CREATE TABLE `galleries` (
   `title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `sort` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `galleries` WRITE;
@@ -432,7 +432,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `migrations` WRITE;
@@ -527,7 +527,6 @@ CREATE TABLE `orders` (
   `delivery_price` int(10) unsigned NOT NULL DEFAULT '0',
   `total` int(10) unsigned NOT NULL DEFAULT '0',
   `payment_method` enum('cash','bank') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'cash',
-  `accepted` tinyint(4) NOT NULL DEFAULT '0',
   `status` tinyint(4) NOT NULL DEFAULT '0',
   `paid` tinyint(1) NOT NULL DEFAULT '0',
   `sale` tinyint(4) NOT NULL DEFAULT '0',
@@ -539,7 +538,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (2,1,'Айк','+374553256655',0,NULL,NULL,NULL,NULL,NULL,8468.46,0,8469,'cash',0,0,0,1,'2019-11-04 11:11:04','2019-11-04 11:11:04'),(3,1,'Айк','8182843009',1,'11634 VICTORY BLVD UNIT 1 NORTH',4,'Region1',3,'City 1',14859.90,1000,15860,'cash',0,0,0,1,'2019-11-05 09:10:33','2019-11-05 09:10:33');
+INSERT INTO `orders` VALUES (2,1,'Айк','+374553256655',0,NULL,NULL,NULL,NULL,NULL,8468.46,0,8469,'cash',0,0,1,'2019-11-04 11:11:04','2019-11-04 11:11:04'),(3,1,'Айк','8182843009',1,'11634 VICTORY BLVD UNIT 1 NORTH',4,'Region1',3,'City 1',14859.90,1000,15860,'cash',0,0,1,'2019-11-05 09:10:33','2019-11-05 09:10:33');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `pages`;
@@ -757,7 +756,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,2,3,'Айк','Ереван','Ереван','+374553256655','COMPANY','BIN','zakhayko@gmail.com','$2y$10$j13u95VxaZKl89aIQhB26eGb1MKAjLUwzCsR/42r2d8qCl2LoneGq',NULL,1,'EPTS6ysniA970P2jSSiXGU2RWpRQobFfJ5AMMQ5gc3m8DVtfmGks2RpXMGGw',2,'2019-11-07 14:19:24','2019-11-07 12:43:30','2019-10-15 15:59:56','2019-10-29 11:16:35'),(2,2,NULL,'Test','Астана','Tera','+444444444','Test','Test','hayko2000@mail.ru','$2y$10$yFSwRaqyA4B3Oi9er1SXaOxWnUSww5iEA7C8RF8BeX5DNILGo2.ca',NULL,-1,NULL,1,NULL,NULL,'2019-10-15 17:40:38','2019-10-15 17:40:38'),(4,1,NULL,'test','Алматы','Qatar','87715115555',NULL,NULL,'tests@test.com','$2y$10$szHSyORnHvLfe7iayljYU.3pNXrFqjt0Ss8YpW.qlQ4s1kfrzXqU2','$2y$10$H.TLs3QpAn5kHM8zr5hDYeyMWCdCT9qPxyVpAnVUpWQfR86UjZyR.',1,NULL,1,NULL,NULL,'2019-10-29 09:36:54','2019-11-07 11:53:17'),(5,2,NULL,'Test 1234','Test1','Test','6666666666','company','123456789012','zakhayko1@gmail.com','$2y$10$yW7oFYmZq2sp/5OQTe1FxexcI5MdutUNknglvDKsy7GBzacyiO28S',NULL,1,NULL,1,'2019-11-07 12:09:34','2019-11-07 11:53:49','2019-11-07 11:51:42','2019-11-07 12:07:15');
+INSERT INTO `users` VALUES (1,2,3,'Айк','Ереван','Ереван','+374553256655','COMPANY','BIN','zakhayko@gmail.com','$2y$10$j13u95VxaZKl89aIQhB26eGb1MKAjLUwzCsR/42r2d8qCl2LoneGq',NULL,1,'EhTcf81AzRz33LOzwm1F3QXAPqB9Dng1c1DVJdqAQeQCPvzp3TUR5ja6sDfi',2,'2019-11-08 12:44:27','2019-11-08 12:44:12','2019-10-15 15:59:56','2019-10-29 11:16:35'),(2,2,NULL,'Test','Астана','Tera','+444444444','Test','Test','hayko2000@mail.ru','$2y$10$yFSwRaqyA4B3Oi9er1SXaOxWnUSww5iEA7C8RF8BeX5DNILGo2.ca',NULL,-1,NULL,1,NULL,NULL,'2019-10-15 17:40:38','2019-10-15 17:40:38'),(4,1,NULL,'test','Алматы','Qatar','87715115555',NULL,NULL,'tests@test.com','$2y$10$szHSyORnHvLfe7iayljYU.3pNXrFqjt0Ss8YpW.qlQ4s1kfrzXqU2','$2y$10$H.TLs3QpAn5kHM8zr5hDYeyMWCdCT9qPxyVpAnVUpWQfR86UjZyR.',1,NULL,1,NULL,NULL,'2019-10-29 09:36:54','2019-11-07 11:53:17'),(5,2,NULL,'Test 1234','Test1','Test','6666666666','company','123456789012','zakhayko1@gmail.com','$2y$10$yW7oFYmZq2sp/5OQTe1FxexcI5MdutUNknglvDKsy7GBzacyiO28S',NULL,1,NULL,1,'2019-11-07 12:09:34','2019-11-07 11:53:49','2019-11-07 11:51:42','2019-11-07 12:07:15');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
