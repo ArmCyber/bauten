@@ -1,6 +1,6 @@
 <?php
 return [
     'prefix' => env('ADMIN_PREFIX', 'admin'),
-    'author' => 'STUDIO NOMAD LLC',
+    'author' => 'Bauten',
     'homepage' => 'admin.main',
 ];

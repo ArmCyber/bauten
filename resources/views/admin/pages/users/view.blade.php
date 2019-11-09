@@ -77,11 +77,17 @@
         <input type="hidden" name="id" value="{{ $item->id }}">
         @csrf @method('patch')
         <select id="partnerGroupIdSelect" name="partner_group_id" class="select2" style="width: 100%">
+            <option value="0">Индивидуальная скидка</option>
             @foreach($partner_groups as $partner_group)
                 <option value="{{ $partner_group->id }}" {!! $partner_group->id==$item->partner_group_id?'selected':null !!}>{{ $partner_group->title }} ({{ $partner_group->sale }}%)</option>
             @endforeach
         </select>
-        <div class="pt-3"><label><input type="checkbox" style="width:20px; height:20px; vertical-align: text-top" value="1" name="notify" checked> Отправить оповищение пользователю</label></div>
+        <div class="only-for-individual">
+            <input type="text" name="individual_sale" class="form-control my-2" placeholder="Процент скидки" maxlength="3">
+        </div>
+        <div class="not-for-individual">
+            <div class="pt-3"><label><input type="checkbox" style="width:20px; height:20px; vertical-align: text-top" value="1" name="notify" checked> Отправить оповищение пользователю</label></div>
+        </div>
     @endmodal
     @modal(['id'=>'passwordResetModal', 'saveBtn'=>'Сохранить', 'closeBtn' => 'Отменить', 'centered'=>true,
         'form'=>['method'=>'post','action'=>route('admin.users.change_password')]])

@@ -228,8 +228,6 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         //region Plugins
-        'Widget'       => Arrilot\Widgets\Facade::class,
-        'AsyncWidget'  => Arrilot\Widgets\AsyncFacade::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         //endregion
@@ -237,6 +235,48 @@ return [
         'Notify' => App\Services\Notify\Facades\Notify::class,
         'PageManager' => App\Services\PageManager\Facades\PageManager::class,
         //endregion
+    ],
+
+    'debug_blacklist' => [
+        '_ENV' => [
+            'APP_KEY',
+            'MAIL_DRIVER',
+            'MAIL_HOST',
+            'MAIL_PORT',
+            'MAIL_USERNAME',
+            'MAIL_PASSWORD',
+            'MAIL_ENCRYPTION',
+            'MAIL_FROM_ADDRESS',
+            'MAIL_FROM_NAME',
+            'DB_HOST',
+            'DB_PORT',
+            'DB_USERNAME',
+            'DB_PASSWORD',
+            'DB_DATABASE',
+            'REDIS_PASSWORD',
+        ],
+        '_SERVER' => [
+            'APP_KEY',
+            'MAIL_DRIVER',
+            'MAIL_HOST',
+            'MAIL_PORT',
+            'MAIL_USERNAME',
+            'MAIL_PASSWORD',
+            'MAIL_ENCRYPTION',
+            'MAIL_FROM_ADDRESS',
+            'MAIL_FROM_NAME',
+            'DB_HOST',
+            'DB_PORT',
+            'DB_USERNAME',
+            'DB_PASSWORD',
+            'DB_DATABASE',
+            'REDIS_PASSWORD',
+            'HTTP_COOKIE',
+            'DOCUMENT_ROOT',
+            'CONTEXT_DOCUMENT_ROOT',
+            'SCRIPT_FILENAME',
+            'REMOTE_PORT',
+        ],
     ],
 
 ];

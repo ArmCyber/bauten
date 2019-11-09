@@ -14,7 +14,8 @@ class AddPartnerGroupIdToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('partner_group_id')->unsigned()->default(1)->after('remember_token');
+            $table->integer('partner_group_id')->unsigned()->nullable()->default(1)->after('remember_token');
+            $table->tinyInteger('individual_sale')->default(0)->after('partner_group_id');
         });
     }
 

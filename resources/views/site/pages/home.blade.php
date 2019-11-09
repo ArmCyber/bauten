@@ -36,7 +36,7 @@
         <section class="section section-bg">
             <div class="container">
                 <h2 class="section-title">{{ $banners->block_titles->brands }}</h2>
-                <div class="section-content row row-grid l-m">
+                <div class="section-content row row-grid">
                     @foreach($brands as $brand)
                         <div class="col-6 col-sm-4 col-md-3 col-xl-2">
                             @component('site.components.brand', ['item'=>$brand])@endcomponent
