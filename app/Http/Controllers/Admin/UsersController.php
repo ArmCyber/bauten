@@ -51,20 +51,40 @@ class UsersController extends BaseController
 
     public function changePartnerGroup(Request $request) {
         $user = User::getItem($request->input('id'));
-        $partner_group = PartnerGroup::find($request->input('partner_group_id'));
-        if (!$partner_group) {
-            Notify::error('Группа не найдена');
-        }
-        elseif ($partner_group->id == $user->partner_group_id) {
-            Notify::warning('Пользователь уже в данном группе.');
+        $partner_group_id = $request->input('partner_group_id');
+        if ($partner_group_id == 0) {
+            $individual_sale = $request->input('individual_sale');
+            if (!$individual_sale || !is_id($individual_sale) || $individual_sale>=100){
+                Notify::error('Недействительный процент скидки');
+            }
+            else {
+                $individual_sale = (int) $individual_sale;
+                $user->partner_group_id = null;
+                $user->individual_sale = $individual_sale;
+                $user->save();
+                if ($request->has('notify')) {
+                    $user->sendIndividualSaleChangedNotification($individual_sale);
+                }
+                Notify::get('changes_saved');
+            }
         }
         else {
-            $user->partner_group_id = $partner_group->id;
-            $user->save();
-            if ($request->has('notify')) {
-                $user->sendPartnerGroupChangedNotification($partner_group);
+            $partner_group = PartnerGroup::find($partner_group_id);
+            if (!$partner_group) {
+                Notify::error('Группа не найдена');
             }
-            Notify::get('changes_saved');
+            elseif ($partner_group->id == $user->partner_group_id) {
+                Notify::warning('Пользователь уже в данном группе.');
+            }
+            else {
+                $user->partner_group_id = $partner_group->id;
+                $user->individual_sale = 0;
+                $user->save();
+                if ($request->has('notify')) {
+                    $user->sendPartnerGroupChangedNotification($partner_group);
+                }
+                Notify::get('changes_saved');
+            }
         }
         return redirect()->route('admin.users.view', ['id'=>$user->id]);
     }

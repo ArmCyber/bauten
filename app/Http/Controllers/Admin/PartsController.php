@@ -181,6 +181,9 @@ class PartsController extends BaseController
             'brand_id' => 'required|integer|exists:brands,id',
             'generated_url'=>'required_with:generate_url|string|nullable',
             'price' => 'required|numeric|between:1,1000000000',
+            'sale' => 'nullable|numeric|between:1,1000000000|gt:price',
+            'count_sale_count' => 'required_with:count_sale_percent|numeric|between:1,9999',
+            'count_sale_percent' => 'required_with:count_sale_count|numeric|between:1,100',
             'available' => 'nullable|integer|digits_between:1,10',
             'min_count' => 'required|numeric|between:1,1000000000',
             'multiplication' => 'required|numeric|between:1,1000000000',
@@ -190,7 +193,11 @@ class PartsController extends BaseController
         if (empty($inputs['generate_url'])) {
             $rules['url'] = 'required|is_url|string|max:255|unique:part_catalogs,url'.$unique;
         }
-        $validator = Validator::make($inputs, $rules);
+        $validator = Validator::make($inputs, $rules, [], [
+            'sale' => 'Цена до скидки',
+            'count_sale_count' => 'Количество',
+            'count_sale_percent' => 'Процент скидки',
+        ]);
         if ($validator->fails()) {
             if (!empty($inputs['mark_id'])) {
                 $old_cars = [];

@@ -79,15 +79,13 @@
         <select id="partnerGroupIdSelect" name="partner_group_id" class="select2" style="width: 100%">
             <option value="0">Индивидуальная скидка</option>
             @foreach($partner_groups as $partner_group)
-                <option value="{{ $partner_group->id }}" {!! $partner_group->id==$item->partner_group_id?'selected':null !!}>{{ $partner_group->title }} ({{ $partner_group->sale }}%)</option>
+                <option value="{{ $partner_group->id }}" {!! (!$item->individual_sale && $partner_group->id==$item->partner_group_id)?'selected':null !!}>{{ $partner_group->title }} ({{ $partner_group->sale }}%)</option>
             @endforeach
         </select>
-        <div class="only-for-individual">
+        <div class="only-for-individual" @if(!$item->individual_sale) style="display:none" @endif>
             <input type="text" name="individual_sale" class="form-control my-2" placeholder="Процент скидки" maxlength="3">
         </div>
-        <div class="not-for-individual">
-            <div class="pt-3"><label><input type="checkbox" style="width:20px; height:20px; vertical-align: text-top" value="1" name="notify" checked> Отправить оповищение пользователю</label></div>
-        </div>
+        <div class="pt-3"><label><input type="checkbox" style="width:20px; height:20px; vertical-align: text-top" value="1" name="notify" checked> Отправить оповищение пользователю</label></div>
     @endmodal
     @modal(['id'=>'passwordResetModal', 'saveBtn'=>'Сохранить', 'closeBtn' => 'Отменить', 'centered'=>true,
         'form'=>['method'=>'post','action'=>route('admin.users.change_password')]])
@@ -113,6 +111,14 @@
 @push('js')
     @js(aApp('select2/select2.js'))
     <script>
+        $('#partnerGroupIdSelect').on('change', function(){
+            if ($(this).val()==='0'){
+                $('.only-for-individual').show();
+            }
+            else {
+                $('.only-for-individual').hide();
+            }
+        });
         $('.select2').select2();
     </script>
 @endpush

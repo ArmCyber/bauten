@@ -30,9 +30,22 @@
                 </div>
             </div>
             <div class="card">
+                <div class="c-title">Цена до скидки</div>
+                <div class="little-p">
+                    <input type="text" name="sale" class="form-control" placeholder="Цена до скидки" maxlength="10" value="{{ old('sale', $item->sale??null) }}">
+                </div>
+            </div>
+            <div class="card">
                 <div class="c-title">Цена</div>
                 <div class="little-p">
                     <input type="text" name="price" class="form-control" placeholder="Цена" maxlength="10" value="{{ old('price', $item->price??null) }}">
+                </div>
+            </div>
+            <div class="card">
+                <div class="c-title">Скидка за количество</div>
+                <div class="little-p">
+                    <input type="text" name="count_sale_count" class="form-control" placeholder="Количество" maxlength="4" value="{{ old('count_sale_count', $item->count_sale_count??null) }}">
+                    <input type="text" name="count_sale_percent" class="form-control mt-1" placeholder="Процент скидки" maxlength="3" value="{{ old('count_sale_percent', $item->count_sale_percent??null) }}">
                 </div>
             </div>
             <div class="card">

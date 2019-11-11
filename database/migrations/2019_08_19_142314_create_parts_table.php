@@ -18,6 +18,9 @@ class CreatePartsTable extends Migration
             $table->string('code')->collation('utf8_general_ci')->unique();
             $table->string('name')->nullable();
             $table->integer('price')->unsigned();
+            $table->integer('sale')->unsigned()->nullable();
+            $table->integer('count_sale_count')->unsigned()->nullable();
+            $table->tinyInteger('count_sale_percent')->nullable();
             $table->integer('available')->unsigned()->nullable();
             $table->integer('min_count')->unsigned()->default(1);
             $table->integer('multiplication')->unsigned()->default(1);

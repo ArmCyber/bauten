@@ -1,6 +1,9 @@
 <?php
 use Illuminate\Support\Facades\Route;
 
+
+Route::get('soap-test', 'Admin\AppController@soapTest');
+
 //region Admin
 //region Login
 Route::group(['prefix' => config('admin.prefix'), 'middleware'=>'guest:cms'], function (){

@@ -6,6 +6,7 @@ use App\Http\Traits\Resetable;
 use App\Mail\NewEmailVerificationToken;
 use App\Mail\UserRegistered;
 use App\Mail\UserVerified;
+use App\Notifications\IndividualSaleChangedNotification;
 use App\Notifications\PartnerGroupChangedNotification;
 use App\Notifications\ProfileActivatedNotification;
 use App\Notifications\RegisteredNotification;
@@ -120,10 +121,16 @@ class User extends Authenticatable
         } catch (\Exception $e) {}
     }
 
+    public function sendIndividualSaleChangedNotification($individual_sale) {
+        try {
+            $this->notify(new IndividualSaleChangedNotification($individual_sale));
+        } catch (\Exception $e) {}
+    }
+
     public function sendNewEmailVerificationToken($email, $token){
-//        try {
+        try {
             Mail::to($email)->send(new NewEmailVerificationToken($this, $token));
-//        } catch (\Exception $e) {}
+        } catch (\Exception $e) {}
     }
 
     public static function adminList(){

@@ -35,6 +35,9 @@ class Part extends Model
         $model['name'] = $inputs['name'];
         $model['code'] = $inputs['code'];
         $model['price'] = $inputs['price'];
+        $model['sale'] = $inputs['sale'];
+        $model['count_sale_count'] = $inputs['count_sale_count'];
+        $model['count_sale_percent'] = $inputs['count_sale_percent'];
         $model['available'] = $inputs['available'];
         $model['min_count'] = $inputs['min_count'];
         $model['multiplication'] = $inputs['multiplication'];
