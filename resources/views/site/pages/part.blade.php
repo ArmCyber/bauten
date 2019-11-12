@@ -54,12 +54,15 @@
                         @endif
                         <div class="product-page-pricing">
                             <div class="product-page-price">
-                                Цена: <span class="ppp">{{ $item->price_sale }}</span> <span class="kzt"></span>
+                                Цена: <span class="ppp">{{ $item->price }}</span> <span class="kzt"></span>
                             </div>
-                            @if($item->price!=$item->price_sale)
-                                <div class="product-page-mincount">Цена без скидки: {{ $item->price }} <span class="kzt"></span>.</div>
+                            @if($item->sale)
+                                <div class="product-page-mincount">Цена до скидки: {{ $item->sale }} <span class="kzt"></span>.</div>
                             @endif
-                            @if($item->min_count!=1)
+                            @if($item->count_sale_count  && $item->count_sale_percent)
+                                <div class="product-page-mincount">Начиная с {{ $item->count_sale_count }} шт. - скидка {{ $item->count_sale_percent }}%.</div>
+                            @endif
+                            @if($item->min_count!=1 && $item->min_count>$item->multiplication)
                                 <div class="product-page-mincount">Мин. количество: {{ $item->min_count }} шт.</div>
                             @endif
                             @if($item->multiplication!=1)

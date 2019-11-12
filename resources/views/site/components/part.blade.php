@@ -4,5 +4,10 @@
         <img src="{{ ($item->image && $item->show_image)?asset('u/parts/'.$item->image):$default_images->data->parts() }}" alt="{{ $item->name }}">
     </a></div>
     <div class="product-title"><a href="{{ $item_url }}">{{ $item->name }}</a></div>
-    <div class="product-price"><span class="catalogue-price">Цена: <span class="cat-price">{{ $item->price }}</span> <span class="kzt"></span></span></div>
+    <div class="product-price">
+        <span class="catalogue-price">Цена: <span class="cat-price">{{ $item->price }}</span> <span class="kzt"></span></span>
+        @if($item->sale)
+            <span class="sale-price">{{ $item->sale }} <span class="kzt"></span></span>
+        @endif
+    </div>
 </div>

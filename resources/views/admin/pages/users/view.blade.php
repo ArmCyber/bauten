@@ -6,7 +6,11 @@
 {{--            <div class="view-line"><span class="view-label">Фамилия:</span> {{ $item->last_name??'-' }}</div>--}}
             <div class="view-line"><span class="view-label">Эл.почта:</span> {{ $item->email }} @if($item->verification) <span class="text-danger">(не подтверждена)</span> @else <span class="text-success">(подтверждена)</span> @endif</div>
             <div class="view-line"><span class="view-label">Менеджер:</span> @if($item->manager) <a href="{{ route('admin.admins.edit', ['id'=>$item->manager->id]) }}">{{ $item->manager->email }}</a> @else нет @endif <a href="javascript:void(0)" class="icon-btn edit" data-id="{{ $item->manager->id??'0' }}" data-toggle="modal" data-target="#changeManagerModal"></a></div>
-            <div class="view-line"><span class="view-label">Группа партнеров:</span> {{ $item->partner_group->title }} ({{ $item->partner_group->sale }}%) <a href="javascript:void(0)" class="icon-btn edit" data-id="{{ $item->partner_group->id }}" data-toggle="modal" data-target="#changePartnerGroupModal"></a></div>
+            @if($item->individual_sale)
+                <div class="view-line"><span class="view-label">Индивидуальная скидка:</span> {{ $item->individual_sale }}% <a href="javascript:void(0)" class="icon-btn edit" data-toggle="modal" data-target="#changePartnerGroupModal"></a></div>
+            @else
+                <div class="view-line"><span class="view-label">Группа партнеров:</span> {{ $item->partner_group->title }} ({{ $item->partner_group->sale }}%) <a href="javascript:void(0)" class="icon-btn edit" data-toggle="modal" data-target="#changePartnerGroupModal"></a></div>
+            @endif
             <div class="view-line"><span class="view-label">Последный вход:</span> {{ $item->logged_in_at?$item->logged_in_at->format('d.m.Y H:i'):'никогда' }}</div>
             <div class="view-line"><span class="view-label">Последнее действие:</span> {{ $item->seen_at?$item->seen_at->format('d.m.Y H:i'):'никогда' }} @if($item->is_online) <span class="text-success">(в сети)</span> @else <span class="text-danger">(не в сети)</span> @endif</div>
             <div class="view-line"><span class="view-label">Тип:</span> {{ $item->type_name }}</div>
@@ -83,7 +87,7 @@
             @endforeach
         </select>
         <div class="only-for-individual" @if(!$item->individual_sale) style="display:none" @endif>
-            <input type="text" name="individual_sale" class="form-control my-2" placeholder="Процент скидки" maxlength="3">
+            <input type="text" name="individual_sale" class="form-control my-2" placeholder="Процент скидки (1-99)" maxlength="3" value="{{ $item->individual_sale!=0?$item->individual_sale:null }}">
         </div>
         <div class="pt-3"><label><input type="checkbox" style="width:20px; height:20px; vertical-align: text-top" value="1" name="notify" checked> Отправить оповищение пользователю</label></div>
     @endmodal
