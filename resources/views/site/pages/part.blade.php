@@ -75,7 +75,7 @@
                                     <div class="product-page-count">
                                         <div class="number-group">
                                             <button class="number-btn number-input-minus">-</button>
-                                            <input type="text" value="{{ $item->min_count_ceil }}" data-multiplication="{{ $item->multiplication }}" data-price="{{ $item->price_sale }}" data-available="{{ $item->max_count }}" class="number-input" readonly>
+                                            <input type="text" value="{{ $item->min_count_ceil }}" data-multiplication="{{ $item->multiplication }}" data-price="{{ $item->price_sale }}" data-available="{{ $item->max_count }}" data-cs-count="{{ $item->count_sale_count??0 }}" data-cs-percent="{{ $item->count->sale->percent??0 }}" class="number-input" readonly>
                                             <button class="number-btn number-input-plus">+</button>
                                         </div>
                                     </div>
