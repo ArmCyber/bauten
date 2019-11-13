@@ -173,11 +173,26 @@ class Part extends Model
         return $this->mutedAttributes['basket_part'];
     }
 
-    public function getPriceSaleAttribute(){
-        if (!array_key_exists('price_sale', $this->mutedAttributes)) {
-            $this->mutedAttributes['price_sale'] = $this->price*(100 - auth()->user()->sale)/100;
+//    public function getPriceSaleAttribute(){
+//        if (!array_key_exists('price_sale', $this->mutedAttributes)) {
+//            $this->mutedAttributes['price_sale'] = $this->price*(100 - auth()->user()->sale)/100;
+//        }
+//        return $this->mutedAttributes['price_sale'];
+//    }
+
+    public function getCountSaleCountBasketAttribute(){
+        if (!array_key_exists('count_sale_count_basket', $this->mutedAttributes)) {
+            $result = $this->count_sale_count;
+            if ($result) {
+                $basket_part = view()->shared('basket_parts')->where('part_id', $this->id)->first();
+                if ($basket_part) {
+                    $result-=$basket_part->count;
+                    if ($result<0) $result = 0;
+                }
+            }
+            $this->mutedAttributes['count_sale_count_basket'] = $result;
         }
-        return $this->mutedAttributes['price_sale'];
+        return $this->mutedAttributes['count_sale_count_basket'];
     }
 
     public static function getActiveItem($id) {

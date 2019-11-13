@@ -203,6 +203,12 @@ select.home-search-control {
         @include m(top left, calc(50% - #{$size/2}));
         border-width: 3px;
     }
+    &.loader-ng:before {
+        $size: 18px;
+        @include m(width height, $size);
+        @include m(top left, calc(50% - #{$size/2}));
+        border-width: 3px;
+    }
     .loader-shown & {
         display:block;
     }

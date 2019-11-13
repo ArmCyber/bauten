@@ -155,5 +155,21 @@ class BannersController extends BaseController
                 ]
             ]
         ],
+        'settings' => [
+            'minimum' => [
+                'params' => [
+                    'shop' => [
+                        'type' => 'number',
+                        'min' => 0,
+                        'max' => 1000000,
+                    ],
+                    'delivery' => [
+                        'type' => 'number',
+                        'min' => 0,
+                        'max' => 1000000,
+                    ],
+                ],
+            ],
+        ],
     ];
 }

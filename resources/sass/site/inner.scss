@@ -398,6 +398,15 @@ a.bauten-btn {
             background-color: #ffffff;
         }
     }
+    &:disabled {
+        opacity:.6 !important;
+        pointer-events: none !important;
+    }
+}
+
+.small-text {
+    font-size:14px;
+    font-weight:bold;
 }
 
 .has-error, select.has-error + .select2 .select2-selection {
@@ -525,6 +534,19 @@ a.bauten-btn {
     background-color: #ffffff;
     padding: 6px;
     display: flex;
+    &.number-group-sm {
+        width:125px;
+        height:25px;
+        padding:0;
+        .number-btn {
+            font-size:16px;
+            flex-basis:28px;
+            max-width: 28px;
+        }
+        .number-input {
+            font-size:16px;
+        }
+    }
 }
 
 input.number-input {

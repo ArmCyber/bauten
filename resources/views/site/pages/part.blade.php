@@ -59,14 +59,14 @@
                             @if($item->sale)
                                 <div class="product-page-mincount">Цена до скидки: {{ $item->sale }} <span class="kzt"></span>.</div>
                             @endif
-                            @if($item->count_sale_count  && $item->count_sale_percent)
-                                <div class="product-page-mincount">Начиная с {{ $item->count_sale_count }} шт. - скидка {{ $item->count_sale_percent }}%.</div>
-                            @endif
                             @if($item->min_count!=1 && $item->min_count>$item->multiplication)
                                 <div class="product-page-mincount">Мин. количество: {{ $item->min_count }} шт.</div>
                             @endif
                             @if($item->multiplication!=1)
                                 <div class="product-page-mincount">Количество в упаковке: {{ $item->multiplication }} шт.</div>
+                            @endif
+                            @if($item->count_sale_count  && $item->count_sale_percent)
+                                <div class="product-page-mincount">Начиная с {{ $item->count_sale_count }} шт. - скидка {{ $item->count_sale_percent }}%.</div>
                             @endif
                         </div>
                         @if($item->max_count)
@@ -75,13 +75,13 @@
                                     <div class="product-page-count">
                                         <div class="number-group">
                                             <button class="number-btn number-input-minus">-</button>
-                                            <input type="text" value="{{ $item->min_count_ceil }}" data-multiplication="{{ $item->multiplication }}" data-price="{{ $item->price_sale }}" data-available="{{ $item->max_count }}" data-cs-count="{{ $item->count_sale_count??0 }}" data-cs-percent="{{ $item->count->sale->percent??0 }}" class="number-input" readonly>
+                                            <input type="text" value="{{ $item->min_count_ceil }}" data-multiplication="{{ $item->multiplication }}" data-price="{{ $item->price }}" data-available="{{ $item->max_count }}" class="number-input" readonly>
                                             <button class="number-btn number-input-plus">+</button>
                                         </div>
                                     </div>
                                     <div class="product-page-submit position-relative"><button id="to-basket">В корзину</button><span class="loader loader-sm"></span></div>
                                 </div>
-                                <div class="product-page-price mt-3">Общая стоимность: <span class="ppp" id="full-price">{{ $item->min_count_ceil*$item->price_sale }}</span> <span class="kzt"></span></div>
+                                <div class="product-page-price mt-3">Общая стоимность: <span class="ppp" id="full-price"></span> <span class="kzt"></span> <span id="sale-from" class="sale-price" style="display: none"><span id="part-sale-price"></span> <span class="kzt"></span></span></div>
                             </div>
                         @endif
                         <div class="h4 text-danger pt-2 not-in-stock">Нет на складе</div>
@@ -185,6 +185,7 @@
         </script>
     @endpush
 @endif
+
 @endsection
 @push('css')
     @css(aApp('swiper/swiper.css'))
@@ -194,6 +195,8 @@
         window.partId = {{ $item->id }};
         window.basketUrl = "{{ route('cabinet.basket.add') }}";
         window.csrf = "{{ csrf_token() }}";
+        window.csCount = {{ $item->count_sale_count_basket?:'false' }};
+        window.csPercent = {{ $item->count_sale_percent?:'false' }};
     </script>
     @js(aApp('swiper/swiper.js'))
     @js(aSite('js/product.js'))

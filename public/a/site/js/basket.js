@@ -1,74 +1,155 @@
-var basketCounter = $('#basket-counter'),
-    allPriceBlock = $('.all-price'),
-    cities = $('#form-cities'),
-    forDelivery = $('.for-delivery'),
-    deliveryPriceBlock = $('.delivery-price'),
-    fullPriceBlock = $('.full-price'),
-    formDelivery = $('#form-delivery');
-var parsePrice = function(value){
-    return parseFloat(parseFloat(value).toFixed(2));
-};
-var updateAllPrice = function(value) {
-    allPriceBlock.text(value);
-    updateFullPrice();
-};
+var Basket = function(){
+    this.dom = {
+        allPrice: $('.all-price'),
+        allSaleBlock: $('.all-sale-block'),
+        allSale: $('.all-sale'),
+        orderModalToggle: $('#order-modal-toggle'),
+        ifCantShop: $('.if-cant-shop'),
+        //ORDER
+        delivery: $('#form-delivery'),
+    };
 
-var updateFullPrice = function(){
-    var price_all = parseFloat($(allPriceBlock[0]).text()),
-        price_delivery = parseFloat(deliveryPriceBlock.text()),
-        price_full = parsePrice(price_all + price_delivery);
-    fullPriceBlock.text(Math.ceil(price_full));
-};
+    this.options = {
+        userSale: parseInt(window.userSale),
+    };
 
-$('.delete-basket-item').on('click', function(){
-    var self=$(this),
-        thisId = parseInt(self.data('id')),
-        thisPrice = parseFloat(self.data('price'));
-    allPrice = parsePrice(allPrice - thisPrice);
-    updateAllPrice(allPrice);
-    var index = basketPartIds.indexOf(thisId);
-    if (index!==-1) {
-        basketPartIds.splice(index, 1);
-        var len = basketPartIds.length;
-        $('#sidebar-basket').html(len);
-        if (len<10) {
-            $('#basket-counter').html(len);
-            if (len===0) {
-                basketCounter.hide();
-                $('.basket-table').remove();
+    this.minimums = window.minimums;
+
+    this.config = {
+        actions: window.actions,
+        csrf: window.csrf
+    };
+
+    this.init = function(){
+        this.updatePrices();
+        this.addEventListeners();
+        //ORDER
+        this.initSelect2();
+    };
+
+    this.updatePrices = function(){
+        var self=this,
+            allPrice = 0,
+            salePrice = 0;
+        self.dom.allSaleBlock.hide();
+        $.each($('.basket-part-row'), function(i,e){
+            var item = $(e),
+                numberInput = item.find('.number-input'),
+                count = parseInt(numberInput.val()),
+                price = parseInt(numberInput.data('price')),
+                csCount = parseInt(numberInput.data('cs-count')),
+                csPercent = parseInt(numberInput.data('cs-percent')),
+                bpSale = item.find('.bp-sale').hide(),
+                bpSaleSum = bpSale.find('.bp-sale-sum');
+            var selfPrice = count*price;
+            if (csCount && csPercent && count>=csCount) {
+                bpSaleSum.text(self.parsePrice(selfPrice));
+                bpSale.show();
+                selfPrice = selfPrice*(1-csPercent/100);
             }
+            else if (self.options.userSale) {
+                salePrice += (selfPrice*self.options.userSale/100);
+            }
+            item.find('.bp-sum').text(self.parsePrice(selfPrice));
+            allPrice+=selfPrice;
+        });
+        var sum;
+        if (salePrice>0) {
+             self.dom.allSale.text(self.parsePrice(allPrice));
+             sum = self.parsePrice(allPrice - salePrice);
+             self.dom.allSaleBlock.show();
         }
-    }
-    $.ajax({
-        url: deleteItemUrl,
-        type: 'post',
-        data: {
-            _token: csrf,
-            item_id: thisId,
-        },
-        error: function(){
-            window.location.href = '';
+        else {
+            sum = allPrice;
         }
-    });
-    $(this).parents('tr').remove();
-});
-$('#form-region').on('change', function(){
-    cities.html('');
-    var id = $(this).val();
-    var this_cities = regions.find(x => x.id==id);
-    $.each(this_cities.cities, function(key, el){
-        $('<option></option>').attr('value', el.id).text(el.title).appendTo(cities);
-    });
-    cities.trigger('change');
-});
-formDelivery.on('change', function(){
-    if ($(this).val()==='1') forDelivery.show();
-    else forDelivery.hide();
-});
-cities.on('change', function(){
-    var self = $(this),
-        selfId = parseInt(self.val()),
-        deliveryPrice = deliveryPrices[selfId];
-    deliveryPriceBlock.text(deliveryPrice);
-    updateFullPrice();
-});
+        if (sum<self.minimums.shop) {
+            self.dom.orderModalToggle.attr('disabled', 'disabled');
+            self.dom.ifCantShop.show();
+        }
+        else {
+            self.dom.orderModalToggle.removeAttr('disabled');
+            self.dom.ifCantShop.hide();
+        }
+        self.dom.allPrice.text(self.parsePrice(sum));
+    };
+
+    this.addEventListeners = function(){
+        var self = this;
+        $('.number-btn').on('click', function(){
+            self.stepNumberInput($(this));
+        });
+        $('.delete-basket-item').on('click', function(){
+            self.deleteBasketItem($(this));
+        });
+        //ORDER
+    };
+
+    this.stepNumberInput = function(btn) {
+        var self = this,
+            positive = btn.hasClass('number-input-plus'),
+            row = btn.parents('.basket-part-row'),
+            numberInput = row.find('.number-input'),
+            count = parseInt(numberInput.val()),
+            multiplication = parseInt(numberInput.data('multiplication')),
+            minCount = parseInt(numberInput.data('minimum')),
+            available = parseInt(numberInput.data('available')),
+            newCount;
+        if (positive) {
+            newCount = (Math.floor(count/multiplication)+1)*multiplication;
+            if (newCount>available) return false;
+        } else {
+            newCount = (Math.ceil(count/multiplication)-1)*multiplication;
+            if (newCount<minCount) return false;
+        }
+        row.addClass('loader-shown');
+        self.sendAjax(self.config.actions.update, {
+            itemId: row.data('id'),
+            count: newCount,
+        }, function(){
+            numberInput.val(newCount);
+            self.updatePrices();
+            row.removeClass('loader-shown');
+        });
+    };
+
+    this.deleteBasketItem = function(btn){
+        var self = this,
+            row = btn.parents('.basket-part-row');
+        self.sendAjax(self.config.actions.delete, {
+            itemId: row.data('id')
+        });
+        row.remove();
+        if ($('.basket-part-row').length===0) {
+            $('.not-in-stock-hidden').remove();
+        }
+        else {
+            self.updatePrices();
+        }
+    };
+
+    this.sendAjax = function(url, data, callback){
+        data._token = this.config.csrf;
+        $.ajax({
+            url: url,
+            type: 'post',
+            data: data,
+            success: function(e){
+                if (typeof callback === 'function') callback(e);
+            },
+            error: function(){
+                window.location.href = '';
+            }
+        });
+    };
+
+    this.parsePrice = function(value){
+        return parseFloat(value.toFixed(2));
+    };
+
+    this.initSelect2 = function(){
+        $('.select2').select2();
+    };
+
+    this.init();
+};
+var a = new Basket();

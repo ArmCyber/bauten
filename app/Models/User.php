@@ -250,6 +250,9 @@ class User extends Authenticatable
     }
 
     public function getSaleAttribute(){
+        if ($this->individual_sale) {
+            return $this->individual_sale;
+        }
         return $this->partner_group->sale??0;
     }
 

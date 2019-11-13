@@ -309,6 +309,7 @@ Route::namespace('Site')->group(function() {
             Route::get('basket', 'BasketController@basket')->name('basket');
             Route::post('basket/add', 'BasketController@addToBasket')->name('basket.add');
             Route::post('basket/delete', 'BasketController@deleteFromBasket')->name('basket.delete');
+            Route::post('basket/update', 'BasketController@updateItem')->name('basket.update');
             Route::get('favourites', 'FavouritesController@main')->name('favourites');
             Route::post('favourites/add', 'FavouritesController@add')->middleware('ajax')->name('favourites.add');
             Route::post('order', 'OrdersController@order')->name('order');

@@ -7,31 +7,47 @@
                 <thead>
                     <tr>
                         <th>Название</th>
-                        <th>Количество</th>
-                        <th>Общая цена со скидкой</th>
-                        <th>Действие</th>
+                        <th>Цена</th>
+                        <th>Кол-во</th>
+                        <th>Сумма</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @php
-                        $allPrice = 0;
-                    @endphp
                     @foreach($basket_parts as $basket_part)
-                        @php
-                            $thisPrice = $basket_part->part->price_sale*$basket_part->count;
-                            $allPrice+=$thisPrice;
-                        @endphp
-                        <tr>
+                        <tr class="basket-part-row" data-id="{{ $basket_part->part->id }}">
                             <td><a href="{{ route('part', ['url'=>$basket_part->part->url]) }}" class="link-bauten">{{ $basket_part->part->name }}</a></td>
-                            <td>{{ $basket_part->count }} шт.</td>
-                            <td>{{ $thisPrice }} <span class="kzt"></span></td>
-                            <td><a href="javascript:void(0)" class="text-danger delete-basket-item" data-id="{{ $basket_part->part->id }}" data-price="{{ $thisPrice }}"><i class="fas fa-trash-alt"></i></a></td>
+                            <td>
+                                {{ $basket_part->part->price }} <span class="kzt"></span>
+                                @if($basket_part->part->sale)
+                                    <span style="text-decoration: line-through">{{ $basket_part->part->sale }} <span class="kzt"></span></span>
+                                @endif
+                            </td>
+                            <td>
+                                <div class="number-group number-group-sm position-relative">
+                                    <button class="number-btn number-input-minus">-</button>
+                                    <input type="text" value="{{ $basket_part->count }}" data-multiplication="{{ $basket_part->part->multiplication }}" data-price="{{ $basket_part->part->price }}" data-minimum="{{ $basket_part->min_count??1 }}" data-available="{{ $basket_part->part->available??9999 }}" data-cs-count="{{ $basket_part->part->count_sale_count??null }}" data-cs-percent="{{ $basket_part->part->count_sale_percent??null }}" class="number-input" readonly="">
+                                    <button class="number-btn number-input-plus">+</button>
+                                    <div class="loader loader-ng"></div>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="bp-sum"></span>
+                                <span class="kzt"></span>
+                                <span class="bp-sale" style="text-decoration:line-through;display:none">
+                                    <span class="bp-sale-sum"></span>
+                                    <span class="kzt"></span>
+                                </span>
+                            </td>
+                            <td><a href="javascript:void(0)" class="text-danger delete-basket-item" data-id="{{ $basket_part->part->id }}"><i class="fas fa-trash-alt"></i></a></td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-            <div class="cabinet-title text-right">Сумма: <span class="all-price">{{ $allPrice }}</span> <span class="kzt"></span></div>
-            <div class="text-right pt-3"><button class="bauten-btn" data-toggle="modal" data-target="#order-modal">Заказать</button></div>
+            <div class="cabinet-title text-right">Итого: <span class="all-price"></span> <span class="kzt"></span> <span class="all-sale-block sale-price" style="display:none;"><span class="all-sale"></span> <span class="kzt"></span></span></div>
+            <div class="text-right pt-3"><button id="order-modal-toggle" class="bauten-btn" data-toggle="modal" data-target="#order-modal" disabled>Заказать</button></div>
+            <div class="text-right pt-2 text-danger small-text if-cant-shop" style="display: none">Чтобы заказать вам надо сделать покупку суммы {{ $settings->minimum->shop }} <span class="kzt"></span></div>
+            @push('pageScripts') @js(aSite('js/basket.js')) @endpush
         </div>
     @endif
     <div class="h5 text-danger pt-2 not-in-stock">Корзина пуста.</div>
@@ -76,7 +92,7 @@
                     <label for="form-delivery">Метод доставки</label>
                     <select name="delivery" id="form-delivery" class="select2" style="width: 100%;">
                         <option value="0">Самовывоз</option>
-                        <option value="1" {!! ($shown_delivery = old('delivery')==1)?'selected':null !!}>Доставка до двери</option>
+                        <option value="1" {!! ($shown_delivery = old('delivery')==1)?'selected':null !!} class="order-delivery-option">Доставка до двери</option>
                     </select>
                     @error('delivery')
                     <small class="text-danger">{{ $message }}</small>
@@ -125,7 +141,6 @@
                     <label for="form-payment">Метод оплаты</label>
                     <select name="payment_method" id="form-payment" class="select2" style="width: 100%;">
                         <option value="bank" disabled>Банковский перевод</option>
-                        <option value="online" disabled>Онлайн оплата</option>
                         <option value="cash" selected>Наличными на месте</option>
                     </select>
                     @error('payment_method')
@@ -134,13 +149,13 @@
                 </div>
             </div>
         </div>
-        <div class="modal-prices text-right">
-            <div class="cabinet-title-sm text-right">Сумма: <span class="all-price">{{ $allPrice }}</span> <span class="kzt"></span></div>
-            <div class="for-delivery" @if(!$shown_delivery) style="display:none" @endif>
-                <div class="cabinet-title-sm text-right">Доставка: <span class="delivery-price">{{ $delivery_price = ($regions[0]->cities[0]->price??0) }}</span> <span class="kzt"></span></div>
-                <div class="cabinet-title-sm text-right">Общее: <span class="full-price">{{ $delivery_price + $allPrice }}</span> <span class="kzt"></span></div>
-            </div>
-        </div>
+{{--        <div class="modal-prices text-right">--}}
+{{--            <div class="cabinet-title-sm text-right">Сумма: <span class="all-price">{{ $allPrice }}</span> <span class="kzt"></span></div>--}}
+{{--            <div class="for-delivery" @if(!$shown_delivery) style="display:none" @endif>--}}
+{{--                <div class="cabinet-title-sm text-right">Доставка: <span class="delivery-price">{{ $delivery_price = ($regions[0]->cities[0]->price??0) }}</span> <span class="kzt"></span></div>--}}
+{{--                <div class="cabinet-title-sm text-right">Общее: <span class="full-price">{{ $delivery_price + $allPrice }}</span> <span class="kzt"></span></div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
         @endmodal
     @endif
 @endsection
@@ -148,17 +163,23 @@
     @js(aApp('bootstrap/js/bootstrap.js'))
     @js(aApp('select2/select2.js'))
     <script>
-        var allPrice = {{ $allPrice??0 }},
-            deleteItemUrl = '{{ route('cabinet.basket.delete') }}',
+        var userSale = {{ $user->sale }},
+            actions = {
+                update: '{{ route('cabinet.basket.update') }}',
+                delete: '{{ route('cabinet.basket.delete') }}',
+            },
+            minimums = {
+                shop: {{ (($minimum_shop = $settings->minimum->shop) && is_numeric($minimum_shop) && $minimum_shop>0)?((int) $minimum_shop):0 }},
+                delivery: {{ (($minimum_delivery = $settings->minimum->delivery) && is_numeric($minimum_delivery) && $minimum_delivery>0)?((int) $minimum_delivery):0 }},
+            },
             csrf = '{{ csrf_token() }}',
             regions = {!! $regions->toJson(JSON_UNESCAPED_UNICODE) !!},
             deliveryPrices = {!! $delivery_prices->toJson() !!};
-        $('.select2').select2();
-        @if (session()->hasOldInput())
-            $('#order-modal').modal('show');
-        @endif
+{{--        @if (session()->hasOldInput())--}}
+            // $('#order-modal').modal('show');
+{{--        @endif--}}
     </script>
-    @js(aSite('js/basket.js'))
+    @stack('pageScripts')
 @endpush
 @push('css')
     @css(aApp('select2/select2.css'))

@@ -10,6 +10,7 @@ use App\Models\Part;
 use App\Services\Notify\Facades\Notify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Zakhayko\Banners\Models\Banner;
 
 class BasketController extends BaseController
 {
@@ -38,6 +39,7 @@ class BasketController extends BaseController
     public function basket() {
         $data = [];
         $data['seo'] = $this->staticSEO('Корзина');
+        $data['settings'] = Banner::get('settings');
         $this->shared['basket_parts']->load('part');
         if ($this->shared['basket_parts']) {
             $data['regions'] = DeliveryRegion::siteList();
@@ -48,8 +50,20 @@ class BasketController extends BaseController
         return view('site.pages.cabinet.basket', $data);
     }
 
+    public function updateItem(Request $request) {
+        $item_id = (int) $request->input('itemId', 0);
+        if ($item_id==0) abort(404);
+        $basket_item = Basket::where('part_id', $item_id)->first();
+        if (!$basket_item) abort(404);
+        $count = $request->input('count');
+        if (!$count || !is_numeric($count) || $count<$basket_item->part->min_count || $count>($basket_item->part->available??9999) || $count%$basket_item->part->multiplication!=0) abort(404);
+        $basket_item->count = $count;
+        $basket_item->save();
+        return response(1);
+    }
+
     public function deleteFromBasket(Request $request) {
-        $item_id = (int) $request->input('item_id', 0);
+        $item_id = (int) $request->input('itemId', 0);
         if ($item_id==0) abort(404);
         $basket_item = Basket::where('part_id', $item_id)->first();
         if (!$basket_item) abort(404);
