@@ -70,7 +70,7 @@ CREATE TABLE `banners` (
 
 LOCK TABLES `banners` WRITE;
 /*!40000 ALTER TABLE `banners` DISABLE KEYS */;
-INSERT INTO `banners` VALUES (1,'info','data','{\"logo\":\"Pm0K0wbmC4dq8RUtFD.png\",\"logo_footer\":\"Jn5ScwuggUbIRk5naD.png\",\"email\":\"info@bauten.kz\",\"seo_suffix\":\"Bauten\"}'),(2,'info','requisites','{\"address\":\"Алматы Казахстан, с. Мадениет уч. 383\",\"phone\":\"8 (777) 619 1747\",\"email\":\"info@bauten.kz\"}'),(3,'info','requisites','{\"address\":null,\"phone\":\"8 (707) 173 7656\",\"email\":null}'),(4,'info','requisites','{\"address\":null,\"phone\":\"8 (775) 996 1880\",\"email\":null}'),(5,'info','requisites','{\"address\":null,\"phone\":null,\"email\":null}'),(6,'info','socials','{\"icon\":\"r7TaX4Uwv46Rv8PhsZ.svg\",\"title\":\"Bautenautoparts\",\"url\":\"\\/\\/facebook.com\",\"active\":true}'),(7,'info','socials','{\"icon\":null,\"title\":null,\"url\":null,\"active\":false}'),(8,'info','socials','{\"icon\":null,\"title\":null,\"url\":null,\"active\":false}'),(9,'info','socials','{\"icon\":null,\"title\":null,\"url\":null,\"active\":false}'),(10,'info','payment_logos','{\"logo\":\"VBwbBXfryteVdrgiAq.png\",\"title\":\"Visa\",\"alt\":\"Visa\",\"active\":true}'),(11,'info','payment_logos','{\"logo\":\"BVrxvSJCU8GMBef54i.png\",\"title\":\"Mastercard\",\"alt\":\"Mastercard\",\"active\":true}'),(12,'info','payment_logos','{\"logo\":null,\"title\":null,\"alt\":null,\"active\":false}'),(13,'info','payment_logos','{\"logo\":null,\"title\":null,\"alt\":null,\"active\":false}'),(14,'home','block_titles','{\"catalogue\":\"Каталог автозапчастей\",\"parts\":\"Запчасти по маркам\",\"brands\":\"Каталог брендов\",\"news\":\"Новости\",\"recommended_parts\":\"Товары для вас\"}'),(15,'home','banners','{\"image\":\"CJeBy3AZ2QcNXTSJ4M.png\",\"url\":null,\"alt\":null,\"title\":null,\"active\":true}'),(16,'home','banners','{\"image\":\"bEoplwqXfw3F78LViZ.png\",\"url\":null,\"alt\":null,\"title\":null,\"active\":true}'),(17,'contacts','data','{\"requisites_title\":\"Контактные данные\",\"form_title\":\"Связаться с нами\",\"iframe\":\"https:\\/\\/yandex.ru\\/map-widget\\/v1\\/-\\/CGs8zXLJ\"}'),(19,'images','data','{\"marks\":\"Rep1Qldt1IorvMSBMy.png\",\"parts\":\"NJvLMpIKkJKGItq4Kt.png\"}'),(20,'auth','register','{\"first_title\":\"Регистрация в интернет-магазине\",\"first_text\":\"<p>Для регистрации в интернет-магазине, пожалуйста, заполните данную анкету.<\\/p>\\r\\n\\r\\n<p>Если у вас возникли проблемы с регистрацией, пожалуйста напишите нам на адрес<\\/p>\\r\\n\\r\\n<p><a href=\\\"mailto:zakaz@bauten.kz\\\">zakaz@bauten.kz<\\/a><\\/p>\"}'),(21,'auth','register_right','{\"title\":\"Условия сотрудничества\",\"text\":\"<p>Мы не несём ответственность за применимость заказываемой&nbsp;<br \\/>\\r\\nдетали к автомобилю Вашего клиента<\\/p>\\r\\n\\r\\n<p>Доставка осуществляется силами нашей компании. Способы&nbsp;<br \\/>\\r\\nдоставки и минимальные параметры отправки согласовываются с&nbsp;<br \\/>\\r\\nкаждым клиентом индивидуально.<\\/p>\"}'),(22,'auth','register_right','{\"title\":\"Работа с нами — это\",\"text\":\"<p>Различные формы оплаты: наличный расчет, безналичный расчет,&nbsp;<br \\/>\\r\\nбанковский перевод.<\\/p>\\r\\n\\r\\n<p>Оперативная доставка продукции по всей территории Казахстана&nbsp;<br \\/>\\r\\nи стран СНГ<\\/p>\\r\\n\\r\\n<p>Право на получение специальных цен на товары<\\/p>\"}'),(23,'settings','minimum','{\"shop\":\"10000\",\"delivery\":\"15000\"}');
+INSERT INTO `banners` VALUES (1,'info','data','{\"logo\":\"Pm0K0wbmC4dq8RUtFD.png\",\"logo_footer\":\"Jn5ScwuggUbIRk5naD.png\",\"email\":\"info@bauten.kz\",\"seo_suffix\":\"Bauten\"}'),(2,'info','requisites','{\"address\":\"Алматы Казахстан, с. Мадениет уч. 383\",\"phone\":\"8 (777) 619 1747\",\"email\":\"info@bauten.kz\"}'),(3,'info','requisites','{\"address\":null,\"phone\":\"8 (707) 173 7656\",\"email\":null}'),(4,'info','requisites','{\"address\":null,\"phone\":\"8 (775) 996 1880\",\"email\":null}'),(5,'info','requisites','{\"address\":null,\"phone\":null,\"email\":null}'),(6,'info','socials','{\"icon\":\"r7TaX4Uwv46Rv8PhsZ.svg\",\"title\":\"Bautenautoparts\",\"url\":\"\\/\\/facebook.com\",\"active\":true}'),(7,'info','socials','{\"icon\":null,\"title\":null,\"url\":null,\"active\":false}'),(8,'info','socials','{\"icon\":null,\"title\":null,\"url\":null,\"active\":false}'),(9,'info','socials','{\"icon\":null,\"title\":null,\"url\":null,\"active\":false}'),(10,'info','payment_logos','{\"logo\":\"VBwbBXfryteVdrgiAq.png\",\"title\":\"Visa\",\"alt\":\"Visa\",\"active\":true}'),(11,'info','payment_logos','{\"logo\":\"BVrxvSJCU8GMBef54i.png\",\"title\":\"Mastercard\",\"alt\":\"Mastercard\",\"active\":true}'),(12,'info','payment_logos','{\"logo\":null,\"title\":null,\"alt\":null,\"active\":false}'),(13,'info','payment_logos','{\"logo\":null,\"title\":null,\"alt\":null,\"active\":false}'),(14,'home','block_titles','{\"catalogue\":\"Каталог автозапчастей\",\"parts\":\"Запчасти по маркам\",\"brands\":\"Каталог брендов\",\"news\":\"Новости\",\"recommended_parts\":\"Товары для вас\"}'),(15,'home','banners','{\"image\":\"CJeBy3AZ2QcNXTSJ4M.png\",\"url\":null,\"alt\":null,\"title\":null,\"active\":true}'),(16,'home','banners','{\"image\":\"bEoplwqXfw3F78LViZ.png\",\"url\":null,\"alt\":null,\"title\":null,\"active\":true}'),(17,'contacts','data','{\"requisites_title\":\"Контактные данные\",\"form_title\":\"Связаться с нами\",\"iframe\":\"https:\\/\\/yandex.ru\\/map-widget\\/v1\\/-\\/CGs8zXLJ\"}'),(19,'images','data','{\"marks\":\"Rep1Qldt1IorvMSBMy.png\",\"parts\":\"NJvLMpIKkJKGItq4Kt.png\"}'),(20,'auth','register','{\"first_title\":\"Регистрация в интернет-магазине\",\"first_text\":\"<p>Для регистрации в интернет-магазине, пожалуйста, заполните данную анкету.<\\/p>\\r\\n\\r\\n<p>Если у вас возникли проблемы с регистрацией, пожалуйста напишите нам на адрес<\\/p>\\r\\n\\r\\n<p><a href=\\\"mailto:zakaz@bauten.kz\\\">zakaz@bauten.kz<\\/a><\\/p>\"}'),(21,'auth','register_right','{\"title\":\"Условия сотрудничества\",\"text\":\"<p>Мы не несём ответственность за применимость заказываемой&nbsp;<br \\/>\\r\\nдетали к автомобилю Вашего клиента<\\/p>\\r\\n\\r\\n<p>Доставка осуществляется силами нашей компании. Способы&nbsp;<br \\/>\\r\\nдоставки и минимальные параметры отправки согласовываются с&nbsp;<br \\/>\\r\\nкаждым клиентом индивидуально.<\\/p>\"}'),(22,'auth','register_right','{\"title\":\"Работа с нами — это\",\"text\":\"<p>Различные формы оплаты: наличный расчет, безналичный расчет,&nbsp;<br \\/>\\r\\nбанковский перевод.<\\/p>\\r\\n\\r\\n<p>Оперативная доставка продукции по всей территории Казахстана&nbsp;<br \\/>\\r\\nи стран СНГ<\\/p>\\r\\n\\r\\n<p>Право на получение специальных цен на товары<\\/p>\"}'),(23,'settings','minimum','{\"shop\":\"10000\",\"delivery\":\"20000\"}');
 /*!40000 ALTER TABLE `banners` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `basket`;
@@ -86,12 +86,11 @@ CREATE TABLE `basket` (
   KEY `basket_user_id_foreign` (`user_id`),
   CONSTRAINT `basket_part_id_foreign` FOREIGN KEY (`part_id`) REFERENCES `parts` (`id`) ON DELETE CASCADE,
   CONSTRAINT `basket_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `basket` WRITE;
 /*!40000 ALTER TABLE `basket` DISABLE KEYS */;
-INSERT INTO `basket` VALUES (9,8,1,50);
 /*!40000 ALTER TABLE `basket` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `brands`;
@@ -450,7 +449,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `migrations` WRITE;
@@ -514,17 +513,18 @@ CREATE TABLE `order_part` (
   `part_id` bigint(20) unsigned NOT NULL,
   `count` int(10) unsigned NOT NULL,
   `price` double(8,2) unsigned NOT NULL,
-  `real_price` int(10) unsigned NOT NULL,
+  `real_price` int(10) unsigned DEFAULT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sum` double(8,2) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `order_part_order_id_foreign` (`order_id`),
   CONSTRAINT `order_part_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `order_part` WRITE;
 /*!40000 ALTER TABLE `order_part` DISABLE KEYS */;
-INSERT INTO `order_part` VALUES (4,2,6,1,8415.00,8500,'Test'),(5,2,25,54,0.99,1,'Рулевая рейка оригинал MI SPACE WAGON GRANDIS MN103359'),(6,3,40,5,0.99,1,'Натяжитель цепи ГРМ NI A32 A33 VQ20 VQ25 VQ30 PATHFINDER VQ35 01-'),(7,3,42,4,0.99,1,'Натяжитель цепи ГРМ NI PATROL Y61 ZD30 3.0 97-'),(8,3,6,1,8415.00,8500,'Test'),(9,3,7,1,6435.00,6500,'Test'),(10,3,68,1,0.99,1,'Цепь привода распредвала NI MURANO Z50 03-08 FX 35 VQ35 03-08 TEANA J31 J32 03-13 \"\"');
+INSERT INTO `order_part` VALUES (11,5,6,6,8500.00,NULL,'Test',51000.00),(12,5,14,2,1.00,NULL,'Крестовино TO SXV20 97-01 KRESXV97',2.00),(13,5,8,100,1000.00,1200,'Test',80000.00),(14,6,13,1,1.00,NULL,'Крестовино TO ST215 97-01 KREST215',1.00),(15,6,8,50,1000.00,1200,'Test',50000.00);
 /*!40000 ALTER TABLE `order_part` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `orders`;
@@ -541,9 +541,10 @@ CREATE TABLE `orders` (
   `region_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `city_id` int(10) unsigned DEFAULT NULL,
   `city_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `real_sum` double(8,2) unsigned NOT NULL,
   `sum` double(8,2) unsigned NOT NULL DEFAULT '0.00',
   `delivery_price` int(10) unsigned NOT NULL DEFAULT '0',
-  `total` int(10) unsigned NOT NULL DEFAULT '0',
+  `total` decimal(8,2) unsigned NOT NULL DEFAULT '0.00',
   `payment_method` enum('cash','bank') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'cash',
   `status` tinyint(4) NOT NULL DEFAULT '0',
   `paid` tinyint(1) NOT NULL DEFAULT '0',
@@ -551,12 +552,12 @@ CREATE TABLE `orders` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (2,1,'Айк','+374553256655',0,NULL,NULL,NULL,NULL,NULL,8468.46,0,8469,'cash',0,0,1,'2019-11-04 11:11:04','2019-11-04 11:11:04'),(3,1,'Айк','8182843009',1,'11634 VICTORY BLVD UNIT 1 NORTH',4,'Region1',3,'City 1',14859.90,1000,15860,'cash',0,0,1,'2019-11-05 09:10:33','2019-11-05 09:10:33');
+INSERT INTO `orders` VALUES (5,1,'Айк','8182843009',1,'11634 VICTORY BLVD UNIT 1 NORTH',4,'Region1',3,'City 1',131002.00,105501.00,1000,106501.00,'cash',0,0,50,'2019-11-14 12:19:19','2019-11-14 12:19:19'),(6,1,'Айк','8182843009',1,'11634 VICTORY BLVD UNIT 1 NORTH',4,'Region1',3,'City 1',50001.00,25000.50,1000,26000.50,'cash',0,0,50,'2019-11-14 12:20:48','2019-11-14 12:20:48');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `pages`;
@@ -778,7 +779,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,2,3,'Айк','Ереван','Ереван','+374553256655','COMPANY','BIN','zakhayko@gmail.com','$2y$10$j13u95VxaZKl89aIQhB26eGb1MKAjLUwzCsR/42r2d8qCl2LoneGq',NULL,1,'vAcH2CN2LrbtsdqJnwozJS0At73oZcp6Trdo9ExTotiWidw7nsUjQTj8js0q',NULL,50,'2019-11-13 15:45:47','2019-11-13 13:42:03','2019-10-15 15:59:56','2019-11-12 13:39:33'),(2,2,NULL,'Test','Астана','Tera','+444444444','Test','Test','hayko2000@mail.ru','$2y$10$yFSwRaqyA4B3Oi9er1SXaOxWnUSww5iEA7C8RF8BeX5DNILGo2.ca',NULL,-1,NULL,1,0,NULL,NULL,'2019-10-15 17:40:38','2019-11-11 11:00:31'),(4,1,NULL,'test','Алматы','Qatar','87715115555',NULL,NULL,'tests@test.com','$2y$10$szHSyORnHvLfe7iayljYU.3pNXrFqjt0Ss8YpW.qlQ4s1kfrzXqU2','$2y$10$H.TLs3QpAn5kHM8zr5hDYeyMWCdCT9qPxyVpAnVUpWQfR86UjZyR.',1,NULL,1,0,NULL,NULL,'2019-10-29 09:36:54','2019-11-07 11:53:17'),(5,2,NULL,'Test 1234','Test1','Test','6666666666','company','123456789012','zakhayko1@gmail.com','$2y$10$yW7oFYmZq2sp/5OQTe1FxexcI5MdutUNknglvDKsy7GBzacyiO28S',NULL,1,NULL,1,0,'2019-11-07 12:09:34','2019-11-07 11:53:49','2019-11-07 11:51:42','2019-11-07 12:07:15');
+INSERT INTO `users` VALUES (1,2,3,'Айк','Ереван','Ереван','+374553256655','COMPANY','BIN','zakhayko@gmail.com','$2y$10$j13u95VxaZKl89aIQhB26eGb1MKAjLUwzCsR/42r2d8qCl2LoneGq',NULL,1,'vAcH2CN2LrbtsdqJnwozJS0At73oZcp6Trdo9ExTotiWidw7nsUjQTj8js0q',NULL,50,'2019-11-14 12:20:48','2019-11-14 09:35:21','2019-10-15 15:59:56','2019-11-12 13:39:33'),(2,2,NULL,'Test','Астана','Tera','+444444444','Test','Test','hayko2000@mail.ru','$2y$10$yFSwRaqyA4B3Oi9er1SXaOxWnUSww5iEA7C8RF8BeX5DNILGo2.ca',NULL,-1,NULL,1,0,NULL,NULL,'2019-10-15 17:40:38','2019-11-11 11:00:31'),(4,1,NULL,'test','Алматы','Qatar','87715115555',NULL,NULL,'tests@test.com','$2y$10$szHSyORnHvLfe7iayljYU.3pNXrFqjt0Ss8YpW.qlQ4s1kfrzXqU2','$2y$10$H.TLs3QpAn5kHM8zr5hDYeyMWCdCT9qPxyVpAnVUpWQfR86UjZyR.',1,NULL,1,0,NULL,NULL,'2019-10-29 09:36:54','2019-11-07 11:53:17'),(5,2,NULL,'Test 1234','Test1','Test','6666666666','company','123456789012','zakhayko1@gmail.com','$2y$10$yW7oFYmZq2sp/5OQTe1FxexcI5MdutUNknglvDKsy7GBzacyiO28S',NULL,1,NULL,1,0,'2019-11-07 12:09:34','2019-11-07 11:53:49','2019-11-07 11:51:42','2019-11-07 12:07:15');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

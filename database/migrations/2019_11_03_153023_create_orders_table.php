@@ -24,9 +24,10 @@ class CreateOrdersTable extends Migration
             $table->string('region_name')->nullable();
             $table->integer('city_id')->unsigned()->nullable();
             $table->string('city_name')->nullable();
+            $table->float('real_sum')->unsigned();
             $table->float('sum')->unsigned()->default(0);
             $table->integer('delivery_price')->unsigned()->default(0);
-            $table->integer('total')->unsigned()->default(0);
+            $table->float('total')->unsigned()->default(0);
             $table->enum('payment_method', ['cash', 'bank'])->default('cash');
             $table->tinyInteger('status')->default(0);
             $table->boolean('paid')->default(0);

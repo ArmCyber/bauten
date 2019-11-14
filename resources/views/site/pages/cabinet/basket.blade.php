@@ -69,15 +69,6 @@
                     @enderror
                 </div>
             </div>
-{{--            <div class="col-6">--}}
-{{--                <div class="form-group">--}}
-{{--                    <label for="form-last-name">Фамилия</label>--}}
-{{--                    <input type="text" id="form-last-name" class="form-control @error('last_name') has-error @enderror" name="last_name" value="{{ old('last_name', $user->last_name) }}" maxlength="255">--}}
-{{--                    @error('last_name')--}}
-{{--                    <small class="text-danger">{{ $message }}</small>--}}
-{{--                    @enderror--}}
-{{--                </div>--}}
-{{--            </div>--}}
             <div class="col-6">
                 <div class="form-group">
                     <label for="form-phone">Телефон</label>
@@ -95,8 +86,9 @@
                         <option value="1" {!! ($shown_delivery = old('delivery')==1)?'selected':null !!} class="order-delivery-option">Доставка до двери</option>
                     </select>
                     @error('delivery')
-                    <small class="text-danger">{{ $message }}</small>
+                    <div><small class="text-danger">{{ $message }}</small></div>
                     @enderror
+                    <div class="mb-1 if-cant-delivery" style="display: none"><small class="text-danger">Чтобы заказать с доставкой вам надо сделать покупку суммы {{ $settings->minimum->delivery }} <span class="kzt"></span></small></div>
                 </div>
             </div>
             @if (count($regions))
@@ -105,7 +97,7 @@
                         <label for="form-region">Регион</label>
                         <select class="select2" id="form-region" style="width: 100%" name="region_id">
                             @foreach($regions as $region)
-                                <option value="{{ $region->id }}">{{ $region->title }}</option>
+                                <option value="{{ $region->id }}" @if(old('region_id')==$region->id) selected @endif>{{ $region->title }}</option>
                             @endforeach
                         </select>
                         @error('region_id')
@@ -116,11 +108,7 @@
                 <div class="col-6 for-delivery" @if(!$shown_delivery) style="display:none" @endif>
                     <div class="form-group cabinet-select2">
                         <label for="form-cities">Насиленный пункт</label>
-                        <select class="select2" id="form-cities" style="width: 100%" name="city_id">
-                            @foreach($regions[0]->cities as $city)
-                                <option value="{{ $city->id }}">{{ $city->title }}</option>
-                            @endforeach
-                        </select>
+                        <select class="select2" id="form-cities" style="width: 100%" name="city_id"></select>
                         @error('delivery_point_id')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
@@ -149,13 +137,13 @@
                 </div>
             </div>
         </div>
-{{--        <div class="modal-prices text-right">--}}
-{{--            <div class="cabinet-title-sm text-right">Сумма: <span class="all-price">{{ $allPrice }}</span> <span class="kzt"></span></div>--}}
-{{--            <div class="for-delivery" @if(!$shown_delivery) style="display:none" @endif>--}}
-{{--                <div class="cabinet-title-sm text-right">Доставка: <span class="delivery-price">{{ $delivery_price = ($regions[0]->cities[0]->price??0) }}</span> <span class="kzt"></span></div>--}}
-{{--                <div class="cabinet-title-sm text-right">Общее: <span class="full-price">{{ $delivery_price + $allPrice }}</span> <span class="kzt"></span></div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
+        <div class="modal-prices text-right">
+            <div class="cabinet-title-sm text-right">Сумма: <span class="all-price"></span> <span class="kzt"></span></div>
+            <div class="for-delivery" style="display:none">
+                <div class="cabinet-title-sm text-right">Доставка: <span class="delivery-price"></span> <span class="kzt"></span></div>
+                <div class="cabinet-title-sm text-right">Общее: <span class="full-price"></span> <span class="kzt"></span></div>
+            </div>
+        </div>
         @endmodal
     @endif
 @endsection
@@ -174,10 +162,9 @@
             },
             csrf = '{{ csrf_token() }}',
             regions = {!! $regions->toJson(JSON_UNESCAPED_UNICODE) !!},
-            deliveryPrices = {!! $delivery_prices->toJson() !!};
-{{--        @if (session()->hasOldInput())--}}
-            // $('#order-modal').modal('show');
-{{--        @endif--}}
+            deliveryPrices = {!! $delivery_prices->toJson() !!},
+            hasOldInput = {!! session()->hasOldInput()?'true':'false' !!},
+            oldCityId = {!! old('city_id', 0) !!};
     </script>
     @stack('pageScripts')
 @endpush
