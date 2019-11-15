@@ -319,6 +319,7 @@ Route::namespace('Site')->group(function() {
             Route::post('order', 'OrdersController@order')->name('order');
             Route::get('orders/done', 'OrdersController@done')->name('orders.done');
             Route::get('orders/pending', 'OrdersController@pending')->name('orders.pending');
+            Route::get('orders/{id}', 'OrdersController@view')->name('orders.view');
         });
     });
     Route::get('profile/change-email/{token}', 'Cabinet\ProfileController@verifyNewEmail')->name('profile.verify_new_email');

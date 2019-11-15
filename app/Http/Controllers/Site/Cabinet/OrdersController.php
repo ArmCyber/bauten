@@ -38,7 +38,24 @@ class OrdersController extends BaseController
 
     public function pending(){
         $data = [];
+        $data['page_title'] = 'Невыполненные заказы';
         $data['orders'] = Order::userPendingOrders($this->shared['user']->id);
+        $data['empty_text'] = 'У вас нет невыполненных заказов';
         return view('site.pages.cabinet.orders', $data);
+    }
+
+    public function done(){
+        $data = [];
+        $data['page_title'] = 'Выполненные заказы';
+        $data['orders'] = Order::userDoneOrders($this->shared['user']->id);
+        $data['empty_text'] = 'У вас нет выполненных заказов';
+        return view('site.pages.cabinet.orders', $data);
+    }
+
+    public function view($id) {
+        $data = [];
+        $data['item'] = Order::getItemSite($id);
+        $data['process'] = Order::PROCESS;
+        return view('site.pages.cabinet.order', $data);
     }
 }

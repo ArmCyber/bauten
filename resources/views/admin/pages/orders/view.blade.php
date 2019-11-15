@@ -11,7 +11,7 @@
             <div class="view-line"><span class="view-label">Доставка:</span> {{ $item->delivery?'да':'нет' }}</div>
             @if($item->delivery)
                     <div class="view-line"><span class="view-label">Регион:</span> {{ $item->region_name }}</div>
-                    <div class="view-line"><span class="view-label">Город:</span> {{ $item->city_name }}</div>
+                    <div class="view-line"><span class="view-label">Насиленный пункт:</span> {{ $item->city_name }}</div>
                     <div class="view-line"><span class="view-label">Адрес:</span> {{ $item->address }}</div>
                     <div class="view-line"><span class="view-label">Цена доставки:</span> {{ $item->delivery_price }}</div>
             @endif

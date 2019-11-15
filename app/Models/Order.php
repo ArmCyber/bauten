@@ -30,8 +30,12 @@ class Order extends Model
         return self::where('id', $id)->with('order_parts')->firstOrFail();
     }
 
+    public static function getItemSite($id) {
+        return self::where(['id'=>$id, 'user_id'=>auth()->user()->id])->where('status', '<>', self::STATUS_DECLINED)->firstOrFail();
+    }
+
     public static function getOrdersWithStatus($status){
-        return self::where('status', $status)->with(['parts', 'user'])->get();
+        return self::where('status', $status)->with(['parts', 'user'])->sort()->get();
     }
 
     public static function userPendingOrdersCount($user_id) {
@@ -39,7 +43,11 @@ class Order extends Model
     }
 
     public static function userPendingOrders($user_id) {
-        return self::where('user_id', $user_id)->whereIn('status', [self::STATUS_NEW, self::STATUS_PENDING])->with('parts')->get();
+        return self::where('user_id', $user_id)->whereIn('status', [self::STATUS_NEW, self::STATUS_PENDING])->with('parts')->sort()->get();
+    }
+
+    public static function userDoneOrders($user_id) {
+        return self::where('user_id', $user_id)->where('status', self::STATUS_DONE)->with('parts')->sort()->get();
     }
 
     public static function getCount($status) {
@@ -104,7 +112,7 @@ class Order extends Model
     }
 
     public function parts(){
-        return $this->belongsToMany('App\Models\Part')->withPivot('count', 'price', 'real_price', 'name');
+        return $this->belongsToMany('App\Models\Part')->withPivot('count', 'price', 'real_price', 'name', 'code', 'sum');
     }
 
     public function user(){
@@ -125,8 +133,21 @@ class Order extends Model
         return $result;
     }
 
+    public function getStatusSiteHtmlAttribute() {
+        switch($this->status){
+            case self::STATUS_DECLINED: $result = '<span class="text-warning">Откланенный</span>'; break;
+            case self::STATUS_DONE: $result = '<span class="text-success">Выполненный</span>'; break;
+            default: $result = '<span class="text-danger">Невыполненный</span>';
+        }
+        return $result;
+    }
+
     public function getStatusTypeAttribute(){
         return self::STATUSES[$this->status]??null;
+    }
+
+    public function scopeSort($q){
+        return $q->orderBy('id', 'desc');
     }
 
     public static function deleteItem($model) {
