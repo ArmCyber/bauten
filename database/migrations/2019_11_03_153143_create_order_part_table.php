@@ -21,6 +21,7 @@ class CreateOrderPartTable extends Migration
             $table->float('price')->unsigned();
             $table->integer('real_price')->unsigned()->nullable();
             $table->string('name')->nullable();
+            $table->string('code')->nullable();
             $table->float('sum')->unsigned();
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
         });

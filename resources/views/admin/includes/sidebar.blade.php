@@ -5,9 +5,19 @@
 
 @endcan--}}
 @can('admin')
-{{--    @if($pending_orders_count>0)--}}
-        @alink(['url'=>route('admin.orders.pending'), 'icon'=>'fas fa-user', 'title'=>'Заказы в ожидании', 'counter'=>0])@endalink
-{{--    @endif--}}
+    @alink(['icon'=>'fas fa-paperclip', 'title'=>'Заказы', 'counter'=>$new_orders_count+$pending_orders_count])
+        @if($new_orders_count)
+            @alink(['url'=>route('admin.orders.new'), 'icon'=>'fas fa-plus-circle', 'title'=>'Новые заказы', 'counter'=>$new_orders_count])@endalink
+        @endif
+        @if($pending_orders_count)
+            @alink(['url'=>route('admin.orders.pending'), 'icon'=>'fas fa-tasks', 'title'=>'Невыполненные заказы', 'counter'=>$pending_orders_count])@endalink
+        @endif
+        @alink(['url'=>route('admin.orders.done'), 'icon'=>'fas fa-check-circle', 'title'=>'Выполненные заказы'])@endalink
+        @if($declined_orders_count)
+            @alink(['url'=>route('admin.orders.declined'), 'icon'=>'fas fa-times-circle', 'title'=>'Откланенные заказы', 'counter'=>0])@endalink
+        @endif
+    @endalink
+
     @alink(['icon'=>'fas fa-list', 'title'=>'Каталог запчастей'])
         @alink(['url'=>route('admin.groups.main'), 'icon'=>'fas fa-layer-group', 'title'=>'Группы'])@endalink
         @alink(['url'=>route('admin.part_catalogs.main'), 'icon'=>'fas fa-list', 'title'=>'Категории'])@endalink

@@ -6,6 +6,7 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
+                        <th>Артикул</th>
                         <th>Название</th>
                         <th>Цена</th>
                         <th>Кол-во</th>
@@ -16,6 +17,7 @@
                 <tbody>
                     @foreach($basket_parts as $basket_part)
                         <tr class="basket-part-row" data-id="{{ $basket_part->part->id }}">
+                            <td><a href="{{ route('part', ['url'=>$basket_part->part->url]) }}" class="link-bauten">{{ $basket_part->part->code }}</a></td>
                             <td><a href="{{ route('part', ['url'=>$basket_part->part->url]) }}" class="link-bauten">{{ $basket_part->part->name }}</a></td>
                             <td>
                                 {{ $basket_part->part->price }} <span class="kzt"></span>
@@ -141,7 +143,7 @@
             <div class="cabinet-title-sm text-right">Сумма: <span class="all-price"></span> <span class="kzt"></span></div>
             <div class="for-delivery" style="display:none">
                 <div class="cabinet-title-sm text-right">Доставка: <span class="delivery-price"></span> <span class="kzt"></span></div>
-                <div class="cabinet-title-sm text-right">Общее: <span class="full-price"></span> <span class="kzt"></span></div>
+                <div class="cabinet-title-sm text-right">Итого: <span class="full-price"></span> <span class="kzt"></span></div>
             </div>
         </div>
         @endmodal

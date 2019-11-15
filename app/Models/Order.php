@@ -8,24 +8,34 @@ use Zakhayko\Banners\Models\Banner;
 class Order extends Model
 {
     public const STATUS_DECLINED = -1;
-    public const STATUS_PENDING = 0;
+    public const STATUS_NEW = 0;
+    public const STATUS_PENDING = 1;
+    public const STATUS_DONE = 2;
 
     public const STATUSES = [
-        self::STATUS_PENDING => 'pending',
         self::STATUS_DECLINED => 'declined',
+        self::STATUS_NEW => 'new',
+        self::STATUS_PENDING => 'pending',
+        self::STATUS_DONE => 'done',
     ];
 
-    public const STATUS_NAMES = [
-        self::STATUS_PENDING => 'Ожидаемый',
-        self::STATUS_DECLINED => 'Откланенный',
+    public const PROCESS = [
+        0 => 'Заказ принят',
+        1 => 'Собирается на складе',
+        2 => 'Доставляется',
+        3 => 'Доставлен',
     ];
 
     public static function getItem($id) {
         return self::where('id', $id)->with('order_parts')->firstOrFail();
     }
 
-    public static function getPendingOrders(){
-        return self::where('status', self::STATUS_PENDING)->with('parts')->with('user')->get();
+    public static function getOrdersWithStatus($status){
+        return self::where('status', $status)->with(['parts', 'user'])->get();
+    }
+
+    public static function getCount($status) {
+        return self::where('status', $status)->count();
     }
 
     public static function makeOrder($inputs) {
@@ -50,6 +60,7 @@ class Order extends Model
                 'count' => $basket_part->count,
                 'sum' => $sum,
                 'name' => $basket_part->part->name,
+                'code' => $basket_part->part->code,
             ];
             $all_sum+=$sum;
         }
@@ -77,7 +88,7 @@ class Order extends Model
             $order['delivery_price'] = $city->price;
         }
         $order['total'] = $all_sum + ($order['delivery_price']??0);
-        $order['status'] = 0;
+        $order['status'] = self::STATUS_NEW;
         $order['sale'] = $user->sale??0;
         $order->save();
         $order->parts()->attach($parts);
@@ -96,8 +107,14 @@ class Order extends Model
         return $this->hasMany('App\Models\OrderPart')->with('part');
     }
 
-    public function getStatusNameAttribute() {
-        return self::STATUS_NAMES[$this->status]??null;
+    public function getStatusHtmlAttribute() {
+        switch($this->status){
+            case self::STATUS_DECLINED: $result = '<span class="text-warning">Откланенный</span>'; break;
+            case self::STATUS_PENDING: $result = '<span class="text-danger">Невыполненный</span>'; break;
+            case self::STATUS_DONE: $result = '<span class="text-success">Выполненный</span>'; break;
+            default: $result = '<span class="text-info">Новый</span>';
+        }
+        return $result;
     }
 
     public function getStatusTypeAttribute(){

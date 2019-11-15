@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
 class LoginController extends BaseController
@@ -60,7 +61,9 @@ class LoginController extends BaseController
         }
         $user->updateLoggedInAt();
         Auth::guard('web')->login($user);
-        return $this->sendLoginResponse($request);
+        $loginResponse = $this->sendLoginResponse($request);
+        if (Str::startsWith($loginResponse->getTargetUrl(), route('admin.root'))) return redirect('/');
+        return $loginResponse;
     }
 
 

@@ -25,7 +25,7 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
         Route::post('logout', 'AuthController@logout')->name('logout');
         //endregion
         //region Home Page Redirect
-        Route::get('/', 'AuthController@redirectToHomepage');
+        Route::get('/', 'AuthController@redirectToHomepage')->name('root');
         //endregion
         //region Banners
         Route::middleware('can:admin')->match(['get', 'post'], 'banners/{page}', 'BannersController@render')->name('banners');
@@ -211,7 +211,7 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
             Route::delete('delete', $c.'delete')->middleware('ajax')->name('delete');
         });
         //endregion
-        //region News
+        //region Groups
         Route::middleware('can:admin')->prefix('groups')->name('groups.')->group(function() { $c = 'GroupsController@';
             Route::get('', $c.'main')->name('main');
             Route::get('add', $c.'add')->name('add');
@@ -272,10 +272,14 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
         //endregion
         //region Orders
         Route::middleware('can:admin')->prefix('orders')->name('orders.')->group(function() { $c = 'OrdersController@';
-            Route::get('pending', $c.'pending')->name('pending');
+            Route::get('new', $c.'newOrders')->name('new');
+            Route::get('pending', $c.'pendingOrders')->name('pending');
+            Route::get('done', $c.'doneOrders')->name('done');
+            Route::get('declined', $c.'declinedOrders')->name('declined');
             Route::get('view/{id}', $c.'view')->name('view');
             Route::delete('delete', $c.'delete')->name('delete');
-//            Route::delete('delete', $c.'delete')->name('delete');
+            Route::patch('respond/{id}', $c.'respond')->name('respond');
+            Route::patch('change-process/{id}', $c.'changeProcess')->name('change_process');
         });
         //endregion
         //region Import
