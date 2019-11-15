@@ -317,7 +317,8 @@ Route::namespace('Site')->group(function() {
             Route::get('favourites', 'FavouritesController@main')->name('favourites');
             Route::post('favourites/add', 'FavouritesController@add')->middleware('ajax')->name('favourites.add');
             Route::post('order', 'OrdersController@order')->name('order');
-            Route::get('orders', 'OrdersController@main')->name('orders');
+            Route::get('orders/done', 'OrdersController@done')->name('orders.done');
+            Route::get('orders/pending', 'OrdersController@pending')->name('orders.pending');
         });
     });
     Route::get('profile/change-email/{token}', 'Cabinet\ProfileController@verifyNewEmail')->name('profile.verify_new_email');

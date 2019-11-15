@@ -34,6 +34,14 @@ class Order extends Model
         return self::where('status', $status)->with(['parts', 'user'])->get();
     }
 
+    public static function userPendingOrdersCount($user_id) {
+        return self::where('user_id', $user_id)->whereIn('status', [self::STATUS_NEW, self::STATUS_PENDING])->count();
+    }
+
+    public static function userPendingOrders($user_id) {
+        return self::where('user_id', $user_id)->whereIn('status', [self::STATUS_NEW, self::STATUS_PENDING])->with('parts')->get();
+    }
+
     public static function getCount($status) {
         return self::where('status', $status)->count();
     }

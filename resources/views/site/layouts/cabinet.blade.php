@@ -15,7 +15,10 @@
                             @slot('title')Корзина (<span id="sidebar-basket">{{ count($basket_part_ids) }}</span>)@endslot
                         @endcomponent
                         @component('site.components.cabinet_link', ['route'=>'cabinet.favourites', 'title'=>'Сохраненные'])@endcomponent
-                        @component('site.components.cabinet_link', ['route'=>null, 'title'=>'Покупки'])@endcomponent
+                        @if($pending_orders_count)
+                            @component('site.components.cabinet_link', ['route'=>'cabinet.orders.pending', 'title'=>'Невыполненные заказы'])@endcomponent
+                        @endif
+                        @component('site.components.cabinet_link', ['route'=>'cabinet.orders.done', 'title'=>'Покупки'])@endcomponent
                         @component('site.components.cabinet_link', ['route'=>'cabinet.profile', 'title'=>'Профиль'])@endcomponent
                         @component('site.components.cabinet_link', ['route'=>null, 'title'=>'Выход', 'class'=>'action-logout'])@endcomponent
                     </div>

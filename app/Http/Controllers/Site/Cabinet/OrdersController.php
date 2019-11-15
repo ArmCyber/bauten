@@ -38,6 +38,7 @@ class OrdersController extends BaseController
 
     public function pending(){
         $data = [];
+        $data['orders'] = Order::userPendingOrders($this->shared['user']->id);
         return view('site.pages.cabinet.orders', $data);
     }
 }

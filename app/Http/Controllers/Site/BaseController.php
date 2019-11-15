@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Site;
 use App\Models\Admin;
 use App\Models\Basket;
 use App\Models\Group;
+use App\Models\Order;
 use App\Models\Page;
 use App\Models\PartCatalog;
 use App\Services\PageManager\Facades\PageManager;
@@ -46,6 +47,7 @@ class BaseController extends Controller
             $this->shared['basket_parts'] = Basket::getUserParts();
             $this->shared['basket_part_ids'] = $this->shared['basket_parts']->pluck('part_id');
             $this->shared['favourite_ids'] = $this->shared['user']->favourites->pluck('id')->toArray();
+            $this->shared['pending_orders_count'] = Order::userPendingOrdersCount($this->shared['user']->id);
         }
         view()->share($this->shared);
         return true;
