@@ -18,10 +18,3 @@
         </div>
     @endif
 @endsection
-@push('css')
-    @css(aApp('toastr/build/toastr.min.css'))
-@endpush
-@push('js')
-    @js(aApp('toastr/build/toastr.min.js'))
-    {!! Notify::render() !!}
-@endpush

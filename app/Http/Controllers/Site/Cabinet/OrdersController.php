@@ -30,10 +30,9 @@ class OrdersController extends BaseController
             'phone' => 'Недействительный номер телефона.',
         ])->validate();
         if (!count($this->shared['basket_parts'])) return redirect()->route('cabinet.basket');
-        if (!Order::makeOrder($inputs)) return redirect()->back();
+        if (! $order_id = Order::makeOrder($inputs)) return redirect()->back();
         Basket::clear();
-        Notify::success('Ваш заказ отправлен.');
-        return redirect()->route('cabinet.main');
+        return redirect()->route('cabinet.orders.view', ['id'=>$order_id]);
     }
 
     public function pending(){

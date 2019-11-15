@@ -108,7 +108,7 @@ class Order extends Model
         $order['sale'] = $user->sale??0;
         $order->save();
         $order->parts()->attach($parts);
-        return true;
+        return $order->id;
     }
 
     public function parts(){
