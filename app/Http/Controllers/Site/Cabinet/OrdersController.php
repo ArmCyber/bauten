@@ -37,6 +37,7 @@ class OrdersController extends BaseController
 
     public function pending(){
         $data = [];
+        $data['seo'] = $this->staticSEO('Невыполненные заказы');
         $data['page_title'] = 'Невыполненные заказы';
         $data['orders'] = Order::userPendingOrders($this->shared['user']->id);
         $data['empty_text'] = 'У вас нет невыполненных заказов';
@@ -45,15 +46,17 @@ class OrdersController extends BaseController
 
     public function done(){
         $data = [];
-        $data['page_title'] = 'Выполненные заказы';
+        $data['seo'] = $this->staticSEO('Покупки');
+        $data['page_title'] = 'Покупки';
         $data['orders'] = Order::userDoneOrders($this->shared['user']->id);
-        $data['empty_text'] = 'У вас нет выполненных заказов';
+        $data['empty_text'] = 'У вас нет покупок';
         return view('site.pages.cabinet.orders', $data);
     }
 
     public function view($id) {
         $data = [];
         $data['item'] = Order::getItemSite($id);
+        $data['seo'] = $this->staticSEO('Заказ N'.$data['item']->id);
         $data['process'] = Order::PROCESS;
         return view('site.pages.cabinet.order', $data);
     }

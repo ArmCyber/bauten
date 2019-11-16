@@ -59,6 +59,27 @@
                         @endpush
                 @endif
             </div>
+            <div class="pt-4">
+                <div class="h4">Заказы пользователя</div>
+                <div class="py-2">
+                    @if(!$order_counts['all'])
+                        <div class="h5 text-danger">У пользователя нет заказов</div>
+                    @else
+                        @if($order_counts[2])
+                            <div class="view-line"><a href="{{ route('admin.orders.user', ['id'=>$item->id, 'status'=>$statuses[2]]) }}">Выполненные заказы ({{ $order_counts[2] }})</a></div>
+                        @endif
+                        @if($order_counts[1])
+                            <div class="view-line"><a href="{{ route('admin.orders.user', ['id'=>$item->id, 'status'=>$statuses[1]]) }}">Невыполненные заказы ({{ $order_counts[1] }})</a></div>
+                        @endif
+                        @if($order_counts[0])
+                            <div class="view-line"><a href="{{ route('admin.orders.user', ['id'=>$item->id, 'status'=>$statuses[0]]) }}">Новые заказы ({{ $order_counts[0] }})</a></div>
+                        @endif
+                        @if($order_counts[-1])
+                            <div class="view-line"><a href="{{ route('admin.orders.user', ['id'=>$item->id, 'status'=>$statuses[-1]]) }}">Откланенные заказы ({{ $order_counts[-1] }})</a></div>
+                        @endif
+                    @endif
+                </div>
+            </div>
             <div class="pt-5"><button class="btn btn-outline-danger mr-1" data-toggle="modal" data-target="#deleteUserModal">УДАЛИТЬ ПРОФИЛЬ НАВСЕГДА</button></div>
         </div>
     </div>

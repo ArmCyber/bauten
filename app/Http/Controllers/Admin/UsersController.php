@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Admin;
 use App\Models\Basket;
+use App\Models\Order;
 use App\Models\Part;
 use App\Models\PartnerGroup;
 use App\Models\User;
@@ -28,6 +29,8 @@ class UsersController extends BaseController
         $data['partner_groups'] = PartnerGroup::adminList();
         $data['title'] = 'Пользователь "'.$data['item']->email.'"';
         $data['basket_parts'] = Basket::getPartsForUser($data['item']->id);
+        $data['order_counts'] = Order::getUserOrdersCount($data['item']->id);
+        $data['statuses'] = Order::STATUSES;
 //        $data['back_url'] = route('admin.users.main');
         return view('admin.pages.users.view', $data);
     }

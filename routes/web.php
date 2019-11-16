@@ -280,6 +280,7 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
             Route::delete('delete', $c.'delete')->name('delete');
             Route::patch('respond/{id}', $c.'respond')->name('respond');
             Route::patch('change-process/{id}', $c.'changeProcess')->name('change_process');
+            Route::get('user/{id}/{status}', $c.'userOrders')->name('user');
         });
         //endregion
         //region Import

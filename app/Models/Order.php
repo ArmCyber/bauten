@@ -34,8 +34,10 @@ class Order extends Model
         return self::where(['id'=>$id, 'user_id'=>auth()->user()->id])->where('status', '<>', self::STATUS_DECLINED)->firstOrFail();
     }
 
-    public static function getOrdersWithStatus($status){
-        return self::where('status', $status)->with(['parts', 'user'])->sort()->get();
+    public static function getOrdersWithStatus($status, $user_id=null){
+        $result = self::where('status', $status);
+        if($user_id!==null) $result->where('user_id', $user_id);
+        return $result->with(['parts', 'user'])->sort()->get();
     }
 
     public static function userPendingOrdersCount($user_id) {
@@ -48,6 +50,19 @@ class Order extends Model
 
     public static function userDoneOrders($user_id) {
         return self::where('user_id', $user_id)->where('status', self::STATUS_DONE)->with('parts')->sort()->get();
+    }
+
+    public static function getUserOrdersCount($user_id){
+        $result = self::select('status')->where('user_id',$user_id)->get();
+        $all = count($result);
+        $result = $result->groupBy('status')->toArray();
+        return [
+            'all' => $all,
+            self::STATUS_DECLINED => count($result[self::STATUS_DECLINED]??[]),
+            self::STATUS_NEW => count($result[self::STATUS_NEW]??[]),
+            self::STATUS_PENDING => count($result[self::STATUS_PENDING]??[]),
+            self::STATUS_DONE => count($result[self::STATUS_DONE]??[]),
+        ];
     }
 
     public static function getCount($status) {

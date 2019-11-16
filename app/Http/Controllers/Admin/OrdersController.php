@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Order;
+use App\Models\User;
 use App\Services\Notify\Facades\Notify;
 use Illuminate\Http\Request;
 
@@ -87,5 +88,22 @@ class OrdersController extends BaseController
         $order->save();
         Notify::get('changes_saved');
         return redirect()->back();
+    }
+
+    public function userOrders($id, $status_type) {
+        $user = User::getItem($id);
+        $status = array_search($status_type, Order::STATUSES);
+        if ($status===false) abort(404);
+        switch($status) {
+            case Order::STATUS_DECLINED: $type = 'Откланенные'; break;
+            case Order::STATUS_NEW: $type = 'Новые'; break;
+            case Order::STATUS_PENDING: $type = 'Невыполненные'; break;
+            default: $type = 'Выполненные';
+        }
+        $data = [
+            'title' => $type.' заказы пользователя "'.$user->email.'"',
+        ];
+        $data['items'] = Order::getOrdersWithStatus($status, $user->id);
+        return view('admin.pages.orders.main', $data);
     }
 }
