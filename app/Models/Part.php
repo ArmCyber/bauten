@@ -46,6 +46,7 @@ class Part extends Model
         $model['part_catalog_id'] = $inputs['part_catalog_id'];
         $model['brand_id'] = $inputs['brand_id'];
         $model['url'] = self::actionUrl($inputs, $ignore);
+        $model['application_only'] = (int) array_key_exists('application_only', $inputs);
         $model['active'] = (int) array_key_exists('active', $inputs);
         $model['show_image'] = (int) array_key_exists('show_image', $inputs);
         if($image = upload_file('image', 'u/parts/', ($ignore && !empty($model->image))?$model->image:false)) $model->image = $image;

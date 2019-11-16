@@ -31,6 +31,7 @@ class CreatePartsTable extends Migration
             $table->string('url')->nullable();
             $table->bigInteger('part_catalog_id')->unsigned();
             $table->bigInteger('brand_id')->unsigned();
+            $table->boolean('application_only')->default(0);
             $table->boolean('active')->default(1);
         });
     }

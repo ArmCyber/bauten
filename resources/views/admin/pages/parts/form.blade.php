@@ -111,7 +111,8 @@
                         </div>
                     </div>
                 </div>
-                @labelauty(['id'=>'active', 'class'=>'mt-3', 'label'=>'Неактивно|Активно', 'checked'=>oldCheck('active', ($edit && empty($item->active))?false:true)])@endlabelauty
+                @labelauty(['id'=>'application_only', 'class'=>'mt-2', 'label'=>'Под заказ', 'checked'=>oldCheck('application_only', ($edit && $item->application_only)?true:false)])@endlabelauty
+                @labelauty(['id'=>'active', 'label'=>'Неактивно|Активно', 'checked'=>oldCheck('active', ($edit && empty($item->active))?false:true)])@endlabelauty
             </div>
         </div>
         <div class="col-12">
