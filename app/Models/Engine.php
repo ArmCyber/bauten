@@ -33,6 +33,10 @@ class Engine extends Model
         return $this->belongsTo('App\Models\Mark', 'mark_id', 'id');
     }
 
+    public function parts(){
+        return $this->belongsToMany('App\Models\Part');
+    }
+
     public static function deleteItem($model) {
         return $model->delete();
     }

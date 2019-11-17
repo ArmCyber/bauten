@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Brand;
 use App\Models\Criterion;
+use App\Models\Engine;
 use App\Models\EngineCriterion;
 use App\Models\EngineFilter;
 use App\Models\Filter;
@@ -30,6 +31,7 @@ class PartsController extends BaseController
         $data['part_catalogs'] = PartCatalog::adminList();
         $data['brands'] = Brand::adminList();
         $data['marks'] = Mark::fullAdminList();
+        $data['engine_marks'] = Mark::engineAdminList();
         return view('admin.pages.parts.form', $data);
     }
 
@@ -56,6 +58,10 @@ class PartsController extends BaseController
         $data['brands'] = Brand::adminList();
         $data['marks'] = Mark::fullAdminList();
         $data['part_cars'] = PartCar::adminList($data['item']->id);
+        $data['engine_marks'] = Mark::engineAdminList();
+        $data['part_engines'] = $data['item']->orderedEngines()->map(function($item){
+            return ['mark_id'=>$item['mark_id'], 'engine_id'=>$item['id']];
+        });
         return view('admin.pages.parts.form', $data);
     }
 
@@ -210,6 +216,17 @@ class PartsController extends BaseController
                     ];
                 }
                 if (count($old_cars)) session()->flash('old_cars', $old_cars);
+            }
+            if (!empty($inputs['engine_mark_id'])) {
+                $old_engines = [];
+                foreach($inputs['engine_mark_id'] as $i=>$e){
+                    if ($e==0) continue;
+                    $old_engines[] = [
+                        'mark_id' => $e,
+                        'engine_id' => $inputs['engine_id'][$i],
+                    ];
+                }
+                if (count($old_engines)) session()->flash('old_engines', $old_engines);
             }
             throw new ValidationException($validator);
         }

@@ -52,6 +52,11 @@ class Part extends Model
         if($image = upload_file('image', 'u/parts/', ($ignore && !empty($model->image))?$model->image:false)) $model->image = $image;
         $model->save();
         PartCar::sync($model->id, $inputs['mark_id']??[], $inputs['model_id']??[], $inputs['generation_id']??[], (bool) $ignore);
+        if (array_key_exists('engine_id', $inputs) && is_array($inputs['engine_id'])) {
+            $engines = Engine::whereIn('id', $inputs['engine_id'])->pluck('id')->toArray();
+        }
+        else $engines = [];
+        $model->engines()->sync($engines);
         return true;
     }
 
@@ -119,6 +124,18 @@ class Part extends Model
 
     public function engine_criteria(){
         return $this->belongsToMany('App\Models\EngineCriterion');
+    }
+
+    public function engines(){
+        return $this->belongsToMany('App\Models\Engine')->orderBy('engines.name');
+    }
+
+    public function orderedEngines() {
+        $engines = $this->engines;
+        $engines->load('mark');
+        return $engines->sortBy(function($item){
+            return $item->mark->name;
+        })->values();
     }
 
     public function scopeFiltered($q, array $criteria) {

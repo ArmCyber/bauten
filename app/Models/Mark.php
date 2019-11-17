@@ -50,6 +50,12 @@ class Mark extends Model
         }])->sort()->get();
     }
 
+    public static function engineAdminList(){
+        return self::select('id', 'name', 'cid')->whereHas('engines')->with(['engines'=>function($q){
+            $q->select('id', 'name', 'mark_id');
+        }])->sort()->get();
+    }
+
     public static function getApplicabilityKeys($marks, $models, $generations) {
         return self::select('id')->whereIn('id', array_unique($marks))->with(['models'=>function($q) use ($models, $generations){
             $q->select('id', 'mark_id')->whereIn('id', array_unique($models))->with(['generations' => function($q) use ($generations){
