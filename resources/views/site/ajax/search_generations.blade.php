@@ -1,5 +1,5 @@
 <div class="home-search-block" style="display:none">
-    <div class="home-search-title align-self-baseline">Модификация</div>
+    <div class="home-search-title align-self-baseline">Кузов</div>
     <div class="home-search-content">
         <div class="expanded-container pt-0 ">
             <div class="row row-grid">

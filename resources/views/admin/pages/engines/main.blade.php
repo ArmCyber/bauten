@@ -1,7 +1,5 @@
 @extends('admin.layouts.app')
-@section('titleSuffix')
-    | <a href="{!! route('admin.marks.add') !!}" class="text-cyan"><i class="mdi mdi-plus-box"></i> добавить</a>
-@endsection
+@section('titleSuffix')| <a href="{!! route('admin.engines.add', ['id'=>$mark->id]) !!}" class="text-cyan"><i class="mdi mdi-plus-box"></i> добавить</a>@endsection
 @section('content')
     @if(count($items))
         <div class="card">
@@ -9,34 +7,18 @@
                 <table class="table table-striped m-b-0 columns-middle init-dataTable">
                     <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Имя</th>
-                        <th>Статус</th>
-                        <th>Модели</th>
-                        <th>Двигатели</th>
-                        <th>На главной</th>
+                        <th>Номер</th>
+                        <th>Название</th>
                         <th>Действие</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($items as $item)
                         <tr class="item-row" data-id="{!! $item->id !!}">
-                            <td class="item-title">{{ $item->cid }}</td>
-                            <td class="item-title">{{ $item->name }}</td>
-                            @if($item->active)
-                                <td class="text-success">Активно</td>
-                            @else
-                                <td class="text-danger">Неактивно</td>
-                            @endif
-                            <td><a href="{{ route('admin.models.main', ['id'=>$item->id]) }}">Перейти к моделям ({!! $item->models_count !!})</a></td>
-                            <td><a href="{{ route('admin.engines.main', ['id'=>$item->id]) }}">Перейти к двигателям ({!! $item->engines_count !!})</a></td>
-                            @if($item->in_home)
-                                <td class="text-success">Показано</td>
-                            @else
-                                <td class="text-danger">Не показано</td>
-                            @endif
+                            <td>{{ $item->number }}</td>
+                            <td class="item-title">{{ $item->name}}</td>
                             <td>
-                                <a href="{{ route('admin.marks.edit', ['id'=>$item->id]) }}" {!! tooltip('Редактировать') !!} class="icon-btn edit"></a>
+                                <a href="{{ route('admin.engines.edit', ['id'=>$item->id]) }}" {!! tooltip('Редактировать') !!} class="icon-btn edit"></a>
                                 <span class="d-inline-block"  style="margin-left:4px;" data-toggle="modal" data-target="#itemDeleteModal"><a href="javascript:void(0)" class="icon-btn delete" {!! tooltip('Удалить') !!}></a></span>
                             </td>
                         </tr>
@@ -53,9 +35,9 @@
         'saveBtnClass'=>'btn-danger',
         'closeBtn' => 'Отменить',
         'form'=>['id'=>'itemDeleteForm', 'action'=>'javascript:void(0)']])
-    @slot('title')Удаление марок@endslot
+    @slot('title')Удаление двигателя@endslot
     <input type="hidden" id="pdf-item-id">
-    <p class="font-14">Вы действительно хотите удалить марку &Lt;<span id="pdm-title"></span>&Gt;?</p>
+    <p class="font-14">Вы действительно хотите удалить двигатель &Lt;<span id="pdm-title"></span>&Gt;?</p>
     @endmodal
 @endsection
 @push('css')
@@ -93,7 +75,7 @@
             if (thisItemId && thisItemId.match(/^[1-9][0-9]{0,9}$/)) {
                 loader.addClass('shown');
                 $.ajax({
-                    url: '{!! route('admin.marks.delete') !!}',
+                    url: '{!! route('admin.engines.delete') !!}',
                     type: 'post',
                     dataType: 'json',
                     data: {
@@ -109,7 +91,7 @@
                         if (e.success) {
                             loader.removeClass('shown');
                             blocked = false;
-                            toastr.success('Марка удалена.');
+                            toastr.success('Двигатель удален.');
                             modal.modal('hide');
                             $('.item-row[data-id="'+thisItemId+'"]').fadeOut(function(){
                                 $(this).remove();
@@ -121,7 +103,8 @@
             }
             else modalError();
         });
-        $('.init-dataTable').dataTable();
-
+        $('.init-dataTable').dataTable({
+            "order": [[ 1, "asc" ]]
+        });
     </script>
 @endpush

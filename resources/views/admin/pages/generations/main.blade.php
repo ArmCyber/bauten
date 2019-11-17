@@ -47,7 +47,7 @@
         'form'=>['id'=>'itemDeleteForm', 'action'=>'javascript:void(0)']])
     @slot('title')Удаление пололении@endslot
     <input type="hidden" id="pdf-item-id">
-    <p class="font-14">Вы действительно хотите удалить модификацию &Lt;<span id="pdm-title"></span>&Gt;?</p>
+    <p class="font-14">Вы действительно хотите удалить кузов &Lt;<span id="pdm-title"></span>&Gt;?</p>
     @endmodal
 @endsection
 @push('css')
@@ -101,7 +101,7 @@
                         if (e.success) {
                             loader.removeClass('shown');
                             blocked = false;
-                            toastr.success('Модификация удалена.');
+                            toastr.success('Кузов удален.');
                             modal.modal('hide');
                             $('.item-row[data-id="'+thisItemId+'"]').fadeOut(function(){
                                 $(this).remove();

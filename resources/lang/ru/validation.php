@@ -217,5 +217,6 @@ return [
         'country_id' => 'Страна',
         'region_id' => 'Регион',
         'articule' => 'Артикул',
+        'number' => 'Номер',
     ],
 ];

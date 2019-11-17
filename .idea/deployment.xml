@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="shop.bauten.kz" autoUploadExternalChanges="true">
+  <component name="PublishConfigData" serverName="bauten.org" autoUploadExternalChanges="true">
     <serverData>
+      <paths name="bauten.org">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/public/e" />
+            <excludedPath local="true" path="$PROJECT_DIR$/.extra" />
+            <excludedPath local="true" path="$PROJECT_DIR$/.idea" />
+            <excludedPath local="true" path="$PROJECT_DIR$/storage/framework" />
+            <excludedPath local="true" path="$PROJECT_DIR$/storage/debugbar" />
+            <excludedPath local="true" path="$PROJECT_DIR$/storage/logs" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
       <paths name="coffee.astudioweb.ru">
         <serverdata>
           <mappings>
@@ -42,21 +57,6 @@
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
-        </serverdata>
-      </paths>
-      <paths name="shop.bauten.kz">
-        <serverdata>
-          <mappings>
-            <mapping deploy="" local="$PROJECT_DIR$" web="/" />
-          </mappings>
-          <excludedPaths>
-            <excludedPath local="true" path="$PROJECT_DIR$/public/e" />
-            <excludedPath local="true" path="$PROJECT_DIR$/.extra" />
-            <excludedPath local="true" path="$PROJECT_DIR$/.idea" />
-            <excludedPath local="true" path="$PROJECT_DIR$/storage/framework" />
-            <excludedPath local="true" path="$PROJECT_DIR$/storage/debugbar" />
-            <excludedPath local="true" path="$PROJECT_DIR$/storage/logs" />
-          </excludedPaths>
         </serverdata>
       </paths>
     </serverData>

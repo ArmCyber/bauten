@@ -107,7 +107,7 @@
                             </div>
                             @push('modals')
                                 @modal(['id'=>'application-modal', 'loader'=>true,
-                                            'saveBtn'=>'Заказать',
+                                            'saveBtn'=>'Отправить заявку',
                                             'saveBtnClass'=>'btn-bauten',
                                             'closeBtn' => 'Отменить',
                                             'dialog_class' => 'modal-xl',
@@ -206,8 +206,7 @@
                             <tr>
                                 <th>Марка</th>
                                 <th>Модель</th>
-                                <th>Модификация</th>
-
+                                <th>Кузов</th>
                             </tr>
                             <tbody>
                             @foreach($item->cars as $car)

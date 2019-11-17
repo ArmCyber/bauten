@@ -14,7 +14,7 @@ class GenerationsController extends BaseController
         $data = [];
         $data['model'] = Model::getItem($id);
         $data['items'] = $data['model']->generations;
-        $data['title'] = 'Модификации моделя "'.$data['model']->mark->name.' '.$data['model']->name.'"';
+        $data['title'] = 'Кузовы моделя "'.$data['model']->mark->name.' '.$data['model']->name.'"';
         $data['back_url'] = route('admin.models.main', ['id'=>$data['model']->mark_id]);
         return view('admin.pages.generations.main', $data);
     }
@@ -22,7 +22,7 @@ class GenerationsController extends BaseController
     public function add($id){
         $data = ['edit'=>false];
         $data['model'] = Model::getItem($id);
-        $data['title'] = 'Добавление модификации в модель "'.$data['model']->mark->name.' '.$data['model']->name.'"';
+        $data['title'] = 'Добавление кузова в модель "'.$data['model']->mark->name.' '.$data['model']->name.'"';
         $data['back_url'] = route('admin.generations.main', ['id'=>$id]);
         return view('admin.pages.generations.form', $data);
     }
@@ -33,7 +33,7 @@ class GenerationsController extends BaseController
         $inputs['model_id'] = $data['model']->id;
         $this->validator($inputs)->validate();
         if(Generation::action(null, $inputs)) {
-            Notify::success('Модификация добавлена.');
+            Notify::success('Кузов добавлен.');
             return redirect()->route('admin.generations.main', ['id'=>$data['model']->id]);
         }
         else {
@@ -47,7 +47,7 @@ class GenerationsController extends BaseController
         $data['item'] = Generation::getItem($id);
         $data['model'] = $data['item']->model;
         $mark = $data['model']->mark;
-        $data['title'] = 'Редактирование модификации модели "'.$mark->name.' '.$data['model']->name.'"';
+        $data['title'] = 'Редактирование кузова модели "'.$mark->name.' '.$data['model']->name.'"';
         $data['back_url'] = route('admin.generations.main', ['id'=>$data['model']->id]);
         return view('admin.pages.generations.form', $data);
     }

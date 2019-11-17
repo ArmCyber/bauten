@@ -1,6 +1,7 @@
 @extends('site.layouts.cabinet')
 @section('content')
     <div class="cabinet-title">Заказ N{{ $item->id }}</div>
+    <div class="cabinet-block-info border-0">Статус: <b>{!! $item->status_site_html !!}</b></div>
     <div class="cabinet-block">
         <div class="cabinet-block-content">
             <div class="cabinet-block-info">ФИО: <b>{{ $item->name }}</b></div>
@@ -13,7 +14,6 @@
                 <div class="cabinet-block-info">Адрес: <b>{{ $item->address }}</b></div>
             @endif
             <div class="cabinet-block-info">Сумма: <b>{{ $item->total }} <span class="kzt"></span></b></div>
-            <div class="cabinet-block-info">Статус: <b>{!! $item->status_site_html !!}</b></div>
         </div>
     </div>
     @if($item->status_type=='pending' || $item->status_type=='done')

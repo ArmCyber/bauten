@@ -34,7 +34,7 @@
     @alink(['title' => 'Импортирование', 'icon'=>'mdi mdi-file-import'])
         @alink(['url'=>route('admin.import', ['page'=>'marks']), 'icon'=>'fas fa-car', 'title'=>'Марки'])@endalink
         @alink(['url'=>route('admin.import', ['page'=>'models']), 'icon'=>'fas fa-list', 'title'=>'Модели'])@endalink
-        @alink(['url'=>route('admin.import', ['page'=>'generations']), 'icon'=>'fas fa-list-alt', 'title'=>'Модификации'])@endalink
+        @alink(['url'=>route('admin.import', ['page'=>'generations']), 'icon'=>'fas fa-list-alt', 'title'=>'Кузовы'])@endalink
         @alink(['url'=>route('admin.import', ['page'=>'parts']), 'icon'=>'fas fa-car-battery', 'title'=>'Запчасти'])@endalink
     @endalink
     @alink(['icon'=>'fas fa-sitemap', 'title'=>'Справочник'])

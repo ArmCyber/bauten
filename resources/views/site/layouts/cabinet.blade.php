@@ -16,7 +16,7 @@
                         @endcomponent
                         @component('site.components.cabinet_link', ['route'=>'cabinet.favourites', 'title'=>'Сохраненные'])@endcomponent
                         @if($pending_orders_count)
-                            @component('site.components.cabinet_link', ['route'=>'cabinet.orders.pending', 'title'=>'Невыполненные заказы'])@endcomponent
+                            @component('site.components.cabinet_link', ['route'=>'cabinet.orders.pending', 'title'=>'Заказы'])@endcomponent
                         @endif
                         @component('site.components.cabinet_link', ['route'=>'cabinet.orders.done', 'title'=>'Покупки'])@endcomponent
                         @component('site.components.cabinet_link', ['route'=>'cabinet.profile', 'title'=>'Профиль'])@endcomponent

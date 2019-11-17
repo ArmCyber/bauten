@@ -10,19 +10,19 @@ if (numberInput.length) {
         saleSumPrice = $('#sale-sum-price'),
         saleFrom = $('#sale-from');
     var stepNumberInput = function(input, positive){
-            var val = Math.round(parseInt(input.val())/multiplication)*multiplication,
-                newVal = false;
-            if (positive) {
-                if (val<available) newVal = val+multiplication;
-            }
-            else {
-                if (val>minCount) newVal = val-multiplication;
-            }
-            if (newVal) {
-                numberInput.val(newVal);
-                updatePartFullPrice(newVal);
-            }
-        };
+        var val = Math.round(parseInt(input.val())/multiplication)*multiplication,
+            newVal = false;
+        if (positive) {
+            if (val<available) newVal = val+multiplication;
+        }
+        else {
+            if (val>minCount) newVal = val-multiplication;
+        }
+        if (newVal) {
+            numberInput.val(newVal);
+            updatePartFullPrice(newVal);
+        }
+    };
     $(document).on('click', '.number-input-plus', function(){
         var input = $(this).parent().find('>input.number-input');
         if (input.length) {
@@ -98,29 +98,27 @@ var checkBasketCounter = function(partId) {
 var updatePartFullPrice = function(count) {
     saleFrom.hide();
     var newPrice;
-    if (csPercent) {
-        newPrice=parseFloat((count*price).toFixed(2));
-        if (count>=csCount) {
-            var newSalePrice = parseFloat(((count*price) * (1-csPercent/100)).toFixed(2));
-            $('#part-sale-price').text(newPrice);
-            saleFrom.show();
-            fullPrice.text(newSalePrice);
-            allPrice.text(newSalePrice);
-            if (saleSumFrom.length) saleSumFrom.hide();
-        }
-        else {
-            fullPrice.text(newPrice);
-            if (saleSumFrom.length) {
-                if (user_sale>0) {
-                    saleSumPrice.text(newPrice);
-                    saleSumFrom.show();
-                    var newSaleSum = parseFloat((count * price * (1-user_sale/100)).toFixed(2));
-                    allPrice.text(newSaleSum);
-                }
-                else {
-                    allPrice.text(newPrice);
-                    saleSumFrom.hide();
-                }
+    newPrice=parseFloat((count*price).toFixed(2));
+    if (csPercent && count>=csCount) {
+        var newSalePrice = parseFloat(((count*price) * (1-csPercent/100)).toFixed(2));
+        $('#part-sale-price').text(newPrice);
+        saleFrom.show();
+        fullPrice.text(newSalePrice);
+        allPrice.text(newSalePrice);
+        if (saleSumFrom.length) saleSumFrom.hide();
+    }
+    else {
+        fullPrice.text(newPrice);
+        if (saleSumFrom.length) {
+            if (user_sale>0) {
+                saleSumPrice.text(newPrice);
+                saleSumFrom.show();
+                var newSaleSum = parseFloat((count * price * (1-user_sale/100)).toFixed(2));
+                allPrice.text(newSaleSum);
+            }
+            else {
+                allPrice.text(newPrice);
+                saleSumFrom.hide();
             }
         }
     }

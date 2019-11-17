@@ -48,7 +48,7 @@ class ImportController extends BaseController
         ],
         'generations' => [
             'importer' => GenerationsImport::class,
-            'title' => 'Импортирование модификации',
+            'title' => 'Импортирование кузова',
         ],
         'parts' => [
             'importer' => PartsImport::class,

@@ -37,8 +37,8 @@ class OrdersController extends BaseController
 
     public function pending(){
         $data = [];
-        $data['seo'] = $this->staticSEO('Невыполненные заказы');
-        $data['page_title'] = 'Невыполненные заказы';
+        $data['seo'] = $this->staticSEO('Заказы');
+        $data['page_title'] = 'Заказы';
         $data['orders'] = Order::userPendingOrders($this->shared['user']->id);
         $data['empty_text'] = 'У вас нет невыполненных заказов';
         return view('site.pages.cabinet.orders', $data);

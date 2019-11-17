@@ -92,7 +92,7 @@ class Mark extends Model
     }
 
     public static function adminList(){
-        return self::withCount('models')->sort()->get();
+        return self::withCount('models')->withCount('engines')->sort()->get();
     }
 
     public static function getItem($id){
@@ -107,6 +107,10 @@ class Mark extends Model
 
     public function models(){
         return $this->hasMany('App\Models\Model', 'mark_id', 'id')->sort();
+    }
+
+    public function engines(){
+        return $this->hasMany('App\Models\Engine', 'mark_id', 'id')->sort();
     }
 
     public function scopeSort($q){
