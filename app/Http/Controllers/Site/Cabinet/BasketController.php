@@ -22,7 +22,7 @@ class BasketController extends BaseController
         ]);
         if ($validator->fails()) abort(404);
         $part = Part::getActiveItem($inputs['part']);
-        if (!$part) abort(404);
+        if (!$part || $part->application_only) abort(404);
         $part_in_basket = Basket::getPart($part->id);
         $count = $inputs['count'];
         $min_count = $part->min_count_ceil;

@@ -5,6 +5,9 @@ if (numberInput.length) {
         price = parseFloat(numberInput.data('price')),
         available = parseInt(numberInput.data('available')),
         fullPrice = $('#full-price'),
+        allPrice = $('#all-price'),
+        saleSumFrom = $('#sale-sum-from'),
+        saleSumPrice = $('#sale-sum-price'),
         saleFrom = $('#sale-from');
     var stepNumberInput = function(input, positive){
             var val = Math.round(parseInt(input.val())/multiplication)*multiplication,
@@ -98,13 +101,27 @@ var updatePartFullPrice = function(count) {
     if (csPercent) {
         newPrice=parseFloat((count*price).toFixed(2));
         if (count>=csCount) {
-            var newSalePrice = (count*price) * (1-csPercent/100);
+            var newSalePrice = parseFloat(((count*price) * (1-csPercent/100)).toFixed(2));
             $('#part-sale-price').text(newPrice);
             saleFrom.show();
             fullPrice.text(newSalePrice);
+            allPrice.text(newSalePrice);
+            if (saleSumFrom.length) saleSumFrom.hide();
         }
         else {
             fullPrice.text(newPrice);
+            if (saleSumFrom.length) {
+                if (user_sale>0) {
+                    saleSumPrice.text(newPrice);
+                    saleSumFrom.show();
+                    var newSaleSum = parseFloat((count * price * (1-user_sale/100)).toFixed(2));
+                    allPrice.text(newSaleSum);
+                }
+                else {
+                    allPrice.text(newPrice);
+                    saleSumFrom.hide();
+                }
+            }
         }
     }
 };

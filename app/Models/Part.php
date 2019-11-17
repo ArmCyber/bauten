@@ -161,6 +161,16 @@ class Part extends Model
         return $this->mutedAttributes['max_count'];
     }
 
+    public function getMaxCountWoBasketAttribute(){
+        if (!array_key_exists('max_count_wo_basket', $this->mutedAttributes)) {
+            $available = $this->available;
+            if ($available===null) $available = 9999;
+            if ($available<$this->min_count_ceil) return 0;
+            $this->mutedAttributes['max_count_wo_basket'] = floor($available/$this->multiplication)*$this->multiplication;
+        }
+        return $this->mutedAttributes['max_count_wo_basket'];
+    }
+
     public function getBasketPartAttribute() {
         if (!array_key_exists('basket_part', $this->mutedAttributes)) {
             $basket_parts = view()->shared('basket_parts');

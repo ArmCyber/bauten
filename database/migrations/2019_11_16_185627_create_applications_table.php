@@ -17,7 +17,6 @@ class CreateApplicationsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->nullable();
             $table->string('phone')->nullable();
-            $table->string('address')->nullable();
             $table->string('region')->nullable();
             $table->string('city')->nullable();
             $table->bigInteger('part_id')->unsigned();
@@ -27,6 +26,7 @@ class CreateApplicationsTable extends Migration
             $table->float('price')->unsigned();
             $table->integer('real_price')->unsigned()->nullable();
             $table->float('sum')->unsigned();
+            $table->float('real_sum')->unsigned()->nullable();
             $table->timestamps();
         });
     }

@@ -17,7 +17,7 @@
             @alink(['url'=>route('admin.orders.declined'), 'icon'=>'fas fa-times-circle', 'title'=>'Откланенные заказы', 'counter'=>0])@endalink
         @endif
     @endalink
-
+    @alink(['url'=>route('admin.applications.main'), 'icon'=>'far fa-file-alt', 'title'=>'Заявки'])@endalink
     @alink(['icon'=>'fas fa-list', 'title'=>'Каталог запчастей'])
         @alink(['url'=>route('admin.groups.main'), 'icon'=>'fas fa-layer-group', 'title'=>'Группы'])@endalink
         @alink(['url'=>route('admin.part_catalogs.main'), 'icon'=>'fas fa-list', 'title'=>'Категории'])@endalink

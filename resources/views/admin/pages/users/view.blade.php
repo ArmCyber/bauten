@@ -26,6 +26,7 @@
             <div class="view-line"><a href="javascript:void(0)" data-toggle="modal" data-target="#passwordResetModal">Сбросить пароль</a></div>
             <div class="view-line"><a href="{{ route('admin.users.favourites', ['id'=>$item->id]) }}">Посмотреть сохраненные товары ({{ count($item->all_favourites) }})</a></div>
             <div class="view-line"><a href="{{ route('admin.users.basket_parts', ['id'=>$item->id]) }}">Посмотреть товары в корзине ({{ count($basket_parts) }})</a></div>
+            <div class="view-line"><a href="{{ route('admin.applications.user', ['id'=>$item->id]) }}">Посмотреть заявки ({{ count($applications) }})</a></div>
             <div class="pt-2">
                 @if($item->status!=\App\Models\User::STATUS_BLOCKED)
                     <button class="btn btn-danger mr-1" data-toggle="modal" data-target="#blockUserModal">Блокировать</button>

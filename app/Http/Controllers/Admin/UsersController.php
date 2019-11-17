@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Admin;
+use App\Models\Application;
 use App\Models\Basket;
 use App\Models\Order;
 use App\Models\Part;
@@ -31,6 +32,7 @@ class UsersController extends BaseController
         $data['basket_parts'] = Basket::getPartsForUser($data['item']->id);
         $data['order_counts'] = Order::getUserOrdersCount($data['item']->id);
         $data['statuses'] = Order::STATUSES;
+        $data['applications'] = Application::getUserItems($data['item']->id);
 //        $data['back_url'] = route('admin.users.main');
         return view('admin.pages.users.view', $data);
     }

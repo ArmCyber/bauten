@@ -283,6 +283,14 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
             Route::get('user/{id}/{status}', $c.'userOrders')->name('user');
         });
         //endregion
+        //region Applications
+        Route::middleware('can:admin')->prefix('applications')->name('applications.')->group(function() { $c = 'ApplicationsController@';
+            Route::get('', $c.'main')->name('main');
+            Route::get('user/{id}', $c.'userApplications')->name('user');
+            Route::get('view/{id}', $c.'view')->name('view');
+            Route::delete('delete', $c.'delete')->name('delete');
+        });
+        //endregion
         //region Import
         Route::match(['get','post'], 'import/{page}', 'ImportController@render')->name('import');
         //endregion
@@ -321,6 +329,7 @@ Route::namespace('Site')->group(function() {
             Route::get('orders/done', 'OrdersController@done')->name('orders.done');
             Route::get('orders/pending', 'OrdersController@pending')->name('orders.pending');
             Route::get('orders/{id}', 'OrdersController@view')->name('orders.view');
+            Route::post('send-application/{id}', 'MainController@sendApplication')->name('send_application');
         });
     });
     Route::get('profile/change-email/{token}', 'Cabinet\ProfileController@verifyNewEmail')->name('profile.verify_new_email');
