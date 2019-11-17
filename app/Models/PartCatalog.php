@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Http\Traits\Sortable;
 use App\Http\Traits\UrlUnique;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 class PartCatalog extends Model
 {
-    use UrlUnique;
+    use UrlUnique, Sortable;
 
     public static function adminList(){
         return self::withCount('parts')->with('group')->sort()->get();
@@ -18,6 +19,7 @@ class PartCatalog extends Model
         if (!$model) {
             $model = new self;
             $ignore = false;
+            $model->sort = $model->sortValue();
         }
         else $ignore = $model->id;
         $model['url'] = self::actionUrl($inputs, $ignore);
@@ -47,10 +49,6 @@ class PartCatalog extends Model
         return self::findOrFail($id);
     }
 
-    public function scopeSort($q){
-        return $q->orderBy('name')->orderBy('id');
-    }
-
     public static function siteList(){
         return self::whereHas('parts', function($q){
             $q->where('active', 1);
@@ -64,7 +62,7 @@ class PartCatalog extends Model
             $q->where('active', 1);
         })->where('in_home', 1)->whereNotNull('image')->withCount(['parts as parts_min_price'=>function($q){
             $q->select(DB::raw('MIN(`price`)'))->where('active', 1);
-        }])->sort()->get();
+        }])->with('group')->sort()->get()->values();
     }
 
     public static function getItemSite($url) {

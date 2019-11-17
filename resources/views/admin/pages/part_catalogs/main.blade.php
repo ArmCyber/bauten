@@ -4,7 +4,7 @@
     @if(count($items))
         <div class="card">
             <div class="table-responsive p-2">
-                <table class="table table-striped m-b-0 columns-middle init-dataTable">
+                <table class="table table-striped m-b-0 columns-middle">
                     <thead>
                     <tr>
                         <th>Имя</th>
@@ -14,7 +14,7 @@
                         <th>Действие</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="table-sortable" data-action="{{ route('admin.part_catalogs.sort') }}">
                     @foreach($items as $item)
                         <tr class="item-row" data-id="{!! $item->id !!}">
                             <td class="item-title">{{ $item->name}}</td>
@@ -49,10 +49,10 @@
     @endmodal
 @endsection
 @push('css')
-    @css(aApp('datatables/datatables.css'))
+{{--    @css(aApp('datatables/datatables.css'))--}}
 @endpush
 @push('js')
-    @js(aApp('datatables/datatables.js'))
+{{--    @js(aApp('datatables/datatables.js'))--}}
     <script>
         var itemId = $('#pdf-item-id'),
             modalTitle = $('#pdm-title'),
@@ -111,6 +111,6 @@
             }
             else modalError();
         });
-        $('.init-dataTable').dataTable();
+        // $('.init-dataTable').dataTable();
     </script>
 @endpush

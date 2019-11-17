@@ -21,6 +21,7 @@ class CreatePartCatalogsTable extends Migration
             $table->string('image_alt')->nullable();
             $table->string('image_title')->nullable();
             $table->string('in_home')->nullable();
+            $table->bigInteger('sort')->unsigned()->default(0);
             $table->timestamps();
         });
     }

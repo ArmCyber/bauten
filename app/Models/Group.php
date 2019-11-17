@@ -27,7 +27,7 @@ class Group extends Model
         })->with(['catalogs' => function($q){
             $q->whereHas('parts', function($q){
                 $q->where('active', 1);
-            });
+            })->sort();
         }])->firstOrFail();
     }
 
@@ -51,7 +51,7 @@ class Group extends Model
         })->with(['catalogs' => function ($q){
             $q->whereHas('parts', function($q){
                 $q->where('active', 1);
-            });
+            })->sort();
         }])->sort()->get();
     }
 

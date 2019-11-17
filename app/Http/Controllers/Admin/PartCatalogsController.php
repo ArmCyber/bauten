@@ -90,4 +90,6 @@ class PartCatalogsController extends BaseController
         $result['inputs'] = $inputs;
         return $result;
     }
+
+    public function sort(){ return PartCatalog::sortable(); }
 }
