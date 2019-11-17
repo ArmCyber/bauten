@@ -37,6 +37,13 @@ class Engine extends Model
         return $this->belongsToMany('App\Models\Part');
     }
 
+    public function getYearsAttribute(){
+        $year = $this->year;
+        if (!$year) return '-';
+        if($this->year_to) $year.=' - '.$this->year_to;
+        return $year;
+    }
+
     public static function deleteItem($model) {
         return $model->delete();
     }

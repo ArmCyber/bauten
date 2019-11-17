@@ -10,7 +10,7 @@
                         <th>ID</th>
                         <th>Имя</th>
                         <th>Годы</th>
-                        <th>Двигатель, см3</th>
+{{--                        <th>Двигатель, см3</th>--}}
                         <th>Статус</th>
                         <th>Действие</th>
                     </tr>
@@ -21,7 +21,7 @@
                             <td>{{ $item->cid}}</td>
                             <td class="item-title">{{ $item->name??'-' }}</td>
                             <td>{{ $item->years??'-' }}</td>
-                            <td>{{ $item->engine??'-' }}</td>
+{{--                            <td>{{ $item->engine??'-' }}</td>--}}
                             @if($item->active)
                                 <td class="text-success">Активно</td>
                             @else

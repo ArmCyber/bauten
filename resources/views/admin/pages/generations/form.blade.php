@@ -31,7 +31,7 @@
             </div>
         </div>
         <div class="col-12 col-lg-6">
-            <div class="card">
+            <div class="card d-none">
                 <div class="c-title">Объем двигателя, см3</div>
                 <div class="little-p">
                     <input type="text" name="engine" class="form-control" maxlength="10" placeholder="Объем двигателя, см3" value="{{ old('engine', $item->engine??null) }}">

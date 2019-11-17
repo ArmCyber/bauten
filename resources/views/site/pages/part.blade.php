@@ -217,17 +217,37 @@
                     </div>
                 </div>
             @endif
-            @if(count($item_engine_filters))
-                <div class="product-page-specs mt-4">
+{{--            @if(count($item_engine_filters))--}}
+{{--                <div class="product-page-specs mt-4">--}}
+{{--                    <div class="prod-tbl-title">Применяемость по двигателям</div>--}}
+{{--                    <div class="pr-specs-content">--}}
+{{--                        <div class="pr-specs-tbl">--}}
+{{--                            @foreach($item_engine_filters as $item_filter)--}}
+{{--                                <div class="pr-specs-item"><div class="pr-specs-key">{{ $item_filter[0]->filter->title }}</div><div class="pr-specs-value">--}}
+{{--                                        @foreach($item_filter as $item_criterion) @if(!$loop->first)<br>@endif <span>{{ $item_criterion->title }}</span> @endforeach--}}
+{{--                                    </div></div>--}}
+{{--                            @endforeach--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            @endif--}}
+            @if(count($item_engines))
+                <div class="product-table">
                     <div class="prod-tbl-title">Применяемость по двигателям</div>
-                    <div class="pr-specs-content">
-                        <div class="pr-specs-tbl">
-                            @foreach($item_engine_filters as $item_filter)
-                                <div class="pr-specs-item"><div class="pr-specs-key">{{ $item_filter[0]->filter->title }}</div><div class="pr-specs-value">
-                                        @foreach($item_filter as $item_criterion) @if(!$loop->first)<br>@endif <span>{{ $item_criterion->title }}</span> @endforeach
-                                    </div></div>
+                    <div class="prod-tbl-block">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Марка</th>
+                                <th>Модель</th>
+                                <th>Годы производства</th>
+                            </tr>
+                            <tbody>
+                            @foreach($item_engines as $engine)
+                                <tr><td class="tbl-mark">{{ $engine->mark->name??'?' }}</td><td>{{ $engine->name }}</td><td>{{ $engine->years }}</td></tr>
                             @endforeach
-                        </div>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             @endif
