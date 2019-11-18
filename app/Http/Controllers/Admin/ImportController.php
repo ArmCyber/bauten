@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Imports\EnginesImport;
 use App\Imports\GenerationsImport;
 use App\Imports\MarksImport;
 use App\Imports\ModelsImport;
@@ -48,11 +49,15 @@ class ImportController extends BaseController
         ],
         'generations' => [
             'importer' => GenerationsImport::class,
-            'title' => 'Импортирование кузова',
+            'title' => 'Импортирование кузовов',
         ],
         'parts' => [
             'importer' => PartsImport::class,
             'title' => 'Импортирование запчастей',
+        ],
+        'engines' => [
+            'importer' => EnginesImport::class,
+            'title' => 'Импортирование двигателей'
         ]
     ];
 }

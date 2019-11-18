@@ -2,10 +2,7 @@
 
 namespace App\Imports;
 
-use Illuminate\Support\Collection;
-use Maatwebsite\Excel\Concerns\ToCollection;
-
-class EnginesImport implements ToCollection
+class EnginesImport implements Abstr
 {
     /**
     * @param Collection $collection

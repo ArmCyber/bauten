@@ -13,7 +13,7 @@
                         <th>Имя</th>
                         <th>Статус</th>
                         <th>Модели</th>
-                        <th>Двигатели</th>
+{{--                        <th>Двигатели</th>--}}
                         <th>На главной</th>
                         <th>Действие</th>
                     </tr>
@@ -29,7 +29,7 @@
                                 <td class="text-danger">Неактивно</td>
                             @endif
                             <td><a href="{{ route('admin.models.main', ['id'=>$item->id]) }}">Перейти к моделям ({!! $item->models_count !!})</a></td>
-                            <td><a href="{{ route('admin.engines.main', ['id'=>$item->id]) }}">Перейти к двигателям ({!! $item->engines_count !!})</a></td>
+{{--                            <td><a href="{{ route('admin.engines.main', ['id'=>$item->id]) }}">Перейти к двигателям ({!! $item->engines_count !!})</a></td>--}}
                             @if($item->in_home)
                                 <td class="text-success">Показано</td>
                             @else

@@ -15,12 +15,10 @@ class CreateEnginesTable extends Migration
     {
         Schema::create('engines', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('mark_id')->unsigned();
             $table->bigInteger('number')->unsigned();
             $table->string('name')->nullable();
             $table->smallInteger('year')->unsigned()->nullable();
             $table->smallInteger('year_to')->unsigned()->nullable();
-            $table->foreign('mark_id')->references('id')->on('marks')->onDelete('cascade');
         });
     }
 

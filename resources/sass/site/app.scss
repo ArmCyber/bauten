@@ -225,26 +225,28 @@ a.menu-dropdown-link {
 .menu-catalog-blocks {
     display:flex;
     flex-wrap:wrap;
-    padding:5px 8px;
+    padding:0 20px 20px 20px;
     @include box-shadow (0 3px 6px rgba(0,0,0,.1));
 }
 .menu-catalog-block {
     flex: 0 0 20%;
     max-width: 20%;
-    padding:6px;
+    padding:30px 10px 10px 10px;
 }
 .menu-catalog-letter {
-    font-size:18px;
+    font-size:19px;
     font-weight:500;
+    color:#000000;
+    padding-bottom:6px;
     >a {
         color:inherit;
     }
 }
 .menu-catalog-link {
-    padding-top:6px;
+    padding-top: 10px;
     a{
-        font-size:16px;
-        color:$color;
+        font-size:15px;
+        color:#888888;
     }
 }
 //endregion
