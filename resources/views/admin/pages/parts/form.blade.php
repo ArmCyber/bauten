@@ -102,6 +102,16 @@
                     </select>
                 </div>
             </div>
+            <div class="card">
+                <div class="c-title">Двигатели</div>
+                <div class="little-p">
+                    <select name="engine_id[]" class="select2" style="width:100%;" multiple>
+                        @foreach($engines as $engine)
+                            <option value="{{ $engine->id }}" {!! $item->engines->where('id', $engine->id)->first()?'selected':null !!}>{{ $engine->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
             <div class="card px-3 py-2">
                 <div class="row cstm-input">
                     <div class="col-12 p-b-5">
@@ -130,12 +140,14 @@
         <button id="add-row" type="button" class="btn btn-success">Добавить</button>
     </div>
     @endbannerBlock
+    {{--
     @bannerBlock(['title'=>'Применяемость по двигателям'])
     <div id="engine-rows" class="pb-4"></div>
     <div>
         <button id="add-engine-row" type="button" class="btn btn-success">Добавить</button>
     </div>
     @endbannerBlock
+    --}}
     <div class="col-12 save-btn-fixed"><button type="submit"></button></div>
 </form>
 <div class="example appl-row row mt-2" style="display: none">
@@ -158,7 +170,7 @@
         <button type="button" class="btn btn-sm btn-danger appl_row_delete">Удалить</button>
     </div>
 </div>
-<div class="example engine-row row mt-2" style="display: none">
+{{--<div class="example engine-row row mt-2" style="display: none">
     <div class="col-3">
         <select name="engine_mark_id[]" class="mark_id_select" style="width:100%">
             <option value="0" selected readonly>Выберите марку</option>
@@ -170,17 +182,17 @@
     <div class="col-3">
         <button type="button" class="btn btn-sm btn-danger engine_row_delete">Удалить</button>
     </div>
-</div>
+</div>--}}
 @endsection
 @push('js')
     @js(aApp('select2/select2.js'))
     @ckeditor
     @js(aAdmin('js/applicability.js'))
-    @js(aAdmin('js/engine_applicability.js'))
+{{--    @js(aAdmin('js/engine_applicability.js'))--}}
     <script>
         $('.select2').select2();
         new Applicability({!! $marks->toJson(JSON_UNESCAPED_UNICODE) !!}, {!! session()->has('old_cars')?json_encode(session('old_cars', JSON_UNESCAPED_UNICODE)):(isset($part_cars)?$part_cars->toJson(JSON_UNESCAPED_UNICODE):'false') !!})
-        new EngineApplicability({!! $engine_marks->toJson(JSON_UNESCAPED_UNICODE) !!}, {!! session()->has('old_engines')?json_encode(session('old_engines', JSON_UNESCAPED_UNICODE)):(isset($part_engines)?$part_engines->toJson(JSON_UNESCAPED_UNICODE):'false') !!})
+{{--        new EngineApplicability({!! $engine_marks->toJson(JSON_UNESCAPED_UNICODE) !!}, {!! session()->has('old_engines')?json_encode(session('old_engines', JSON_UNESCAPED_UNICODE)):(isset($part_engines)?$part_engines->toJson(JSON_UNESCAPED_UNICODE):'false') !!})--}}
     </script>
 @endpush
 @push('css')

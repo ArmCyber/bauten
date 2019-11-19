@@ -11,31 +11,27 @@ use Illuminate\Validation\Rule;
 
 class EnginesController extends BaseController
 {
-    public function main($id){
+    public function main(){
         $data = [];
-        $data['mark'] = Mark::getItem($id);
-        $data['mark']->load('engines');
-        $data['items'] = $data['mark']->engines;
-        $data['title'] = 'Двигатели марки "'.$data['mark']->name.'"';
-        $data['back_url'] = route('admin.marks.main');
+        $data['items'] = Engine::adminList();
+        $data['title'] = 'Двигатели';
         return view('admin.pages.engines.main', $data);
     }
 
-    public function add($id){
+    public function add(){
         $data = ['edit'=>false];
-        $data['mark'] = Mark::getItem($id);
-        $data['title'] = 'Добавление двигателя марки "'.$data['mark']->name.'"';
-        $data['back_url'] = route('admin.engines.main', ['id'=>$id]);
+        $data['title'] = 'Добавление двигателя';
+        $data['marks'] = Mark::adminList();
+        $data['back_url'] = route('admin.engines.main');
         return view('admin.pages.engines.form', $data);
     }
 
-    public function add_put($id, Request $request){
-        $mark = Mark::getItem($id);
+    public function add_put(Request $request){
         $inputs = $request->all();
         $this->validator($inputs)->validate();
-        if(Engine::action(null, $inputs, $mark->id)) {
+        if(Engine::action(null, $inputs)) {
             Notify::success('Двигатель добавлен.');
-            return redirect()->route('admin.engines.main', ['id'=>$mark->id]);
+            return redirect()->route('admin.engines.main');
         }
         else {
             Notify::get('error_occurred');
@@ -46,9 +42,9 @@ class EnginesController extends BaseController
     public function edit($id){
         $data = ['edit'=>true];
         $data['item'] = Engine::getItem($id);
-        $data['mark'] = $data['item']->mark;
-        $data['title'] = 'Редактирование двигателя марки "'.$data['mark']->name.'"';
-        $data['back_url'] = route('admin.engines.main', ['id'=>$data['item']->mark_id]);
+        $data['title'] = 'Редактирование двигателя';
+        $data['marks'] = Mark::adminList();
+        $data['back_url'] = route('admin.engines.main');
         return view('admin.pages.engines.form', $data);
     }
 

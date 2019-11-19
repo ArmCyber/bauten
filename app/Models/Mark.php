@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Http\Traits\InsertOrUpdate;
+use App\Http\Traits\Sortable;
 use App\Http\Traits\UrlUnique;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\File;
 
 class Mark extends Model
 {
-    use UrlUnique, InsertOrUpdate;
+    use UrlUnique, InsertOrUpdate, Sortable;
 
     public $timestamps=false;
 
@@ -50,11 +51,11 @@ class Mark extends Model
         }])->sort()->get();
     }
 
-    public static function engineAdminList(){
-        return self::select('id', 'name', 'cid')->whereHas('engines')->with(['engines'=>function($q){
-            $q->select('id', 'name', 'mark_id');
-        }])->sort()->get();
-    }
+//    public static function engineAdminList(){
+//        return self::select('id', 'name', 'cid')->whereHas('engines')->with(['engines'=>function($q){
+//            $q->select('id', 'name', 'mark_id');
+//        }])->sort()->get();
+//    }
 
     public static function getApplicabilityKeys($marks, $models, $generations) {
         return self::select('id')->whereIn('id', array_unique($marks))->with(['models'=>function($q) use ($models, $generations){
@@ -74,6 +75,7 @@ class Mark extends Model
         if (!$model) {
             $model = new self;
             $ignore=false;
+            $model->sort = $model->sortValue();
         }
         else $ignore = $model->id;
         $model['cid'] = $inputs['cid'];
@@ -115,11 +117,8 @@ class Mark extends Model
         return $this->hasMany('App\Models\Model', 'mark_id', 'id')->sort();
     }
 
-    public function engines(){
-        return $this->hasMany('App\Models\Engine', 'mark_id', 'id')->sort();
-    }
+//    public function engines(){
+//        return $this->hasMany('App\Models\Engine', 'mark_id', 'id')->sort();
+//    }
 
-    public function scopeSort($q){
-        $q->orderBy('name', 'asc');
-    }
 }

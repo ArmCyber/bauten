@@ -238,13 +238,12 @@
                         <table>
                             <thead>
                             <tr>
-                                <th>Марка</th>
                                 <th>Модель</th>
                                 <th>Годы производства</th>
                             </tr>
                             <tbody>
                             @foreach($item_engines as $engine)
-                                <tr><td class="tbl-mark">{{ $engine->mark->name??'?' }}</td><td>{{ $engine->name }}</td><td>{{ $engine->years }}</td></tr>
+                                <tr><td class="tbl-mark">{{ $engine->name }}</td><td>{{ $engine->years }}</td></tr>
                             @endforeach
                             </tbody>
                         </table>

@@ -2,39 +2,51 @@
 
 namespace App\Models;
 
+use App\Http\Traits\GetIncrement;
+use App\Http\Traits\InsertOrUpdate;
 use Illuminate\Database\Eloquent\Model;
 
 class Engine extends Model
 {
+    use GetIncrement, InsertOrUpdate;
     public $timestamps = false;
+
+    public static function adminList() {
+        return self::sort()->get();
+    }
 
     public function scopeSort($q){
         return $q->orderBy('name', 'asc');
     }
 
-    public static function action($model, $inputs, $mark_id=null) {
+    public static function action($model, $inputs) {
         if (!$model) {
             $model = new self;
-            $model['mark_id'] = $mark_id;
         }
         $model['number'] = $inputs['number'];
         $model['name'] = $inputs['name'];
         $range_data = get_range_data($inputs['year'], $inputs['year_to']);
         $model['year'] = $range_data[0];
         $model['year_to'] = $range_data[1];
-        return $model->save();
+        $model->save();
+        if(array_key_exists('mark_id', $inputs) && is_array($inputs['mark_id'])) {
+            $ids = Mark::whereIn('id', $inputs['mark_id'])->pluck('id')->toArray();
+        }
+        else $ids = [];
+        $model->marks()->sync($ids);
+        return true;
     }
 
     public static function getItem($id) {
         return self::findOrFail($id);
     }
 
-    public function mark(){
-        return $this->belongsTo('App\Models\Mark', 'mark_id', 'id');
-    }
-
     public function parts(){
         return $this->belongsToMany('App\Models\Part');
+    }
+
+    public function marks(){
+        return $this->belongsToMany('App\Models\Mark');
     }
 
     public function getYearsAttribute(){

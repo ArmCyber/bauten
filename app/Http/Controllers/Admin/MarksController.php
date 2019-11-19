@@ -66,6 +66,8 @@ class MarksController extends BaseController
         return response()->json($result);
     }
 
+    public function sort(){ return Mark::sortable(); }
+
     private function validator($request, $ignore=false) {
         $inputs = $request->all();
         $unique = $ignore===false?null:','.$ignore;

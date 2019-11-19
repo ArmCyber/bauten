@@ -1,5 +1,5 @@
 @extends('admin.layouts.app')
-@section('titleSuffix')| <a href="{!! route('admin.engines.add', ['id'=>$mark->id]) !!}" class="text-cyan"><i class="mdi mdi-plus-box"></i> добавить</a>@endsection
+@section('titleSuffix')| <a href="{!! route('admin.engines.add') !!}" class="text-cyan"><i class="mdi mdi-plus-box"></i> добавить</a>@endsection
 @section('content')
     @if(count($items))
         <div class="card">

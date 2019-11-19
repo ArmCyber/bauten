@@ -18,7 +18,7 @@
                         <th>Действие</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="table-sortable" data-action="{{ route('admin.marks.sort') }}">
                     @foreach($items as $item)
                         <tr class="item-row" data-id="{!! $item->id !!}">
                             <td class="item-title">{{ $item->cid }}</td>
@@ -58,11 +58,7 @@
     <p class="font-14">Вы действительно хотите удалить марку &Lt;<span id="pdm-title"></span>&Gt;?</p>
     @endmodal
 @endsection
-@push('css')
-    @css(aApp('datatables/datatables.css'))
-@endpush
 @push('js')
-    @js(aApp('datatables/datatables.js'))
     <script>
         var itemId = $('#pdf-item-id'),
             modalTitle = $('#pdm-title'),
@@ -121,7 +117,5 @@
             }
             else modalError();
         });
-        $('.init-dataTable').dataTable();
-
     </script>
 @endpush

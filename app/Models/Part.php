@@ -82,11 +82,11 @@ class Part extends Model
         }])->firstOrFail();
     }
 
-    public static function getItemForEngineFilters($id) {
-        return self::where('id', $id)->with(['engine_criteria' => function($q){
-            $q->select('engine_criteria.id', 'engine_criteria.engine_filter_id');
-        }])->firstOrFail();
-    }
+//    public static function getItemForEngineFilters($id) {
+//        return self::where('id', $id)->with(['engine_criteria' => function($q){
+//            $q->select('engine_criteria.id', 'engine_criteria.engine_filter_id');
+//        }])->firstOrFail();
+//    }
 
     public static function getItemSite($url) {
         return self::where(['url'=>$url, 'active'=>1])->whereHas('catalogue')->whereHas('brand')->with(['catalogue', 'brand', 'cars', 'criteria'=>function($q){
@@ -122,20 +122,12 @@ class Part extends Model
         return $this->belongsToMany('App\Models\Criterion');
     }
 
-    public function engine_criteria(){
-        return $this->belongsToMany('App\Models\EngineCriterion');
-    }
+//    public function engine_criteria(){
+//        return $this->belongsToMany('App\Models\EngineCriterion');
+//    }
 
     public function engines(){
-        return $this->belongsToMany('App\Models\Engine')->orderBy('engines.name');
-    }
-
-    public function orderedEngines() {
-        $engines = $this->engines;
-        $engines->load('mark');
-        return $engines->sortBy(function($item){
-            return $item->mark->name;
-        })->values();
+        return $this->belongsToMany('App\Models\Engine')->sort();
     }
 
     public function scopeFiltered($q, array $criteria) {

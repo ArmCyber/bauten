@@ -77,6 +77,7 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
             Route::get('edit/{id}', $c.'edit')->name('edit');
             Route::patch('edit/{id}', $c.'edit_patch');
             Route::delete('delete', $c.'delete')->middleware('ajax')->name('delete');
+            Route::patch('sort', $c.'sort')->middleware('ajax')->name('sort');
         });
         //endregion
         //region Models
@@ -91,9 +92,9 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
         //endregion
         //region Engines
         Route::middleware('can:admin')->prefix('engines')->name('engines.')->group(function() { $c = 'EnginesController@';
-            Route::get('{id}', $c.'main')->name('main');
-            Route::get('add/{id}', $c.'add')->name('add');
-            Route::put('add/{id}', $c.'add_put');
+            Route::get('', $c.'main')->name('main');
+            Route::get('add', $c.'add')->name('add');
+            Route::put('add', $c.'add_put');
             Route::get('edit/{id}', $c.'edit')->name('edit');
             Route::patch('edit/{id}', $c.'edit_patch');
             Route::delete('delete', $c.'delete')->middleware('ajax')->name('delete');

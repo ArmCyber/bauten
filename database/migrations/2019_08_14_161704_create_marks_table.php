@@ -24,6 +24,7 @@ class CreateMarksTable extends Migration
             $table->string('url')->nullable();
             $table->boolean('in_home')->default(0);
             $table->boolean('active')->default(1);
+            $table->integer('sort')->unsigned()->default(0);
         });
     }
 

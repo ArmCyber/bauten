@@ -31,7 +31,7 @@ class PartsController extends BaseController
         $data['part_catalogs'] = PartCatalog::adminList();
         $data['brands'] = Brand::adminList();
         $data['marks'] = Mark::fullAdminList();
-        $data['engine_marks'] = Mark::engineAdminList();
+        $data['engines'] = Engine::adminList();
         return view('admin.pages.parts.form', $data);
     }
 
@@ -58,10 +58,7 @@ class PartsController extends BaseController
         $data['brands'] = Brand::adminList();
         $data['marks'] = Mark::fullAdminList();
         $data['part_cars'] = PartCar::adminList($data['item']->id);
-        $data['engine_marks'] = Mark::engineAdminList();
-        $data['part_engines'] = $data['item']->orderedEngines()->map(function($item){
-            return ['mark_id'=>$item['mark_id'], 'engine_id'=>$item['id']];
-        });
+        $data['engines'] = Engine::adminList();
         return view('admin.pages.parts.form', $data);
     }
 
