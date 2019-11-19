@@ -16,7 +16,7 @@ class PartsController extends BaseController
             return $item->filter->sort;
         })->groupBy('filter_id');
 //        $data['item_engine_filters'] = ->groupBy('engine_filter_id');
-        $data['item_engines'] = Engine::adminList();
+        $data['item_engines'] = $data['item']->engines;
         $data['gallery'] = Gallery::get('parts', $data['item']->id);
         $data['page_title'] = get_page('catalogs')->title;
         $data['attached_parts'] = $data['item']->attached_parts_site;
