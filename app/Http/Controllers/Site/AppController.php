@@ -27,7 +27,7 @@ class AppController extends BaseController
         if($this->shared['user']) {
             $data['search_brands'] = Brand::searchList();
             $data['search_marks'] = Mark::searchList();
-            $data['engine_criteria'] = EngineCriterion::searchList();
+//            $data['engine_criteria'] = EngineCriterion::searchList();
             $data['recommended_parts'] = $this->shared['user']->recommended_parts_site;
         }
         else $data['skip_inner_css'] = true;

@@ -318,8 +318,11 @@ Route::namespace('Site')->group(function() {
         Route::get(r('catalogs').'/{url}', 'CatalogueController@group')->name('group');
         Route::get('category/{url}', 'CatalogueController@category')->name('catalogue');
 
-        Route::get('get-search-data', 'SearchController@getSearchData')->middleware('ajax')->name('search.get_data');
-        Route::post('get-filter-data', 'CatalogueController@getFilterData')->middleware('ajax')->name('filter.get_data');
+        Route::middleware('ajax')->prefix('ajax')->group(function(){
+            Route::get('search/disabled-brands', 'SearchController@getDisabledBrands')->name('search.get_disabled_brands');
+            Route::get('search/get-engines', 'SearchController@getEngines')->name('search.get_engines');
+            Route::get('search/get-data', 'SearchController@getSearchData')->name('search.get_data');
+        });
 
         Route::prefix('cabinet')->namespace('Cabinet')->name('cabinet.')->group(function(){
             Route::get('', 'MainController@main')->name('main');

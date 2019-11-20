@@ -258,3 +258,13 @@ if (!function_exists('post_request')) {
         return $result;
     }
 }
+if (!function_exists('escape_like')) {
+    function escape_like(string $value, string $char = '\\'): string
+    {
+        return str_replace(
+            [$char, '%', '_'],
+            [$char.$char, $char.'%', $char.'_'],
+            $value
+        );
+    }
+}

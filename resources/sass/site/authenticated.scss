@@ -99,16 +99,28 @@ a.cs-link {
 }
 .home-search-option {
     display:inline-block;
-    color:#949494;
+    color:#333333;
     font-size:15px;
     cursor:pointer;
-    text-decoration: underline;
+    text-decoration: none;
     &:hover {
-        text-decoration: none;
+        text-decoration: underline;
     }
     &:not(:last-child) {
         margin-right:18px;
     }
+}
+.max-exceeded {
+    .home-search-option:not(.selected), .search-group-select:not(.selected) {
+        color:#949494 !important;
+        text-decoration: none !important;
+        cursor:default !important;
+    }
+}
+#page .home-search-disabled {
+    color:#949494 !important;
+    text-decoration: line-through !important;
+    cursor:default !important;
 }
 .home-search-buttons {
     padding-left:5px;
@@ -150,10 +162,10 @@ select.home-search-control {
 .search-group-item {
     font-size:15px;
     line-height: 1;
-    margin-bottom:4px;
+    margin-bottom:10px;
 }
 .search-group-select {
-    color:#949494;
+    color:#333333;
     margin-top:3px;
     cursor:pointer;
     &:hover {

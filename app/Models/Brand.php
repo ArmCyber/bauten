@@ -86,6 +86,10 @@ class Brand extends Model
         return $model->delete();
     }
 
+    public function parts(){
+        return $this->hasMany('App\Models\Part');
+    }
+
     public static function getItem($id){
         return self::findOrFail($id);
     }
