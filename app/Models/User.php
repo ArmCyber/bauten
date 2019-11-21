@@ -269,7 +269,7 @@ class User extends Authenticatable
     }
 
     public function recommended_parts_site(){
-        return $this->belongsToMany('App\Models\Part', 'recommended_parts', 'user_id', 'part_id')->where('active', 1)->sort();
+        return $this->belongsToMany('App\Models\Part', 'recommended_parts', 'user_id', 'part_id')->where('active', 1)->brandAllowed()->sort();
     }
 
     public function restricted_brands() {

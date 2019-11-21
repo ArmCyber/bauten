@@ -1,7 +1,7 @@
 <div class="home-search">
     <div class="container">
         <div class="home-search-block position-relative" id="home-catalogue-block">
-            <div class="home-search-title">ЗАПЧАСТИ</div>
+            <div class="home-search-title">ЗАПЧАСТЬ</div>
             <div class="home-search-content">
                 @foreach($home_catalogs->take($max_take = settings('max_take', 5)) as $catalog)
                     <span class="home-search-option home-search-catalogue" data-id="{{ $catalog->id }}">{{ $catalog->name }}</span>

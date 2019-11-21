@@ -20,10 +20,10 @@
                             <td><a href="{{ route('part', ['url'=>$basket_part->part->url]) }}" class="link-bauten">{{ $basket_part->part->code }}</a></td>
                             <td><a href="{{ route('part', ['url'=>$basket_part->part->url]) }}" class="link-bauten">{{ $basket_part->part->name }}</a></td>
                             <td>
-                                {{ $basket_part->part->price }} <span class="kzt"></span>
                                 @if($basket_part->part->sale)
-                                    <span style="text-decoration: line-through">{{ $basket_part->part->sale }} <span class="kzt"></span></span>
+                                    <span style="text-decoration: line-through">{{ $basket_part->part->sale }} <span class="kzt"></span></span>&nbsp;
                                 @endif
+                                {{ $basket_part->part->price }} <span class="kzt"></span>
                             </td>
                             <td>
                                 <div class="number-group number-group-sm position-relative">
@@ -34,19 +34,19 @@
                                 </div>
                             </td>
                             <td>
-                                <span class="bp-sum"></span>
-                                <span class="kzt"></span>
                                 <span class="bp-sale" style="text-decoration:line-through;display:none">
                                     <span class="bp-sale-sum"></span>
                                     <span class="kzt"></span>
-                                </span>
+                                </span>&nbsp
+                                <span class="bp-sum"></span>
+                                <span class="kzt"></span>
                             </td>
                             <td><a href="javascript:void(0)" class="text-danger delete-basket-item" data-id="{{ $basket_part->part->id }}"><i class="fas fa-trash-alt"></i></a></td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-            <div class="cabinet-title text-right">Итого: <span class="all-price"></span> <span class="kzt"></span> <span class="all-sale-block sale-price" style="display:none;"><span class="all-sale"></span> <span class="kzt"></span></span></div>
+            <div class="cabinet-title text-right">Итого: <span class="all-sale-block sale-price" style="display:none;"><span class="all-sale"></span> <span class="kzt"></span></span> <span class="all-price"></span> <span class="kzt"></span></div>
             <div class="text-right pt-3"><button id="order-modal-toggle" class="bauten-btn" data-toggle="modal" data-target="#order-modal" disabled>Заказать</button></div>
             <div class="text-right pt-2 text-danger small-text if-cant-shop" style="display: none">Чтобы заказать вам надо сделать покупку суммы {{ $settings->minimum->shop }} <span class="kzt"></span></div>
             @push('pageScripts') @js(aSite('js/basket.js')) @endpush

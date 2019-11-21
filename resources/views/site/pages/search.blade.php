@@ -4,7 +4,7 @@
         <h1 class="h3">Результаты поиска</h1>
         <div class="search-page-data">
             @if(array_key_exists('catalogue', $names))
-                <p><b>Категория: </b> {{ $names['catalogue'] }}</p>
+                <p><b>Запчасть: </b> {{ $names['catalogue'] }}</p>
             @endif
             @if (array_key_exists('brands', $names))
                 <p><b>{{ count($names['brands'])==1?'Бренд':'Бренды' }}:</b> {{ implode(', ', $names['brands']) }}</p>

@@ -67,7 +67,7 @@
                     @endforeach
                     </tbody>
                 </table>
-                <div class="cabinet-title-sm">Сумма: {{ $item->sum }} <span class="kzt"></span> @if($item->sum!=$item->real_sum)<span class="sale-price-sm">{{ $item->real_sum }} <span class="kzt"></span></span>@endif</div>
+                <div class="cabinet-title-sm">Сумма: @if($item->sum!=$item->real_sum)<span class="sale-price-sm">{{ $item->real_sum }} <span class="kzt"></span></span>@endif {{ $item->sum }} <span class="kzt"></span></div>
                 @if($item->delivery)
                     <div class="cabinet-title-sm">Цена доставки: {{ $item->delivery_price }} <span class="kzt"></span></div>
                     <div class="cabinet-title-sm">Итого: {{ $item->total }} <span class="kzt"></span></div>

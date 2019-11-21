@@ -17,7 +17,7 @@ class Part extends Model
     private $mutedAttributes = [];
 
     public static function adminList(){
-        return self::sort()->get();
+        return self::with(['catalogue', 'brand'])->sort()->get();
     }
 
     public static function catalogsList($ids, $criteria = [], $sort = []){
