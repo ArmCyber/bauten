@@ -51,7 +51,7 @@ class PartCatalog extends Model
 
     public static function siteList(){
         return self::whereHas('parts', function($q){
-            $q->where('active', 1);
+            $q->where('active', 1)->brandAllowed();
         })->sort()->get()->mapToGroups(function($item, $key) {
             return [mb_strtoupper(mb_substr($item->name,0,1))=>$item];
         });
@@ -59,15 +59,15 @@ class PartCatalog extends Model
 
     public static function homeList(){
         return self::whereHas('parts', function($q){
-            $q->where('active', 1);
+            $q->where('active', 1)->brandAllowed();
         })->where('in_home', 1)->whereNotNull('image')->withCount(['parts as parts_min_price'=>function($q){
-            $q->select(DB::raw('MIN(`price`)'))->where('active', 1);
+            $q->select(DB::raw('MIN(`price`)'))->where('active', 1)->brandAllowed();
         }])->with('group')->sort()->get()->values();
     }
 
     public static function getItemSite($url) {
         return self::where('url', $url)->whereHas('parts', function($q){
-            $q->where('active', 1);
+            $q->where('active', 1)->brandAllowed();
         })->firstOrFail();
     }
 

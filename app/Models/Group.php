@@ -22,13 +22,25 @@ class Group extends Model
     public static function getItemSite($url) {
         return self::where('url', $url)->whereHas('catalogs', function($q){
             $q->whereHas('parts', function($q){
-                $q->where('active', 1);
+                $q->where('active', 1)->brandAllowed();
             });
         })->with(['catalogs' => function($q){
             $q->whereHas('parts', function($q){
-                $q->where('active', 1);
+                $q->where('active', 1)->brandAllowed();
             })->sort();
         }])->firstOrFail();
+    }
+
+    public static function brandList($id) {
+        return self::whereHas('catalogs', function($q) use ($id){
+            $q->whereHas('parts', function($q) use ($id){
+                $q->where(['parts.active'=>1, 'parts.brand_id'=>$id])->brandAllowed();
+            });
+        })->with(['catalogs' => function($q) use ($id){
+            $q->whereHas('parts', function($q) use ($id){
+                $q->where(['parts.active'=>1, 'parts.brand_id'=>$id])->brandAllowed();
+            })->sort();
+        }])->sort()->get();
     }
 
     public static function action($model, $inputs) {
@@ -46,11 +58,11 @@ class Group extends Model
     public static function siteList() {
         return self::whereHas('catalogs', function($q){
             $q->whereHas('parts', function($q){
-                $q->where('active', 1);
+                $q->where('active', 1)->brandAllowed();
             });
         })->with(['catalogs' => function ($q){
             $q->whereHas('parts', function($q){
-                $q->where('active', 1);
+                $q->where('active', 1)->brandAllowed();
             })->sort();
         }])->sort()->get();
     }

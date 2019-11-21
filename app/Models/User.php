@@ -257,7 +257,7 @@ class User extends Authenticatable
     }
 
     public function favourites(){
-        return $this->belongsToMany('App\Models\Part', 'favourites', 'user_id', 'part_id')->where('parts.active', 1)->withPivot('id')->orderBy('pivot_id', 'desc');
+        return $this->belongsToMany('App\Models\Part', 'favourites', 'user_id', 'part_id')->brandAllowed()->where('parts.active', 1)->withPivot('id')->orderBy('pivot_id', 'desc');
     }
 
     public function all_favourites(){
@@ -270,5 +270,9 @@ class User extends Authenticatable
 
     public function recommended_parts_site(){
         return $this->belongsToMany('App\Models\Part', 'recommended_parts', 'user_id', 'part_id')->where('active', 1)->sort();
+    }
+
+    public function restricted_brands() {
+        return $this->belongsToMany('App\Models\Brand', 'restricted_brands', 'user_id', 'brand_id')->sort();
     }
 }

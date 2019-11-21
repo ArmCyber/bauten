@@ -24,6 +24,12 @@ class Basket extends Model
         return $model;
     }
 
+    public static function deletePartsForBrand($user_id, $brand_id){
+        self::where('user_id', $user_id)->whereHas('part', function($q) use ($brand_id){
+            $q->where('parts.brand_id', $brand_id);
+        })->delete();
+    }
+
     public static function getUserParts($skip_check=false){
         return self::where('user_id', auth()->user()->id)->with('part')->get();
     }

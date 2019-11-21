@@ -21,7 +21,7 @@ class Part extends Model
     }
 
     public static function catalogsList($ids, $criteria = [], $sort = []){
-        return self::whereIn('part_catalog_id', $ids)->where('active', 1)->filtered($criteria)->sort($sort)->paginate(settings('pagination'));
+        return self::whereIn('part_catalog_id', $ids)->brandAllowed()->where('active', 1)->filtered($criteria)->sort($sort)->paginate(settings('pagination'));
     }
 
     public static function action($model, $inputs) {
@@ -89,7 +89,7 @@ class Part extends Model
 //    }
 
     public static function getItemSite($url) {
-        return self::where(['url'=>$url, 'active'=>1])->whereHas('catalogue')->whereHas('brand')->with(['catalogue', 'brand', 'cars', 'criteria'=>function($q){
+        return self::where(['url'=>$url, 'active'=>1])->brandAllowed()->whereHas('catalogue')->whereHas('brand')->with(['catalogue', 'brand', 'cars', 'criteria'=>function($q){
             $q->with('filter')->orderBy('id');
         }])->firstOrFail();
     }
@@ -216,11 +216,17 @@ class Part extends Model
     }
 
     public static function getActiveItem($id) {
-        return self::where(['id'=>$id, 'active'=>1])->first();
+        return self::where(['id'=>$id, 'active'=>1])->brandAllowed()->first();
     }
 
     public function attached_parts(){
         return $this->belongsToMany('App\Models\Part', 'attached_parts', 'part_id', 'attached_part_id')->sort();
+    }
+
+    public function scopeBrandAllowed($q) {
+        $q->whereDoesntHave('brand', function($q){
+            $q->restricted();
+        });
     }
 
     public function attached_parts_site(){

@@ -17,12 +17,12 @@
                     <input type="text" name="name" class="form-control" placeholder="Имя" maxlength="255" value="{{ old('name', $item->name??null) }}">
                 </div>
             </div>
-            <div class="card">
-                <div class="c-title">Код</div>
-                <div class="little-p">
-                    <input type="text" name="code" class="form-control" placeholder="Код" maxlength="255" value="{{ old('code', $item->code??null) }}">
-                </div>
-            </div>
+{{--            <div class="card">--}}
+{{--                <div class="c-title">Код</div>--}}
+{{--                <div class="little-p">--}}
+{{--                    <input type="text" name="code" class="form-control" placeholder="Код" maxlength="255" value="{{ old('code', $item->code??null) }}">--}}
+{{--                </div>--}}
+{{--            </div>--}}
             <div class="card">
                 <div class="c-title">Статус</div>
                 <div class="little-p">
@@ -48,7 +48,7 @@
         </div>
         <div class="col-12 col-lg-6">
             <div class="card">
-                <div class="c-title">Изоброжение ((<=191)x50)</div>
+                <div class="c-title">Изоброжение</div>
                 @if (!empty($item->image))
                     <div class="p-2">
                         <img src="{{ asset('u/brands/'.$item->image) }}" alt="" style="height: 50px; max-width: 191px; width: auto; object-fit: contain;">
@@ -66,7 +66,7 @@
             </div>
         </div>
         <div class="col-12">
-            <div class="card d-none">
+            <div class="card">
                 <div class="c-title">Короткое описание</div>
                 <div class="little-p">
                     <textarea class="ckeditor" name="short">{!! old('short', $item->short??null) !!}</textarea>

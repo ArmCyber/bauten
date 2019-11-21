@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Admin;
 use App\Models\Application;
 use App\Models\Basket;
+use App\Models\Brand;
 use App\Models\Order;
 use App\Models\Part;
 use App\Models\PartnerGroup;
@@ -180,5 +181,44 @@ class UsersController extends BaseController
         ];
         $data['items'] = Basket::getPartsForUser($user->id);
         return view('admin.pages.users.basket_parts', $data);
+    }
+
+    public function restrictedBrands($id){
+        $data = [];
+        $data['user'] = User::getItem($id);
+        $data['title'] = 'Ограничения пользователя "'.$data['user']->email.'" по брендам';
+        $data['items'] = $data['user']->restricted_brands;
+        $data['back_url'] = route('admin.users.main');
+        return view('admin.pages.users.restricted_brands', $data);
+    }
+
+    public function restrictedBrands_add(Request $request, $id) {
+        $user = User::getItem($id);
+        $request->validate([
+            'id' => [
+                'required',
+                'integer',
+                'exists:brands,id',
+            ]
+        ], [], [
+            'id' => 'ID бренда'
+        ]);
+        $brand = Brand::getItem($request->input('id'));
+        if ($user->restricted_brands()->where('brands.id', $brand->id)->count()) {
+            return redirect()->back()->withErrors(['id'=>'Бренд уже ограничен.'])->withInput();
+        }
+        $user->restricted_brands()->attach($brand->id);
+        Basket::deletePartsForBrand($user->id, $brand->id);
+        Notify::success('Бренд ограничен.');
+        return redirect()->route('admin.users.restricted_brands', ['id' => $user->id]);
+    }
+
+    public function restrictedBrands_delete(Request $request, $id) {
+        $user = User::getItem($id);
+        $itemId = (int) $request->input('item_id');
+        if ($itemId) {
+            $user->restricted_brands()->detach($itemId);
+        }
+        return response()->json(['success'=>1]);
     }
 }

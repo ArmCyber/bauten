@@ -1,37 +1,39 @@
-@extends('admin.layouts.app')
-@section('titleSuffix')| <a href="{!! route('admin.brands.add') !!}" class="text-cyan"><i class="mdi mdi-plus-box"></i> добавить</a>@endsection
+    @extends('admin.layouts.app')
 @section('content')
+    <div class="row">
+        <div class="col-12 col-dxl-6">
+            @card(['title'=>'Добавить бренд'])
+                <form action="{{ route('admin.users.restricted_brands.add', ['id'=>$user->id]) }}" method="post">@csrf @method('put')
+                    @error('id')
+                    <div class="mb-2 text-danger">{{ $message }}</div>
+                    @enderror
+                    <div>
+                        <input type="text" name="id" class="form-control" placeholder="ID бренда" maxlength="20" value="{{ old('id') }}">
+                    </div>
+                    <div class="mt-2">
+                        <button class="btn btn-success" type="submit">Добавить</button>
+                    </div>
+                </form>
+            @endcard
+        </div>
+    </div>
     @if(count($items))
         <div class="card">
             <div class="table-responsive p-2">
-                <table class="table table-striped m-b-0 columns-middle">
+                <table class="table table-striped m-b-0 columns-middle init-dataTable">
                     <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Имя</th>
-                        <th>Статус</th>
-                        <th>На главной</th>
+                        <th>Название</th>
                         <th>Действие</th>
                     </tr>
                     </thead>
-                    <tbody class="table-sortable" data-action="{!! route('admin.brands.sort') !!}">
+                    <tbody>
                     @foreach($items as $item)
                         <tr class="item-row" data-id="{!! $item->id !!}">
                             <td>{{ $item->id }}</td>
-                            <td class="item-title">{{ $item->name}}</td>
-                            @if($item->active)
-                                <td class="text-success">Активно</td>
-                            @else
-                                <td class="text-danger">Неактивно</td>
-                            @endif
-                            @if($item->in_home)
-                                <td class="text-success">Показано</td>
-                            @else
-                                <td class="text-danger">Не показано</td>
-                            @endif
+                            <td>{{ $item->name }}</td>
                             <td>
-                                <a href="{{ route('admin.brands.edit', ['id'=>$item->id]) }}" {!! tooltip('Редактировать') !!} class="icon-btn edit"></a>
-                                <a href="{{ route('admin.gallery', ['gallery'=>'brand_item', 'id'=>$item->id]) }}" {!! tooltip('Галерея') !!} class="icon-btn gallery"></a>
                                 <span class="d-inline-block"  style="margin-left:4px;" data-toggle="modal" data-target="#itemDeleteModal"><a href="javascript:void(0)" class="icon-btn delete" {!! tooltip('Удалить') !!}></a></span>
                             </td>
                         </tr>
@@ -48,9 +50,9 @@
         'saveBtnClass'=>'btn-danger',
         'closeBtn' => 'Отменить',
         'form'=>['id'=>'itemDeleteForm', 'action'=>'javascript:void(0)']])
-    @slot('title')Удаление бренда@endslot
+    @slot('title')Удаление ограничении@endslot
     <input type="hidden" id="pdf-item-id">
-    <p class="font-14">Вы действительно хотите удалить бренд &Lt;<span id="pdm-title"></span>&Gt;?</p>
+    <p class="font-14">Вы действительно хотите удалить ограничения?</p>
     @endmodal
 @endsection
 @push('css')
@@ -88,7 +90,7 @@
             if (thisItemId && thisItemId.match(/^[1-9][0-9]{0,9}$/)) {
                 loader.addClass('shown');
                 $.ajax({
-                    url: '{!! route('admin.brands.delete') !!}',
+                    url: '{!! route('admin.users.restricted_brands.delete', ['id'=>$user->id]) !!}',
                     type: 'post',
                     dataType: 'json',
                     data: {
@@ -104,7 +106,7 @@
                         if (e.success) {
                             loader.removeClass('shown');
                             blocked = false;
-                            toastr.success('Бренд удален.');
+                            toastr.success('Ограничения удалена.');
                             modal.modal('hide');
                             $('.item-row[data-id="'+thisItemId+'"]').fadeOut(function(){
                                 $(this).remove();
@@ -116,5 +118,6 @@
             }
             else modalError();
         });
+        $('.init-dataTable').dataTable();
     </script>
 @endpush

@@ -78,7 +78,7 @@ class BrandsController extends BaseController
             'image' => ($ignore?'nullable':'required').'|image|mimes:jpeg,png',
             'image_alt' => 'nullable|string|max:255',
             'image_title' => 'nullable|string|max:255',
-            'code' => 'required|string|max:255|unique:brands,code'.$unique,
+//            'code' => 'required|string|max:255|unique:brands,code'.$unique,
         ];
         if (empty($inputs['generate_url'])) {
             $rules['url'] = 'required|is_url|string|max:255|unique:marks,url'.$unique;

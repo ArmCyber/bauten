@@ -280,6 +280,9 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
             Route::delete('recommended-parts/delete/{id}', $c.'recommendedParts_delete')->name('recommended_parts.delete');
             Route::get('favourites/{id}', $c.'favourites')->name('favourites');
             Route::get('basket-parts/{id}', $c.'basketParts')->name('basket_parts');
+            Route::get('restricted-brands/{id}', $c.'restrictedBrands')->name('restricted_brands');
+            Route::put('restricted-brands/add/{id}', $c.'restrictedBrands_add')->name('restricted_brands.add');
+            Route::delete('restricted-brands/delete/{id}', $c.'restrictedBrands_delete')->name('restricted_brands.delete');
         });
         //endregion
         //region Orders

@@ -82,7 +82,7 @@ class SearchController extends BaseController
         $modelsString = $request->get('mo');
         $generationsString = $request->get('ge');
         $enginesString = $request->get('en');
-        $query = Part::query()->where('active', 1);
+        $query = Part::where('active', 1)->brandAllowed();
         if ($catalogue && is_id($catalogue)) {
             $get_catalogue = PartCatalog::select('id', 'name')->where('id', $catalogue)->first();
             if ($get_catalogue) {
@@ -93,7 +93,7 @@ class SearchController extends BaseController
         }
         if ($brandsString) {
             $brandsUnfiltered = explode('-', $brandsString);
-            $get_brands = Brand::select('name', 'id')->where('active', 1)->whereIn('id', $brandsUnfiltered)->sort()->limit(5)->get();
+            $get_brands = Brand::select('name', 'id')->where('active', 1)->whereIn('id', $brandsUnfiltered)->allowed()->sort()->limit(5)->get();
             if (count($get_brands)) {
                 $brand_ids =$get_brands->pluck('id')->toArray();
                 $appends['br'] = implode('-', $brand_ids);

@@ -898,6 +898,30 @@ img.news-page-image {
 .modal-body {
     padding:8px;
 }
+.brand-content-title {
+    font-weight: bold;
+}
+.brand-groups {
+    margin-top:20px;
+    padding-top:20px;
+    border-top:1px solid #e5e5e5;
+    padding-bottom:20px;
+}
+.brand-group {
+    margin-bottom:8px;
+}
+.brand-group-title {
+    font-size:17px;
+    font-weight:bold;
+}
+.brand-group-catalog {
+    margin-top:6px;
+    font-size:15px;
+    line-height: 1.2;
+    >a {
+        color:$blue;
+    }
+}
 @include media(1599) {
     .product-title {
         font-size: 19px;
