@@ -314,14 +314,15 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
 Route::namespace('Site')->group(function() {
     Route::middleware('auth')->group(function(){
         Route::post('logout', 'Auth\LoginController@logout')->name('logout');
-        Route::get('product/{url}', 'PartsController@show')->name('part');
+        Route::get('product/{url}', 'CatalogueController@showPart')->name('part');
         Route::get(r('catalogs').'/{url}', 'CatalogueController@group')->name('group');
         Route::get('category/{url}', 'CatalogueController@category')->name('catalogue');
-
+        Route::get('search', 'SearchController@search')->name('search');
         Route::middleware('ajax')->prefix('ajax')->group(function(){
             Route::get('search/disabled-brands', 'SearchController@getDisabledBrands')->name('search.get_disabled_brands');
             Route::get('search/get-engines', 'SearchController@getEngines')->name('search.get_engines');
-            Route::get('search/get-data', 'SearchController@getSearchData')->name('search.get_data');
+            Route::get('search/get-models', 'SearchController@getModels')->name('search.get_models');
+            Route::get('search/get-generations', 'SearchController@getGenerations')->name('search.get_generations');
         });
 
         Route::prefix('cabinet')->namespace('Cabinet')->name('cabinet.')->group(function(){

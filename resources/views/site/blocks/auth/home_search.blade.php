@@ -1,6 +1,6 @@
 <div class="home-search">
     <div class="container">
-        <div class="home-search-block position-relative">
+        <div class="home-search-block position-relative" id="home-catalogue-block">
             <div class="home-search-title">ЗАПЧАСТИ</div>
             <div class="home-search-content">
                 @foreach($home_catalogs->take($max_take = settings('max_take', 5)) as $catalog)
@@ -60,7 +60,7 @@
             </div>
             <div class="loader"></div>
         </div>
-        <div class="home-search-block position-relative">
+        <div class="home-search-block position-relative" id="home-marks-block">
             <div class="home-search-title">МАРКА</div>
             <div class="home-search-content">
                 @foreach($marks->take($max_take) as $mark)
@@ -88,6 +88,25 @@
                     </div>
                 </div>
             </div>
+            <div class="loader"></div>
+        </div>
+        <div class="home-search-block position-relative" id="home-models-block" style="display:none">
+            <div class="home-search-title align-self-baseline">МОДЕЛЬ</div>
+            <div class="home-search-content">
+                <div class="expanded-container pt-0 ">
+                    <div class="row row-grid" id="home-models-row"></div>
+                </div>
+            </div>
+            <div class="loader"></div>
+        </div>
+        <div class="home-search-block position-relative" id="home-generations-block" style="display:none">
+            <div class="home-search-title align-self-baseline">КУЗОВ</div>
+            <div class="home-search-content">
+                <div class="expanded-container pt-0 ">
+                    <div class="row row-grid" id="home-generations-row"></div>
+                </div>
+            </div>
+            <div class="loader"></div>
         </div>
         <div class="home-search-block">
             <div class="home-search-title"><label class="all-inherit" for="home-search-engine">ДВИГАТЕЛЬ</label></div>
@@ -155,7 +174,10 @@
     <script>
         window.urls = {
             disabledBrands: '{{ route('search.get_disabled_brands') }}',
-            engines: '{{ route('search.get_engines') }}'
+            engines: '{{ route('search.get_engines') }}',
+            getModels: '{{ route('search.get_models') }}',
+            getGenerations: '{{ route('search.get_generations') }}',
+            search: '{{ route('search') }}',
         }
     </script>
     @js(aSite('js/search.js'))

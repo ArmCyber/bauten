@@ -33,6 +33,18 @@ class Filter extends Model
         }])->sort()->get();
     }
 
+    public static function siteListForIds($ids) {
+        return self::where('active', 1)->whereHas('criteria', function($q) use ($ids){
+            $q->whereHas('parts', function($q) use ($ids){
+                $q->where('active', 1)->whereIn('parts.id', $ids);
+            });
+        })->with(['criteria'=>function($q) use ($ids){
+            $q->whereHas('parts', function($q) use ($ids){
+                $q->where('active', 1)->whereIn('parts.id', $ids);
+            });
+        }])->sort()->get();
+    }
+
     public static function siteListForCategory($group_id, $category_id) {
         return self::where(function($q) use ($group_id, $category_id){
             $q->whereNull('group_id')->orWhere('group_id', $group_id);

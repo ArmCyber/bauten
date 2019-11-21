@@ -40,8 +40,8 @@ class Model extends Eloquent
         $q->orderBy('name', 'asc');
     }
 
-    public static function getSearchData($mark_id) {
-        return self::where(['mark_id'=>$mark_id, 'active'=>1])->sort()->get()->mapToGroups(function($item, $key) {
+    public static function getSearchData($mark_ids) {
+        return self::where('active',1)->whereIn('mark_id', $mark_ids)->sort()->get()->mapToGroups(function($item, $key) {
             return [mb_strtoupper(mb_substr($item->name,0,1))=>$item];
         });
     }

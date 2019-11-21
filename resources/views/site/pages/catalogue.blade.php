@@ -1,6 +1,9 @@
 @extends('site.layouts.app')
 @section('main')
 <div class="container pt-2s pb-s">
+    <h1 class="h3">{{ $catalogue_title }}</h1>
+</div>
+<div class="container pt-s">
 {{--    @breadcrumb(['pages'=>[['title'=>$page_title,'url'=>false],['title'=>$catalogue_title]]])@endbreadcrumb--}}
     <form id="filter-form" action="javascript:void(0)" method="get">
         <div class="products-block">
@@ -43,12 +46,16 @@
                     </div>
                 </div>
                 <div class="product-page-items">
+                    {{ $items->links() }}
                     <div class="row row-grid">
                         @foreach($items as $item)
                             <div class="col-12 col-sm-6 col-md-4 {!! $has_filter?'col-xl-4':'col-xl-3' !!}">
                                 @component('site.components.part', ['item'=>$item])@endcomponent
                             </div>
                         @endforeach
+                    </div>
+                    <div class="pt-4">
+                        {{ $items->links() }}
                     </div>
                 </div>
             </div>

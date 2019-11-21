@@ -21,7 +21,7 @@ class Part extends Model
     }
 
     public static function catalogsList($ids, $criteria = [], $sort = []){
-        return self::whereIn('part_catalog_id', $ids)->where('active', 1)->filtered($criteria)->sort($sort)->get();
+        return self::whereIn('part_catalog_id', $ids)->where('active', 1)->filtered($criteria)->sort($sort)->paginate(settings('pagination'));
     }
 
     public static function action($model, $inputs) {
