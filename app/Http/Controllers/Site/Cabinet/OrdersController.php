@@ -4,14 +4,34 @@ namespace App\Http\Controllers\Site\Cabinet;
 
 use App\Http\Controllers\Site\BaseController;
 use App\Models\Basket;
+use App\Models\DeliveryRegion;
 use App\Models\Order;
+use App\Models\PickupPoint;
 use App\Services\Notify\Facades\Notify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Zakhayko\Banners\Models\Banner;
 
 class OrdersController extends BaseController
 {
-    public function order(Request $request){
+    public function order(){
+        $data = [];
+        $data['orderData'] = Order::getOrderData();
+        $data['seo'] = $this->staticSEO('Оформления заказа');
+        $data['settings'] = Banner::get('settings');
+        $data['regions'] = DeliveryRegion::siteList();
+        $data['delivery_prices'] = count($data['regions'])?$data['regions']->pluck('cities')->flatten()->mapWithKeys(function($item){
+            return [$item->id => $item->price];
+        }):collect();
+        $data['cant_delivery'] = $data['orderData']['all_sum'] < $data['settings']->minimum->delivery;
+        $data['shown_delivery'] = (!$data['cant_delivery'] && old('delivery')==1);
+        $data['texts'] = Banner::get('texts');
+        $data['pickup_points'] = PickupPoint::siteList();
+        if (!$data['orderData']) return redirect()->route('cabinet.basket');
+        return view('site.pages.cabinet.order_form', $data);
+    }
+
+    public function order_post(Request $request){
         $inputs = $request->all();
         $rules = [
             'name' => 'required|string|max:255',
@@ -30,7 +50,7 @@ class OrdersController extends BaseController
             'phone' => 'Недействительный номер телефона.',
         ])->validate();
         if (!count($this->shared['basket_parts'])) return redirect()->route('cabinet.basket');
-        if (! $order_id = Order::makeOrder($inputs)) return redirect()->back();
+        if (! $order_id = Order::makeOrder($inputs)) return redirect()->route('cabinet.order');
         Basket::clear();
         return redirect()->route('cabinet.orders.view', ['id'=>$order_id]);
     }

@@ -41,12 +41,6 @@ class BasketController extends BaseController
         $data['seo'] = $this->staticSEO('Корзина');
         $data['settings'] = Banner::get('settings');
         $this->shared['basket_parts']->load('part');
-        if ($this->shared['basket_parts']) {
-            $data['regions'] = DeliveryRegion::siteList();
-            $data['delivery_prices'] = count($data['regions'])?$data['regions']->pluck('cities')->flatten()->mapWithKeys(function($item){
-                return [$item->id => $item->price];
-            }):collect();
-        }
         return view('site.pages.cabinet.basket', $data);
     }
 

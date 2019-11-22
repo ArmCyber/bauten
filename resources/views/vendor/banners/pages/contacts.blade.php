@@ -5,7 +5,7 @@
     @bannerBlock(['title'=>'Контент'])
         <div class="row">
             <div class="col-12 col-dxl-6">
-                @card(['title' => 'Блок "Реквизиты"'])
+                @card(['title' => 'Блок "Контакные данные"'])
                 @banner('data.requisites_title', 'Название блока')
                 @endcard
             </div>

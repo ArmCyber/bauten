@@ -306,6 +306,17 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
             Route::delete('delete', $c.'delete')->name('delete');
         });
         //endregion
+        //region Pickup Points
+        Route::middleware('can:admin')->prefix('pickup-points')->name('pickup_points.')->group(function() { $c = 'PickupPointsController@';
+            Route::get('', $c.'main')->name('main');
+            Route::get('add', $c.'add')->name('add');
+            Route::put('add', $c.'add_put');
+            Route::get('edit/{id}', $c.'edit')->name('edit');
+            Route::patch('edit/{id}', $c.'edit_patch');
+            Route::delete('delete', $c.'delete')->middleware('ajax')->name('delete');
+            Route::patch('sort', $c.'sort')->middleware('ajax')->name('sort');
+        });
+        //endregion
         //region Import
         Route::match(['get','post'], 'import/{page}', 'ImportController@render')->name('import');
         //endregion
@@ -344,7 +355,8 @@ Route::namespace('Site')->group(function() {
             Route::post('basket/update', 'BasketController@updateItem')->name('basket.update');
             Route::get('favourites', 'FavouritesController@main')->name('favourites');
             Route::post('favourites/add', 'FavouritesController@add')->middleware('ajax')->name('favourites.add');
-            Route::post('order', 'OrdersController@order')->name('order');
+            Route::get('order', 'OrdersController@order')->name('order');
+            Route::post('order', 'OrdersController@order_post');
             Route::get('orders/done', 'OrdersController@done')->name('orders.done');
             Route::get('orders/pending', 'OrdersController@pending')->name('orders.pending');
             Route::get('orders/{id}', 'OrdersController@view')->name('orders.view');

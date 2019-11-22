@@ -25,6 +25,7 @@
         @alink(['url'=>route('admin.filters.main'), 'icon'=>'fas fa-filter', 'title'=>'Глобальные фильтры'])@endalink
     @endalink
     @alink(['url'=>route('admin.engines.main'), 'icon'=>'fas fa-car-side', 'title'=>'Двигатели'])@endalink
+    @alink(['url'=>route('admin.pickup_points.main'), 'icon'=>'fas fa-map-marker', 'title'=>'Точки самовывоза'])@endalink
     @alink(['url'=>route('admin.banners', ['page'=>'settings']), 'icon'=>'fas fa-cog', 'title'=>'Настройки магазина'])@endalink
     @alink(['url'=>route('admin.marks.main'), 'icon'=>'fas fa-car', 'title'=>'Марки'])@endalink
     @alink(['url'=>route('admin.brands.main'), 'icon'=>'fas fa-list-ol', 'title'=>'Бренды'])@endalink
@@ -47,6 +48,7 @@
         @alink(['url'=>route('admin.delivery_regions.main'), 'icon'=>'fas fa-globe-europe', 'title'=>'Регионы доставки'])@endalink
         @alink(['icon'=>'fas fa-columns', 'title'=>'Блоки стат. страниц'])
             @alink(['url'=>route('admin.banners', ['page'=>'auth']), 'icon'=>'fas fa-key', 'title'=>'Вход/Регистрация'])@endalink
+            @alink(['url'=>route('admin.banners', ['page'=>'texts']), 'icon'=>'fas fa-list', 'title'=>'Другие тексты'])@endalink
         @endalink
     @endalink
 @endcan

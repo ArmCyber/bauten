@@ -1,0 +1,20 @@
+BAUTEN
+
+1) 1c
+2) order maileri harcy
+3) responsive
+4) Admini roler
+5) REF
+6) no-image 
+!8) modifikacianeri engine - remove
+!9) Engine filters remove.
+10) mini-search, win search....
+!11) delete brand code
+
+
+/////
+Nomer zakaza
+data zakaza
+stoimnost zakaza
+
+////WIN CODE SEARCH....

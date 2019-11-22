@@ -17,7 +17,7 @@
         </div>
     </div>
     @endbannerBlock
-    @bannerBlock(['title' => 'Реквизиты'])
+    @bannerBlock(['title' => 'Контактные данные'])
     <div class="row">
         <div class="col-12 col-dxl-6">
             @cards(['title'=>'Эл.почты', 'banners'=>'requisites', 'id'=>'emails'])

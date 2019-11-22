@@ -171,5 +171,13 @@ class BannersController extends BaseController
                 ],
             ],
         ],
+        'texts' => [
+            'data' => [
+                'params' => [
+                    'pickup' => 'text',
+                    'delivery' => 'text',
+                ]
+            ]
+        ]
     ];
 }

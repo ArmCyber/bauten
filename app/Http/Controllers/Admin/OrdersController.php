@@ -59,7 +59,7 @@ class OrdersController extends BaseController
 
     public function respond(Request $request, $id) {
         $order = Order::getItem($id);
-        if ($order->status!==Order::STATUS_NEW) return redirect()->back();
+        if ($order->status!=Order::STATUS_NEW) return redirect()->back();
         if($request->input('status') == Order::STATUS_PENDING) {
             $newStatus = Order::STATUS_PENDING;
             $message = 'Заказ принят';

@@ -69,7 +69,7 @@ class Order extends Model
         return self::where('status', $status)->count();
     }
 
-    public static function makeOrder($inputs) {
+    public static function getOrderData(){
         $basket_parts = view()->shared('basket_parts');
         $basket_parts->load('part');
         $user = auth()->user();
@@ -99,17 +99,30 @@ class Order extends Model
         if ($sale_sum) {
             $all_sum-=$sale_sum;
         }
-        $delivery = (int) $inputs['delivery']??0 != 0;
         $settings = Banner::get('settings');
-        if ($all_sum<($settings->minimum->shop??0) || ($delivery && $all_sum<($settings->mimimum->delivery??0))) return false;
+        if ($all_sum<($settings->minimum->shop??0)) return false;
+        return [
+            'all_sum' => $all_sum,
+            'user' => $user,
+            'real_sum' => $real_sum,
+            'parts' => $parts,
+            'settings' => $settings,
+        ];
+    }
+
+    public static function makeOrder($inputs) {
+        $data = Order::getOrderData();
+        if (!$data) return false;
+        $delivery = (int) $inputs['delivery']??0 != 0;
+        if ($delivery && $data['all_sum']<($data['settings']->minimum->delivery??0)) return false;
         $city = DeliveryCity::getItem($inputs['city_id']);
         $order = new self;
-        $order['user_id'] = $user->id;
+        $order['user_id'] = $data['user']->id;
         $order['name'] = $inputs['name'];
         $order['phone'] = $inputs['phone'];
         $order['delivery'] = $delivery;
-        $order['real_sum'] = $real_sum;
-        $order['sum'] = $all_sum;
+        $order['real_sum'] = $data['real_sum'];
+        $order['sum'] = $data['all_sum'];
         if ($order['delivery']) {
             $order['region_id'] = $city->region->id;
             $order['region_name'] = $city->region->title;
@@ -118,11 +131,11 @@ class Order extends Model
             $order['address'] = $inputs['address'];
             $order['delivery_price'] = $city->price;
         }
-        $order['total'] = $all_sum + ($order['delivery_price']??0);
+        $order['total'] = $data['all_sum'] + ($order['delivery_price']??0);
         $order['status'] = self::STATUS_NEW;
         $order['sale'] = $user->sale??0;
         $order->save();
-        $order->parts()->attach($parts);
+        $order->parts()->attach($data['parts']);
         return $order->id;
     }
 
