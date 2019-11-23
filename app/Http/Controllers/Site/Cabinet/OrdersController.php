@@ -10,6 +10,7 @@ use App\Models\PickupPoint;
 use App\Services\Notify\Facades\Notify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Zakhayko\Banners\Models\Banner;
 
 class OrdersController extends BaseController
@@ -36,7 +37,7 @@ class OrdersController extends BaseController
         $rules = [
             'name' => 'required|string|max:255',
             'phone' => 'required|string|phone|max:255',
-//            'payment_method' => 'required|in:'
+            'pickup_point_id' => ['required','integer',Rule::exists('pickup_points', 'id')->where('active', 1)]
         ];
         if ($inputs['delivery']??0 != 0) {
             $rules['city_id'] = 'required|integer|exists:delivery_cities,id';
@@ -48,6 +49,7 @@ class OrdersController extends BaseController
             'max' => 'Макс. :max символов.',
             'exists' => 'Поле обязательно для заполнения.',
             'phone' => 'Недействительный номер телефона.',
+            'integer' => 'Поле обязательно для заполнения.',
         ])->validate();
         if (!count($this->shared['basket_parts'])) return redirect()->route('cabinet.basket');
         if (! $order_id = Order::makeOrder($inputs)) return redirect()->route('cabinet.order');
@@ -75,9 +77,21 @@ class OrdersController extends BaseController
 
     public function view($id) {
         $data = [];
+        $data['texts'] = Banner::get('texts');
         $data['item'] = Order::getItemSite($id);
         $data['seo'] = $this->staticSEO('Заказ N'.$data['item']->id);
         $data['process'] = Order::PROCESS;
         return view('site.pages.cabinet.order', $data);
+    }
+
+    public function confirmPayment(Request $request) {
+        $orderId = $request->input('order_id');
+        if (!$orderId) abort(404);
+        $order = Order::getItemSite($orderId);
+        if ($order->paid==0 && $order->paid_request==0 && $order->payment_method=='bank') {
+            $order->paid_request = 1;
+            $order->save();
+        }
+        return redirect()->route('cabinet.orders.view', ['id'=>$order->id]);
     }
 }

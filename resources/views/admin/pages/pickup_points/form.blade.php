@@ -64,7 +64,7 @@
             }
             function init(){
                 myMap = new ymaps.Map("map", {
-                    center: [50.3, 57.5],
+                    center: [43.2, 76.9],
                     zoom: 10,
                 });
                 myMap.events.add('click', function (e) {

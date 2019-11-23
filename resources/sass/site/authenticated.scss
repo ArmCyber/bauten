@@ -292,3 +292,13 @@ input:read-only {
         height: 45px;
     }
 }
+@media print {
+    .bank-container {
+        .cabinet-block-title {
+            font-size:30px;
+        }
+        .cabinet-block-content {
+            font-size:24px;
+        }
+    }
+}

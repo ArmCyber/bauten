@@ -115,7 +115,6 @@ class Order extends Model
         if (!$data) return false;
         $delivery = (int) $inputs['delivery']??0 != 0;
         if ($delivery && $data['all_sum']<($data['settings']->minimum->delivery??0)) return false;
-        $city = DeliveryCity::getItem($inputs['city_id']);
         $order = new self;
         $order['user_id'] = $data['user']->id;
         $order['name'] = $inputs['name'];
@@ -124,6 +123,7 @@ class Order extends Model
         $order['real_sum'] = $data['real_sum'];
         $order['sum'] = $data['all_sum'];
         if ($order['delivery']) {
+            $city = DeliveryCity::getItem($inputs['city_id']);
             $order['region_id'] = $city->region->id;
             $order['region_name'] = $city->region->title;
             $order['city_id'] = $city->id;
@@ -131,9 +131,15 @@ class Order extends Model
             $order['address'] = $inputs['address'];
             $order['delivery_price'] = $city->price;
         }
+        else {
+            $pickup_point = PickupPoint::getItem($inputs['pickup_point_id']);
+            $order['pickup_point_id'] = $pickup_point->id;
+            $order['pickup_point_address'] = $pickup_point->address;
+        }
         $order['total'] = $data['all_sum'] + ($order['delivery_price']??0);
         $order['status'] = self::STATUS_NEW;
         $order['sale'] = $user->sale??0;
+        $order['payment_method'] = ($inputs['payment_method']??null)=='bank'?'bank':'cash';
         $order->save();
         $order->parts()->attach($data['parts']);
         return $order->id;
@@ -172,6 +178,20 @@ class Order extends Model
 
     public function getStatusTypeAttribute(){
         return self::STATUSES[$this->status]??null;
+    }
+
+    public function getPaymentMethodNameAttribute(){
+        if ($this->payment_method=='bank') return 'Банковский перевод';
+        else return 'Наличными на месте';
+    }
+
+    public function getDeliveryMethodNameAttribute(){
+        if ($this->delivery) return 'Доставка до двери';
+        else return 'Самовывоз';
+    }
+
+    public function pickup_point(){
+        return $this->belongsTo('App\Models\PickupPoint');
     }
 
     public function scopeSort($q){

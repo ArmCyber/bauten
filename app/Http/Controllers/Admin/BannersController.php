@@ -176,6 +176,7 @@ class BannersController extends BaseController
                 'params' => [
                     'pickup' => 'text',
                     'delivery' => 'text',
+                    'bank_text' => 'text',
                 ]
             ]
         ]

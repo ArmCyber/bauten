@@ -357,6 +357,7 @@ Route::namespace('Site')->group(function() {
             Route::post('favourites/add', 'FavouritesController@add')->middleware('ajax')->name('favourites.add');
             Route::get('order', 'OrdersController@order')->name('order');
             Route::post('order', 'OrdersController@order_post');
+            Route::post('order/confirm-payment', 'OrdersController@confirmPayment')->name('order.confirm_payment');
             Route::get('orders/done', 'OrdersController@done')->name('orders.done');
             Route::get('orders/pending', 'OrdersController@pending')->name('orders.pending');
             Route::get('orders/{id}', 'OrdersController@view')->name('orders.view');

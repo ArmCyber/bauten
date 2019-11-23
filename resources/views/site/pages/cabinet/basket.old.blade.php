@@ -142,7 +142,7 @@
         <div class="modal-prices text-right">
             <div class="cabinet-title-sm text-right">Сумма: <span class="all-price"></span> <span class="kzt"></span></div>
             <div class="for-delivery" style="display:none">
-                <div class="cabinet-title-sm text-right">Доставка: <span class="delivery-price"></span> <span class="kzt"></span></div>
+                <div class="cabinet-title-sm text-right">Цена доставки: <span class="delivery-price"></span> <span class="kzt"></span></div>
                 <div class="cabinet-title-sm text-right">Итого: <span class="full-price"></span> <span class="kzt"></span></div>
             </div>
         </div>

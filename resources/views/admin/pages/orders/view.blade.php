@@ -2,19 +2,35 @@
 @section('content')
     <div class="card">
         <div class="card-body">
+            <div class="view-line"><span class="view-label">Номер заказа:</span> N{{ $item->id }}</div>
             @if ($item->user)
                 <div class="view-line"><span class="view-label">Пользователь:</span> <a href="{{ route('admin.users.view', ['id' => $item->user->id]) }}">{{ $item->user->email }}</a></div>
             @endif
             <div class="view-line"><span class="view-label">ФИО:</span> {{ $item->name??'-' }}</div>
             <div class="view-line"><span class="view-label">Телефон:</span> {{ $item->phone??'-' }}</div>
             <div class="view-line"><span class="view-label">Дата:</span> {{ $item->created_at->format('d.m.Y H:i')??'-' }}</div>
-            <div class="view-line"><span class="view-label">Доставка:</span> {{ $item->delivery?'да':'нет' }}</div>
+            <div class="view-line"><span class="view-label">Метод доставки:</span> {{ $item->delivery_method_name }}</div>
             @if($item->delivery)
                     <div class="view-line"><span class="view-label">Регион:</span> {{ $item->region_name }}</div>
                     <div class="view-line"><span class="view-label">Насиленный пункт:</span> {{ $item->city_name }}</div>
                     <div class="view-line"><span class="view-label">Адрес:</span> {{ $item->address }}</div>
                     <div class="view-line"><span class="view-label">Цена доставки:</span> {{ $item->delivery_price }}</div>
+            @else
+                    <div class="view-line"><span class="view-label">Точка самовывоза:</span>
+                        @if ($item->pickup_point)
+                            <a href="{{ route('admin.pickup_points.edit', ['id'=>$item->pickup_point->id]) }}">{{ $item->pickup_point_address }}</a>
+                        @else
+                            {{ $item->pickup_point_address }}
+                        @endif
+                    </div>
             @endif
+            <div class="view-line">
+                <span class="view-label">Метод оплаты:</span>
+                {{ $item->payment_method_name }}
+                @if ($item->payment_method=='bank' && $item->paid==0 && $item->paid_request==1)
+                    <span class="text-warning">(Ожидание подверждения)</span>
+                @endif
+            </div>
             <div class="view-line"><span class="view-label">Сумма:</span> {{ $item->total }}</div>
             <div class="view-line"><span class="view-label">Статус:</span> {!! $item->status_html !!}</div>
             @if($item->status_type=='new')
@@ -39,7 +55,7 @@
                         @endmodal
                 @endpush
             @elseif($item->status_type=='pending')
-                <div class="view-line"><span class="view-label">Оплачен:</span> {!! $item->paid?'да':'нет' !!}</div>
+                <div class="view-line"><span class="view-label">Статус оплаты:</span> {!! $item->paid?'<span class="text-success">оплачен</span>':'<span class="text-danger">не оплачен</span>' !!}</div>
                 <div class="pt-2">
                     <button class="btn btn-info" data-toggle="modal" data-target="#changeOrderStatusModal">Изменить процесс</button>
                 </div>

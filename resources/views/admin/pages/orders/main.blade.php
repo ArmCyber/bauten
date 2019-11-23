@@ -10,9 +10,10 @@
                         <th>Пользователь</th>
                         <th>ФИО</th>
                         <th>Сумма</th>
-                        <th>Доставка</th>
                         <th>Статус</th>
-                        <th>Оплачен</th>
+                        <th>Метод доставки</th>
+                        <th>Метод оплаты</th>
+                        <th>Статус оплаты</th>
                         <th>Дата</th>
                         <th>Действие</th>
                     </tr>
@@ -28,9 +29,10 @@
                             @endif
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->total }}</td>
-                            <td>{{ $item->delivery?'да':'нет' }}</td>
                             <td>{!! $item->status_html !!}</td>
-                            <td>{{ $item->paid?'да':'нет' }}</td>
+                            <td>{{ $item->delivery_method_name }}</td>
+                            <td>{{ $item->payment_method_name }}</td>
+                            <td>{!! $item->paid?'<span class="text-success">оплачен</span>':(($item->payment_method=='bank' && $item->paid_request)?'<span class="text-warning">ожидание подверждения</span>':'<span class="text-danger">не оплачен</span>') !!}</td>
                             <td>{{ $item->created_at->format('d.m.Y H:i') }}</td>
                             <td><a href="{{ route('admin.orders.view', ['id' => $item->id]) }}" class="icon-btn view" {!! tooltip('Посмотреть') !!}></a></td>
                         </tr>

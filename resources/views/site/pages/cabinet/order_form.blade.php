@@ -52,13 +52,13 @@
                         @if (count($pickup_points))
                             <div class="col-6 for-pickup">
                                 <div class="form-group cabinet-select2">
-                                    <label for="form-region">Точка самовывоза</label>
-                                    <select class="select2" id="form-pickup-point" name="pickup_point" style="width: 100%">
+                                    <label for="form-pickup-point">Точка самовывоза</label>
+                                    <select class="select2" id="form-pickup-point" name="pickup_point_id" style="width: 100%">
                                         @foreach($pickup_points as $pickup_point)
-                                            <option value="{{ $pickup_point->id }}" @if(old('pickup_point')==$pickup_point->id) selected @endif>{{ $pickup_point->address }}</option>
+                                            <option value="{{ $pickup_point->id }}" @if(old('pickup_point_id')==$pickup_point->id) selected @endif>{{ $pickup_point->address }}</option>
                                         @endforeach
                                     </select>
-                                    @error('region_id')
+                                    @error('pickup_point_id')
                                     <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
@@ -111,8 +111,8 @@
                             <div class="form-group cabinet-select2">
                                 <label for="form-payment">Выберите метод оплаты</label>
                                 <select name="payment_method" id="form-payment" class="select2" style="width: 100%;">
-                                    <option value="cash" selected>Наличными на месте</option>
-                                    <option value="bank" disabled>Банковский перевод</option>
+                                    <option value="cash">Наличными на месте</option>
+                                    <option value="bank" {{ old('payment_method')=='bank'?'selected':null }}>Банковский перевод</option>
                                 </select>
                                 @error('payment_method')
                                 <small class="text-danger">{{ $message }}</small>
@@ -125,7 +125,7 @@
             <div class="modal-prices text-right">
                 <div class="cabinet-title-sm text-right">Сумма: <span class="all-price">{{ $orderData['all_sum'] }}</span> <span class="kzt"></span></div>
                 <div class="for-delivery" style="display:none">
-                    <div class="cabinet-title-sm text-right">Доставка: <span class="delivery-price"></span> <span class="kzt"></span></div>
+                    <div class="cabinet-title-sm text-right">Цена доставки: <span class="delivery-price"></span> <span class="kzt"></span></div>
                     <div class="cabinet-title-sm text-right">Итого: <span class="full-price"></span> <span class="kzt"></span></div>
                 </div>
                 <div class="pt-2">

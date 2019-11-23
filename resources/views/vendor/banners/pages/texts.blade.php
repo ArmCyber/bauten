@@ -14,6 +14,11 @@
             @banner('data.delivery', 'Текст')
             @endcard
         </div>
+        <div class="col-12 col-dxl-6">
+            @card(['title' => 'Счет на оплату'])
+            @banner('data.bank_text', 'Текст')
+            @endcard
+        </div>
     </div>
     @endbannerBlock
 @endsection
