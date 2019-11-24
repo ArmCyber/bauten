@@ -158,10 +158,10 @@ class SearchController extends BaseController
         $data['filters'] = Filter::siteListForIds($ids);
         $data['filtered'] = $this->getFilters();
         $criteriaGrouped = $this->filterCriteria($data['filters'], $data['filtered']['criteria']);
-        $data['items'] = $query->filtered($criteriaGrouped)->sort([$data['filtered']['sort'], $data['filtered']['sort_type']])->paginate(settings('pagination'));
+        $data['items'] = $query->filtered($criteriaGrouped)->sort([$data['filtered']['sort']])->paginate(settings('pagination'));
         $appends['filters'] = $request->get('filters');
         $appends['sort'] = $data['filtered']['sort'];
-        $appends['sort_type'] = $data['filtered']['sort_type']=='asc'?0:1;
+//        $appends['sort_type'] = $data['filtered']['sort_type']=='asc'?0:1;
         $data['items']->appends($appends);
         return view('site.pages.search', $data);
     }

@@ -49,6 +49,11 @@
                                 </div>
                             </div>
                         </div>
+                        @if ($item->new)
+                            <div class="part-page-statuses">
+                                <div class="part-status-lg part-new">Новинка</div>
+                            </div>
+                        @endif
                         @if($item->description)
                             <div class="product-page-description">{!! $item->description !!}</div>
                         @endif

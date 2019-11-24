@@ -34,14 +34,14 @@
                     <div>
                         <span class="sort-select-title">Сортировать по</span>
                         <select name="sort" id="sort-select" data-smart-positioning="false">
-                            <option value="price" {!! $filtered['sort'] == 'price'?'selected':'false' !!}>Ценам</option>
-{{--                            <option>Дате</option>--}}
-{{--                            <option>Именам</option>--}}
+                            <option value="price" {!! $filtered['sort'] == 'price'?'selected':null !!}>Ценам</option>
+                            <option value="new" {!! $filtered['sort'] == 'new'?'selected':null !!}>Новинкам</option>
+                            <option value="sale" {!! $filtered['sort'] == 'sale'?'selected':null !!}>Скидкам</option>
                         </select>
-                        <select name="sort_type" id="sort-type-select" data-smart-positioning="false">
-                            <option value="0" {!! $filtered['sort_type']=='asc'?'selected':'false' !!}>по возрастанию</option>
-                            <option value="1" {!! $filtered['sort_type']=='desc'?'selected':'false' !!}>по убыванию</option>
-                        </select>
+{{--                        <select name="sort_type" id="sort-type-select" data-smart-positioning="false">--}}
+{{--                            <option value="0" {!! $filtered['sort_type']=='asc'?'selected':'false' !!}>по возрастанию</option>--}}
+{{--                            <option value="1" {!! $filtered['sort_type']=='desc'?'selected':'false' !!}>по убыванию</option>--}}
+{{--                        </select>--}}
                         <button class="home-search-btn filter-apply">Применить</button>
                     </div>
                 </div>

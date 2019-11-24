@@ -8,7 +8,7 @@ $('.filter-name').on('click', function(){
     }
 });
 $('#sort-select').styler();
-$('#sort-type-select').styler();
+// $('#sort-type-select').styler();
 var blocked = false;
 $('#filter-form').on('submit', function(e){
     if (blocked) {

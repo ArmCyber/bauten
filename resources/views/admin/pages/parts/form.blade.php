@@ -125,8 +125,9 @@
                         </div>
                     </div>
                 </div>
+                @labelauty(['id'=>'new', 'class'=>'mt-2', 'label'=>'Новинка', 'checked'=>oldCheck('new', ($edit && empty($item->new))?false:true)])@endlabelauty
                 @can('admin')
-                @labelauty(['id'=>'application_only', 'class'=>'mt-2', 'label'=>'Под заказ', 'checked'=>oldCheck('application_only', ($edit && $item->application_only)?true:false)])@endlabelauty
+                @labelauty(['id'=>'application_only', 'class'=>'mt-1', 'label'=>'Под заказ', 'checked'=>oldCheck('application_only', ($edit && $item->application_only)?true:false)])@endlabelauty
                 @labelauty(['id'=>'active', 'label'=>'Неактивно|Активно', 'checked'=>oldCheck('active', ($edit && empty($item->active))?false:true)])@endlabelauty
                 @endcan
             </div>

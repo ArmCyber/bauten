@@ -10,4 +10,9 @@
             <span class="sale-price">{{ $item->sale }} <span class="kzt"></span></span>
         @endif
     </div>
+    @if ($item->new)
+    <div class="part-statuses">
+        <div class="part-status part-new">Новинка</div>
+    </div>
+    @endif
 </div>

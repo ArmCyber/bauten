@@ -51,6 +51,7 @@ class Part extends Model
             $model['part_catalog_id'] = $inputs['part_catalog_id'];
             $model['brand_id'] = $inputs['brand_id'];
             $model['application_only'] = (int) array_key_exists('application_only', $inputs);
+            $model['new'] = (int) array_key_exists('new', $inputs);
             $model['active'] = (int) array_key_exists('active', $inputs);
         }
         $model->save();
@@ -147,7 +148,14 @@ class Part extends Model
     }
 
     public function scopeSort($q, $sort=[]) {
-        return $q->orderBy($sort[0]??'price', $sort[1]??'asc');
+        $sort = $sort[0]??'price';
+        if ($sort == 'new') {
+            return $q->orderBy('new', 'desc')->orderBy('price', 'asc');
+        }
+        if ($sort == 'sale') {
+            return $q->orderByRaw('`sale`/`price` desc')->orderBy('price', 'asc');
+        }
+        return $q->orderBy('price', 'asc');
     }
 
     public function getMinCountCeilAttribute() {

@@ -190,6 +190,27 @@ input.filter-checkbox {
     position: relative;
 }
 
+.part-statuses {
+    position:absolute;
+    top:10px;
+    left:10px;
+    max-width: 100px;
+}
+
+.part-status {
+    display: block;
+    width: 100px;
+    text-align: center;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    margin-bottom:3px;
+}
+.part-new {
+    background-color: #28a745;
+    color:#ffffff;
+    border-radius: 3px;
+}
+
 .product-favourite {
     color:$blue;
     @include far(f02e);
@@ -228,6 +249,17 @@ input.filter-checkbox {
     >a {
         color: #3B519D;
     }
+}
+
+.part-page-statuses {
+    margin-top:15px;
+}
+.part-status-lg {
+    width:120px;
+    font-size:17px;
+    text-align: center;
+    border-radius: 4px;
+    padding: 5px 0;
 }
 
 .product-page-items {

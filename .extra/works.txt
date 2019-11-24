@@ -4,7 +4,7 @@ BAUTEN
 2) maileri harcy
 3) responsive
 5) REF
-6) no-image 
+6) no-image en yan tani
 !8) modifikacianeri engine - remove
 !9) Engine filters remove.
 !10) Engine myus remove

@@ -20,7 +20,7 @@ class CatalogueController extends BaseController
         $data['filters'] = Filter::siteListForGroup($group->id);
         $data['filtered'] = $this->getFilters();
         $criteriaGrouped = $this->filterCriteria($data['filters'], $data['filtered']['criteria']);
-        $data['items'] = Part::catalogsList($catalog_ids, $criteriaGrouped, [$data['filtered']['sort'], $data['filtered']['sort_type']]);
+        $data['items'] = Part::catalogsList($catalog_ids, $criteriaGrouped, [$data['filtered']['sort']]);
         $page = get_page('catalogs');
         $data['active_page'] = $page->id;
         $data['page_title'] = $page->title;
@@ -29,7 +29,7 @@ class CatalogueController extends BaseController
         $appends = [
             'filters' => request()->get('filters'),
             'sort' => $data['filtered']['sort'],
-            'sort_type' => $data['filtered']['sort_type']=='asc'?0:1,
+//            'sort_type' => $data['filtered']['sort_type']=='asc'?0:1,
         ];
         $data['items']->appends($appends);
         return view('site.pages.catalogue', $data);
@@ -42,7 +42,7 @@ class CatalogueController extends BaseController
         $data['filters'] = Filter::siteListForCategory($catalogue->group_id, $catalogue->id);
         $data['filtered'] = $this->getFilters();
         $criteriaGrouped = $this->filterCriteria($data['filters'], $data['filtered']['criteria']);
-        $data['items'] = Part::catalogsList([$catalogue->id], $criteriaGrouped, [$data['filtered']['sort'], $data['filtered']['sort_type']]);
+        $data['items'] = Part::catalogsList([$catalogue->id], $criteriaGrouped, [$data['filtered']['sort']]);
         $page = get_page('catalogs');
         $data['active_page'] = $page->id;
         $data['page_title'] = $page->title;
@@ -50,7 +50,7 @@ class CatalogueController extends BaseController
         $appends = [
             'filters' => request()->get('filters'),
             'sort' => $data['filtered']['sort'],
-            'sort_type' => $data['filtered']['sort_type']=='asc'?0:1,
+//            'sort_type' => $data['filtered']['sort_type']=='asc'?0:1,
         ];
         $data['items']->appends($appends);
         return view('site.pages.catalogue', $data);
