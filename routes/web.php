@@ -132,7 +132,7 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
         //endregion
         //region Parts
         Route::prefix('parts')->name('parts.')->group(function() { $c = 'PartsController@';
-            Route::middleware('can:content')->get('', $c.'main')->name('main');
+            Route::middleware('can:manager_content')->get('', $c.'main')->name('main');
             Route::middleware('can:admin')->get('add', $c.'add')->name('add');
             Route::middleware('can:admin')->put('add', $c.'add_put');
             Route::middleware('can:content')->get('edit/{id}', $c.'edit')->name('edit');
@@ -149,7 +149,7 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
         //endregion
         //region Brands
         Route::prefix('brands')->name('brands.')->group(function() { $c = 'BrandsController@';
-            Route::middleware('can:content')->get('', $c.'main')->name('main');
+            Route::middleware('can:manager_content')->get('', $c.'main')->name('main');
             Route::middleware('can:admin')->get('add', $c.'add')->name('add');
             Route::middleware('can:admin')->put('add', $c.'add_put');
             Route::middleware('can:content')->get('edit/{id}', $c.'edit')->name('edit');
@@ -272,17 +272,17 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
             Route::middleware('can:operator_manager')->get('view/{id}', $c.'view')->name('view');
             Route::middleware('can:admin')->patch('change-manager', $c.'changeManager')->name('change_manager');
             Route::middleware('can:operator_manager')->patch('change-partner-group', $c.'changePartnerGroup')->name('change_partner_group');
-            Route::middleware('can:admin')->patch('change-status', $c.'changeStatus')->name('change_status');
-            Route::middleware('can:admin')->patch('change-password', $c.'changePassword')->name('change_password');
+            Route::middleware('can:manager')->patch('change-status', $c.'changeStatus')->name('change_status');
+            Route::middleware('can:manager')->patch('change-password', $c.'changePassword')->name('change_password');
             Route::middleware('can:admin')->delete('delete', $c.'delete')->name('delete');
-            Route::middleware('can:admin')->get('recommended-parts/{id}', $c.'recommendedParts')->name('recommended_parts');
-            Route::middleware('can:admin')->put('recommended-parts/add/{id}', $c.'recommendedParts_add')->name('recommended_parts.add');
-            Route::middleware('can:admin')->delete('recommended-parts/delete/{id}', $c.'recommendedParts_delete')->name('recommended_parts.delete');
+            Route::middleware('can:manager')->get('recommended-parts/{id}', $c.'recommendedParts')->name('recommended_parts');
+            Route::middleware('can:manager')->put('recommended-parts/add/{id}', $c.'recommendedParts_add')->name('recommended_parts.add');
+            Route::middleware('can:manager')->delete('recommended-parts/delete/{id}', $c.'recommendedParts_delete')->name('recommended_parts.delete');
             Route::middleware('can:operator_manager')->get('favourites/{id}', $c.'favourites')->name('favourites');
             Route::middleware('can:operator_manager')->get('basket-parts/{id}', $c.'basketParts')->name('basket_parts');
-            Route::middleware('can:admin')->get('restricted-brands/{id}', $c.'restrictedBrands')->name('restricted_brands');
-            Route::middleware('can:admin')->put('restricted-brands/add/{id}', $c.'restrictedBrands_add')->name('restricted_brands.add');
-            Route::middleware('can:admin')->delete('restricted-brands/delete/{id}', $c.'restrictedBrands_delete')->name('restricted_brands.delete');
+            Route::middleware('can:manager')->get('restricted-brands/{id}', $c.'restrictedBrands')->name('restricted_brands');
+            Route::middleware('can:manager')->put('restricted-brands/add/{id}', $c.'restrictedBrands_add')->name('restricted_brands.add');
+            Route::middleware('can:manager')->delete('restricted-brands/delete/{id}', $c.'restrictedBrands_delete')->name('restricted_brands.delete');
         });
         //endregion
         //region Orders

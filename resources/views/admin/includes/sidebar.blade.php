@@ -11,19 +11,19 @@
     @endif
 @endalink
 @alink(['can'=>'operator_manager', 'url'=>route('admin.applications.main'), 'icon'=>'far fa-file-alt', 'title'=>'Заявки', 'counter'=>$applications_count])@endalink
+@alink(['can'=>'operator_manager', 'url'=>route('admin.users.main'), 'icon'=>'fas fa-user', 'title'=>'Пользователи', 'counter'=>$pending_users_count])@endalink
 @alink(['can'=>'content', 'icon'=>'fas fa-list', 'title'=>'Каталог запчастей'])
     @alink(['can'=>'content', 'url'=>route('admin.groups.main'), 'icon'=>'fas fa-layer-group', 'title'=>'Группы'])@endalink
     @alink(['can'=>'content', 'url'=>route('admin.part_catalogs.main'), 'icon'=>'fas fa-list', 'title'=>'Категории'])@endalink
-    @alink(['can'=>'content', 'url'=>route('admin.parts.main'), 'icon'=>'fas fa-car-battery', 'title'=>'Запчасти'])@endalink
+    @alink(['can'=>'manager_content', 'url'=>route('admin.parts.main'), 'icon'=>'fas fa-car-battery', 'title'=>'Запчасти'])@endalink
     @alink(['can'=>'admin', 'url'=>route('admin.filters.main'), 'icon'=>'fas fa-filter', 'title'=>'Глобальные фильтры'])@endalink
 @endalink
 @alink(['can'=>'admin', 'url'=>route('admin.engines.main'), 'icon'=>'fas fa-car-side', 'title'=>'Двигатели'])@endalink
 @alink(['can'=>'admin', 'url'=>route('admin.pickup_points.main'), 'icon'=>'fas fa-map-marker', 'title'=>'Точки самовывоза'])@endalink
 @alink(['can'=>'admin', 'url'=>route('admin.banners', ['page'=>'settings']), 'icon'=>'fas fa-cog', 'title'=>'Настройки магазина'])@endalink
 @alink(['can'=>'admin', 'url'=>route('admin.marks.main'), 'icon'=>'fas fa-car', 'title'=>'Марки'])@endalink
-@alink(['can'=>'content', 'url'=>route('admin.brands.main'), 'icon'=>'fas fa-list-ol', 'title'=>'Бренды'])@endalink
+@alink(['can'=>'manager_content', 'url'=>route('admin.brands.main'), 'icon'=>'fas fa-list-ol', 'title'=>'Бренды'])@endalink
 @alink(['can'=>'content', 'url'=>route('admin.partner_groups.main'), 'icon'=>'fas fa-handshake', 'title'=>'Группы партнеров'])@endalink
-@alink(['can'=>'operator_manager', 'url'=>route('admin.users.main'), 'icon'=>'fas fa-user', 'title'=>'Пользователи', 'counter'=>$pending_users_count])@endalink
 @alink(['can'=>'admin', 'url'=>route('admin.admins.main'), 'icon'=>'fas fa-user-tie', 'title'=>'Администраторы'])@endalink
 @alink(['can'=>'admin', 'url'=>route('admin.delivery_regions.main'), 'icon'=>'fas fa-globe-europe', 'title'=>'Регионы доставки'])@endalink
 @alink(['can'=>'admin', 'title' => 'Импортирование', 'icon'=>'mdi mdi-file-import'])

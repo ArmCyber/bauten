@@ -13,7 +13,9 @@
                         <th>Имя</th>
                         <th>Статус</th>
                         <th>На главной</th>
+                        @can('content')
                         <th>Действие</th>
+                        @endcan
                     </tr>
                     </thead>
                     <tbody class="table-sortable" data-action="{!! route('admin.brands.sort') !!}">
@@ -31,6 +33,7 @@
                             @else
                                 <td class="text-danger">Не показано</td>
                             @endif
+                            @can('content')
                             <td>
                                 <a href="{{ route('admin.brands.edit', ['id'=>$item->id]) }}" {!! tooltip('Редактировать') !!} class="icon-btn edit"></a>
                                 <a href="{{ route('admin.gallery', ['gallery'=>'brand_item', 'id'=>$item->id]) }}" {!! tooltip('Галерея') !!} class="icon-btn gallery"></a>
@@ -38,6 +41,7 @@
                                 <span class="d-inline-block"  style="margin-left:4px;" data-toggle="modal" data-target="#itemDeleteModal"><a href="javascript:void(0)" class="icon-btn delete" {!! tooltip('Удалить') !!}></a></span>
                                 @endcan
                             </td>
+                            @endcan
                         </tr>
                     @endforeach
                     </tbody>

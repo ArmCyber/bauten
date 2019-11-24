@@ -14,7 +14,9 @@
                         <th>Категория</th>
                         <th>Бренд</th>
                         <th>Статус</th>
+                        @can('content')
                         <th>Действие</th>
+                        @endcan
                     </tr>
                     </thead>
                     <tbody>
@@ -29,6 +31,7 @@
                             @else
                                 <td class="text-danger">Неактивно</td>
                             @endif
+                            @can('content')
                             <td>
                                 @can('admin')
                                 <a href="{{ route('admin.parts.attached_parts', ['id'=>$item->id]) }}" {!! tooltip('С этим советуем') !!} class="icon-btn parts"></a>
@@ -41,6 +44,7 @@
                                 <span class="d-inline-block"  style="margin-left:4px;" data-toggle="modal" data-target="#itemDeleteModal"><a href="javascript:void(0)" class="icon-btn delete" {!! tooltip('Удалить') !!}></a></span>
                                 @endcan
                             </td>
+                            @endcan
                         </tr>
                     @endforeach
                     </tbody>

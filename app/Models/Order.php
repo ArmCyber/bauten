@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Zakhayko\Banners\Models\Banner;
 
 class Order extends Model
@@ -27,7 +28,7 @@ class Order extends Model
     ];
 
     public static function getItem($id) {
-        return self::where('id', $id)->with('order_parts')->firstOrFail();
+        return self::where('id', $id)->filterManager()->with('order_parts')->firstOrFail();
     }
 
     public static function getItemSite($id) {
@@ -37,7 +38,18 @@ class Order extends Model
     public static function getOrdersWithStatus($status, $user_id=null){
         $result = self::where('status', $status);
         if($user_id!==null) $result->where('user_id', $user_id);
-        return $result->with(['parts', 'user'])->sort()->get();
+        return $result->filterManager()->with(['parts', 'user'])->sort()->get();
+    }
+
+
+    public function scopeFilterManager($q){
+        $admin = Auth::guard('cms')->user();
+        if ($admin) {
+            return $q->whereHas('user', function($q){
+                $q->filterManager();
+            });
+        }
+        return $q;
     }
 
     public static function userPendingOrdersCount($user_id) {
@@ -66,7 +78,7 @@ class Order extends Model
     }
 
     public static function getCount($status) {
-        return self::where('status', $status)->count();
+        return self::where('status', $status)->filterManager()->count();
     }
 
     public static function getOrderData(){

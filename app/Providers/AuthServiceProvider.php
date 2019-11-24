@@ -41,6 +41,10 @@ class AuthServiceProvider extends ServiceProvider
             return $user->role == config('roles.content');
         });
 
+        Gate::define('manager_content', function ($user) {
+            return in_array($user->role, [config('roles.content'), config('roles.manager'), config('roles.senior_manager')]);
+        });
+
         Gate::define('manager', function ($user) {
             return in_array($user->role, [config('roles.manager'), config('roles.senior_manager')]);
         });

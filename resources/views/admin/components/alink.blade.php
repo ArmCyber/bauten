@@ -13,4 +13,6 @@
         </ul>
     @endif
 </li>
+@else
+    {!! $slot !!}
 @endif

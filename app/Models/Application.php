@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Application extends Model
 {
     public static function adminList(){
-        return self::sort()->get();
+        return self::filterManager()->sort()->get();
     }
 
     public function scopeSort($q){
@@ -15,15 +16,25 @@ class Application extends Model
     }
 
     public static function getItem($id) {
-        return self::findOrFail($id);
+        return self::filterManager()->findOrFail($id);
     }
 
     public static function getUserItems($id) {
-        return self::where('user_id', $id)->sort()->get();
+        return self::filterManager()->where('user_id', $id)->sort()->get();
     }
 
     public static function getCount() {
-        return self::count();
+        return self::filterManager()->count();
+    }
+
+    public function scopeFilterManager($q){
+        $admin = Auth::guard('cms')->user();
+        if ($admin) {
+            return $q->whereHas('user', function($q){
+                $q->filterManager();
+            });
+        }
+        return $q;
     }
 
     public function user(){

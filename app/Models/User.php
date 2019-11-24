@@ -14,6 +14,7 @@ use App\Notifications\ResetPasswordNotification;
 use App\Notifications\VerifiedNotification;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -134,12 +135,21 @@ class User extends Authenticatable
     }
 
     public static function adminList(){
-        return self::with('manager')->sort()->get();
+        return self::filterManager()->with('manager')->sort()->get();
+    }
+
+    public function scopeFilterManager($q){
+        $admin = Auth::guard('cms')->user();
+        if ($admin) {
+            if ($admin->role==config('roles.manager')) return $q->where('manager_id', $admin->id);
+            elseif ($admin->role==config('roles.senior_manager')) return $q->doesnthave('manager');
+        }
+        return $q;
     }
 
     /** @return User */
     public static function getItem($id) {
-        return self::where('id', $id)->with(['manager', 'partner_group'])->firstOrFail();
+        return self::where('id', $id)->filterManager()->with(['manager', 'partner_group'])->firstOrFail();
     }
 
     public function scopeSort($q){

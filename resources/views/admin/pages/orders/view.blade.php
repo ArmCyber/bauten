@@ -108,7 +108,7 @@
                         <tr>
                             <td>{{ $part->code }}</td>
                             <td>
-                                @if($part->part)
+                                @if(Gate::check('admin') && $part->part)
                                     <a href="{{ route('admin.parts.edit', ['id'=>$part->part->id]) }}">{{ $part->name }}</a>
                                 @else
                                     {{ $part->name }}
