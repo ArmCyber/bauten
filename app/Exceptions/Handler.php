@@ -54,8 +54,7 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         if ($exception instanceof AuthorizationException) {
-//            abort(404);
-            dd('AuthorizationException');
+            abort(403);
         }
         else if ($exception instanceof NotFoundHttpException ||
             $exception instanceof MethodNotAllowedHttpException ||

@@ -2,12 +2,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Services\Notify\Facades\Notify;
+use Illuminate\Support\Facades\Gate;
 use Zakhayko\Banners\RenderBanners;
 
 class BannersController extends BaseController
 {
     //region Private
     use RenderBanners;
+
+    public function beforeRender($page) {
+        if (array_key_exists($page, $this->gates) && !Gate::check($this->gates[$page])) abort(403);
+    }
 
     protected function set_image($settings, $input, $banner){
         if (empty($settings['original_file'])) {
@@ -41,6 +46,8 @@ class BannersController extends BaseController
         Notify::get('changes_saved');
     }
     //endregion
+    protected $gates = [
+    ];
 
     protected $settings = [
         'info' => [

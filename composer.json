@@ -44,16 +44,14 @@
     "autoload": {
         "exclude-from-classmap": [
             "vendor/ckfinder/ckfinder-laravel-package/src/CKFinderServiceProvider.php",
-            "vendor/ckfinder/ckfinder-laravel-package/src/Controller/CKFinderController.php",
-            "vendor/symfony/mime/MimeTypes.php"
+            "vendor/ckfinder/ckfinder-laravel-package/src/Controller/CKFinderController.php"
         ],
         "files": [
             "app/Services/helpers.php"
         ],
         "psr-4": {
             "App\\": "app/",
-            "CKSource\\CKFinderBridge\\": "app/Overrides/CKFinderBridge/",
-            "Symfony\\Component\\Mime\\": "app/Overrides/Mime/"
+            "CKSource\\CKFinderBridge\\": "app/Overrides/CKFinderBridge/"
         },
         "classmap": [
             "database/seeds",

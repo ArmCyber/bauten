@@ -28,7 +28,7 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
         Route::get('/', 'AuthController@redirectToHomepage')->name('root');
         //endregion
         //region Banners
-        Route::middleware('can:admin')->match(['get', 'post'], 'banners/{page}', 'BannersController@render')->name('banners');
+        Route::match(['get', 'post'], 'banners/{page}', 'BannersController@render')->name('banners');
         //endregion
         //region Main Page
         Route::get('main', 'AppController@main')->name('main');
@@ -40,7 +40,7 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
         });
         //endregion
         //region Galleries
-        Route::prefix('gallery')->group(function(){ $c='GalleriesController@';
+        Route::middleware('can:content')->prefix('gallery')->group(function(){ $c='GalleriesController@';
             Route::get('{gallery}/{id?}', $c.'show')->name('gallery');
             Route::put('add', $c.'add')->name('gallery.add');
             Route::patch('edit', $c.'edit')->middleware('ajax')->name('gallery.edit');
@@ -49,7 +49,7 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
         });
         //endregion
         //region Pages
-        Route::middleware('can:admin')->prefix('pages')->name('pages.')->group(function() { $c='PagesController@';
+        Route::middleware('can:content')->prefix('pages')->name('pages.')->group(function() { $c='PagesController@';
             Route::get('', $c.'main')->name('main');
             Route::get('add', $c.'addPage')->name('add');
             Route::put('add', $c.'addPage_put');

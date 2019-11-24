@@ -1,8 +1,9 @@
 <?php
 return [
     'operator' => 1,
-    'manager' => 2,
-    'senior_manager' => 3,
-    'admin' => 4,
-    'superadmin' => 5,
+    'content' => 2,
+    'manager' => 3,
+    'senior_manager' => 4,
+    'admin' => 5,
+    'superadmin' => 6,
 ];

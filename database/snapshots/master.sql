@@ -28,12 +28,12 @@ CREATE TABLE `admins` (
   UNIQUE KEY `admins_email_unique` (`email`),
   UNIQUE KEY `admins_phone_unique` (`phone`),
   UNIQUE KEY `admins_code_unique` (`code`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `admins` WRITE;
 /*!40000 ALTER TABLE `admins` DISABLE KEYS */;
-INSERT INTO `admins` VALUES (1,NULL,'Developer','dev@dev.loc','055555555',1,5,'$2y$10$TRhlT00iAMKmgFNjmn7omebe4J9vEcZPYJHloVEUTifozPFhQkTxm',NULL,'2019-10-04 16:49:11','2019-10-11 12:57:53'),(2,NULL,'Administrator','admin@dev.loc','8799999999',1,4,'$2y$10$uNf.p3QYG8joLxREyiLTteYPdJXc5ueXhg.w4saBewY1xJrhi1SgS',NULL,'2019-10-04 16:49:11','2019-10-27 14:51:24'),(3,'4286921','Manager','manager@dev.loc','899999999',1,2,'$2y$10$vznTQeQ5g8M8W6D2gvaFUu/YTPgVrslPL2Tp3p/vVJrMxLWo0VWBC',NULL,'2019-10-04 16:49:11','2019-10-16 13:52:17'),(4,NULL,'Operator','operator@dev.loc','8799999997',1,1,'$2y$10$eD2pYhjIYMLaW7TLD0J1y.otxOlfTbBMjEMXyyxYHeHK2/n0encma',NULL,'2019-10-04 16:49:11','2019-10-11 13:19:20'),(5,NULL,'Старший менеджер','senior_manager@dev.loc','111111111',1,3,'$2y$10$OuwZHTeWAlq8V7LUnfXH4uhsy2K/zgFGIXdmDWIzqHagPbRbyzaH6',NULL,'2019-10-27 14:52:03','2019-10-27 15:00:00');
+INSERT INTO `admins` VALUES (1,NULL,'Developer','dev@dev.loc','055555555',1,6,'$2y$10$TRhlT00iAMKmgFNjmn7omebe4J9vEcZPYJHloVEUTifozPFhQkTxm',NULL,'2019-10-04 16:49:11','2019-10-11 12:57:53'),(2,NULL,'Administrator','admin@dev.loc','8799999999',1,5,'$2y$10$uNf.p3QYG8joLxREyiLTteYPdJXc5ueXhg.w4saBewY1xJrhi1SgS',NULL,'2019-10-04 16:49:11','2019-10-27 14:51:24'),(3,'4286921','Manager','manager@dev.loc','899999999',1,3,'$2y$10$vznTQeQ5g8M8W6D2gvaFUu/YTPgVrslPL2Tp3p/vVJrMxLWo0VWBC',NULL,'2019-10-04 16:49:11','2019-10-16 13:52:17'),(4,NULL,'Operator','operator@dev.loc','8799999997',1,1,'$2y$10$eD2pYhjIYMLaW7TLD0J1y.otxOlfTbBMjEMXyyxYHeHK2/n0encma',NULL,'2019-10-04 16:49:11','2019-10-11 13:19:20'),(5,NULL,'Старший менеджер','senior_manager@dev.loc','111111111',1,4,'$2y$10$OuwZHTeWAlq8V7LUnfXH4uhsy2K/zgFGIXdmDWIzqHagPbRbyzaH6',NULL,'2019-10-27 14:52:03','2019-10-27 15:00:00'),(6,NULL,'Контент менеджер','content@dev.loc','55555555',1,2,'$2y$10$vCsA.FU5c4AcW9aQT7LRZOf4dfwXBosTKrZOwSnpyPsEw3ssqdZjW',NULL,'2019-11-24 09:01:43','2019-11-24 09:01:56');
 /*!40000 ALTER TABLE `admins` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `applications`;

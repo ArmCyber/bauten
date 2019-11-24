@@ -1,3 +1,4 @@
+@if (!isset($can) || Gate::check($can))
 @php $has_sub = !empty($slot->toHtml()) @endphp
 <li class="sidebar-item">
     <a class="sidebar-link waves-effect waves-dark sidebar-link{!! $has_sub?' has-arrow':null !!}" href="{{ !$has_sub?($url??'javascript:void(0)'):'javascript:void(0)' }}" aria-expanded="false"><i class="{{ $icon??null }}"></i><span class="hide-menu">{{ $title??null }}</span>
@@ -12,3 +13,4 @@
         </ul>
     @endif
 </li>
+@endif

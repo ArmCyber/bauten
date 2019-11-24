@@ -25,20 +25,28 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        Gate::before(function ($user, $ability) {
+            if ($user->role >= config('roles.admin')) return true;
+        });
+
+        Gate::define('operator_manager', function($user){
+            return in_array($user->role, [config('roles.operator'), config('roles.manager'), config('roles.senior_manager')]);
+        });
+
         Gate::define('operator', function ($user) {
-            return $user->role != config('roles.manager') && $user->role != config('roles.senior_manager');
+            return $user->role == config('roles.operator');
+        });
+
+        Gate::define('content', function ($user) {
+            return $user->role == config('roles.content');
         });
 
         Gate::define('manager', function ($user) {
-            return $user->role != config('roles.operator') && $user->role != config('roles.senior_manager');
-        });
-
-        Gate::define('senior_manager', function ($user) {
-            return $user->role != config('roles.operator');
+            return in_array($user->role, [config('roles.manager'), config('roles.senior_manager')]);
         });
 
         Gate::define('admin', function ($user) {
-            return $user->role >= config('roles.admin');
+            return false;
         });
     }
 }
