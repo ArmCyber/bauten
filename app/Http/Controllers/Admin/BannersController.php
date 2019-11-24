@@ -47,6 +47,13 @@ class BannersController extends BaseController
     }
     //endregion
     protected $gates = [
+        'info' => 'content',
+        'home' => 'content',
+        'contacts' => 'content',
+        'images' => 'content',
+        'auth' => 'content',
+        'settings' => 'admin',
+        'texts' => 'content',
     ];
 
     protected $settings = [

@@ -17,6 +17,7 @@
                     <input type="text" name="name" class="form-control" placeholder="Название" maxlength="255" value="{{ old('name', $item->name??null) }}">
                 </div>
             </div>
+            @can('admin')
             <div class="card">
                 <div class="c-title">Артикул</div>
                 <div class="little-p">
@@ -66,6 +67,7 @@
                     <input type="text" name="multiplication" class="form-control" placeholder="Кол. в пакете" maxlength="10" value="{{ old('multiplication', $item->multiplication??1) }}">
                 </div>
             </div>
+            @endcan
         </div>
         <div class="col-12 col-lg-6">
             <div class="card">
@@ -80,6 +82,7 @@
                     @labelauty(['id'=>'show_image', 'class'=>'mt-3', 'label'=>'Показать изоброжение', 'checked'=>oldCheck('show_image', ($edit && empty($item->show_image))?false:true)])@endlabelauty
                 </div>
             </div>
+            @can('admin')
             <div class="card">
                 <div class="c-title">Категория</div>
                 <div class="little-p">
@@ -107,11 +110,12 @@
                 <div class="little-p">
                     <select name="engine_id[]" class="select2" style="width:100%;" multiple>
                         @foreach($engines as $engine)
-                            <option value="{{ $engine->id }}" {!! $item->engines->where('id', $engine->id)->first()?'selected':null !!}>{{ $engine->name }}</option>
+                            <option value="{{ $engine->id }}" {!! (isset($item) && $item->engines->where('id', $engine->id)->first())?'selected':null !!}>{{ $engine->name }}</option>
                         @endforeach
                     </select>
                 </div>
             </div>
+            @endcan
             <div class="card px-3 py-2">
                 <div class="row cstm-input">
                     <div class="col-12 p-b-5">
@@ -121,8 +125,10 @@
                         </div>
                     </div>
                 </div>
+                @can('admin')
                 @labelauty(['id'=>'application_only', 'class'=>'mt-2', 'label'=>'Под заказ', 'checked'=>oldCheck('application_only', ($edit && $item->application_only)?true:false)])@endlabelauty
                 @labelauty(['id'=>'active', 'label'=>'Неактивно|Активно', 'checked'=>oldCheck('active', ($edit && empty($item->active))?false:true)])@endlabelauty
+                @endcan
             </div>
         </div>
         <div class="col-12">
@@ -134,12 +140,14 @@
             </div>
         </div>
     </div>
+    @can('admin')
     @bannerBlock(['title'=>'Применяемость по автомобилям'])
     <div id="applicability-rows" class="pb-4"></div>
     <div>
         <button id="add-row" type="button" class="btn btn-success">Добавить</button>
     </div>
     @endbannerBlock
+    @endcan
     {{--
     @bannerBlock(['title'=>'Применяемость по двигателям'])
     <div id="engine-rows" class="pb-4"></div>
@@ -150,6 +158,7 @@
     --}}
     <div class="col-12 save-btn-fixed"><button type="submit"></button></div>
 </form>
+@can('admin')
 <div class="example appl-row row mt-2" style="display: none">
     <div class="col-3">
         <select name="mark_id[]" class="mark_id_select" style="width:100%">
@@ -170,6 +179,7 @@
         <button type="button" class="btn btn-sm btn-danger appl_row_delete">Удалить</button>
     </div>
 </div>
+@endcan
 {{--<div class="example engine-row row mt-2" style="display: none">
     <div class="col-3">
         <select name="engine_mark_id[]" class="mark_id_select" style="width:100%">
@@ -187,6 +197,7 @@
 @push('js')
     @js(aApp('select2/select2.js'))
     @ckeditor
+    @can('admin')
     @js(aAdmin('js/applicability.js'))
 {{--    @js(aAdmin('js/engine_applicability.js'))--}}
     <script>
@@ -194,6 +205,7 @@
         new Applicability({!! $marks->toJson(JSON_UNESCAPED_UNICODE) !!}, {!! session()->has('old_cars')?json_encode(session('old_cars', JSON_UNESCAPED_UNICODE)):(isset($part_cars)?$part_cars->toJson(JSON_UNESCAPED_UNICODE):'false') !!})
 {{--        new EngineApplicability({!! $engine_marks->toJson(JSON_UNESCAPED_UNICODE) !!}, {!! session()->has('old_engines')?json_encode(session('old_engines', JSON_UNESCAPED_UNICODE)):(isset($part_engines)?$part_engines->toJson(JSON_UNESCAPED_UNICODE):'false') !!})--}}
     </script>
+    @endcan
 @endpush
 @push('css')
     @css(aApp('select2/select2.css'))

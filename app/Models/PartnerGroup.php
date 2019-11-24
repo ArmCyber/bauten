@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Gate;
 
 class PartnerGroup extends Model
 {
@@ -17,7 +18,7 @@ class PartnerGroup extends Model
         } else $action = 'edit';
         $model['title'] = $inputs['title'];
         if($action=='add' || $model->id!=1) {
-            $model['sale'] = $inputs['sale'];
+            if (Gate::check('admin')) $model['sale'] = $inputs['sale'];
             $model['terms'] = $inputs['terms'];
         }
         return $model->save();

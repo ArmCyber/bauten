@@ -131,46 +131,46 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
         });
         //endregion
         //region Parts
-        Route::middleware('can:admin')->prefix('parts')->name('parts.')->group(function() { $c = 'PartsController@';
-            Route::get('', $c.'main')->name('main');
-            Route::get('add', $c.'add')->name('add');
-            Route::put('add', $c.'add_put');
-            Route::get('edit/{id}', $c.'edit')->name('edit');
-            Route::patch('edit/{id}', $c.'edit_patch');
-            Route::get('filters/{id}', $c.'filters')->name('filters');
-            Route::patch('filters/{id}', $c.'filters_patch')->name('filters');
-            Route::get('engine-filters/{id}', $c.'engineFilters')->name('engine_filters');
-            Route::patch('engine-filters/{id}', $c.'engineFilters_patch')->name('engine_filters');
-            Route::delete('delete', $c.'delete')->middleware('ajax')->name('delete');
-            Route::get('attached-parts/{id}', $c.'attachedParts')->name('attached_parts');
-            Route::put('attached-parts/add/{id}', $c.'attachedParts_add')->name('attached_parts.add');
-            Route::delete('attached-parts/delete/{id}', $c.'attachedParts_delete')->name('attached_parts.delete');
+        Route::prefix('parts')->name('parts.')->group(function() { $c = 'PartsController@';
+            Route::middleware('can:content')->get('', $c.'main')->name('main');
+            Route::middleware('can:admin')->get('add', $c.'add')->name('add');
+            Route::middleware('can:admin')->put('add', $c.'add_put');
+            Route::middleware('can:content')->get('edit/{id}', $c.'edit')->name('edit');
+            Route::middleware('can:content')->patch('edit/{id}', $c.'edit_patch');
+            Route::middleware('can:admin')->get('filters/{id}', $c.'filters')->name('filters');
+            Route::middleware('can:admin')->patch('filters/{id}', $c.'filters_patch')->name('filters');
+            Route::middleware('can:admin')->get('engine-filters/{id}', $c.'engineFilters')->name('engine_filters');
+            Route::middleware('can:admin')->patch('engine-filters/{id}', $c.'engineFilters_patch')->name('engine_filters');
+            Route::middleware('can:admin')->delete('delete', $c.'delete')->middleware('ajax')->name('delete');
+            Route::middleware('can:admin')->get('attached-parts/{id}', $c.'attachedParts')->name('attached_parts');
+            Route::middleware('can:admin')->put('attached-parts/add/{id}', $c.'attachedParts_add')->name('attached_parts.add');
+            Route::middleware('can:admin')->delete('attached-parts/delete/{id}', $c.'attachedParts_delete')->name('attached_parts.delete');
         });
         //endregion
         //region Brands
-        Route::middleware('can:admin')->prefix('brands')->name('brands.')->group(function() { $c = 'BrandsController@';
-            Route::get('', $c.'main')->name('main');
-            Route::get('add', $c.'add')->name('add');
-            Route::put('add', $c.'add_put');
-            Route::get('edit/{id}', $c.'edit')->name('edit');
-            Route::patch('edit/{id}', $c.'edit_patch');
-            Route::delete('delete', $c.'delete')->middleware('ajax')->name('delete');
-            Route::patch('sort', $c.'sort')->middleware('ajax')->name('sort');
+        Route::prefix('brands')->name('brands.')->group(function() { $c = 'BrandsController@';
+            Route::middleware('can:content')->get('', $c.'main')->name('main');
+            Route::middleware('can:admin')->get('add', $c.'add')->name('add');
+            Route::middleware('can:admin')->put('add', $c.'add_put');
+            Route::middleware('can:content')->get('edit/{id}', $c.'edit')->name('edit');
+            Route::middleware('can:content')->patch('edit/{id}', $c.'edit_patch');
+            Route::middleware('can:admin')->delete('delete', $c.'delete')->middleware('ajax')->name('delete');
+            Route::middleware('can:content')->patch('sort', $c.'sort')->middleware('ajax')->name('sort');
         });
         //endregion
         //region Part Catalogs
-        Route::middleware('can:admin')->prefix('part-catalogs')->name('part_catalogs.')->group(function() { $c = 'PartCatalogsController@';
-            Route::get('', $c.'main')->name('main');
-            Route::get('add', $c.'add')->name('add');
-            Route::put('add', $c.'add_put');
-            Route::get('edit/{id}', $c.'edit')->name('edit');
-            Route::patch('edit/{id}', $c.'edit_patch');
-            Route::delete('delete', $c.'delete')->middleware('ajax')->name('delete');
-            Route::patch('sort', $c.'sort')->middleware('ajax')->name('sort');
+        Route::prefix('part-catalogs')->name('part_catalogs.')->group(function() { $c = 'PartCatalogsController@';
+            Route::middleware('can:content')->get('', $c.'main')->name('main');
+            Route::middleware('can:admin')->get('add', $c.'add')->name('add');
+            Route::middleware('can:admin')->put('add', $c.'add_put');
+            Route::middleware('can:content')->get('edit/{id}', $c.'edit')->name('edit');
+            Route::middleware('can:content')->patch('edit/{id}', $c.'edit_patch');
+            Route::middleware('can:admin')->delete('delete', $c.'delete')->middleware('ajax')->name('delete');
+            Route::middleware('can:content')->patch('sort', $c.'sort')->middleware('ajax')->name('sort');
         });
         //endregion
         //region Home Slider
-        Route::middleware('can:admin')->prefix('home-slider')->name('home_slider.')->group(function() { $c = 'HomeSliderController@';
+        Route::middleware('can:content')->prefix('home-slider')->name('home_slider.')->group(function() { $c = 'HomeSliderController@';
             Route::get('', $c.'main')->name('main');
             Route::get('add', $c.'add')->name('add');
             Route::put('add', $c.'add_put');
@@ -203,7 +203,7 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
         });
         //endregion
         //region Terms
-        Route::middleware('can:admin')->prefix('terms')->name('terms.')->group(function() { $c = 'TermsController@';
+        Route::middleware('can:content')->prefix('terms')->name('terms.')->group(function() { $c = 'TermsController@';
             Route::get('', $c.'main')->name('main');
             Route::get('add', $c.'add')->name('add');
             Route::put('add', $c.'add_put');
@@ -214,7 +214,7 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
         });
         //endregion
         //region News
-        Route::middleware('can:admin')->prefix('news')->name('news.')->group(function() { $c = 'NewsController@';
+        Route::middleware('can:content')->prefix('news')->name('news.')->group(function() { $c = 'NewsController@';
             Route::get('', $c.'main')->name('main');
             Route::get('add', $c.'add')->name('add');
             Route::put('add', $c.'add_put');
@@ -224,24 +224,24 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
         });
         //endregion
         //region Groups
-        Route::middleware('can:admin')->prefix('groups')->name('groups.')->group(function() { $c = 'GroupsController@';
-            Route::get('', $c.'main')->name('main');
-            Route::get('add', $c.'add')->name('add');
-            Route::put('add', $c.'add_put');
-            Route::get('edit/{id}', $c.'edit')->name('edit');
-            Route::patch('edit/{id}', $c.'edit_patch');
-            Route::delete('delete', $c.'delete')->middleware('ajax')->name('delete');
-            Route::patch('sort', $c.'sort')->middleware('ajax')->name('sort');
+        Route::prefix('groups')->name('groups.')->group(function() { $c = 'GroupsController@';
+            Route::middleware('can:content')->get('', $c.'main')->name('main');
+            Route::middleware('can:admin')->get('add', $c.'add')->name('add');
+            Route::middleware('can:admin')->put('add', $c.'add_put');
+            Route::middleware('can:content')->get('edit/{id}', $c.'edit')->name('edit');
+            Route::middleware('can:content')->patch('edit/{id}', $c.'edit_patch');
+            Route::middleware('can:admin')->delete('delete', $c.'delete')->middleware('ajax')->name('delete');
+            Route::middleware('can:content')->patch('sort', $c.'sort')->middleware('ajax')->name('sort');
         });
         //endregion
         //region Partner Groups
-        Route::middleware('can:admin')->prefix('partner-groups')->name('partner_groups.')->group(function() { $c = 'PartnerGroupsController@';
-            Route::get('', $c.'main')->name('main');
-            Route::get('add', $c.'add')->name('add');
-            Route::put('add', $c.'add_put');
-            Route::get('edit/{id}', $c.'edit')->name('edit');
-            Route::patch('edit/{id}', $c.'edit_patch');
-            Route::delete('delete', $c.'delete')->name('delete');
+        Route::prefix('partner-groups')->name('partner_groups.')->group(function() { $c = 'PartnerGroupsController@';
+            Route::middleware('can:content')->get('', $c.'main')->name('main');
+            Route::middleware('can:admin')->get('add', $c.'add')->name('add');
+            Route::middleware('can:admin')->put('add', $c.'add_put');
+            Route::middleware('can:content')->get('edit/{id}', $c.'edit')->name('edit');
+            Route::middleware('can:content')->patch('edit/{id}', $c.'edit_patch');
+            Route::middleware('can:admin')->delete('delete', $c.'delete')->name('delete');
         });
         //endregion
         //region Engine Filters

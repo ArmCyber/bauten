@@ -17,6 +17,7 @@
                     <input type="text" name="title" class="form-control" placeholder="Название" maxlength="255" value="{{ old('title', $item->title??null) }}">
                 </div>
             </div>
+            @can('admin')
             @if(!$edit || $item->id!=1)
                 <div class="card">
                     <div class="c-title">Скидка (%)</div>
@@ -25,6 +26,7 @@
                     </div>
                 </div>
             @endif
+            @endcan
         </div>
         <div class="col-12 col-lg-6">
             @if(!$edit || $item->id!=1)

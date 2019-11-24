@@ -14,6 +14,7 @@ use App\Models\PartCar;
 use App\Models\PartCatalog;
 use App\Services\Notify\Facades\Notify;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
@@ -178,21 +179,23 @@ class PartsController extends BaseController
         $request->merge(['url' => $inputs['url']]);
         $rules = [
             'name' => 'nullable|string|max:255',
-            'code' => 'required|integer|digits_between:1,255|unique:parts,code'.$unique,
             'image' => 'nullable|image',
-            'part_catalog_id' => 'required|integer|exists:part_catalogs,id',
-            'brand_id' => 'required|integer|exists:brands,id',
-            'generated_url'=>'required_with:generate_url|string|nullable',
-            'price' => 'required|numeric|between:1,1000000000',
-            'sale' => 'nullable|numeric|between:1,1000000000|gt:price',
-            'count_sale_count' => 'nullable|required_with:count_sale_percent|numeric|between:1,9999',
-            'count_sale_percent' => 'nullable|required_with:count_sale_count|numeric|between:1,100',
-            'available' => 'nullable|integer|digits_between:1,10',
-            'min_count' => 'required|numeric|between:1,1000000000',
-            'multiplication' => 'required|numeric|between:1,1000000000',
-            'oem' => 'nullable|string|max:255|unique:parts,oem'.$unique,
             'description' => 'nullable|string',
         ];
+        if (Gate::check('admin')) {
+            $rules['code'] = 'required|integer|digits_between:1,255|unique:parts,code'.$unique;
+            $rules['part_catalog_id'] = 'required|integer|exists:part_catalogs,id';
+            $rules['brand_id'] = 'required|integer|exists:brands,id';
+            $rules['generated_url'] = 'required_with:generate_url|string|nullable';
+            $rules['price'] = 'required|numeric|between:1,1000000000';
+            $rules['sale'] = 'nullable|numeric|between:1,1000000000|gt:price';
+            $rules['count_sale_count'] = 'nullable|required_with:count_sale_percent|numeric|between:1,9999';
+            $rules['count_sale_percent'] = 'nullable|required_with:count_sale_count|numeric|between:1,100';
+            $rules['available'] = 'nullable|integer|digits_between:1,10';
+            $rules['min_count'] = 'required|numeric|between:1,1000000000';
+            $rules['multiplication'] = 'required|numeric|between:1,1000000000';
+            $rules['oem'] = 'nullable|string|max:255|unique:parts,oem'.$unique;
+        }
         if (empty($inputs['generate_url'])) {
             $rules['url'] = 'required|is_url|string|max:255|unique:part_catalogs,url'.$unique;
         }
@@ -202,28 +205,30 @@ class PartsController extends BaseController
             'count_sale_percent' => 'Процент скидки',
         ]);
         if ($validator->fails()) {
-            if (!empty($inputs['mark_id'])) {
-                $old_cars = [];
-                foreach($inputs['mark_id'] as $i=>$e){
-                    if ($e==0) continue;
-                    $old_cars[] = [
-                        'mark_id' => $e,
-                        'model_id' => $inputs['model_id'][$i],
-                        'generation_id' => $inputs['generation_id'][$i],
-                    ];
+            if (Gate::check('admin')) {
+                if (!empty($inputs['mark_id'])) {
+                    $old_cars = [];
+                    foreach($inputs['mark_id'] as $i=>$e){
+                        if ($e==0) continue;
+                        $old_cars[] = [
+                            'mark_id' => $e,
+                            'model_id' => $inputs['model_id'][$i],
+                            'generation_id' => $inputs['generation_id'][$i],
+                        ];
+                    }
+                    if (count($old_cars)) session()->flash('old_cars', $old_cars);
                 }
-                if (count($old_cars)) session()->flash('old_cars', $old_cars);
-            }
-            if (!empty($inputs['engine_mark_id'])) {
-                $old_engines = [];
-                foreach($inputs['engine_mark_id'] as $i=>$e){
-                    if ($e==0) continue;
-                    $old_engines[] = [
-                        'mark_id' => $e,
-                        'engine_id' => $inputs['engine_id'][$i],
-                    ];
+                if (!empty($inputs['engine_mark_id'])) {
+                    $old_engines = [];
+                    foreach($inputs['engine_mark_id'] as $i=>$e){
+                        if ($e==0) continue;
+                        $old_engines[] = [
+                            'mark_id' => $e,
+                            'engine_id' => $inputs['engine_id'][$i],
+                        ];
+                    }
+                    if (count($old_engines)) session()->flash('old_engines', $old_engines);
                 }
-                if (count($old_engines)) session()->flash('old_engines', $old_engines);
             }
             throw new ValidationException($validator);
         }

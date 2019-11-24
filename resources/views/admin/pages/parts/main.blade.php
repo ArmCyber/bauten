@@ -1,5 +1,7 @@
 @extends('admin.layouts.app')
+@can('admin')
 @section('titleSuffix')| <a href="{!! route('admin.parts.add') !!}" class="text-cyan"><i class="mdi mdi-plus-box"></i> добавить</a>@endsection
+@endcan
 @section('content')
     @if(count($items))
         <div class="card">
@@ -28,12 +30,16 @@
                                 <td class="text-danger">Неактивно</td>
                             @endif
                             <td>
+                                @can('admin')
                                 <a href="{{ route('admin.parts.attached_parts', ['id'=>$item->id]) }}" {!! tooltip('С этим советуем') !!} class="icon-btn parts"></a>
                                 <a href="{{ route('admin.parts.filters', ['id'=>$item->id]) }}" {!! tooltip('Фильтры') !!} class="icon-btn filters"></a>
 {{--                                <a href="{{ route('admin.parts.engine_filters', ['id'=>$item->id]) }}" {!! tooltip('Фильтры двигателя') !!} class="icon-btn filters-alt"></a>--}}
                                 <a href="{{ route('admin.gallery', ['gallery'=>'parts', 'id'=>$item->id]) }}" {!! tooltip('Галерея') !!} class="icon-btn gallery"></a>
+                                @endcan
                                 <a href="{{ route('admin.parts.edit', ['id'=>$item->id]) }}" {!! tooltip('Редактировать') !!} class="icon-btn edit"></a>
+                                @can('admin')
                                 <span class="d-inline-block"  style="margin-left:4px;" data-toggle="modal" data-target="#itemDeleteModal"><a href="javascript:void(0)" class="icon-btn delete" {!! tooltip('Удалить') !!}></a></span>
+                                @endcan
                             </td>
                         </tr>
                     @endforeach

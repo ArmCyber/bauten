@@ -7,6 +7,7 @@ use App\Http\Traits\InsertOrUpdate;
 use App\Http\Traits\UrlUnique;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Gate;
 
 class Part extends Model
 {
@@ -33,30 +34,34 @@ class Part extends Model
             $ignore = $model->id;
         }
         $model['name'] = $inputs['name'];
-        $model['code'] = $inputs['code'];
-        $model['price'] = $inputs['price'];
-        $model['sale'] = $inputs['sale'];
-        $model['count_sale_count'] = $inputs['count_sale_count'];
-        $model['count_sale_percent'] = $inputs['count_sale_percent'];
-        $model['available'] = $inputs['available'];
-        $model['min_count'] = $inputs['min_count'];
-        $model['multiplication'] = $inputs['multiplication'];
-        $model['oem'] = $inputs['oem'];
         $model['description'] = $inputs['description'];
-        $model['part_catalog_id'] = $inputs['part_catalog_id'];
-        $model['brand_id'] = $inputs['brand_id'];
-        $model['url'] = self::actionUrl($inputs, $ignore);
-        $model['application_only'] = (int) array_key_exists('application_only', $inputs);
-        $model['active'] = (int) array_key_exists('active', $inputs);
-        $model['show_image'] = (int) array_key_exists('show_image', $inputs);
         if($image = upload_file('image', 'u/parts/', ($ignore && !empty($model->image))?$model->image:false)) $model->image = $image;
-        $model->save();
-        PartCar::sync($model->id, $inputs['mark_id']??[], $inputs['model_id']??[], $inputs['generation_id']??[], (bool) $ignore);
-        if (array_key_exists('engine_id', $inputs) && is_array($inputs['engine_id'])) {
-            $engines = Engine::whereIn('id', $inputs['engine_id'])->pluck('id')->toArray();
+        $model['show_image'] = (int) array_key_exists('show_image', $inputs);
+        $model['url'] = self::actionUrl($inputs, $ignore);
+        if (Gate::check('admin')) {
+            $model['code'] = $inputs['code'];
+            $model['price'] = $inputs['price'];
+            $model['sale'] = $inputs['sale'];
+            $model['count_sale_count'] = $inputs['count_sale_count'];
+            $model['count_sale_percent'] = $inputs['count_sale_percent'];
+            $model['available'] = $inputs['available'];
+            $model['min_count'] = $inputs['min_count'];
+            $model['multiplication'] = $inputs['multiplication'];
+            $model['oem'] = $inputs['oem'];
+            $model['part_catalog_id'] = $inputs['part_catalog_id'];
+            $model['brand_id'] = $inputs['brand_id'];
+            $model['application_only'] = (int) array_key_exists('application_only', $inputs);
+            $model['active'] = (int) array_key_exists('active', $inputs);
         }
-        else $engines = [];
-        $model->engines()->sync($engines);
+        $model->save();
+        if (Gate::check('admin')) {
+            PartCar::sync($model->id, $inputs['mark_id']??[], $inputs['model_id']??[], $inputs['generation_id']??[], (bool) $ignore);
+            if (array_key_exists('engine_id', $inputs) && is_array($inputs['engine_id'])) {
+                $engines = Engine::whereIn('id', $inputs['engine_id'])->pluck('id')->toArray();
+            }
+            else $engines = [];
+            $model->engines()->sync($engines);
+        }
         return true;
     }
 

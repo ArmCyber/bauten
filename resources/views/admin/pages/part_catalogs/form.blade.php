@@ -17,18 +17,20 @@
                         <input type="text" name="name" class="form-control" placeholder="Имя" maxlength="255" value="{{ old('name', $item->name??null) }}">
                     </div>
                 </div>
+                @can('admin')
                 <div class="card">
                     <div class="c-title">Группа</div>
                     <div class="little-p">
                         <select name="group_id" class="select2" style="width:100%;">
                             @php $selected_group = old('group_id', $item->group_id??null) @endphp
-                            <option value="">Не привязать</option>
+{{--                            <option value="">Не привязать</option>--}}
                             @foreach($groups as $group)
                                 <option value="{{ $group->id }}" {!! $group->id==$selected_group?'selected':null !!}>{{ $group->name }}</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
+                @endcan
                 <div class="card px-3 py-2">
                     <div class="row cstm-input">
                         <div class="col-12 p-b-5">
@@ -62,7 +64,7 @@
                     <div class="c-title">На главной</div>
                     <div class="little-p">
                         @labelauty(['id'=>'in_home', 'label'=>'Не показано|Показано', 'checked'=>oldCheck('in_home', ($edit && !empty($item->in_home))?true:false)])@endlabelauty
-                        <p class="text-danger font-12">Категория на главной не будет показано если у него нет изоброжение.</p>
+                        <p class="text-danger font-12">Категория на главной не будет показано если у нее нет изоброжение.</p>
                     </div>
                 </div>
             </div>

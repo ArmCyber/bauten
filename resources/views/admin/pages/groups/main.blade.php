@@ -1,5 +1,7 @@
 @extends('admin.layouts.app')
+@can('admin')
 @section('titleSuffix')| <a href="{!! route('admin.groups.add') !!}" class="text-cyan"><i class="mdi mdi-plus-box"></i> добавить</a>@endsection
+@endcan
 @section('content')
     @if(count($items))
         <div class="card">
@@ -18,9 +20,13 @@
                             <td class="item-title">{{ $item->name}}</td>
                             <td>{{ $item->catalogs_count }}</td>
                             <td>
+                                @can('admin')
                                 <a href="{{ route('admin.filters.main', ['id'=>$item->id]) }}" {!! tooltip('Фильтры') !!} class="icon-btn filters"></a>
+                                @endcan
                                 <a href="{{ route('admin.groups.edit', ['id'=>$item->id]) }}" {!! tooltip('Редактировать') !!} class="icon-btn edit"></a>
+                                @can('admin')
                                 <span class="d-inline-block"  style="margin-left:4px;" data-toggle="modal" data-target="#itemDeleteModal"><a href="javascript:void(0)" class="icon-btn delete" {!! tooltip('Удалить') !!}></a></span>
+                                @endcan
                             </td>
                         </tr>
                     @endforeach

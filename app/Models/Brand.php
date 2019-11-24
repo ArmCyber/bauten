@@ -7,6 +7,7 @@ use App\Http\Traits\UrlUnique;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Gate;
 
 class Brand extends Model
 {
@@ -64,7 +65,7 @@ class Brand extends Model
         $model['seo_title'] = $inputs['seo_title'];
         $model['seo_keywords'] = $inputs['seo_keywords'];
         $model['seo_description'] = $inputs['seo_description'];
-        $model['active'] = (int) array_key_exists('active', $inputs);
+        if (Gate::check('admin')) $model['active'] = (int) array_key_exists('active', $inputs);
         $model['in_home'] = (int) array_key_exists('in_home', $inputs);
         $model['url'] = self::actionUrl($inputs, $ignore);
 //        $resizes = [

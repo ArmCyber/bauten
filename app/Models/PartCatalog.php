@@ -6,6 +6,7 @@ use App\Http\Traits\Sortable;
 use App\Http\Traits\UrlUnique;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class PartCatalog extends Model
 {
@@ -27,7 +28,7 @@ class PartCatalog extends Model
         $model['image_alt'] = $inputs['image_alt'];
         $model['image_title'] = $inputs['image_title'];
         $model['in_home'] = (int) array_key_exists('in_home', $inputs);
-        $model['group_id'] = $inputs['group_id']?:null;
+        if (Gate::check('admin')) $model['group_id'] = $inputs['group_id'];
         $resizes = [
             [
                 'method'=>'resize',

@@ -35,7 +35,7 @@ class PartnerGroupsController extends BaseController
     }
 
     public function edit($id){
-        $data = ['title'=>'Редактирование Года', 'edit'=>true];
+        $data = ['title'=>'Редактирование группы партнеров', 'edit'=>true];
         $data['back_url'] = route('admin.partner_groups.main');
         $data['item'] = PartnerGroup::getItem($id);
         return view('admin.pages.partner_groups.form', $data);
