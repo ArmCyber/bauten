@@ -267,43 +267,43 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
         });
         //endregion
         //region Users
-        Route::middleware('can:admin')->prefix('users')->name('users.')->group(function() { $c = 'UsersController@';
-            Route::get('', $c.'main')->name('main');
-            Route::get('view/{id}', $c.'view')->name('view');
-            Route::patch('change-manager', $c.'changeManager')->name('change_manager');
-            Route::patch('change-partner-group', $c.'changePartnerGroup')->name('change_partner_group');
-            Route::patch('change-status', $c.'changeStatus')->name('change_status');
-            Route::patch('change-password', $c.'changePassword')->name('change_password');
-            Route::delete('delete', $c.'delete')->name('delete');
-            Route::get('recommended-parts/{id}', $c.'recommendedParts')->name('recommended_parts');
-            Route::put('recommended-parts/add/{id}', $c.'recommendedParts_add')->name('recommended_parts.add');
-            Route::delete('recommended-parts/delete/{id}', $c.'recommendedParts_delete')->name('recommended_parts.delete');
-            Route::get('favourites/{id}', $c.'favourites')->name('favourites');
-            Route::get('basket-parts/{id}', $c.'basketParts')->name('basket_parts');
-            Route::get('restricted-brands/{id}', $c.'restrictedBrands')->name('restricted_brands');
-            Route::put('restricted-brands/add/{id}', $c.'restrictedBrands_add')->name('restricted_brands.add');
-            Route::delete('restricted-brands/delete/{id}', $c.'restrictedBrands_delete')->name('restricted_brands.delete');
+        Route::prefix('users')->name('users.')->group(function() { $c = 'UsersController@';
+            Route::middleware('can:operator_manager')->get('', $c.'main')->name('main');
+            Route::middleware('can:operator_manager')->get('view/{id}', $c.'view')->name('view');
+            Route::middleware('can:admin')->patch('change-manager', $c.'changeManager')->name('change_manager');
+            Route::middleware('can:operator_manager')->patch('change-partner-group', $c.'changePartnerGroup')->name('change_partner_group');
+            Route::middleware('can:admin')->patch('change-status', $c.'changeStatus')->name('change_status');
+            Route::middleware('can:admin')->patch('change-password', $c.'changePassword')->name('change_password');
+            Route::middleware('can:admin')->delete('delete', $c.'delete')->name('delete');
+            Route::middleware('can:admin')->get('recommended-parts/{id}', $c.'recommendedParts')->name('recommended_parts');
+            Route::middleware('can:admin')->put('recommended-parts/add/{id}', $c.'recommendedParts_add')->name('recommended_parts.add');
+            Route::middleware('can:admin')->delete('recommended-parts/delete/{id}', $c.'recommendedParts_delete')->name('recommended_parts.delete');
+            Route::middleware('can:operator_manager')->get('favourites/{id}', $c.'favourites')->name('favourites');
+            Route::middleware('can:operator_manager')->get('basket-parts/{id}', $c.'basketParts')->name('basket_parts');
+            Route::middleware('can:admin')->get('restricted-brands/{id}', $c.'restrictedBrands')->name('restricted_brands');
+            Route::middleware('can:admin')->put('restricted-brands/add/{id}', $c.'restrictedBrands_add')->name('restricted_brands.add');
+            Route::middleware('can:admin')->delete('restricted-brands/delete/{id}', $c.'restrictedBrands_delete')->name('restricted_brands.delete');
         });
         //endregion
         //region Orders
-        Route::middleware('can:admin')->prefix('orders')->name('orders.')->group(function() { $c = 'OrdersController@';
-            Route::get('new', $c.'newOrders')->name('new');
-            Route::get('pending', $c.'pendingOrders')->name('pending');
-            Route::get('done', $c.'doneOrders')->name('done');
-            Route::get('declined', $c.'declinedOrders')->name('declined');
-            Route::get('view/{id}', $c.'view')->name('view');
-            Route::delete('delete', $c.'delete')->name('delete');
-            Route::patch('respond/{id}', $c.'respond')->name('respond');
-            Route::patch('change-process/{id}', $c.'changeProcess')->name('change_process');
-            Route::get('user/{id}/{status}', $c.'userOrders')->name('user');
+        Route::prefix('orders')->name('orders.')->group(function() { $c = 'OrdersController@';
+            Route::middleware('can:operator_manager')->get('new', $c.'newOrders')->name('new');
+            Route::middleware('can:operator_manager')->get('pending', $c.'pendingOrders')->name('pending');
+            Route::middleware('can:operator_manager')->get('done', $c.'doneOrders')->name('done');
+            Route::middleware('can:operator_manager')->get('declined', $c.'declinedOrders')->name('declined');
+            Route::middleware('can:operator_manager')->get('view/{id}', $c.'view')->name('view');
+            Route::middleware('can:admin')->delete('delete', $c.'delete')->name('delete');
+            Route::middleware('can:operator_manager')->patch('respond/{id}', $c.'respond')->name('respond');
+            Route::middleware('can:operator_manager')->patch('change-process/{id}', $c.'changeProcess')->name('change_process');
+            Route::middleware('can:operator_manager')->get('user/{id}/{status}', $c.'userOrders')->name('user');
         });
         //endregion
         //region Applications
-        Route::middleware('can:admin')->prefix('applications')->name('applications.')->group(function() { $c = 'ApplicationsController@';
-            Route::get('', $c.'main')->name('main');
-            Route::get('user/{id}', $c.'userApplications')->name('user');
-            Route::get('view/{id}', $c.'view')->name('view');
-            Route::delete('delete', $c.'delete')->name('delete');
+        Route::prefix('applications')->name('applications.')->group(function() { $c = 'ApplicationsController@';
+            Route::middleware('can:operator_manager')->get('', $c.'main')->name('main');
+            Route::middleware('can:operator_manager')->get('user/{id}', $c.'userApplications')->name('user');
+            Route::middleware('can:operator_manager')->get('view/{id}', $c.'view')->name('view');
+            Route::middleware('can:admin')->delete('delete', $c.'delete')->name('delete');
         });
         //endregion
         //region Pickup Points

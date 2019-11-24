@@ -1,3 +1,4 @@
+@if (!isset($can) || Gate::check($can))
 <div class="modal fade" id="{!! $id !!}" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog {!! !empty($centered)?'modal-dialog-centered':null !!} {!! $dialog_class??null !!}" role="document">
         <div class="modal-content position-relative">
@@ -26,3 +27,4 @@
         </div>
     </div>
 </div>
+@endif

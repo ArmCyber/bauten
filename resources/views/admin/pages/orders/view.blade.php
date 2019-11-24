@@ -145,18 +145,18 @@
                     </tbody>
                 </table>
             </div>
-            @if($item->status_type=='new' || $item->status_type=='declined')
+            @if(Gate::check('admin') && ($item->status_type=='new' || $item->status_type=='declined'))
                 <div class="pt-5"><button class="btn btn-outline-danger mr-1" data-toggle="modal" data-target="#deleteUserModal">Удалить заказ</button></div>
+                @push('modals')
+                    @modal(['id'=>'deleteUserModal', 'saveBtn'=>'УДАЛИТЬ НАВСЕГДА', 'saveBtnClass'=>'btn-danger', 'closeBtn' => 'Отменить', 'centered'=>true,
+                    'form'=>['method'=>'post','action'=>route('admin.orders.delete')]])
+                    @slot('title')<span class="text-danger font-weight-bold">УДАЛЕНИЕ ЗАКАЗА</span>@endslot
+                    <input type="hidden" name="id" value="{{ $item->id }}">
+                    @csrf @method('delete')
+                    <p>Вы дейстительно хотите <span class="text-danger font-weight-bold">УДАЛИТЬ ЗАКАЗ НАВСЕГДА</span>?</p>
+                    @endmodal
+                @endpush
             @endif
-            @push('modals')
-                @modal(['id'=>'deleteUserModal', 'saveBtn'=>'УДАЛИТЬ НАВСЕГДА', 'saveBtnClass'=>'btn-danger', 'closeBtn' => 'Отменить', 'centered'=>true,
-                'form'=>['method'=>'post','action'=>route('admin.orders.delete')]])
-                @slot('title')<span class="text-danger font-weight-bold">УДАЛЕНИЕ ЗАКАЗА</span>@endslot
-                <input type="hidden" name="id" value="{{ $item->id }}">
-                @csrf @method('delete')
-                <p>Вы дейстительно хотите <span class="text-danger font-weight-bold">УДАЛИТЬ ЗАКАЗ НАВСЕГДА</span>?</p>
-                @endmodal
-            @endpush
         </div>
     </div>
     @stack('modals')

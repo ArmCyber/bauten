@@ -22,6 +22,10 @@ class Application extends Model
         return self::where('user_id', $id)->sort()->get();
     }
 
+    public static function getCount() {
+        return self::count();
+    }
+
     public function user(){
         return $this->belongsTo('App\Models\User');
     }

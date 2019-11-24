@@ -5,7 +5,11 @@
             <div class="view-line"><span class="view-label">ФИО:</span> {{ $item->name??'-' }}</div>
 {{--            <div class="view-line"><span class="view-label">Фамилия:</span> {{ $item->last_name??'-' }}</div>--}}
             <div class="view-line"><span class="view-label">Эл.почта:</span> {{ $item->email }} @if($item->verification) <span class="text-danger">(не подтверждена)</span> @else <span class="text-success">(подтверждена)</span> @endif</div>
-            <div class="view-line"><span class="view-label">Менеджер:</span> @if($item->manager) <a href="{{ route('admin.admins.edit', ['id'=>$item->manager->id]) }}">{{ $item->manager->email }}</a> @else нет @endif <a href="javascript:void(0)" class="icon-btn edit" data-id="{{ $item->manager->id??'0' }}" data-toggle="modal" data-target="#changeManagerModal"></a></div>
+            @if(Gate::check('admin'))
+                <div class="view-line"><span class="view-label">Менеджер:</span> @if($item->manager) <a href="{{ route('admin.admins.edit', ['id'=>$item->manager->id]) }}">{{ $item->manager->email }}</a> @else не привязан @endif <a href="javascript:void(0)" class="icon-btn edit" data-id="{{ $item->manager->id??'0' }}" data-toggle="modal" data-target="#changeManagerModal"></a></div>
+            @else
+                <div class="view-line"><span class="view-label">Менеджер:</span> @if($item->manager) {{ $item->manager->email }} @else не привязан @endif</div>
+            @endif
             @if($item->individual_sale)
                 <div class="view-line"><span class="view-label">Индивидуальная скидка:</span> {{ $item->individual_sale }}% <a href="javascript:void(0)" class="icon-btn edit" data-toggle="modal" data-target="#changePartnerGroupModal"></a></div>
             @else
@@ -23,10 +27,13 @@
             <div class="view-line"><span class="view-label">Телефон:</span> {{ $item->phone??'-' }}</div>
             <div class="view-line"><span class="view-label">Дата регистрации:</span> {{ $item->created_at->format('d.m.Y H:i') }}</div>
             <div class="view-line"><span class="view-label">Статус:</span> {{ $item->status_name }}</div>
+            @can('manager')
             <div class="view-line"><a href="javascript:void(0)" data-toggle="modal" data-target="#passwordResetModal">Сбросить пароль</a></div>
+            @endcan
             <div class="view-line"><a href="{{ route('admin.users.favourites', ['id'=>$item->id]) }}">Посмотреть сохраненные товары ({{ count($item->all_favourites) }})</a></div>
             <div class="view-line"><a href="{{ route('admin.users.basket_parts', ['id'=>$item->id]) }}">Посмотреть товары в корзине ({{ count($basket_parts) }})</a></div>
             <div class="view-line"><a href="{{ route('admin.applications.user', ['id'=>$item->id]) }}">Посмотреть заявки ({{ count($applications) }})</a></div>
+            @can('manager')
             <div class="pt-2">
                 @if($item->status!=\App\Models\User::STATUS_BLOCKED)
                     <button class="btn btn-danger mr-1" data-toggle="modal" data-target="#blockUserModal">Блокировать</button>
@@ -60,6 +67,7 @@
                         @endpush
                 @endif
             </div>
+            @endcan
             <div class="pt-4">
                 <div class="h4">Заказы пользователя</div>
                 <div class="py-2">
@@ -81,11 +89,13 @@
                     @endif
                 </div>
             </div>
+            @can('admin')
             <div class="pt-5"><button class="btn btn-outline-danger mr-1" data-toggle="modal" data-target="#deleteUserModal">УДАЛИТЬ ПРОФИЛЬ НАВСЕГДА</button></div>
+            @endcan
         </div>
     </div>
     @stack('modals')
-    @modal(['id'=>'changeManagerModal', 'saveBtn'=>'Сохранить', 'closeBtn' => 'Отменить', 'centered'=>true,
+    @modal(['can'=>'admin', 'id'=>'changeManagerModal', 'saveBtn'=>'Сохранить', 'closeBtn' => 'Отменить', 'centered'=>true,
         'form'=>['method'=>'post','action'=>route('admin.users.change_manager')]])
         @slot('title')Изменение менеджера@endslot
         <input type="hidden" name="id" value="{{ $item->id }}">
@@ -113,7 +123,7 @@
         </div>
         <div class="pt-3"><label><input type="checkbox" style="width:20px; height:20px; vertical-align: text-top" value="1" name="notify" checked> Отправить оповищение пользователю</label></div>
     @endmodal
-    @modal(['id'=>'passwordResetModal', 'saveBtn'=>'Сохранить', 'closeBtn' => 'Отменить', 'centered'=>true,
+    @modal(['can'=>'admin', 'id'=>'passwordResetModal', 'saveBtn'=>'Сохранить', 'closeBtn' => 'Отменить', 'centered'=>true,
         'form'=>['method'=>'post','action'=>route('admin.users.change_password')]])
         @slot('title')Сброс пароля@endslot
         <input type="hidden" name="id" value="{{ $item->id }}">
@@ -125,7 +135,7 @@
             </div>
         </div>
     @endmodal
-    @modal(['id'=>'deleteUserModal', 'saveBtn'=>'УДАЛИТЬ НАВСЕГДА', 'saveBtnClass'=>'btn-danger', 'closeBtn' => 'Отменить', 'centered'=>true,
+    @modal(['can'=>'admin', 'id'=>'deleteUserModal', 'saveBtn'=>'УДАЛИТЬ НАВСЕГДА', 'saveBtnClass'=>'btn-danger', 'closeBtn' => 'Отменить', 'centered'=>true,
     'form'=>['method'=>'post','action'=>route('admin.users.delete')]])
         @slot('title')<span class="text-danger font-weight-bold">УДАЛЕНИЕ ПРОФИЛЯ</span>@endslot
         <input type="hidden" name="id" value="{{ $item->id }}">

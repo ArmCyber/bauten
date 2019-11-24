@@ -1,16 +1,16 @@
-@alink(['can'=>'admin', 'icon'=>'fas fa-paperclip', 'title'=>'Заказы', 'counter'=>$new_orders_count+$pending_orders_count])
+@alink(['can'=>'operator_manager', 'icon'=>'fas fa-paperclip', 'title'=>'Заказы', 'counter'=>$new_orders_count+$pending_orders_count])
     @if($new_orders_count)
-        @alink(['can'=>'admin', 'url'=>route('admin.orders.new'), 'icon'=>'fas fa-plus-circle', 'title'=>'Новые заказы', 'counter'=>$new_orders_count])@endalink
+        @alink(['can'=>'operator_manager', 'url'=>route('admin.orders.new'), 'icon'=>'fas fa-plus-circle', 'title'=>'Новые заказы', 'counter'=>$new_orders_count])@endalink
     @endif
     @if($pending_orders_count)
-        @alink(['can'=>'admin', 'url'=>route('admin.orders.pending'), 'icon'=>'fas fa-tasks', 'title'=>'Невыполненные заказы', 'counter'=>$pending_orders_count])@endalink
+        @alink(['can'=>'operator_manager', 'url'=>route('admin.orders.pending'), 'icon'=>'fas fa-tasks', 'title'=>'Невыполненные заказы', 'counter'=>$pending_orders_count])@endalink
     @endif
-    @alink(['can'=>'admin', 'url'=>route('admin.orders.done'), 'icon'=>'fas fa-check-circle', 'title'=>'Выполненные заказы'])@endalink
+    @alink(['can'=>'operator_manager', 'url'=>route('admin.orders.done'), 'icon'=>'fas fa-check-circle', 'title'=>'Выполненные заказы'])@endalink
     @if($declined_orders_count)
-        @alink(['can'=>'admin', 'url'=>route('admin.orders.declined'), 'icon'=>'fas fa-times-circle', 'title'=>'Откланенные заказы', 'counter'=>0])@endalink
+        @alink(['can'=>'operator_manager', 'url'=>route('admin.orders.declined'), 'icon'=>'fas fa-times-circle', 'title'=>'Откланенные заказы'])@endalink
     @endif
 @endalink
-@alink(['can'=>'admin', 'url'=>route('admin.applications.main'), 'icon'=>'far fa-file-alt', 'title'=>'Заявки'])@endalink
+@alink(['can'=>'operator_manager', 'url'=>route('admin.applications.main'), 'icon'=>'far fa-file-alt', 'title'=>'Заявки', 'counter'=>$applications_count])@endalink
 @alink(['can'=>'content', 'icon'=>'fas fa-list', 'title'=>'Каталог запчастей'])
     @alink(['can'=>'content', 'url'=>route('admin.groups.main'), 'icon'=>'fas fa-layer-group', 'title'=>'Группы'])@endalink
     @alink(['can'=>'content', 'url'=>route('admin.part_catalogs.main'), 'icon'=>'fas fa-list', 'title'=>'Категории'])@endalink
@@ -23,7 +23,7 @@
 @alink(['can'=>'admin', 'url'=>route('admin.marks.main'), 'icon'=>'fas fa-car', 'title'=>'Марки'])@endalink
 @alink(['can'=>'content', 'url'=>route('admin.brands.main'), 'icon'=>'fas fa-list-ol', 'title'=>'Бренды'])@endalink
 @alink(['can'=>'content', 'url'=>route('admin.partner_groups.main'), 'icon'=>'fas fa-handshake', 'title'=>'Группы партнеров'])@endalink
-@alink(['can'=>'admin', 'url'=>route('admin.users.main'), 'icon'=>'fas fa-user', 'title'=>'Пользователи', 'counter'=>$pending_users_count])@endalink
+@alink(['can'=>'operator_manager', 'url'=>route('admin.users.main'), 'icon'=>'fas fa-user', 'title'=>'Пользователи', 'counter'=>$pending_users_count])@endalink
 @alink(['can'=>'admin', 'url'=>route('admin.admins.main'), 'icon'=>'fas fa-user-tie', 'title'=>'Администраторы'])@endalink
 @alink(['can'=>'admin', 'url'=>route('admin.delivery_regions.main'), 'icon'=>'fas fa-globe-europe', 'title'=>'Регионы доставки'])@endalink
 @alink(['can'=>'admin', 'title' => 'Импортирование', 'icon'=>'mdi mdi-file-import'])

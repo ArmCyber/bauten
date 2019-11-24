@@ -30,7 +30,11 @@
                             <td>{{ $item->type_name }}</td>
                             <td>
                                 @if ($item->manager)
-                                    <a href="{{ route('admin.admins.edit', ['id'=>$item->manager->id]) }}">{{ $item->manager->email }}</a>
+                                    @if (Gate::check('admin'))
+                                        <a href="{{ route('admin.admins.edit', ['id'=>$item->manager->id]) }}">{{ $item->manager->email }}</a>
+                                    @else
+                                        {{ $item->manager->email }}
+                                    @endif
                                 @else
                                     -
                                 @endif
@@ -45,8 +49,10 @@
                                 @endif
                             </td>
                             <td>
+                                @can('manager')
                                 <a href="{{ route('admin.users.restricted_brands', ['id'=>$item->id]) }}" {!! tooltip('Ограничения по брендам') !!} class="icon-btn restricted-brands"></a>
                                 <a href="{{ route('admin.users.recommended_parts', ['id'=>$item->id]) }}" {!! tooltip('Рекомендованные товары') !!} class="icon-btn parts"></a>
+                                @endcan
                                 <a href="{{ route('admin.users.view', ['id'=>$item->id]) }}" {!! tooltip('Посмотреть') !!} class="icon-btn view"></a>
                             </td>
                         </tr>
