@@ -4,7 +4,7 @@
     @if(count($user->favourites))
         <div class="row row-grid mt-3">
             @foreach($user->favourites as $item)
-                <div class="col-4">
+                <div class="col-3">
                     @component('site.components.part', ['item'=>$item])@endcomponent
                 </div>
             @endforeach

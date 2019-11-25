@@ -15,7 +15,8 @@ class CreatePartsTable extends Migration
     {
         Schema::create('parts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('code')->collation('utf8_general_ci')->unique();
+            $table->string('ref')->collation('utf8_general_ci')->unique();
+            $table->string('code');
             $table->string('name')->nullable();
             $table->integer('price')->unsigned();
             $table->integer('sale')->unsigned()->nullable();

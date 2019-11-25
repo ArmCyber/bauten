@@ -19,6 +19,12 @@
             </div>
             @can('admin')
             <div class="card">
+                <div class="c-title">REF</div>
+                <div class="little-p">
+                    <input type="text" name="ref" class="form-control" placeholder="REF" maxlength="255" value="{{ old('ref', $item->ref??null) }}">
+                </div>
+            </div>
+            <div class="card">
                 <div class="c-title">Артикул</div>
                 <div class="little-p">
                     <input type="text" name="code" class="form-control" placeholder="Артикул" maxlength="255" value="{{ old('code', $item->code??null) }}">

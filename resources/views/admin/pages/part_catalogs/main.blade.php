@@ -9,6 +9,7 @@
                 <table class="table table-striped m-b-0 columns-middle">
                     <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Имя</th>
                         <th>Группа</th>
                         <th>Количество запчастей</th>
@@ -19,6 +20,7 @@
                     <tbody class="table-sortable" data-action="{{ route('admin.part_catalogs.sort') }}">
                     @foreach($items as $item)
                         <tr class="item-row" data-id="{!! $item->id !!}">
+                            <td>{{ $item->cid}}</td>
                             <td class="item-title">{{ $item->name}}</td>
                             <td>{!! $item->group?e($item->group->name):'<span class="text-danger">Не привязано</span>' !!}</td>
                             <td>{{ $item->parts_count }}</td>

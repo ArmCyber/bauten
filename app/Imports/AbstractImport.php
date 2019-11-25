@@ -107,6 +107,11 @@ abstract class AbstractImport implements ToCollection
         $this->response[] = $response;
     }
 
+    public static function getColumns(){
+        $class_name = get_called_class();
+        return (new $class_name)->names;
+    }
+
     public static function import($file){
         $class_name = get_called_class();
         $object = new $class_name;

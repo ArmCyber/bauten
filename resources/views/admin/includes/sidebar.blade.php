@@ -29,9 +29,10 @@
 @alink(['can'=>'admin', 'title' => 'Импортирование', 'icon'=>'mdi mdi-file-import'])
     @alink(['can'=>'admin', 'url'=>route('admin.import', ['page'=>'marks']), 'icon'=>'fas fa-car', 'title'=>'Марки'])@endalink
     @alink(['can'=>'admin', 'url'=>route('admin.import', ['page'=>'models']), 'icon'=>'fas fa-list', 'title'=>'Модели'])@endalink
-    @alink(['can'=>'admin', 'url'=>route('admin.import', ['page'=>'generations']), 'icon'=>'fas fa-list-alt', 'title'=>'Кузовы'])@endalink
+{{--    @alink(['can'=>'admin', 'url'=>route('admin.import', ['page'=>'generations']), 'icon'=>'fas fa-list-alt', 'title'=>'Кузовы'])@endalink--}}
     @alink(['can'=>'admin', 'url'=>route('admin.import', ['page'=>'parts']), 'icon'=>'fas fa-car-battery', 'title'=>'Запчасти'])@endalink
     @alink(['can'=>'admin', 'url'=>route('admin.import', ['page'=>'engines']), 'icon'=>'fas fa-car-side', 'title'=>'Двигатели'])@endalink
+    @alink(['can'=>'admin', 'url'=>route('admin.import', ['page'=>'catalogs']), 'icon'=>'fas fa-list-alt', 'title'=>'Категории'])@endalink
 @endalink
 @alink(['can'=>'content', 'icon'=>'fas fa-sitemap', 'title'=>'Справочник'])
     @alink(['can'=>'content', 'url'=>route('admin.pages.main'), 'icon'=>'mdi mdi-receipt', 'title'=>'Страницы'])@endalink

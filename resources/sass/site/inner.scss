@@ -245,9 +245,9 @@ input.filter-checkbox {
 
 .product-title {
     margin-top: 10px;
-    font-size: 21px;
+    font-size: 19px;
     >a {
-        color: #3B519D;
+        color: #333333;
     }
 }
 
@@ -263,7 +263,7 @@ input.filter-checkbox {
 }
 
 .product-page-items {
-    margin-top: 20px;
+    //margin-top: 20px;
 }
 
 .product-price {
@@ -499,7 +499,7 @@ a.bauten-btn {
 }
 
 .product-page-title {
-    color: $blue;
+    color: #333333;
     font-size: 21px;
 }
 
@@ -1335,5 +1335,10 @@ img.news-page-image {
     }
     .prod-tbl-title {
         font-size: 19px;
+    }
+}
+@include media(1199, false) {
+    .col-xl-1-5 {
+        @include m(flex-basis max-width, 20%);
     }
 }

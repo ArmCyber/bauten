@@ -2,33 +2,9 @@
 @section('main')
     <div class="container pt-2s pb-s">
         <h1 class="h3">Результаты поиска</h1>
-        <div class="search-page-data">
-            @if(array_key_exists('catalogue', $names))
-                <p><b>Запчасть: </b> {{ $names['catalogue'] }}</p>
-            @endif
-            @if (array_key_exists('brands', $names))
-                <p><b>{{ count($names['brands'])==1?'Бренд':'Бренды' }}:</b> {{ implode(', ', $names['brands']) }}</p>
-            @endif
-            @if (array_key_exists('marks', $names))
-                <p><b>{{ count($names['marks'])==1?'Марка':'Марки' }}:</b> {{ implode(', ', $names['marks']) }}</p>
-            @endif
-            @if (array_key_exists('models', $names))
-                <p><b>{{ count($names['models'])==1?'Модель':'Модели' }}:</b> {{ implode(', ', $names['models']) }}</p>
-            @endif
-            @if (array_key_exists('generations', $names))
-                <p><b>{{ count($names['generations'])==1?'Кузов':'Кузовы' }}:</b> {{ implode(', ', $names['generations']) }}</p>
-            @endif
-            @if (array_key_exists('engines', $names))
-                <p><b>{{ count($names['engines'])==1?'Двигатель':'Двигатели' }}:</b> {{ implode(', ', $names['engines']) }}</p>
-            @endif
-            <div class="pt-3 font-weight-bold">
-                @if($items->total() == 0)
-                    <span class="text-danger">К сожалению по вашему запросу ничего не найдено.</span>
-                @else
-                    <span>По вашему запросу найдено {{ $items->total() }} запчаст(ов).</span>
-                @endif
-            </div>
-        </div>
+        @if ($items->total()==0)
+            <span class="text-danger">К сожалению по вашему запросу ничего не найдено.</span>
+        @endif
     </div>
     @if($items->total())
         <div class="container pt-s">
@@ -100,7 +76,7 @@
 @push('js')
     <script>
         window.csrf = "{{ csrf_token() }}";
-        window.filtersUrl = "{{ route('search') }}";
+        window.filtersUrl = "{{ route('search_sm') }}";
     </script>
     @js(aSite('assets/styler/styler.js'))
     @js(aSite('js/catalogue.js'))

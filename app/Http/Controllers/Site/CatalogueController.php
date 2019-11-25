@@ -16,6 +16,8 @@ class CatalogueController extends BaseController
     public function group($url) {
         $data = [];
         $group = Group::getItemSite($url);
+        $data['type'] = 'group';
+        $data['group'] = $group;
         $catalog_ids = $group->catalogs->pluck('id')->toArray();
         $data['filters'] = Filter::siteListForGroup($group->id);
         $data['filtered'] = $this->getFilters();
@@ -38,6 +40,8 @@ class CatalogueController extends BaseController
     public function category($url) {
         $data = [];
         $catalogue = PartCatalog::getItemSite($url);
+        $data['type'] = 'catalogue';
+        $data['catalogue'] = $catalogue;
         $data['catalogue_title'] = $catalogue->name;
         $data['filters'] = Filter::siteListForCategory($catalogue->group_id, $catalogue->id);
         $data['filtered'] = $this->getFilters();

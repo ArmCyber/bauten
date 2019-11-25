@@ -39,6 +39,7 @@ class Part extends Model
         $model['show_image'] = (int) array_key_exists('show_image', $inputs);
         $model['url'] = self::actionUrl($inputs, $ignore);
         if (Gate::check('admin')) {
+            $model['ref'] = $inputs['ref'];
             $model['code'] = $inputs['code'];
             $model['price'] = $inputs['price'];
             $model['sale'] = $inputs['sale'];

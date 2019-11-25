@@ -1,11 +1,11 @@
 @extends('site.layouts.app')
 @section('main')
-<div class="container pt-2s">
-{{--    @breadcrumb(['pages'=>[['title'=>$page_title,'url'=>false],['title'=>$item->catalogue->name, 'url'=>route('catalogue', ['url'=>$item->catalogue->url])]]])@endbreadcrumb--}}
-    <div class="product-page">
+<div class="container pt-s">
+    @breadcrumb(['pages'=>[['title'=>$item->catalogue->group->name,'url'=>route('group', ['url'=>$item->catalogue->group->url])],['title'=>$item->catalogue->name, 'url'=>route('catalogue', ['url'=>$item->catalogue->url])], ['title'=>$item->name]]])@endbreadcrumb
+    <div class="product-page mt-4">
         <div class="product-page-head">
             <div class="row l-m">
-                @if(($item->image && $item->show_image) || count($gallery))
+{{--                @if(($item->image && $item->show_image) || count($gallery))--}}
                     @php $images_av=true; @endphp
                     <div class="col-12 col-md-5">
                         <div class="product-images">
@@ -14,6 +14,8 @@
                                     <div class="swiper-wrapper">
                                         @if($item->image && $item->show_image)
                                             <div class="swiper-slide"><div class="product-gallery-item"><img src="{{ asset('u/parts/'.$item->image) }}" alt="{{ $item->name }}" title="{{ $item->title }}"></div></div>
+                                        @else
+                                            <div class="swiper-slide"><div class="product-gallery-item"><img src="{{ $default_images->data->parts() }}" alt="{{ $item->name }}" title="{{ $item->title }}"></div></div>
                                         @endif
                                         @foreach($gallery as $gallery_item)
                                             <div class="swiper-slide"><div class="product-gallery-item"><img src="{{ $gallery_item->image() }}" alt="{{ $gallery_item->alt }}" title="{{ $gallery_item->title }}"></div></div>
@@ -34,7 +36,7 @@
                             @endif
                         </div>
                     </div>
-                @endif
+{{--                @endif--}}
                 <div class="col-12{!! isset($images_av)?' col-md-7':' mt-3' !!}">
                     <div class="product-page-content">
                         <div class="product-page-info">
@@ -293,7 +295,7 @@
                         slidesPerView: 3
                     },
                     1200: {
-                        slidesPerView: 4
+                        slidesPerView: 5
                     }
                 }
             });

@@ -15,7 +15,8 @@ class CreatePartCatalogsTable extends Migration
     {
         Schema::create('part_catalogs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name')->collation('utf8_general_ci')->unique();
+            $table->string('cid')->collation('utf8_general_ci');
+            $table->string('name');
             $table->string('url');
             $table->string('image', 64)->nullable();
             $table->string('image_alt')->nullable();

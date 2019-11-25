@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Imports\CatalogsImport;
 use App\Imports\EnginesImport;
 use App\Imports\GenerationsImport;
 use App\Imports\MarksImport;
@@ -32,6 +33,7 @@ class ImportController extends BaseController
             $data = [
                 'title'=>$import['title']??null,
                 'response' => session('import_response'),
+                'columns' => $import['importer']::getColumns(),
             ];
             return view('admin.pages.general.import', $data);
         }
@@ -58,6 +60,10 @@ class ImportController extends BaseController
         'engines' => [
             'importer' => EnginesImport::class,
             'title' => 'Импортирование двигателей'
+        ],
+        'catalogs' => [
+            'importer' => CatalogsImport::class,
+            'title' => 'Импортирование Категории'
         ]
     ];
 }

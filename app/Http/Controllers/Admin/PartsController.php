@@ -183,11 +183,12 @@ class PartsController extends BaseController
             'description' => 'nullable|string',
         ];
         if (Gate::check('admin')) {
-            $rules['code'] = 'required|integer|digits_between:1,255|unique:parts,code'.$unique;
+            $rules['ref'] = 'required|string|max:255|unique:parts,ref'.$unique;
+            $rules['code'] = 'required|string|max:255';
             $rules['part_catalog_id'] = 'required|integer|exists:part_catalogs,id';
             $rules['brand_id'] = 'required|integer|exists:brands,id';
             $rules['generated_url'] = 'required_with:generate_url|string|nullable';
-            $rules['price'] = 'required|numeric|between:1,1000000000';
+            $rules['price'] = 'nullable|numeric|between:1,1000000000';
             $rules['sale'] = 'nullable|numeric|between:1,1000000000|gt:price';
             $rules['count_sale_count'] = 'nullable|required_with:count_sale_percent|numeric|between:1,9999';
             $rules['count_sale_percent'] = 'nullable|required_with:count_sale_count|numeric|between:1,100';

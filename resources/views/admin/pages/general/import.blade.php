@@ -1,6 +1,11 @@
 @extends('admin.layouts.app')
 @section('content')
 <form action="{!! url()->current() !!}" method="post" enctype="multipart/form-data">@csrf
+    <div>Последовательность столбцов:
+        @foreach($columns as $column)
+            '<b>{{ $column }}</b>',
+        @endforeach
+    </div>
     @if ($response)
         @if($response=='unvalidated')
             <div class="alert alert-danger" role="alert">Выберите Excel файл.</div>

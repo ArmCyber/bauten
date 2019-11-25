@@ -82,7 +82,10 @@ class PartCatalogsController extends BaseController
             'image_alt' => 'nullable|string|max:255',
             'image_title' => 'nullable|string|max:255',
         ];
-        if (Gate::check('admin')) $rules['group_id'] = 'required|integer|exists:groups,id';
+        if (Gate::check('admin')) {
+            $rules['group_id'] = 'required|integer|exists:groups,id';
+            $rules['cid'] = 'required|integer|digits_between:1,255|unique:part_catalogs,cid'.$unique;
+        }
         if (empty($inputs['generate_url'])) {
             $rules['url'] = 'required|is_url|string|max:255|unique:part_catalogs,url'.$unique;
         }

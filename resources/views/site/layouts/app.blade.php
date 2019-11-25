@@ -97,6 +97,13 @@
                         @endforeach
                     </nav>
                     @auth
+                        <div class="header-menu-search">
+                            <form action="{{ route('search_sm') }}" class="header-search-form" method="get" autocomplete="off">
+                                <input id="live-search" class="header-search-input ui search" type="text" name="q" placeholder="Поиск" value="{{ $search_val??null }}">
+                                <button class="header-search-btn"><i class="fas fa-search"></i></button>
+                            </form>
+                            <div class="header-search-results" style="display:none"></div>
+                        </div>
                         <div class="header-menu-buttons">
                             <a href="{{ route('cabinet.basket') }}" class="header-menu-button"><i class="fas fa-shopping-basket"></i><span id="basket-counter" @if(($basket_parts_count = count($basket_part_ids))==0)style="display: none"@endif>{{ $basket_parts_count>9?'9+':$basket_parts_count }}</span></a>
                         </div>

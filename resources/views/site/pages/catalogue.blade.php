@@ -1,10 +1,14 @@
 @extends('site.layouts.app')
 @section('main')
-<div class="container pt-2s pb-s">
-    <h1 class="h3">{{ $catalogue_title }}</h1>
+<div class="container pt-s pb-s">
+    @if ($type=='group')
+        @breadcrumb(['pages'=>[['title'=>$group->name]]])@endbreadcrumb
+    @else
+        @breadcrumb(['pages'=>[['title'=>$catalogue->group->name, 'url'=>route('group', ['url'=>$catalogue->group->url])], ['title'=>$catalogue->name]]])@endbreadcrumb
+    @endif
+    <h1 class="h3 mt-1">{{ $catalogue_title }}</h1>
 </div>
 <div class="container pt-s">
-{{--    @breadcrumb(['pages'=>[['title'=>$page_title,'url'=>false],['title'=>$catalogue_title]]])@endbreadcrumb--}}
     <form id="filter-form" action="javascript:void(0)" method="get">
         <div class="products-block">
             @if($has_filter = (count($filters)>0))
@@ -32,24 +36,24 @@
             <div class="products-content">
                 <div class="products-sort">
                     <div>
-                        <span class="sort-select-title">Сортировать по</span>
-                        <select name="sort" id="sort-select" data-smart-positioning="false">
-                            <option value="price" {!! $filtered['sort'] == 'price'?'selected':null !!}>Ценам</option>
-                            <option value="new" {!! $filtered['sort'] == 'new'?'selected':null !!}>Новинкам</option>
-                            <option value="sale" {!! $filtered['sort'] == 'sale'?'selected':null !!}>Скидкам</option>
-                        </select>
+{{--                        <span class="sort-select-title">Сортировать по</span>--}}
+{{--                        <select name="sort" id="sort-select" data-smart-positioning="false">--}}
+{{--                            <option value="price" {!! $filtered['sort'] == 'price'?'selected':null !!}>Ценам</option>--}}
+{{--                            <option value="new" {!! $filtered['sort'] == 'new'?'selected':null !!}>Новинкам</option>--}}
+{{--                            <option value="sale" {!! $filtered['sort'] == 'sale'?'selected':null !!}>Скидкам</option>--}}
+{{--                        </select>--}}
 {{--                        <select name="sort_type" id="sort-type-select" data-smart-positioning="false">--}}
 {{--                            <option value="0" {!! $filtered['sort_type']=='asc'?'selected':'false' !!}>по возрастанию</option>--}}
 {{--                            <option value="1" {!! $filtered['sort_type']=='desc'?'selected':'false' !!}>по убыванию</option>--}}
 {{--                        </select>--}}
-                        <button class="home-search-btn filter-apply">Применить</button>
+{{--                        <button class="home-search-btn filter-apply">Применить</button>--}}
                     </div>
                 </div>
                 <div class="product-page-items">
                     {{ $items->links() }}
                     <div class="row row-grid">
                         @foreach($items as $item)
-                            <div class="col-12 col-sm-6 col-md-4 {!! $has_filter?'col-xl-4':'col-xl-3' !!}">
+                            <div class="col-12 col-sm-6 col-md-4 {!! $has_filter?'col-xl-3':'col-xl-1-5' !!}">
                                 @component('site.components.part', ['item'=>$item])@endcomponent
                             </div>
                         @endforeach
