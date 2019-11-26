@@ -8,15 +8,20 @@ use App\Models\Engine;
 use App\Models\EngineCriterion;
 use App\Models\EngineFilter;
 use App\Models\Filter;
+use App\Models\Gallery;
 use App\Models\Mark;
 use App\Models\Part;
 use App\Models\PartCar;
 use App\Models\PartCatalog;
 use App\Services\Notify\Facades\Notify;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use App\Services\Zip\Zip;
 
 class PartsController extends BaseController
 {
@@ -166,6 +171,93 @@ class PartsController extends BaseController
             $part->attached_parts()->detach($itemId);
         }
         return response()->json(['success'=>1]);
+    }
+
+    public function zip(){
+        $data = [
+            'title' => 'Импортирование изоброжений',
+        ];
+        return view('admin.pages.parts.zip', $data);
+    }
+
+    public function zip_post(Request $request) {
+        $request->validate([
+            'file' => 'required|file|mimes:zip|max:20480‬',
+        ], [
+            'file.max' => 'Размер файла не может быть более 20 Мегабайтов.'
+        ]);
+        $uploadedFilePath = $request->file('file')->getRealPath();
+        if (!Zip::check($uploadedFilePath)) return redirect()->back()->withErrors(['file'=>'Недействительный ZIP']);
+        $zip = Zip::open($uploadedFilePath);
+        $zipContent = $zip->listFiles();
+        $files = [];
+        $allFiles = [];
+        foreach ($zipContent as $file) {
+            if (Str::contains('/', $file) || !preg_match('/\.[a-z]+$/', $file)) continue;
+            $code = preg_replace('/(-[0-9]+)?(\.[a-z]+$)/', '', $file);
+            $files[$code][] = $file;
+            $allFiles[] = $file;
+        }
+        if (count($files)) {
+            foreach ($files as $key=>$file) {
+                rsort($files[$key]);
+            }
+            $codes = array_keys($files);
+            $findParts = Part::select('id', 'code', 'image')->whereIn('code', $codes)->orderBy('id')->groupBy('code')->get();
+            $path = storage_path('zip/');
+            $zip->setMask(0755);
+            $zip->extract($path, $allFiles);
+            $this->importImages($findParts, $files, $path);
+            clear_dir($path);
+        }
+        Notify::success('Импортирование завершено');
+        return redirect()->back();
+    }
+
+    private function importImages($parts, $files, $path){
+        $imagesPath = public_path('u/parts/');
+        $galleryPath = public_path('u/gallery/');
+        $ids = $parts->pluck('id')->toArray();
+        $updateParts = [];
+        $insertGallery = [];
+        foreach($parts as $part) {
+            $thisImages = $files[$part->code];
+            $first = true;
+            if ($part->image) File::delete($imagesPath.$part->image);
+            foreach($thisImages as $image) {
+                $ext = preg_replace('/^.*\.([^.]+)$/', '$1', $image);
+                if ($first) {
+                    $first = false;
+
+                    do {
+                        $filename = file_name(18, $ext);
+                    }
+                    while (file_exists($imagesPath.$filename));
+
+                    rename($path.$image, $imagesPath.$filename);
+                    $updateParts[] = [
+                        'id' => $part->id,
+                        'image' => $filename,
+                        'show_image' => true,
+                    ];
+                }
+                else {
+                    do {
+                        $filename = file_name(18, $ext);
+                    }
+                    while (file_exists($galleryPath.$filename));
+                    rename ($path.$image, $galleryPath.$filename);
+                    $insertGallery[] = [
+                        'gallery' => 'parts',
+                        'key' => $part->id,
+                        'image' => $filename,
+                    ];
+                }
+            }
+        }
+            Part::insertOrUpdate($updateParts, ['image', 'show_image']);
+            Gallery::clear('parts', $ids);
+            Gallery::insert($insertGallery);
     }
 
     /**

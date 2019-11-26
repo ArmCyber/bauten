@@ -17,6 +17,7 @@
     @alink(['can'=>'content', 'url'=>route('admin.part_catalogs.main'), 'icon'=>'fas fa-list', 'title'=>'Категории'])@endalink
     @alink(['can'=>'manager_content', 'url'=>route('admin.parts.main'), 'icon'=>'fas fa-car-battery', 'title'=>'Запчасти'])@endalink
     @alink(['can'=>'admin', 'url'=>route('admin.filters.main'), 'icon'=>'fas fa-filter', 'title'=>'Глобальные фильтры'])@endalink
+    @alink(['can'=>'admin', 'url'=>route('admin.parts.zip'), 'icon'=>'mdi mdi-file-import', 'title'=>'Импортировать ZIP'])@endalink
 @endalink
 @alink(['can'=>'admin', 'url'=>route('admin.engines.main'), 'icon'=>'fas fa-car-side', 'title'=>'Двигатели'])@endalink
 @alink(['can'=>'admin', 'url'=>route('admin.pickup_points.main'), 'icon'=>'fas fa-map-marker', 'title'=>'Точки самовывоза'])@endalink

@@ -268,3 +268,18 @@ if (!function_exists('escape_like')) {
         );
     }
 }
+if (!function_exists('clear_dir')) {
+    function clear_dir($dir) {
+        if (file_exists($dir) && is_dir($dir)) {
+            $objects = scandir($dir);
+            foreach ($objects as $object) {
+                if ($object != "." && $object != "..") {
+                    if (is_dir($dir.$object) && !is_link($dir."/".$object))
+                        clear_dir($dir.$object);
+                    else
+                        unlink($dir.$object);
+                }
+            }
+        }
+    }
+}

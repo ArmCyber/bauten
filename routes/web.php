@@ -145,6 +145,8 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
             Route::middleware('can:admin')->get('attached-parts/{id}', $c.'attachedParts')->name('attached_parts');
             Route::middleware('can:admin')->put('attached-parts/add/{id}', $c.'attachedParts_add')->name('attached_parts.add');
             Route::middleware('can:admin')->delete('attached-parts/delete/{id}', $c.'attachedParts_delete')->name('attached_parts.delete');
+            Route::middleware('can:admin')->get('zip/', $c.'zip')->name('zip');
+            Route::middleware('can:admin')->post('zip/', $c.'zip_post');
         });
         //endregion
         //region Brands

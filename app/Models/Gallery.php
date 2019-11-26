@@ -65,7 +65,9 @@ class Gallery extends Model
     }
 
     public static function clear($gallery, $key){
-        $query = self::where(['gallery'=>$gallery, 'key'=>$key]);
+        $query = self::where('gallery', $gallery);
+        if (is_array($key)) $query->whereIn('key', $key);
+        else $query->where('key', $key);
         $items = (clone $query)->get();
         if (count($items)) {
             foreach($items as $item) {

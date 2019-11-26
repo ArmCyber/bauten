@@ -32,7 +32,7 @@
                                 <td class="text-danger">Неактивно</td>
                             @endif
                             @can('content')
-                            <td>
+                            <td class="nowrap">
                                 @can('admin')
                                 <a href="{{ route('admin.parts.attached_parts', ['id'=>$item->id]) }}" {!! tooltip('С этим советуем') !!} class="icon-btn parts"></a>
                                 <a href="{{ route('admin.parts.filters', ['id'=>$item->id]) }}" {!! tooltip('Фильтры') !!} class="icon-btn filters"></a>
