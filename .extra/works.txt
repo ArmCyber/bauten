@@ -1,56 +1,22 @@
 BAUTEN
 
-1) 1c
-2) maileri harcy
-3) responsive
-+ 5) REF
-+ 6) no-image en yan tani
-!8) modifikacianeri engine - remove
-!9) Engine filters remove.
-!10) Engine myus remove
-10) mini-search, win search....
-!11) delete brand code
-
-//WIN CODE SEARCH....
-TEST
-
-
-REF
-Artikuly kara krknvi
-
-anvanumneri harcy
-/////
-polzovateli
-
-
-articule 
-gruppa jnjel
+1c
+maileri harcy
+responsive
+win api
+!modifikacianeri engine - remove
+!Engine filters remove.
+!Engine myus remove
+!delete brand code
 
 sort + filter - ajax-ov
 
-breada
-apranqi chap
-no photo
+utochnenie ceni 
 
-
-+ chanaparh
-+ 4 hat 
-+ vernagir seri mug
-+ no photo poxel
-+ no photo nersum
-+ cena kaput mugacnel
-+ zip upload
-+ sort pagel
-+ search
-
-Engine in part excel
-
-apranq test
-
-!!!!!puchur poisk
-
-+ vcharvac e bug
+part excel
 
 1s ref-qanak-gin-arjeq-gnordi id+order id
-+ global + local filters
+
 filteri id-import 
+
+chtoxel jnjel, kategoria grupa

@@ -8,6 +8,7 @@ use App\Imports\GenerationsImport;
 use App\Imports\MarksImport;
 use App\Imports\ModelsImport;
 use App\Imports\PartsImport;
+use App\Imports\RecommendedPartsImport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -63,7 +64,11 @@ class ImportController extends BaseController
         ],
         'catalogs' => [
             'importer' => CatalogsImport::class,
-            'title' => 'Импортирование Категории'
+            'title' => 'Импортирование категории'
+        ],
+        'recommended_parts' => [
+            'importer' => RecommendedPartsImport::class,
+            'title' => 'Импортирование рекомендованных товаров'
         ]
     ];
 }
