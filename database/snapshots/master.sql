@@ -77,12 +77,12 @@ CREATE TABLE `attached_parts` (
   KEY `attached_parts_attached_part_id_foreign` (`attached_part_id`),
   CONSTRAINT `attached_parts_attached_part_id_foreign` FOREIGN KEY (`attached_part_id`) REFERENCES `parts` (`id`) ON DELETE CASCADE,
   CONSTRAINT `attached_parts_part_id_foreign` FOREIGN KEY (`part_id`) REFERENCES `parts` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `attached_parts` WRITE;
 /*!40000 ALTER TABLE `attached_parts` DISABLE KEYS */;
-INSERT INTO `attached_parts` VALUES (6,4,7),(7,4,6);
+INSERT INTO `attached_parts` VALUES (6,4,7),(7,4,6),(16,13,5),(18,13,14),(19,13,15),(31,5,17),(32,5,18),(33,5,13);
 /*!40000 ALTER TABLE `attached_parts` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `banners`;
@@ -841,12 +841,12 @@ CREATE TABLE `recommended_parts` (
   KEY `recommended_parts_part_id_foreign` (`part_id`),
   CONSTRAINT `recommended_parts_part_id_foreign` FOREIGN KEY (`part_id`) REFERENCES `parts` (`id`) ON DELETE CASCADE,
   CONSTRAINT `recommended_parts_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `recommended_parts` WRITE;
 /*!40000 ALTER TABLE `recommended_parts` DISABLE KEYS */;
-INSERT INTO `recommended_parts` VALUES (1,2,10),(4,2,12),(5,1,4),(6,1,8),(7,1,9),(8,1,7),(9,1,13),(10,1,14),(11,1,15);
+INSERT INTO `recommended_parts` VALUES (1,2,10),(4,2,12),(33,1,5),(34,1,13),(35,1,14),(36,1,15),(37,4,17),(38,4,18),(39,4,13);
 /*!40000 ALTER TABLE `recommended_parts` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `restricted_brands`;
@@ -919,7 +919,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,2,3,'Айк','Ереван','Ереван','+374553256655','COMPANY','BIN','zakhayko@gmail.com','$2y$10$j13u95VxaZKl89aIQhB26eGb1MKAjLUwzCsR/42r2d8qCl2LoneGq',NULL,1,'4hygOhcnrSGKvQxejkhHFls3rOHY2W23qZLs3m6sskNeXK1jCMpafqfv4sFD',2,0,'2019-11-27 09:13:30','2019-11-27 09:10:37','2019-10-15 15:59:56','2019-11-27 09:47:55'),(2,2,NULL,'Test','Астана','Tera','+444444444','Test','Test','hayko2000@mail.ru','$2y$10$yFSwRaqyA4B3Oi9er1SXaOxWnUSww5iEA7C8RF8BeX5DNILGo2.ca',NULL,1,NULL,1,0,'2019-11-24 16:36:14','2019-11-24 15:25:03','2019-10-15 17:40:38','2019-11-24 15:24:49'),(4,1,NULL,'test','Алматы','Qatar','87715115555',NULL,NULL,'tests@test.com','$2y$10$szHSyORnHvLfe7iayljYU.3pNXrFqjt0Ss8YpW.qlQ4s1kfrzXqU2','$2y$10$H.TLs3QpAn5kHM8zr5hDYeyMWCdCT9qPxyVpAnVUpWQfR86UjZyR.',1,NULL,1,0,NULL,NULL,'2019-10-29 09:36:54','2019-11-07 11:53:17'),(5,2,NULL,'Test 1234','Test1','Test','6666666666','company','123456789012','zakhayko1@gmail.com','$2y$10$yW7oFYmZq2sp/5OQTe1FxexcI5MdutUNknglvDKsy7GBzacyiO28S',NULL,1,NULL,1,0,'2019-11-07 12:09:34','2019-11-07 11:53:49','2019-11-07 11:51:42','2019-11-07 12:07:15'),(6,1,NULL,'Name','Region','City','5555555555',NULL,NULL,'dev@dev.loc','$2y$10$mvcVvvFr1G3YQU1ToNa.IeL3.jGoQWX6YR0rJeHuRKl63g6TOpItK','$2y$10$Oj58/Jw3ieSZ1iHUXoRwxuqlVeJFDg.sRw2DD.E3pVUYi.lix21ci',-1,NULL,NULL,20,NULL,NULL,'2019-11-27 09:33:08','2019-11-27 09:47:42');
+INSERT INTO `users` VALUES (1,2,3,'Айк','Ереван','Ереван','+374553256655','COMPANY','BIN','zakhayko@gmail.com','$2y$10$j13u95VxaZKl89aIQhB26eGb1MKAjLUwzCsR/42r2d8qCl2LoneGq',NULL,1,'4hygOhcnrSGKvQxejkhHFls3rOHY2W23qZLs3m6sskNeXK1jCMpafqfv4sFD',2,0,'2019-11-27 11:17:15','2019-11-27 09:10:37','2019-10-15 15:59:56','2019-11-27 09:47:55'),(2,2,NULL,'Test','Астана','Tera','+444444444','Test','Test','hayko2000@mail.ru','$2y$10$yFSwRaqyA4B3Oi9er1SXaOxWnUSww5iEA7C8RF8BeX5DNILGo2.ca',NULL,1,NULL,1,0,'2019-11-24 16:36:14','2019-11-24 15:25:03','2019-10-15 17:40:38','2019-11-24 15:24:49'),(4,1,NULL,'test','Алматы','Qatar','87715115555',NULL,NULL,'tests@test.com','$2y$10$szHSyORnHvLfe7iayljYU.3pNXrFqjt0Ss8YpW.qlQ4s1kfrzXqU2','$2y$10$H.TLs3QpAn5kHM8zr5hDYeyMWCdCT9qPxyVpAnVUpWQfR86UjZyR.',1,NULL,1,0,NULL,NULL,'2019-10-29 09:36:54','2019-11-07 11:53:17'),(5,2,NULL,'Test 1234','Test1','Test','6666666666','company','123456789012','zakhayko1@gmail.com','$2y$10$yW7oFYmZq2sp/5OQTe1FxexcI5MdutUNknglvDKsy7GBzacyiO28S',NULL,1,NULL,1,0,'2019-11-07 12:09:34','2019-11-07 11:53:49','2019-11-07 11:51:42','2019-11-07 12:07:15'),(6,1,NULL,'Name','Region','City','5555555555',NULL,NULL,'dev@dev.loc','$2y$10$mvcVvvFr1G3YQU1ToNa.IeL3.jGoQWX6YR0rJeHuRKl63g6TOpItK','$2y$10$Oj58/Jw3ieSZ1iHUXoRwxuqlVeJFDg.sRw2DD.E3pVUYi.lix21ci',-1,NULL,NULL,20,NULL,NULL,'2019-11-27 09:33:08','2019-11-27 09:47:42');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
