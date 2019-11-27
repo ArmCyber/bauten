@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\UsersExport;
 use App\Models\Admin;
 use App\Models\Application;
 use App\Models\Basket;
@@ -14,6 +15,7 @@ use App\Services\Notify\Facades\Notify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UsersController extends BaseController
 {
@@ -190,6 +192,10 @@ class UsersController extends BaseController
         $data['items'] = $data['user']->restricted_brands;
         $data['back_url'] = route('admin.users.main');
         return view('admin.pages.users.restricted_brands', $data);
+    }
+
+    public function export(){
+        return Excel::download(new UsersExport, 'users.xlsx');
     }
 
     public function restrictedBrands_add(Request $request, $id) {

@@ -1,4 +1,7 @@
 @extends('admin.layouts.app')
+@can('admin')
+@section('titleSuffix')| <a href="{!! route('admin.users.export') !!}" class="text-cyan"><i class="fas fa-file-export"></i> экспортировать</a>@endsection
+@endcan
 @section('content')
     @if(count($items))
         <div class="card">

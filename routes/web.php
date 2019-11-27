@@ -285,6 +285,7 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
             Route::middleware('can:manager')->get('restricted-brands/{id}', $c.'restrictedBrands')->name('restricted_brands');
             Route::middleware('can:manager')->put('restricted-brands/add/{id}', $c.'restrictedBrands_add')->name('restricted_brands.add');
             Route::middleware('can:manager')->delete('restricted-brands/delete/{id}', $c.'restrictedBrands_delete')->name('restricted_brands.delete');
+            Route::middleware('can:admin')->get('export', $c.'export')->name('export');
         });
         //endregion
         //region Orders

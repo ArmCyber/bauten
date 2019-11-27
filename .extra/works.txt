@@ -3,8 +3,8 @@ BAUTEN
 1) 1c
 2) maileri harcy
 3) responsive
-5) REF
-6) no-image en yan tani
++ 5) REF
++ 6) no-image en yan tani
 !8) modifikacianeri engine - remove
 !9) Engine filters remove.
 !10) Engine myus remove
@@ -26,7 +26,7 @@ polzovateli
 articule 
 gruppa jnjel
 
-sort ajax-ov
+sort + filter - ajax-ov
 
 breada
 apranqi chap
@@ -39,9 +39,9 @@ no photo
 + no photo poxel
 + no photo nersum
 + cena kaput mugacnel
-zip upload
++ zip upload
 + sort pagel
-search
++ search
 
 Engine in part excel
 
@@ -49,11 +49,8 @@ apranq test
 
 !!!!!puchur poisk
 
++ vcharvac e bug
 
-
-
-
-grel ref engine
-loginner parolner
-inj pti lcnel......
-vigruzkeq
+1s ref-qanak-gin-arjeq-gnordi id+order id
++ global + local filters
+filteri id-import 

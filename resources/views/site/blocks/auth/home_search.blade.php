@@ -14,7 +14,7 @@
                 <div class="expanded-container">
                     <div class="row row-grid">
                         @foreach($groups as $group)
-                            <div class="col-2">
+                            <div class="col-xl-3 col-xxl-2">
                                 <div class="search-group">
                                     <div class="search-group-title">{{ $group->name }}</div>
                                     <div class="search-group-items">
@@ -44,7 +44,7 @@
                 <div class="expanded-container">
                     <div class="row row-grid">
                         @foreach($search_brands as $key=>$search_brand_group)
-                            <div class="col-2">
+                            <div class="col-xl-3 col-xxl-2">
                                 <div class="search-group">
                                     <div class="search-group-title">{{ $key }}</div>
                                     <div class="search-group-items">
@@ -74,7 +74,7 @@
                 <div class="expanded-container">
                     <div class="row row-grid">
                         @foreach($search_marks as $key=>$search_mark_group)
-                            <div class="col-2">
+                            <div class="col-xl-3 col-xxl-2">
                                 <div class="search-group">
                                     <div class="search-group-title">{{ $key }}</div>
                                     <div class="search-group-items">

@@ -141,6 +141,7 @@ a.header-menu-button {
 .menu-item {
     line-height: 1;
     height:100%;
+    white-space: nowrap;
     &:not(:first-child) {
         margin-left: 20px;
     }
@@ -803,11 +804,11 @@ a.link-bauten {
     }
     .menu-item {
         &:not(:first-child) {
-            margin-left: 25px;
+            margin-left: 10px;
         }
 
         > a {
-            font-size: 18px;
+            font-size: 16px;
         }
     }
     //endregion
@@ -897,15 +898,15 @@ a.link-bauten {
 
 @include media(1365) {
     //region Header
-    .menu-item {
-        &:not(:first-child) {
-            margin-left: 20px;
-        }
-
-        > a {
-            font-size: 17px;
-        }
-    }
+    //.menu-item {
+    //    &:not(:first-child) {
+    //        margin-left: 20px;
+    //    }
+    //
+    //    > a {
+    //        font-size: 17px;
+    //    }
+    //}
     //endregion
     //region Footer
     #footer {
