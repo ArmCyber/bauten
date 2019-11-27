@@ -91,7 +91,7 @@
                                         </div>
                                         <div class="product-page-submit position-relative"><button id="to-basket">В корзину</button><span class="loader loader-sm"></span></div>
                                     </div>
-                                    <div class="product-page-price mt-3">Общая стоимность: <span id="sale-from" class="sale-price" style="display: none"><span id="part-sale-price"></span> <span class="kzt"></span></span> <span class="ppp" id="full-price"></span> <span class="kzt"></span> </div>
+                                    <div class="product-page-price mt-3">Общая стоимость: <span id="sale-from" class="sale-price" style="display: none"><span id="part-sale-price"></span> <span class="kzt"></span></span> <span class="ppp" id="full-price"></span> <span class="kzt"></span> </div>
                                 </div>
                             @endif
                             <div class="h4 text-danger pt-2 not-in-stock">Нет на складе</div>
@@ -107,7 +107,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="product-page-price mt-3">Общая стоимность: <span id="sale-from" class="sale-price" style="display: none"><span id="part-sale-price"></span> <span class="kzt"></span></span> <span class="ppp" id="full-price"></span> <span class="kzt"></span></div>
+                                <div class="product-page-price mt-3">Общая стоимость: <span id="sale-from" class="sale-price" style="display: none"><span id="part-sale-price"></span> <span class="kzt"></span></span> <span class="ppp" id="full-price"></span> <span class="kzt"></span></div>
                             </div>
                             <div class="pt-3">
                                 <button class="bauten-btn" data-toggle="modal" data-target="#application-modal">Отправить заявку</button>
