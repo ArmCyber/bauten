@@ -10,6 +10,7 @@ use App\Models\EngineFilter;
 use App\Models\Filter;
 use App\Models\Gallery;
 use App\Models\Mark;
+use App\Models\Modification;
 use App\Models\Part;
 use App\Models\PartCar;
 use App\Models\PartCatalog;
@@ -38,6 +39,7 @@ class PartsController extends BaseController
         $data['brands'] = Brand::adminList();
         $data['marks'] = Mark::fullAdminList();
         $data['engines'] = Engine::adminList();
+        $data['modifications'] = Modification::adminList();
         return view('admin.pages.parts.form', $data);
     }
 
@@ -65,6 +67,7 @@ class PartsController extends BaseController
         $data['marks'] = Mark::fullAdminList();
         $data['part_cars'] = PartCar::adminList($data['item']->id);
         $data['engines'] = Engine::adminList();
+        $data['modifications'] = Modification::adminList();
         return view('admin.pages.parts.form', $data);
     }
 
@@ -260,9 +263,7 @@ class PartsController extends BaseController
             Gallery::insert($insertGallery);
     }
 
-    /**
-     * @throws ValidationException
-     */
+
     private function validateRequest($request, $ignore=false) {
         $inputs = $request->all();
         $unique = $ignore===false?null:','.$ignore;
@@ -290,7 +291,7 @@ class PartsController extends BaseController
             $rules['oem'] = 'nullable|string|max:255|unique:parts,oem'.$unique;
         }
         if (empty($inputs['generate_url'])) {
-            $rules['url'] = 'required|is_url|string|max:255|unique:part_catalogs,url'.$unique;
+            $rules['url'] = 'required|is_url|string|max:255|unique:parts,url'.$unique;
         }
         $validator = Validator::make($inputs, $rules, [], [
             'sale' => 'Цена до скидки',

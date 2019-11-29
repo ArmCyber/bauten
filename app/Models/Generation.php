@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Http\Traits\GetIncrement;
 use App\Http\Traits\InsertOrUpdate;
 use App\Http\Traits\Sortable;
 use Illuminate\Database\Eloquent\Model;
 
 class Generation extends Model
 {
-    use InsertOrUpdate;
+    use InsertOrUpdate, GetIncrement;
 
     public $timestamps=false;
 
@@ -53,8 +54,11 @@ class Generation extends Model
 
     public function getYearsAttribute(){
         $years = $this['year'];
-        if ($this['year_to']) {
-            $years.=' - '.$this['year_to'];
+        if ($this['year'] && $this['year_to']!=$this['year']){
+            $years.='-';
+        }
+        if ($this['year_to'] && $this['year_to']!=$this['year']) {
+            $years.=$this['year_to'];
         }
         return $years;
     }

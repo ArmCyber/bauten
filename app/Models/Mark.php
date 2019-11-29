@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Traits\GetIncrement;
 use App\Http\Traits\InsertOrUpdate;
 use App\Http\Traits\Sortable;
 use App\Http\Traits\UrlUnique;
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\File;
 
 class Mark extends Model
 {
-    use UrlUnique, InsertOrUpdate, Sortable;
+    use UrlUnique, InsertOrUpdate, Sortable, GetIncrement;
 
     public $timestamps=false;
 
@@ -44,8 +45,10 @@ class Mark extends Model
     }
 
     public static function fullAdminList(){
-        return self::select('id', 'name', 'cid')->with(['models'=>function($q){
-            $q->select('id', 'name', 'mark_id')->with(['generations'=>function($q){
+        return self::select('id', 'name', 'cid')->whereHas('models', function($q){
+            $q->whereHas('generations');
+        })->with(['models'=>function($q){
+            $q->select('id', 'name', 'mark_id')->whereHas('generations')->with(['generations'=>function($q){
                 return $q->select('id', 'cid', 'name', 'model_id', 'engine', 'year', 'year_to');
             }]);
         }])->sort()->get();

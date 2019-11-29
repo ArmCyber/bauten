@@ -218,5 +218,7 @@ return [
         'region_id' => 'Регион',
         'articule' => 'Артикул',
         'number' => 'Номер',
+        'cid' => 'ID',
+        'generation_id' => 'Кузов'
     ],
 ];

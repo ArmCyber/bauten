@@ -133,7 +133,7 @@ if (!function_exists('get_range_data')) {
         $to = (int) $to;
         $result = [null, null];
         if ($from) {
-            if (!$to || $from==$to) {
+            if (!$to) {
                 $result[0] = $from;
             }
             elseif($from>$to) {

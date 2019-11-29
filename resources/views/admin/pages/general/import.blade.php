@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 @section('content')
 <form action="{!! url()->current() !!}" method="post" enctype="multipart/form-data">@csrf
-    <div>Последовательность столбцов:
+    <div>Требуемые столбцы:
         @foreach($columns as $column)
             '<b>{{ $column }}</b>',
         @endforeach

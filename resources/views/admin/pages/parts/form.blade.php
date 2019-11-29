@@ -112,6 +112,16 @@
                 </div>
             </div>
             <div class="card">
+                <div class="c-title">Модификации</div>
+                <div class="little-p">
+                    <select name="modification_id[]" class="select2" style="width:100%;" multiple>
+                        @foreach($modifications as $modification)
+                            <option value="{{ $modification->id }}" {!! (isset($item) && $item->modifications??collect()->where('id', $modification->id)->first())?'selected':null !!}>{{ $modification->cid }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="card">
                 <div class="c-title">Двигатели</div>
                 <div class="little-p">
                     <select name="engine_id[]" class="select2" style="width:100%;" multiple>
@@ -133,7 +143,6 @@
                 </div>
                 @labelauty(['id'=>'new', 'class'=>'mt-2', 'label'=>'Новинка', 'checked'=>oldCheck('new', ($edit && empty($item->new))?false:true)])@endlabelauty
                 @can('admin')
-                @labelauty(['id'=>'application_only', 'class'=>'mt-1', 'label'=>'Под заказ', 'checked'=>oldCheck('application_only', ($edit && $item->application_only)?true:false)])@endlabelauty
                 @labelauty(['id'=>'active', 'label'=>'Неактивно|Активно', 'checked'=>oldCheck('active', ($edit && empty($item->active))?false:true)])@endlabelauty
                 @endcan
             </div>
@@ -147,14 +156,14 @@
             </div>
         </div>
     </div>
-    @can('admin')
-    @bannerBlock(['title'=>'Применяемость по автомобилям'])
-    <div id="applicability-rows" class="pb-4"></div>
-    <div>
-        <button id="add-row" type="button" class="btn btn-success">Добавить</button>
-    </div>
-    @endbannerBlock
-    @endcan
+{{--    @can('admin')--}}
+{{--    @bannerBlock(['title'=>'Применяемость по автомобилям'])--}}
+{{--    <div id="applicability-rows" class="pb-4"></div>--}}
+{{--    <div>/--}}
+{{--        <button id="add-row" type="button" class="btn btn-success">Добавить</button>--}}
+{{--    </div>--}}
+{{--    @endbannerBlock--}}
+{{--    @endcan--}}
     {{--
     @bannerBlock(['title'=>'Применяемость по двигателям'])
     <div id="engine-rows" class="pb-4"></div>
@@ -165,28 +174,28 @@
     --}}
     <div class="col-12 save-btn-fixed"><button type="submit"></button></div>
 </form>
-@can('admin')
-<div class="example appl-row row mt-2" style="display: none">
-    <div class="col-3">
-        <select name="mark_id[]" class="mark_id_select" style="width:100%">
-            <option value="0" selected readonly>Выберите марку</option>
-        </select>
-    </div>
-    <div class="col-3">
-        <select name="model_id[]" class="model_id_select" style="width:100%" disabled>
-            <option value="0">Все</option>
-        </select>
-    </div>
-    <div class="col-3">
-        <select name="generation_id[]" class="generation_id_select" style="width:100%" disabled>
-            <option value="0">Все</option>
-        </select>
-    </div>
-    <div class="col-3">
-        <button type="button" class="btn btn-sm btn-danger appl_row_delete">Удалить</button>
-    </div>
-</div>
-@endcan
+{{--@can('admin')--}}
+{{--<div class="example appl-row row mt-2" style="display: none">--}}
+{{--    <div class="col-3">--}}
+{{--        <select name="mark_id[]" class="mark_id_select" style="width:100%">--}}
+{{--            <option value="0" selected readonly>Выберите марку</option>--}}
+{{--        </select>--}}
+{{--    </div>--}}
+{{--    <div class="col-3">--}}
+{{--        <select name="model_id[]" class="model_id_select" style="width:100%" disabled>--}}
+{{--            <option value="0">Все</option>--}}
+{{--        </select>--}}
+{{--    </div>--}}
+{{--    <div class="col-3">--}}
+{{--        <select name="generation_id[]" class="generation_id_select" style="width:100%" disabled>--}}
+{{--            <option value="0">Все</option>--}}
+{{--        </select>--}}
+{{--    </div>--}}
+{{--    <div class="col-3">--}}
+{{--        <button type="button" class="btn btn-sm btn-danger appl_row_delete">Удалить</button>--}}
+{{--    </div>--}}
+{{--</div>--}}
+{{--@endcan--}}
 {{--<div class="example engine-row row mt-2" style="display: none">
     <div class="col-3">
         <select name="engine_mark_id[]" class="mark_id_select" style="width:100%">
@@ -205,11 +214,11 @@
     @js(aApp('select2/select2.js'))
     @ckeditor
     @can('admin')
-    @js(aAdmin('js/applicability.js'))
+{{--    @js(aAdmin('js/applicability.js'))--}}
 {{--    @js(aAdmin('js/engine_applicability.js'))--}}
     <script>
         $('.select2').select2();
-        new Applicability({!! $marks->toJson(JSON_UNESCAPED_UNICODE) !!}, {!! session()->has('old_cars')?json_encode(session('old_cars', JSON_UNESCAPED_UNICODE)):(isset($part_cars)?$part_cars->toJson(JSON_UNESCAPED_UNICODE):'false') !!})
+{{--        new Applicability({!! $marks->toJson(JSON_UNESCAPED_UNICODE) !!}, {!! session()->has('old_cars')?json_encode(session('old_cars', JSON_UNESCAPED_UNICODE)):(isset($part_cars)?$part_cars->toJson(JSON_UNESCAPED_UNICODE):'false') !!})--}}
 {{--        new EngineApplicability({!! $engine_marks->toJson(JSON_UNESCAPED_UNICODE) !!}, {!! session()->has('old_engines')?json_encode(session('old_engines', JSON_UNESCAPED_UNICODE)):(isset($part_engines)?$part_engines->toJson(JSON_UNESCAPED_UNICODE):'false') !!})--}}
     </script>
     @endcan

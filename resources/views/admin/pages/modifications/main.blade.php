@@ -1,5 +1,5 @@
 @extends('admin.layouts.app')
-@section('titleSuffix')| <a href="{!! route('admin.generations.add', ['id'=>$model->id]) !!}" class="text-cyan"><i class="mdi mdi-plus-box"></i> добавить</a>@endsection
+@section('titleSuffix')| <a href="{!! route('admin.modifications.add') !!}" class="text-cyan"><i class="mdi mdi-plus-box"></i> добавить</a>@endsection
 @section('content')
     @if(count($items))
         <div class="card">
@@ -8,25 +8,21 @@
                     <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Имя</th>
-{{--                        <th>Двигатель, см3</th>--}}
-                        <th>Статус</th>
+                        <th>Марка</th>
+                        <th>Модель</th>
+                        <th>Кузов</th>
                         <th>Действие</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($items as $item)
                         <tr class="item-row" data-id="{!! $item->id !!}">
-                            <td>{{ $item->cid}}</td>
-                            <td class="item-title">{{ $item->full_name??'-' }}</td>
-{{--                            <td>{{ $item->engine??'-' }}</td>--}}
-                            @if($item->active)
-                                <td class="text-success">Активно</td>
-                            @else
-                                <td class="text-danger">Неактивно</td>
-                            @endif
+                            <td class="item-title">{{ $item->cid}}</td>
+                            <td>{{ $item->mark->name }}</td>
+                            <td>{{ $item->model->name }}</td>
+                            <td>{{ $item->generation->name }}</td>
                             <td>
-                                <a href="{{ route('admin.generations.edit', ['id'=>$item->id]) }}" {!! tooltip('Редактировать') !!} class="icon-btn edit"></a>
+                                <a href="{{ route('admin.modifications.edit', ['id'=>$item->id]) }}" {!! tooltip('Редактировать') !!} class="icon-btn edit"></a>
                                 <span class="d-inline-block"  style="margin-left:4px;" data-toggle="modal" data-target="#itemDeleteModal"><a href="javascript:void(0)" class="icon-btn delete" {!! tooltip('Удалить') !!}></a></span>
                             </td>
                         </tr>
@@ -83,7 +79,7 @@
             if (thisItemId && thisItemId.match(/^[1-9][0-9]{0,9}$/)) {
                 loader.addClass('shown');
                 $.ajax({
-                    url: '{!! route('admin.generations.delete') !!}',
+                    url: '{!! route('admin.modifications.delete') !!}',
                     type: 'post',
                     dataType: 'json',
                     data: {

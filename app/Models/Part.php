@@ -51,7 +51,6 @@ class Part extends Model
             $model['oem'] = $inputs['oem'];
             $model['part_catalog_id'] = $inputs['part_catalog_id'];
             $model['brand_id'] = $inputs['brand_id'];
-            $model['application_only'] = (int) array_key_exists('application_only', $inputs);
             $model['new'] = (int) array_key_exists('new', $inputs);
             $model['active'] = (int) array_key_exists('active', $inputs);
         }
@@ -241,6 +240,10 @@ class Part extends Model
         $q->whereDoesntHave('brand', function($q){
             $q->restricted();
         });
+    }
+
+    public function getApplicationOnlyAttribute(){
+        return 0;
     }
 
     public function attached_parts_site(){

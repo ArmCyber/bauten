@@ -18,7 +18,7 @@ class CreatePartsTable extends Migration
             $table->string('ref')->collation('utf8_general_ci')->unique();
             $table->string('code');
             $table->string('name')->nullable();
-            $table->integer('price')->unsigned();
+            $table->integer('price')->unsigned()->nullable();
             $table->integer('sale')->unsigned()->nullable();
             $table->integer('count_sale_count')->unsigned()->nullable();
             $table->tinyInteger('count_sale_percent')->nullable();
@@ -32,7 +32,6 @@ class CreatePartsTable extends Migration
             $table->string('url')->nullable();
             $table->bigInteger('part_catalog_id')->unsigned();
             $table->bigInteger('brand_id')->unsigned();
-            $table->boolean('application_only')->default(0);
             $table->boolean('new')->default(0);
             $table->boolean('active')->default(1);
         });

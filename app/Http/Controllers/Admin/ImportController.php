@@ -8,6 +8,7 @@ use App\Imports\EnginesImport;
 use App\Imports\GenerationsImport;
 use App\Imports\MarksImport;
 use App\Imports\ModelsImport;
+use App\Imports\ModificationsImport;
 use App\Imports\PartsImport;
 use App\Imports\RecommendedPartsImport;
 use Illuminate\Http\Request;
@@ -51,9 +52,9 @@ class ImportController extends BaseController
             'importer' => ModelsImport::class,
             'title' => 'Импортирование моделей',
         ],
-        'generations' => [
-            'importer' => GenerationsImport::class,
-            'title' => 'Импортирование кузовов',
+        'modifications' => [
+            'importer' => ModificationsImport::class,
+            'title' => 'Импортирование модификацией',
         ],
         'parts' => [
             'importer' => PartsImport::class,

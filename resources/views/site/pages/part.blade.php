@@ -77,7 +77,7 @@
                             @endif
                         </div>
                         @if($item->application_only)
-                            <div class="h4 text-danger pt-2 not-in-stock">Под заказ</div>
+                            <div class="h4 text-danger pt-2 not-in-stock">Нет на складе</div>
                         @else
                             @if($item->max_count)
                                 <div class="product-page-shop not-in-stock-hidden">

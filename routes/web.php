@@ -110,6 +110,16 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
             Route::delete('delete', $c.'delete')->middleware('ajax')->name('delete');
         });
         //endregion
+        //region Modifications
+        Route::middleware('can:admin')->prefix('modifications')->name('modifications.')->group(function() { $c = 'ModificationsController@';
+            Route::get('', $c.'main')->name('main');
+            Route::get('add', $c.'add')->name('add');
+            Route::put('add', $c.'add_put');
+            Route::get('edit/{id}', $c.'edit')->name('edit');
+            Route::patch('edit/{id}', $c.'edit_patch');
+            Route::delete('delete', $c.'delete')->middleware('ajax')->name('delete');
+        });
+        //endregion
         //region Delivery Regions
         Route::middleware('can:admin')->prefix('delivery-regions')->name('delivery_regions.')->group(function() { $c = 'DeliveryRegionsController@';
             Route::get('', $c.'main')->name('main');

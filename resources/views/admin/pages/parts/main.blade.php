@@ -24,7 +24,7 @@
                         <tr class="item-row" data-id="{!! $item->id !!}">
                             <td>{{ $item->code }}</td>
                             <td class="item-title">{{ $item->name}}</td>
-                            <td>{{ $item->catalogue->name }}</td>
+                            <td>{{ $item->catalogue->name??'?' }}</td>
                             <td>{{ $item->brand->name }}</td>
                             @if($item->active)
                                 <td class="text-success">Активно</td>

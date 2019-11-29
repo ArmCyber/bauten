@@ -12,6 +12,7 @@ abstract class AbstractImport implements ToCollection
     protected $errors;
     protected $keys = [];
     protected $rules = [];
+    protected $names = [];
     protected $count;
     public $response = [];
     protected $rows;
@@ -53,11 +54,15 @@ abstract class AbstractImport implements ToCollection
                     return;
                 }
                 else {
-                    foreach($this->keys as $name => $key) {
-                        if (trim(mb_strtolower($row[$key]))!=$this->names[$name]) {
-                            $this->addSheet(false);
-                            return;
+                    foreach($row as $index=>$keyName) {
+                        $search = array_search(mb_strtolower($keyName), $this->names);
+                        if ($search !== false) {
+                            $this->keys[$search] = $index;
                         }
+                    }
+                    if (count($this->names) != count($this->keys)) {
+                        $this->addSheet(false);
+                        return;
                     }
                 }
                 continue;

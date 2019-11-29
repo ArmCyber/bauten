@@ -5,14 +5,19 @@
     </a></div>
     <div class="product-title"><a href="{{ $item_url }}">{{ $item->name }}</a></div>
     <div class="product-price">
-        <span class="catalogue-price">Цена: <span class="cat-price">{{ $item->price }}</span> <span class="kzt"></span></span>
-        @if($item->sale)
-            <span class="sale-price">{{ $item->sale }} <span class="kzt"></span></span>
+        @if ($item->price)
+            <span class="catalogue-price">Цена: <span class="cat-price">{{ $item->price }}</span> <span class="kzt"></span></span>
+            @if($item->sale)
+                <span class="sale-price">{{ $item->sale }} <span class="kzt"></span></span>
+            @endif
         @endif
     </div>
-    @if ($item->new)
     <div class="part-statuses">
-        <div class="part-status part-new">Новинка</div>
+        @if ($item->new)
+            <div class="part-status part-new">Новинка</div>
+        @endif
+        @if (!$item->price)
+            <div class="part-status part-new">Под заказ</div>
+        @endif
     </div>
-    @endif
 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Traits\GetIncrement;
 use App\Http\Traits\InsertOrUpdate;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
@@ -9,7 +10,7 @@ class Model extends Eloquent
 {
     public $timestamps=false;
 
-    use InsertOrUpdate;
+    use InsertOrUpdate, GetIncrement;
     public static function action($model, $inputs, $mark_id=null) {
         if (!$model) {
             $model = new self;

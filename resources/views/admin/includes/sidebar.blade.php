@@ -23,6 +23,7 @@
 @alink(['can'=>'admin', 'url'=>route('admin.pickup_points.main'), 'icon'=>'fas fa-map-marker', 'title'=>'Точки самовывоза'])@endalink
 @alink(['can'=>'admin', 'url'=>route('admin.banners', ['page'=>'settings']), 'icon'=>'fas fa-cog', 'title'=>'Настройки магазина'])@endalink
 @alink(['can'=>'admin', 'url'=>route('admin.marks.main'), 'icon'=>'fas fa-car', 'title'=>'Марки'])@endalink
+@alink(['can'=>'admin', 'url'=>route('admin.modifications.main'), 'icon'=>'fas fa-hashtag', 'title'=>'Модификации'])@endalink
 @alink(['can'=>'manager_content', 'url'=>route('admin.brands.main'), 'icon'=>'fas fa-list-ol', 'title'=>'Бренды'])@endalink
 @alink(['can'=>'content', 'url'=>route('admin.partner_groups.main'), 'icon'=>'fas fa-handshake', 'title'=>'Группы партнеров'])@endalink
 @alink(['can'=>'admin', 'url'=>route('admin.admins.main'), 'icon'=>'fas fa-user-tie', 'title'=>'Администраторы'])@endalink
@@ -30,7 +31,7 @@
 @alink(['can'=>'admin', 'title' => 'Импортирование', 'icon'=>'mdi mdi-file-import'])
     @alink(['can'=>'admin', 'url'=>route('admin.import', ['page'=>'marks']), 'icon'=>'fas fa-car', 'title'=>'Марки'])@endalink
     @alink(['can'=>'admin', 'url'=>route('admin.import', ['page'=>'models']), 'icon'=>'fas fa-list', 'title'=>'Модели'])@endalink
-{{--    @alink(['can'=>'admin', 'url'=>route('admin.import', ['page'=>'generations']), 'icon'=>'fas fa-list-alt', 'title'=>'Кузовы'])@endalink--}}
+    @alink(['can'=>'admin', 'url'=>route('admin.import', ['page'=>'modifications']), 'icon'=>'fas fa-list-alt', 'title'=>'Модификации'])@endalink
     @alink(['can'=>'admin', 'url'=>route('admin.import', ['page'=>'parts']), 'icon'=>'fas fa-car-battery', 'title'=>'Запчасти'])@endalink
     @alink(['can'=>'admin', 'url'=>route('admin.import', ['page'=>'engines']), 'icon'=>'fas fa-car-side', 'title'=>'Двигатели'])@endalink
     @alink(['can'=>'admin', 'url'=>route('admin.import', ['page'=>'catalogs']), 'icon'=>'fas fa-list-alt', 'title'=>'Категории'])@endalink
