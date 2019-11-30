@@ -11,6 +11,7 @@
     @endif
 @endalink
 @alink(['can'=>'operator_manager', 'url'=>route('admin.applications.main'), 'icon'=>'far fa-file-alt', 'title'=>'Заявки', 'counter'=>$applications_count])@endalink
+@alink(['can'=>'operator_manager', 'url'=>route('admin.price_applications.main'), 'icon'=>'far fa-file-alt', 'title'=>'Уточнении цены', 'counter'=>$price_applications_count])@endalink
 @alink(['can'=>'operator_manager', 'url'=>route('admin.users.main'), 'icon'=>'fas fa-user', 'title'=>'Пользователи', 'counter'=>$pending_users_count])@endalink
 @alink(['can'=>'content', 'icon'=>'fas fa-list', 'title'=>'Каталог запчастей'])
     @alink(['can'=>'content', 'url'=>route('admin.groups.main'), 'icon'=>'fas fa-layer-group', 'title'=>'Группы'])@endalink

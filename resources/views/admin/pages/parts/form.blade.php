@@ -116,7 +116,7 @@
                 <div class="little-p">
                     <select name="modification_id[]" class="select2" style="width:100%;" multiple>
                         @foreach($modifications as $modification)
-                            <option value="{{ $modification->id }}" {!! (isset($item) && $item->modifications??collect()->where('id', $modification->id)->first())?'selected':null !!}>{{ $modification->cid }}</option>
+                            <option value="{{ $modification->id }}" {!! (isset($item) && $item->modifications->where('id', $modification->id)->first())?'selected':null !!}>{{ $modification->cid }}</option>
                         @endforeach
                     </select>
                 </div>

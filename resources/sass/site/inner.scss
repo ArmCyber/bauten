@@ -199,16 +199,22 @@ input.filter-checkbox {
 
 .part-status {
     display: block;
-    width: 100px;
+    width: 120px;
     text-align: center;
     padding-top: 3px;
     padding-bottom: 3px;
     margin-bottom:3px;
+    border-radius: 3px;
+    color:#ffffff;
 }
 .part-new {
     background-color: #28a745;
-    color:#ffffff;
-    border-radius: 3px;
+}
+.part-noprice {
+    background-color: #e6ae07;
+}
+.part-nis {
+    background-color: #dc3545;
 }
 
 .product-favourite {
@@ -255,11 +261,13 @@ input.filter-checkbox {
     margin-top:15px;
 }
 .part-status-lg {
-    width:120px;
+    width:130px;
     font-size:17px;
     text-align: center;
     border-radius: 4px;
     padding: 5px 0;
+    color:#ffffff;
+    margin-bottom:4px;
 }
 
 .product-page-items {

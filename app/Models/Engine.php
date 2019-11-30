@@ -50,10 +50,14 @@ class Engine extends Model
     }
 
     public function getYearsAttribute(){
-        $year = $this->year;
-        if (!$year) return '-';
-        if($this->year_to) $year.=' - '.$this->year_to;
-        return $year;
+        $years = $this['year'];
+        if ($this['year'] && $this['year_to']!=$this['year']){
+            $years.='-';
+        }
+        if ($this['year_to'] && $this['year_to']!=$this['year']) {
+            $years.=$this['year_to'];
+        }
+        return $years;
     }
 
     public static function deleteItem($model) {

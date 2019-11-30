@@ -319,6 +319,14 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
             Route::middleware('can:admin')->delete('delete', $c.'delete')->name('delete');
         });
         //endregion
+        //region Price Applications
+        Route::prefix('price-applications')->name('price_applications.')->group(function() { $c = 'PriceApplicationsController@';
+            Route::middleware('can:operator_manager')->get('', $c.'main')->name('main');
+            Route::middleware('can:operator_manager')->get('user/{id}', $c.'userApplications')->name('user');
+            Route::middleware('can:operator_manager')->get('view/{id}', $c.'view')->name('view');
+            Route::middleware('can:admin')->delete('delete', $c.'delete')->name('delete');
+        });
+        //endregion
         //region Pickup Points
         Route::middleware('can:admin')->prefix('pickup-points')->name('pickup_points.')->group(function() { $c = 'PickupPointsController@';
             Route::get('', $c.'main')->name('main');
@@ -377,6 +385,7 @@ Route::namespace('Site')->group(function() {
             Route::get('orders/pending', 'OrdersController@pending')->name('orders.pending');
             Route::get('orders/{id}', 'OrdersController@view')->name('orders.view');
             Route::post('send-application/{id}', 'MainController@sendApplication')->name('send_application');
+            Route::post('send-price-application/{id}', 'MainController@sendPriceApplication')->name('send_price_application');
         });
     });
     Route::get('profile/change-email/{token}', 'Cabinet\ProfileController@verifyNewEmail')->name('profile.verify_new_email');

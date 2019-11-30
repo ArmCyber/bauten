@@ -18,7 +18,7 @@ class Part extends Model
     private $mutedAttributes = [];
 
     public static function adminList(){
-        return self::with(['catalogue', 'brand'])->sort()->get();
+        return self::with(['catalogue', 'brand', 'engines', 'modifications'])->sort()->get();
     }
 
     public static function catalogsList($ids, $criteria = [], $sort = []){
@@ -56,7 +56,11 @@ class Part extends Model
         }
         $model->save();
         if (Gate::check('admin')) {
-            PartCar::sync($model->id, $inputs['mark_id']??[], $inputs['model_id']??[], $inputs['generation_id']??[], (bool) $ignore);
+            if (array_key_exists('modification_id', $inputs) && is_array($inputs['modification_id'])) {
+                $modifications = Modification::whereIn('id', $inputs['modification_id'])->pluck('id')->toArray();
+            }
+            else $modifications = [];
+            $model->modifications()->sync($modifications);
             if (array_key_exists('engine_id', $inputs) && is_array($inputs['engine_id'])) {
                 $engines = Engine::whereIn('id', $inputs['engine_id'])->pluck('id')->toArray();
             }
@@ -95,7 +99,7 @@ class Part extends Model
 //    }
 
     public static function getItemSite($url) {
-        return self::where(['url'=>$url, 'active'=>1])->brandAllowed()->whereHas('catalogue')->whereHas('brand')->with(['catalogue', 'brand', 'cars', 'criteria'=>function($q){
+        return self::where(['url'=>$url, 'active'=>1])->brandAllowed()->whereHas('catalogue')->whereHas('brand')->with(['catalogue', 'brand', 'modifications', 'criteria'=>function($q){
             $q->with('filter')->orderBy('id');
         }])->firstOrFail();
     }
@@ -108,21 +112,21 @@ class Part extends Model
         return $this->belongsTo('App\Models\Brand', 'brand_id', 'id');
     }
 
-    public function marks(){
-        return $this->belongsToMany('App\Models\Mark', 'part_cars', 'part_id', 'mark_id');
-    }
+//    public function marks(){
+//        return $this->belongsToMany('App\Models\Mark', 'part_cars', 'part_id', 'mark_id');
+//    }
 
-    public function models(){
-        return $this->belongsToMany('App\Models\Model', 'part_cars', 'part_id', 'model_id');
-    }
+//    public function models(){
+//        return $this->belongsToMany('App\Models\Model', 'part_cars', 'part_id', 'model_id');
+//    }
 
-    public function generations(){
-        return $this->belongsToMany('App\Models\Generation', 'part_cars', 'part_id', 'generation_id');
-    }
+//    public function generations(){
+//        return $this->belongsToMany('App\Models\Generation', 'part_cars', 'part_id', 'generation_id');
+//    }
 
-    public function cars(){
-        return $this->hasMany('App\Models\PartCar', 'part_id', 'id')->withInfo()->sort();
-    }
+//    public function cars(){
+//        return $this->hasMany('App\Models\PartCar', 'part_id', 'id')->withInfo()->sort();
+//    }
 
     public function criteria(){
         return $this->belongsToMany('App\Models\Criterion');
@@ -248,5 +252,13 @@ class Part extends Model
 
     public function attached_parts_site(){
         return $this->belongsToMany('App\Models\Part', 'attached_parts', 'part_id', 'attached_part_id')->where('active', 1)->sort();
+    }
+
+    public function modifications() {
+        return $this->belongsToMany('App\Models\Modification')->with(['generation' => function($q){
+            $q->with(['model' => function($q){
+                $q->with('mark');
+            }]);
+        }]);
     }
 }

@@ -10,6 +10,7 @@ use App\Models\Brand;
 use App\Models\Order;
 use App\Models\Part;
 use App\Models\PartnerGroup;
+use App\Models\PriceApplication;
 use App\Models\User;
 use App\Services\Notify\Facades\Notify;
 use Illuminate\Http\Request;
@@ -36,6 +37,7 @@ class UsersController extends BaseController
         $data['order_counts'] = Order::getUserOrdersCount($data['item']->id);
         $data['statuses'] = Order::STATUSES;
         $data['applications'] = Application::getUserItems($data['item']->id);
+        $data['price_applications'] = PriceApplication::getUserItems($data['item']->id);
 //        $data['back_url'] = route('admin.users.main');
         return view('admin.pages.users.view', $data);
     }

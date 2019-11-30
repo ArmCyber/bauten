@@ -51,52 +51,133 @@
                                 </div>
                             </div>
                         </div>
-                        @if ($item->new)
                             <div class="part-page-statuses">
-                                <div class="part-status-lg part-new">Новинка</div>
+                                @if ($item->new)
+                                    <div class="part-status-lg part-new">Новинка</div>
+                                @endif
+                                @if (!$item->price)
+                                    <div class="part-status-lg part-noprice">Под заказ</div>
+                                @elseif(!$item->max_count_wo_basket)
+                                    <div class="part-status-lg part-nis">Нет на складе</div>
+                                @endif
                             </div>
-                        @endif
                         @if($item->description)
                             <div class="product-page-description">{!! $item->description !!}</div>
                         @endif
-                        <div class="product-page-pricing">
-                            <div class="product-page-price">
-                                Цена: <span class="ppp">{{ $item->price }}</span> <span class="kzt"></span>
-                            </div>
-                            @if($item->sale)
-                                <div class="product-page-mincount">Цена без скидки: {{ $item->sale }} <span class="kzt"></span>.</div>
-                            @endif
-                            @if($item->min_count!=1 && $item->min_count>$item->multiplication)
-                                <div class="product-page-mincount">Мин. количество: {{ $item->min_count }} шт.</div>
-                            @endif
-                            @if($item->multiplication!=1)
-                                <div class="product-page-mincount">Количество в упаковке: {{ $item->multiplication }} шт.</div>
-                            @endif
-                            @if($item->count_sale_count  && $item->count_sale_percent)
-                                <div class="product-page-mincount">Начиная с {{ $item->count_sale_count }} шт. - скидка {{ $item->count_sale_percent }}%.</div>
-                            @endif
-                        </div>
-                        @if($item->application_only)
-                            <div class="h4 text-danger pt-2 not-in-stock">Нет на складе</div>
-                        @else
-                            @if($item->max_count)
-                                <div class="product-page-shop not-in-stock-hidden">
-                                    <div class="product-page-form">
-                                        <div class="product-page-count">
-                                            <div class="number-group">
-                                                <button class="number-btn number-input-minus">-</button>
-                                                <input type="text" value="{{ $item->min_count_ceil }}" data-multiplication="{{ $item->multiplication }}" data-price="{{ $item->price }}" data-available="{{ $item->max_count }}" class="number-input" readonly>
-                                                <button class="number-btn number-input-plus">+</button>
-                                            </div>
-                                        </div>
-                                        <div class="product-page-submit position-relative"><button id="to-basket">В корзину</button><span class="loader loader-sm"></span></div>
-                                    </div>
-                                    <div class="product-page-price mt-3">Общая стоимость: <span id="sale-from" class="sale-price" style="display: none"><span id="part-sale-price"></span> <span class="kzt"></span></span> <span class="ppp" id="full-price"></span> <span class="kzt"></span> </div>
+                        @if ($item->price)
+                            <div class="product-page-pricing">
+                                <div class="product-page-price">
+                                    Цена: <span class="ppp">{{ $item->price }}</span> <span class="kzt"></span>
                                 </div>
-                            @endif
-                            <div class="h4 text-danger pt-2 not-in-stock">Нет на складе</div>
+                                @if($item->sale)
+                                    <div class="product-page-mincount">Цена без скидки: {{ $item->sale }} <span class="kzt"></span>.</div>
+                                @endif
+                                @if($item->min_count!=1 && $item->min_count>$item->multiplication)
+                                    <div class="product-page-mincount">Мин. количество: {{ $item->min_count }} шт.</div>
+                                @endif
+                                @if($item->multiplication!=1)
+                                    <div class="product-page-mincount">Количество в упаковке: {{ $item->multiplication }} шт.</div>
+                                @endif
+                                @if($item->count_sale_count  && $item->count_sale_percent)
+                                    <div class="product-page-mincount">Начиная с {{ $item->count_sale_count }} шт. - скидка {{ $item->count_sale_percent }}%.</div>
+                                @endif
+                            </div>
                         @endif
-                        @if($item->application_only || !$item->max_count_wo_basket)
+                        @if ($item->price)
+                            @if($item->application_only)
+                                <div class="h4 text-danger pt-2 not-in-stock">Нет на складе</div>
+                            @else
+                                @if($item->max_count)
+                                    <div class="product-page-shop not-in-stock-hidden">
+                                        <div class="product-page-form">
+                                            <div class="product-page-count">
+                                                <div class="number-group">
+                                                    <button class="number-btn number-input-minus">-</button>
+                                                    <input type="text" value="{{ $item->min_count_ceil }}" data-multiplication="{{ $item->multiplication }}" data-price="{{ $item->price }}" data-available="{{ $item->max_count }}" class="number-input" readonly>
+                                                    <button class="number-btn number-input-plus">+</button>
+                                                </div>
+                                            </div>
+                                            <div class="product-page-submit position-relative"><button id="to-basket">В корзину</button><span class="loader loader-sm"></span></div>
+                                        </div>
+                                        <div class="product-page-price mt-3">Общая стоимость: <span id="sale-from" class="sale-price" style="display: none"><span id="part-sale-price"></span> <span class="kzt"></span></span> <span class="ppp" id="full-price"></span> <span class="kzt"></span> </div>
+                                    </div>
+                                @endif
+                                <div class="h4 text-danger pt-2 not-in-stock">Нет на складе</div>
+                            @endif
+                        @endif
+                        @if (!$item->price)
+                            <div class="pt-3">
+                                <button class="bauten-btn" data-toggle="modal" data-target="#application-modal">Уточнить цену</button>
+                            </div>
+                            @push('modals')
+                                @modal(['id'=>'application-modal', 'loader'=>true,
+                                            'saveBtn'=>'Отправить заявку',
+                                            'saveBtnClass'=>'btn-bauten',
+                                            'closeBtn' => 'Отменить',
+                                            'dialog_class' => 'modal-xl',
+                                            'form'=>['id'=>'application-form', 'action'=>route('cabinet.send_price_application', ['id'=>$item->id])]])
+                                @slot('title')Оформление заявки@endslot @csrf
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="form-name">ФИО</label>
+                                            <input type="text" id="form-name" class="form-control @error('name') has-error @enderror" name="name" value="{{ old('name', $user->name) }}" maxlength="255">
+                                            @error('name')
+                                            <small class="text-danger">{{ $message }}</small>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="form-phone">Телефон</label>
+                                            <input type="text" id="form-phone" class="form-control @error('phone') has-error @enderror" name="phone" value="{{ old('phone', $user->phone) }}" maxlength="255">
+                                            @error('phone')
+                                            <small class="text-danger">{{ $message }}</small>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="form-region">Регион</label>
+                                            <input type="text" id="form-region" class="form-control @error('region') has-error @enderror" name="region" value="{{ old('region', $user->region) }}" maxlength="255">
+                                            @error('region')
+                                            <small class="text-danger">{{ $message }}</small>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="form-city">Город</label>
+                                            <input type="text" id="form-city" class="form-control @error('city') has-error @enderror" name="city" value="{{ old('city', $user->city) }}" maxlength="255">
+                                            @error('city')
+                                            <small class="text-danger">{{ $message }}</small>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                @endmodal
+                            @endpush
+                            @push('css')
+                                @css(aApp('toastr/build/toastr.min.css'))
+                            @endpush
+                            @push('pageScripts')
+                                @js(aApp('bootstrap/js/bootstrap.js'))
+                                @js(aApp('toastr/build/toastr.min.js'))
+                                {!! Notify::render() !!}
+                                <script>
+                                    var applicationForm = $('#application-form'),
+                                        app_blocked = false;
+                                    applicationForm.on('submit', function(e){
+                                        if (app_blocked) return false;
+                                        app_blocked = true;
+                                        $('<input type="hidden" name="count"/>').val($('.number-input').val()).appendTo(applicationForm);
+                                    });
+                                    @if(session()->hasOldInput())
+                                    $('#application-modal').modal('show');
+                                    @endif
+                                </script>
+                            @endpush
+                        @elseif($item->application_only || !$item->max_count_wo_basket)
                             <div class="product-page-shop not-in-stock-hidden">
                                 <div class="product-page-form">
                                     <div class="product-page-count">
@@ -204,7 +285,7 @@
                     </div>
                 </div>
             </div>
-            @if(count($item->cars))
+            @if(count($item->modifications))
                 <div class="product-table">
                     <div class="prod-tbl-title">Применяемость по автомобилям</div>
                     <div class="prod-tbl-block">
@@ -216,8 +297,8 @@
                                 <th>Кузов</th>
                             </tr>
                             <tbody>
-                            @foreach($item->cars as $car)
-                                <tr><td class="tbl-mark">{{ $car->mark->name??'?' }}</td><td>{{ $car->model_id==0?'-':($car->model->name??'?') }}</td><td>{{ $car->generation_id!=0?$car->generation->full_name:'-' }}</td></tr>
+                            @foreach($item->modifications as $modification)
+                                <tr><td class="tbl-mark">{{ $modification->mark->name }}</td><td>{{ $modification->model->name }}</td><td>{{ $modification->generation->full_name }}</td></tr>
                             @endforeach
                             </tbody>
                         </table>

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateApplicationsTable extends Migration
+class CreatePriceApplicationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateApplicationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('applications', function (Blueprint $table) {
+        Schema::create('price_applications', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned();
             $table->string('name')->nullable();
@@ -23,11 +23,6 @@ class CreateApplicationsTable extends Migration
             $table->bigInteger('part_id')->unsigned();
             $table->string('part_name')->nullable();
             $table->string('part_code')->nullable();
-            $table->integer('count')->unsigned();
-            $table->float('price')->unsigned();
-            $table->integer('real_price')->unsigned()->nullable();
-            $table->float('sum')->unsigned();
-            $table->float('real_sum')->unsigned()->nullable();
             $table->timestamps();
         });
     }
@@ -39,6 +34,6 @@ class CreateApplicationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('applications');
+        Schema::dropIfExists('price_applications');
     }
 }

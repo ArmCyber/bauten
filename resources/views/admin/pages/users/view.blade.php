@@ -33,6 +33,7 @@
             <div class="view-line"><a href="{{ route('admin.users.favourites', ['id'=>$item->id]) }}">Посмотреть сохраненные товары ({{ count($item->all_favourites) }})</a></div>
             <div class="view-line"><a href="{{ route('admin.users.basket_parts', ['id'=>$item->id]) }}">Посмотреть товары в корзине ({{ count($basket_parts) }})</a></div>
             <div class="view-line"><a href="{{ route('admin.applications.user', ['id'=>$item->id]) }}">Посмотреть заявки ({{ count($applications) }})</a></div>
+            <div class="view-line"><a href="{{ route('admin.price_applications.user', ['id'=>$item->id]) }}">Посмотреть уточнении цены ({{ count($price_applications) }})</a></div>
             @can('manager')
             <div class="pt-2">
                 @if($item->status!=\App\Models\User::STATUS_BLOCKED)
