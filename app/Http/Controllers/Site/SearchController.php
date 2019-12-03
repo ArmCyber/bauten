@@ -65,7 +65,7 @@ class SearchController extends BaseController
     public function getGenerations(Request $request) {
         $modelIds = $request->get('models');
         if (!$modelIds || !is_array($modelIds)) return response('');
-        $items = Model::getSearchData($modelIds);
+        $items = Generation::getSearchData($modelIds);
         if (!count($items)) return response('');
         return response()->view('site.ajax.search_data', [
             'items' => $items,
@@ -101,39 +101,52 @@ class SearchController extends BaseController
                 $query->whereIn('brand_id', $brand_ids);
             }
         }
-        if ($marksString) {
+        if ($generationsString) {
+            $generationsUnfiltered = explode('-', $generationsString);
+            $get_generations = Generation::select('name', 'id', 'model_id')->where('active', 1)->whereIn('id', $generationsUnfiltered)->with(['model' => function($q){
+                $q->with('mark');
+            }])->sort()->limit(5)->get();
+            if (count($get_generations)) {
+                $modelsForNames = $get_generations->pluck('model');
+                $names['marks'] = $modelsForNames->pluck('mark')->pluck('name')->toArray();
+                $names['models'] = $modelsForNames->pluck('name')->toArray();
+                $names['generations'] = $get_generations->pluck('name')->toArray();
+                $generation_ids = $get_generations->pluck('id')->toArray();
+                $appends['ge'] = implode('-', $generation_ids);
+                $query->whereHas('modifications', function($q) use ($generation_ids){
+                    $q->whereIn('modifications.generation_id', $generation_ids);
+                });
+            }
+        }
+        elseif ($modelsString){
+            $modelsUnfiltered = explode('-', $modelsString);
+            $get_models = Model::select('name', 'id', 'mark_id')->where('active', 1)->whereIn('id', $modelsUnfiltered)->with('mark')->sort()->limit(5)->get();
+            if (count($get_models)) {
+                $names['marks'] = $get_models->pluck('mark')->pluck('name')->toArray();
+                $names['models'] = $get_models->pluck('name')->toArray();
+                $model_ids = $get_models->pluck('id')->toArray();
+                $appends['mo'] = implode('-', $model_ids);
+                $query->whereHas('modifications', function($q) use($model_ids){
+                    $q->whereHas('generation', function($q) use ($model_ids) {
+                        $q->whereIn('generations.model_id', $model_ids);
+                    });
+                });
+            }
+        }
+        elseif ($marksString) {
             $marksUnfiltered = explode('-', $marksString);
             $get_marks = Mark::select('name', 'id')->where('active', 1)->whereIn('id', $marksUnfiltered)->sort()->limit(5)->get();
             if (count($get_marks)) {
                 $names['marks'] = $get_marks->pluck('name')->toArray();
                 $mark_ids = $get_marks->pluck('id')->toArray();
                 $appends['ma'] = implode('-', $mark_ids);
-                $query->whereHas('marks', function($q) use($mark_ids){
-                    $q->whereIn('marks.id', $mark_ids);
+                $query->whereHas('modifications', function($q) use($mark_ids){
+                    $q->whereHas('generation', function($q) use ($mark_ids) {
+                        $q->whereHas('model', function($q) use ($mark_ids) {
+                            $q->whereIn('models.mark_id', $mark_ids);
+                        });
+                    });
                 });
-                $using_marks = true;
-            }
-        }
-        if (isset($mark_ids) && $modelsString) {
-            $modelsUnfiltered = explode('-', $modelsString);
-            $get_models = Model::select('name', 'id')->where('active', 1)->whereIn('id', $modelsUnfiltered)->whereIn('mark_id', $mark_ids)->sort()->limit(5)->get();
-            if (count($get_models)) {
-                $names['models'] = $get_models->pluck('name')->toArray();
-                $model_ids = $get_models->pluck('id')->toArray();
-                $appends['mo'] = implode('-', $model_ids);
-                $query->whereHas('models', function($q) use($model_ids){
-                    $q->whereIn('models.id', $model_ids);
-                });
-            }
-        }
-        if (isset($model_ids) && $generationsString) {
-            $generationsUnfiltered = explode('-', $generationsString);
-            $get_generations = Generation::select('name', 'id')->where('active', 1)->whereIn('id', $generationsUnfiltered)->whereIn('model_id', $model_ids)->sort()->limit(5)->get();
-            if (count($get_generations)) {
-                $names['generations'] = $get_generations->pluck('name')->toArray();
-                $generation_ids = $get_generations->pluck('id')->toArray();
-                $appends['ge'] = implode('-', $generation_ids);
-                $query->whereIn('generations.id', $generation_ids);
             }
         }
         if ($enginesString) {

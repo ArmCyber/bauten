@@ -15,7 +15,7 @@ class CreateMarksTable extends Migration
     {
         Schema::create('marks', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('cid')->collation('utf8_general_ci')->unique()->nullable();
+            $table->integer('cid')->unique()->nullable();
             $table->string('name')->nullable();
             $table->string('image', 64)->nullable();
             $table->string('image_alt')->nullable();

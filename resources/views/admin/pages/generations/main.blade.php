@@ -7,8 +7,8 @@
                 <table class="table table-striped m-b-0 columns-middle init-dataTable">
                     <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Имя</th>
+{{--                        <th>ID</th>--}}
+                        <th>Название</th>
 {{--                        <th>Двигатель, см3</th>--}}
                         <th>Статус</th>
                         <th>Действие</th>
@@ -17,7 +17,7 @@
                     <tbody>
                     @foreach($items as $item)
                         <tr class="item-row" data-id="{!! $item->id !!}">
-                            <td>{{ $item->cid}}</td>
+{{--                            <td>{{ $item->cid}}</td>--}}
                             <td class="item-title">{{ $item->full_name??'-' }}</td>
 {{--                            <td>{{ $item->engine??'-' }}</td>--}}
                             @if($item->active)

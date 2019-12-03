@@ -79,7 +79,7 @@ class GenerationsController extends BaseController
     private function validator($inputs, $ignore=null) {
         $unique = $ignore===false?null:','.$ignore;
         return Validator::make($inputs, [
-            'cid' => 'required|integer|digits_between:1,255|unique:generations,cid'.$unique,
+//            'cid' => 'required|integer|digits_between:1,255|unique:generations,cid'.$unique,
             'name' => 'nullable|string|max:255',
             'engine' => 'nullable|integer|digits_between:1,10',
             'year' => 'nullable|integer|digits:4',

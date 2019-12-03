@@ -75,7 +75,6 @@ class MarksController extends BaseController
         $inputs['generated_url'] = !empty($inputs['name'])?to_url($inputs['name']):null;
         $request->merge(['url' => $inputs['url']]);
         $rules = [
-            'cid' => 'required|integer|digits_between:1,255|unique:marks,cid'.$unique,
             'name' => 'required|string|max:255|unique:marks,name'.$unique,
             'image' => 'nullable|image|mimes:jpeg,png',
             'image_alt' => 'nullable|string|max:255',

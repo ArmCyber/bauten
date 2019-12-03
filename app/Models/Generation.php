@@ -26,7 +26,7 @@ class Generation extends Model
             $model = new self;
             $model['model_id'] = $inputs['model_id'];
         }
-        $model['cid'] = $inputs['cid'];
+//        $model['cid'] = $inputs['cid'];
         $model['name'] = $inputs['name'];
         $model['engine'] = $inputs['engine'];
         $range_data = get_range_data($inputs['year'], $inputs['year_to']);
@@ -63,9 +63,12 @@ class Generation extends Model
         return $years;
     }
 
-    public static function getSearchData($model_id) {
-        return self::where(['model_id'=>$model_id, 'active'=>1])->sort()->get()->mapToGroups(function($item, $key) {
-            return [$item->name?mb_strtoupper(mb_substr($item->name,0,1)):'#'=>$item];
+    public static function getSearchData($model_ids) {
+        return self::whereIn('model_id', $model_ids)->where('active',1)->sort()->get()->mapToGroups(function($item, $key) {
+            return [$item->name?mb_strtoupper(mb_substr($item->name,0,1)):'#'=>[
+                'id'=>$item->id,
+                'name'=>$item->full_name,
+            ]];
         });
     }
 

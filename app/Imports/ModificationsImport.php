@@ -29,6 +29,7 @@ class ModificationsImport extends AbstractImport
     private $marks = [];
     private $models = [];
     private $generations = [];
+    private $hasNullGeneration = false;
 
     protected function filter($data) {
         if ($this->rows->where('cid', $data['cid'])->count()) return $this->skip('duplicate', ['name'=>'id']);
@@ -59,7 +60,11 @@ class ModificationsImport extends AbstractImport
         $generation = mb_strtolower($data['generation']);
         if(!in_array($mark, $this->marks)) $this->marks[] = $mark;
         if(!in_array($model, $this->models)) $this->models[] = $model;
-        if(!in_array($generation, $this->models)) $this->generations[] = $generation;
+        if ($generation === '') {
+            $this->hasNullGeneration = true;
+            $data['generation'] = null;
+        }
+        elseif(!in_array($generation, $this->generations)) $this->generations[] = $generation;
         return $this->add($data);
     }
 
@@ -67,11 +72,11 @@ class ModificationsImport extends AbstractImport
         $final = [];
         $marks = Mark::selectRaw('`id`, LOWER(`name`) as `name`')->whereIn('name', $this->marks)->get();
         $markIncrement = Mark::getIncrement();
-        $markMaxCid = ((int) Mark::selectRaw('MAX(`cid`) as cid')->first()->cid)+1;
-//        $markMaxCid = Mark::selectRaw('MAX(`cid`)');
         $models = Model::selectRaw('`id`, `mark_id`, LOWER(`name`) as `name`')->whereIn('name', $this->models)->get();
         $modelIncrement = Model::getIncrement();
-        $generations = Generation::selectRaw('`id`, `model_id`, LOWER(`name`) as `name`, `year`, `year_to`')->whereIn('name', $this->generations)->get();
+        $generationsQuery = Generation::selectRaw('`id`, `model_id`, LOWER(`name`) as `name`, `year`, `year_to`')->whereIn('name', $this->generations);
+        if ($this->hasNullGeneration) $generationsQuery->orWhereNull('name');
+        $generations = $generationsQuery->get();
         $generationIncrement = Generation::getIncrement();
         $marksInsert = [];
         $modelsInsert = [];
@@ -82,7 +87,6 @@ class ModificationsImport extends AbstractImport
                 $thisMarkId = $markIncrement++;
                 $thisMarksInsert = [
                     'id' => $thisMarkId,
-                    'cid' => $markMaxCid++,
                     'name' => mb_strtolower($row['mark']),
                     'url' => to_url($row['mark'])
                 ];

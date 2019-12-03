@@ -8,13 +8,6 @@ use Illuminate\Support\Facades\DB;
 
 class EnginesImport extends AbstractImport
 {
-    protected $keys = [
-        'number'=>0,
-        'marks'=>1,
-        'name'=>2,
-        'years' => 3,
-    ];
-
     protected $rules = [
         'number' => 'required|integer',
         'name' => 'required|string|max:255',
@@ -47,12 +40,12 @@ class EnginesImport extends AbstractImport
         $data['year'] = $year;
         $data['year_to'] = $year_to;
         unset($data['years']);
-        $marks = explode(',', mb_strtolower($data['marks']));
+        $marks = explode(',', $data['marks']);
         $newMarks = [];
         foreach($marks as $mark) {
             $mark = trim($mark);
-            if (!in_array($mark, $this->marks)) $this->marks[]=$mark;
-            if (!in_array($mark, $newMarks)) $newMarks[]=$mark;
+            if (!in_array($mark, $this->marks)) $this->marks[]=mb_strtolower($mark);
+            $newMarks[]=$mark;
         }
         $data['marks'] = $newMarks;
         $data['number'] = (int) $data['number'];
@@ -64,6 +57,9 @@ class EnginesImport extends AbstractImport
         $numbers = $this->rows->pluck('number');
         $names = $this->rows->pluck('names');
         $marks = $this->marks;
+        $newMarks = [];
+        $markIncrement = Mark::getIncrement();
+        $markMaxCid = ((int) Mark::selectRaw('MAX(`cid`) as cid')->first()->cid)+1;
         $result_numbers = Engine::select('id', 'number')->whereIn('number', $numbers)->get();
         $result_names = Engine::selectRaw('LOWER(`name`) as `lower_name`')->whereIn('name', $names)->whereNotIn('number', $numbers)->get()->pluck('lower_name');
         $result_marks = Mark::selectRaw('`id`, LOWER(`name`) as `name`')->whereIn('name', $marks)->get();
@@ -86,20 +82,29 @@ class EnginesImport extends AbstractImport
                 $id = $increment;
             }
             $this_insert_marks = [];
-            $continue = false;
+            $attachingMarks = [];
             foreach($row['marks'] as $mark) {
-                $this_mark = $result_marks->where('name', $mark)->first();
+                $this_mark = $result_marks->where('name', mb_strtolower($mark))->first();
                 if (!$this_mark) {
-                    $this->addError($row['_row'], 'not_found', ['name'=>'марка "'.$mark.'"']);
-                    $continue = true;
-                    break;
+                    $thisMarkId = $markIncrement++;
+                    $thisMarksInsert = [
+                        'id' => $thisMarkId,
+                        'cid' => $markMaxCid++,
+                        'name' => mb_strtolower($mark),
+                        'url' => to_url($mark)
+                    ];
+                    $result_marks->push($thisMarksInsert);
+                    $thisMarksInsert['name'] = $mark;
+                    $newMarks[] = $thisMarksInsert;
+                } else $thisMarkId = $this_mark['id'];
+                if (!in_array($thisMarkId, $attachingMarks)) {
+                    $attachingMarks[] = $thisMarkId;
+                    $this_insert_marks[] = [
+                        'engine_id' => $id,
+                        'mark_id' => $thisMarkId
+                    ];
                 }
-                $this_insert_marks[] = [
-                    'engine_id' => $id,
-                    'mark_id' => $this_mark->id
-                ];
             }
-            if ($continue) continue;
             if($is_increment) {
                 ++$increment;
             }
@@ -115,8 +120,10 @@ class EnginesImport extends AbstractImport
                 'name' => $row['name'],
             ];
         }
+        if(count($newMarks)) Mark::insert($newMarks);
         if (count($final)) Engine::insertOrUpdate($final, ['number', 'year', 'year_to', 'name']);
         if (count($delete_marks)) DB::table('engine_mark')->whereIn('engine_id', $delete_marks)->delete();
         if(count($insert_marks)) DB::table('engine_mark')->insert($insert_marks);
     }
+
 }

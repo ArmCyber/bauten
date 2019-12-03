@@ -31,9 +31,9 @@
                             @endif
                             <td>
                                 <a href="{{ route('admin.part_catalogs.edit', ['id'=>$item->id]) }}" {!! tooltip('Редактировать') !!} class="icon-btn edit"></a>
-                                @can('admin')
-                                <span class="d-inline-block"  style="margin-left:4px;" data-toggle="modal" data-target="#itemDeleteModal"><a href="javascript:void(0)" class="icon-btn delete" {!! tooltip('Удалить') !!}></a></span>
-                                @endcan
+                                @if (Gate::check('admin') && $item->parts_count==0)
+                                    <span class="d-inline-block"  style="margin-left:4px;" data-toggle="modal" data-target="#itemDeleteModal"><a href="javascript:void(0)" class="icon-btn delete" {!! tooltip('Удалить') !!}></a></span>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

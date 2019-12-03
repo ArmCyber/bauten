@@ -28,13 +28,16 @@ class SearchSmController extends BaseController
                         });
                     })->orWhereHas('brand', function ($q) use ($str){
                         $q->where('brands.name', 'like', '%'.$str.'%');
-                    })->orWhereHas('marks', function ($q) use ($str){
-                        $q->where('marks.name', 'like', '%'.$str.'%');
-                    })->orWhereHas('models', function ($q) use ($str){
-                        $q->where('models.name', 'like', '%'.$str.'%');
-                    })->orWhereHas('generations', function ($q) use ($str){
-                        $q->where('generations.name', 'like', '%'.$str.'%');
-                    })->orWhereHas('engines', function ($q) use ($str){
+                    })->orWhereHas('modifications', function($q) use ($str){
+                        $q->whereHas('generation', function($q) use ($str){
+                            $q->where('generations.name', 'like', '%'.$str.'%')->orWhereHas('model', function($q) use ($str){
+                                $q->where('models.name', 'like', '%'.$str.'%')->orWhereHas('mark', function($q) use ($str){
+                                    $q->where('marks.name', 'like', '%'.$str.'%');
+                                });
+                            });
+                        });
+                    })
+                    ->orWhereHas('engines', function ($q) use ($str){
                         $q->where('engines.name', 'like', '%'.$str.'%');
                     });
                 });

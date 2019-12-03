@@ -7,7 +7,6 @@ use App\Http\Traits\InsertOrUpdate;
 use App\Http\Traits\Sortable;
 use App\Http\Traits\UrlUnique;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 
 class Mark extends Model
@@ -18,24 +17,12 @@ class Mark extends Model
 
     protected $sortableDesc = false;
 
-    private const CACHE_KEY = 'marks';
-    private const CACHE_KEY_HOME = 'marks_home';
-
-    public static function clearCaches() {
-        Cache::forget(self::CACHE_KEY);
-        Cache::forget(self::CACHE_KEY_HOME);
-    }
-
     public static function homeList(){
-        return Cache::rememberForever(self::CACHE_KEY_HOME, function(){
-            return self::where(['in_home'=>1, 'active'=>1])->sort()->get();
-        });
+        return self::where(['in_home'=>1, 'active'=>1])->sort()->get();
     }
 
     public static function siteList(){
-        return Cache::rememberForever(self::CACHE_KEY, function(){
-            return self::where('active',1)->sort()->get();
-        });
+        return self::where('active',1)->sort()->get();
     }
 
     public static function searchList(){
@@ -45,17 +32,17 @@ class Mark extends Model
     }
 
     public static function fullAdminList(){
-        return self::select('id', 'name', 'cid')->whereHas('models', function($q){
+        return self::select('id', 'name')->whereHas('models', function($q){
             $q->whereHas('generations');
         })->with(['models'=>function($q){
             $q->select('id', 'name', 'mark_id')->whereHas('generations')->with(['generations'=>function($q){
-                return $q->select('id', 'cid', 'name', 'model_id', 'engine', 'year', 'year_to');
+                return $q->select('id', 'name', 'model_id', 'engine', 'year', 'year_to');
             }]);
         }])->sort()->get();
     }
 
 //    public static function engineAdminList(){
-//        return self::select('id', 'name', 'cid')->whereHas('engines')->with(['engines'=>function($q){
+//        return self::select('id', 'name')->whereHas('engines')->with(['engines'=>function($q){
 //            $q->select('id', 'name', 'mark_id');
 //        }])->sort()->get();
 //    }
@@ -81,7 +68,6 @@ class Mark extends Model
             $model->sort = $model->sortValue();
         }
         else $ignore = $model->id;
-        $model['cid'] = $inputs['cid'];
         $model['name'] = $inputs['name'];
         $model['image_alt'] = $inputs['image_alt'];
         $model['image_title'] = $inputs['image_title'];
@@ -98,7 +84,6 @@ class Mark extends Model
         $model['active'] = (int) array_key_exists('active', $inputs);
         $model['show_image'] = (int) array_key_exists('show_image', $inputs);
         $model['in_home'] = (int) array_key_exists('in_home', $inputs);
-        self::clearCaches();
         return $model->save();
     }
 
@@ -112,7 +97,6 @@ class Mark extends Model
 
     public static function deleteItem($model){
         if ($model->image) File::delete(public_path('u/marks/'.$model->image));
-        self::clearCaches();
         return $model->delete();
     }
 

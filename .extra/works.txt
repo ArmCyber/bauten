@@ -3,7 +3,7 @@ BAUTEN
 1c
 maileri harcy
 responsive
-win api
+!win api
 !modifikacianeri engine - remove
 !Engine filters remove.
 !Engine myus remove
@@ -11,7 +11,7 @@ win api
 
 sort + filter - ajax-ov
 
-utochnenie ceni 
++ utochnenie ceni 
 
 part excel
 
@@ -19,8 +19,12 @@ part excel
 
 filteri id-import 
 
-chtoxel jnjel, kategoria grupa
++ chtoxel jnjel, kategoria grupa
 
 puchur poisk escape
 
-tvakanner
++ tvakanner
+
+kuzov cid remove
+mark cid remove
+engine cid remove

@@ -72,7 +72,8 @@ class Group extends Model
     }
 
     public static function deleteItem($model){
-        $model->catalogs()->update(['group_id'=>null]);
+//        $model->catalogs()->update(['group_id'=>null]);
+        $model->delete();
         return true;
     }
 

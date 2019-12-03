@@ -7,6 +7,7 @@
                 <table class="table table-striped m-b-0 columns-middle">
                     <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Название</th>
                         <th>Действие</th>
                     </tr>
@@ -14,6 +15,7 @@
                     <tbody class="table-sortable" data-action="{{ route('admin.criteria.sort') }}">
                     @foreach($items as $item)
                         <tr class="item-row" data-id="{!! $item->id !!}">
+                            <td>{{ $item->id }}</td>
                             <td class="item-title">{{ $item->title}}</td>
                             <td>
                                 <a href="{{ route('admin.criteria.edit', ['id'=>$item->id]) }}" {!! tooltip('Редактировать') !!} class="icon-btn edit"></a>

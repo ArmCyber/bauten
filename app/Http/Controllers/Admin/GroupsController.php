@@ -61,8 +61,9 @@ class GroupsController extends BaseController
         $result = ['success'=>false];
         $id = $request->input('item_id');
         if ($id && is_id($id)) {
-            $item = Group::where('id',$id)->first();
-            if ($item && Group::deleteItem($item)) $result['success'] = true;
+            $item = Group::where('id',$id)->withCount('catalogs')->first();
+//            dd($item);
+            if ($item && $item->catalogs_count==0 && Group::deleteItem($item)) $result['success'] = true;
         }
         return response()->json($result);
     }

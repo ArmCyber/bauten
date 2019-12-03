@@ -21,7 +21,7 @@
                     <tbody class="table-sortable" data-action="{{ route('admin.marks.sort') }}">
                     @foreach($items as $item)
                         <tr class="item-row" data-id="{!! $item->id !!}">
-                            <td class="item-title">{{ $item->cid }}</td>
+                            <td class="item-title">{{ $item->id }}</td>
                             <td class="item-title">{{ $item->name }}</td>
                             @if($item->active)
                                 <td class="text-success">Активно</td>
