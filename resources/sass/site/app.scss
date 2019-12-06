@@ -215,8 +215,11 @@ a.menu-dropdown-link {
     opacity:0;
     @include transition(opacity .3s ease);
     padding-top:3px;
+    @include box-shadow(0 3px 6px rgba(0,0,0,.4));
 }
 .fluid-dropdown-content {
+    max-height: 80vh;
+    overflow: auto;
     background-color: #ffffff;
 }
 .has-fluid-dropdown:hover .fluid-dropdown {

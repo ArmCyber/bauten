@@ -61,9 +61,9 @@
                                     <div class="part-status-lg part-nis">Нет на складе</div>
                                 @endif
                             </div>
-                        @if($item->description)
-                            <div class="product-page-description">{!! $item->description !!}</div>
-                        @endif
+{{--                        @if($item->description)--}}
+{{--                            <div class="product-page-description">{!! $item->description !!}</div>--}}
+{{--                        @endif--}}
                         @if ($item->price)
                             <div class="product-page-pricing">
                                 <div class="product-page-price">
@@ -161,7 +161,6 @@
                                 @css(aApp('toastr/build/toastr.min.css'))
                             @endpush
                             @push('pageScripts')
-                                @js(aApp('bootstrap/js/bootstrap.js'))
                                 @js(aApp('toastr/build/toastr.min.js'))
                                 {!! Notify::render() !!}
                                 <script>
@@ -248,7 +247,6 @@
                                 @css(aApp('toastr/build/toastr.min.css'))
                             @endpush
                             @push('pageScripts')
-                                @js(aApp('bootstrap/js/bootstrap.js'))
                                 @js(aApp('toastr/build/toastr.min.js'))
                                 {!! Notify::render() !!}
                                 <script>
@@ -270,78 +268,113 @@
             </div>
         </div>
         <div class="product-page-body">
-            <div class="product-page-specs">
-                <div class="pr-specs-head">
-                    <div class="pr-specs-title">Характеристики</div>
-                </div>
-                <div class="pr-specs-content">
-                    <div class="pr-specs-tbl">
-                        <div class="pr-specs-item"><div class="pr-specs-key">Бренд</div><div class="pr-specs-value">{{ $item->brand->name }}</div></div>
-                        @foreach($item_filters as $item_filter)
-                            <div class="pr-specs-item"><div class="pr-specs-key">{{ $item_filter[0]->filter->title }}</div><div class="pr-specs-value">
-                                @foreach($item_filter as $item_criterion) @if(!$loop->first)<br>@endif <span>{{ $item_criterion->title }}</span> @endforeach
-                            </div></div>
-                        @endforeach
+            @push('tabs')
+                <li class="nav-item">
+                    <a class="nav-link active" id="part-description-tab" data-toggle="tab" href="#part-description" role="tab">Общая информация</a>
+                </li>
+            @endpush
+            @push('tabContent')
+                <div class="tab-pane fade active show" id="part-description" role="tabpanel">
+                    <div class="p-2">
+                        <div class="pr-specs-tbl py-2">
+                            <div class="pr-specs-item"><div class="pr-specs-key">Бренд</div><div class="pr-specs-value">{{ $item->brand->name }}</div></div>
+                            @foreach($item_filters as $item_filter)
+                                <div class="pr-specs-item"><div class="pr-specs-key">{{ $item_filter[0]->filter->title }}</div><div class="pr-specs-value">
+                                        @foreach($item_filter as $item_criterion) @if(!$loop->first)<br>@endif <span>{{ $item_criterion->title }}</span> @endforeach
+                                    </div></div>
+                            @endforeach
+                        </div>
+                        @if ($item->description)
+                            <div class="pt-2">
+                                {!! $item->description !!}
+                            </div>
+                        @endif
                     </div>
                 </div>
-            </div>
+            @endpush
             @if(count($item->modifications))
-                <div class="product-table">
-                    <div class="prod-tbl-title">Применяемость по автомобилям</div>
-                    <div class="prod-tbl-block">
-                        <table>
-                            <thead>
-                            <tr>
-                                <th>Марка</th>
-                                <th>Модель</th>
-                                <th>Кузов</th>
-                            </tr>
-                            <tbody>
-                            @foreach($item->modifications as $modification)
-                                <tr><td class="tbl-mark">{{ $modification->mark->name }}</td><td>{{ $modification->model->name }}</td><td>{{ $modification->generation->full_name }}</td></tr>
-                            @endforeach
-                            </tbody>
-                        </table>
+                @push('tabs')
+                    <li class="nav-item">
+                        <a class="nav-link" id="part-modifications-tab" data-toggle="tab" href="#part-modifications" role="tab">Применяемость</a>
+                    </li>
+                @endpush
+                @push('tabContent')
+                    <div class="tab-pane fade" id="part-modifications" role="tabpanel">
+                        <div class="prod-tbl-block p-2">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>Марка</th>
+                                    <th>Модель</th>
+                                    <th>Кузов</th>
+                                </tr>
+                                <tbody>
+                                @foreach($item->modifications as $modification)
+                                    <tr><td class="tbl-mark">{{ $modification->mark->name }}</td><td>{{ $modification->model->name }}</td><td>{{ $modification->generation->full_name }}</td></tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
+                @endpush
             @endif
-{{--            @if(count($item_engine_filters))--}}
-{{--                <div class="product-page-specs mt-4">--}}
-{{--                    <div class="prod-tbl-title">Применяемость по двигателям</div>--}}
-{{--                    <div class="pr-specs-content">--}}
-{{--                        <div class="pr-specs-tbl">--}}
-{{--                            @foreach($item_engine_filters as $item_filter)--}}
-{{--                                <div class="pr-specs-item"><div class="pr-specs-key">{{ $item_filter[0]->filter->title }}</div><div class="pr-specs-value">--}}
-{{--                                        @foreach($item_filter as $item_criterion) @if(!$loop->first)<br>@endif <span>{{ $item_criterion->title }}</span> @endforeach--}}
-{{--                                    </div></div>--}}
-{{--                            @endforeach--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            @endif--}}
             @if(count($item_engines))
-                <div class="product-table">
-                    <div class="prod-tbl-title">Применяемость по двигателям</div>
-                    <div class="prod-tbl-block">
-                        <table>
-                            <thead>
-                            <tr>
-                                <th>Модель</th>
-                                <th>Годы производства</th>
-                            </tr>
-                            <tbody>
-                            @foreach($item_engines as $engine)
-                                <tr><td class="tbl-mark">{{ $engine->name }}</td><td>{{ $engine->years }}</td></tr>
-                            @endforeach
-                            </tbody>
-                        </table>
+                @push('tabs')
+                    <li class="nav-item">
+                        <a class="nav-link" id="part-engines-tab" data-toggle="tab" href="#part-engines" role="tab">Двигатели</a>
+                    </li>
+                @endpush
+                @push('tabContent')
+                    <div class="tab-pane fade" id="part-engines" role="tabpanel">
+                        <div class="prod-tbl-block p-2">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>Модель</th>
+                                    <th>Годы производства</th>
+                                </tr>
+                                <tbody>
+                                @foreach($item_engines as $engine)
+                                    <tr><td class="tbl-mark">{{ $engine->name }}</td><td>{{ $engine->years }}</td></tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
+                @endpush
             @endif
+            @if (count($item_analogs))
+                    @push('tabs')
+                        <li class="nav-item">
+                            <a class="nav-link" id="part-analogs-tab" data-toggle="tab" href="#part-analogs" role="tab">Аналоги</a>
+                        </li>
+                    @endpush
+                    @push('tabContent')
+                        <div class="tab-pane fade" id="part-analogs" role="tabpanel">
+                            <div class="prod-tbl-block p-2">
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th>Производитель</th>
+                                        <th>Номер</th>
+                                    </tr>
+                                    <tbody>
+                                    @foreach($item_analogs as $analog)
+                                        <tr><td class="tbl-mark">{{ $analog->brand }}</td><td>{{ $analog->number }}</td></tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    @endpush
+            @endif
+            <div class="product-nav-tabs">
+                <ul class="nav nav-tabs" id="productTabs" role="tablist">@stack('tabs')</ul>
+                <div class="tab-content" id="productTabsContent">@stack('tabContent')</div>
+            </div>
         </div>
     </div>
 </div>
-
 @if(count($attached_parts))
     <div class="pb-s">
         <div class="recommended-products section-bg">
@@ -397,6 +430,7 @@
         window.csPercent = {{ $item->count_sale_percent?:'false' }};
         window.user_sale = parseInt({!! $user->sale !!});
     </script>
+    @js(aApp('bootstrap/js/bootstrap.js'))
     @js(aApp('swiper/swiper.js'))
     @js(aSite('js/product.js'))
     @stack('pageScripts')
