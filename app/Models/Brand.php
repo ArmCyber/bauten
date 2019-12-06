@@ -46,7 +46,7 @@ class Brand extends Model
     }
 
     public static function adminList(){
-        return self::sort()->get();
+        return self::withCount('parts')->sort()->get();
     }
 
     public static function action($model, $inputs) {

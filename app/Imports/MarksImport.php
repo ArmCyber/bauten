@@ -6,44 +6,57 @@ use App\Models\Mark;
 
 class MarksImport extends AbstractImport
 {
-    protected $keys = [
-        'cid'=>0,
-        'name'=>1,
-    ];
     protected $rules = [
-        'cid' => 'required|integer|digits_between:1,255',
+        'id' => 'nullable|integer',
         'name' => 'required|string|max:255',
     ];
     protected $names = [
-        'cid' => 'id',
-        'name' => 'название марок',
+        'id' => 'id',
+        'name' => 'марка',
     ];
 
     protected function filter($data) {
-        if ($this->rows->where('cid', $data['cid'])->count()) return $this->skip('duplicate', ['name'=>'id']);
+        if ($data['id'] && $this->rows->where('id', $data['id'])->count()) return $this->skip('duplicate', ['name'=>'id']);
         if ($this->rows->filter(function($item) use ($data) {
             return mb_strtolower($data['name'])==mb_strtolower($item['name']);
-        })->count()) return $this->skip('duplicate', ['name'=>'название марок']);
+        })->count()) return $this->skip('duplicate', ['name'=>'марка']);
         return $this->add($data);
     }
 
     protected function callback(){
-        $cids = $this->rows->pluck('cid');
+        $ids = $this->rows->pluck('id')->filter();
         $names = $this->rows->pluck('name');
-        $result_names = array_map('mb_strtolower', Mark::whereIn('name', $names)->whereNotIn('cid', $cids)->pluck('name')->toArray());
-        $final = [];
+        $result_ids = Mark::whereIn('id', $ids)->pluck('id')->toArray();
+        $result_names = array_map('mb_strtolower', Mark::whereIn('name', $names)->whereNotIn('id', $ids)->pluck('name')->toArray());
+        $inserts = [];
+        $updates = [];
         foreach($this->rows as $row) {
-            if (in_array(mb_strtolower($row['name']), $result_names)) {
-                $this->addError($row['_row'], 'duplicate', ['name'=>'название марок']);
+            $lower_name = mb_strtolower($row['name']);
+            if (in_array($lower_name, $result_names)) {
+                $this->addError($row['_row'], 'duplicate', ['name'=>'марка']);
                 continue;
             }
-            $final[] = [
-                'cid' => $row['cid'],
-                'name' => $row['name'],
-                'url' => to_url($row['name']),
-            ];
+            $row['id'] = (int) $row['id'];
+            if ($row['id']) {
+                if (!in_array($row['id'], $result_ids)) {
+                    $this->addError($row['_row'], 'not_found', ['name' => 'id']);
+                    continue;
+                }
+                $updates[] = [
+                    'id' => $row['id'],
+                    'name' => $row['name'],
+                    'url' => to_url($row['name']),
+                ];
+            }
+            else {
+                $inserts[] = [
+                    'name' => $row['name'],
+                    'url' => to_url($row['name']),
+                ];
+            }
+            $result_names[] = $lower_name;
         }
-        Mark::clearCaches();
-        if(count($final)) Mark::insertOrUpdate($final, ['name', 'url']);
+        if (count($updates)) Mark::insertOrUpdate($updates, ['name', 'url']);
+        if (count($inserts)) Mark::insert($inserts);
     }
 }

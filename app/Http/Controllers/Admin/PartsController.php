@@ -28,8 +28,11 @@ class PartsController extends BaseController
 {
     public function main(){
         $data = ['title'=>'Запчасти'];
-        $data['items'] = Part::adminList();
         return view('admin.pages.parts.main', $data);
+    }
+
+    public function listAjax(){
+        return datatables()->of(Part::adminListBuilder())->toJson();
     }
 
     public function add(){
@@ -58,7 +61,8 @@ class PartsController extends BaseController
         }
     }
 
-    public function edit($id){
+    public function edit($id=null){
+        if (!$id) abort(404);
         $data = ['title'=>'Редактирование запчаста', 'edit'=>true];
         $data['back_url'] = route('admin.parts.main');
         $data['item'] = Part::getItem($id);
@@ -87,7 +91,8 @@ class PartsController extends BaseController
         }
     }
 
-    public function filters($id) {
+    public function filters($id=null) {
+        if (!$id) abort(404);
         $data = [];
         $data['item'] = Part::getItemForFilters($id);
         $data['selected_filters'] = $data['item']->criteria->mapToGroups(function($item){
@@ -131,13 +136,14 @@ class PartsController extends BaseController
         $result = ['success'=>false];
         $id = $request->input('item_id');
         if ($id && is_id($id)) {
-            $item = Part::where('id',$id)->withCount('parts')->first();
-            if ($item && $item->parts_count==0 && Part::deleteItem($item)) $result['success'] = true;
+            $item = Part::where('id',$id)->first();
+            if ($item && Part::deleteItem($item)) $result['success'] = true;
         }
         return response()->json($result);
     }
 
-    public function attachedParts($id){
+    public function attachedParts($id=null){
+        if (!$id) abort(404);
         $data = [];
         $data['part'] = Part::getItem($id);
         $data['items'] = $data['part']->attached_parts;
@@ -285,7 +291,7 @@ class PartsController extends BaseController
             $rules['sale'] = 'nullable|numeric|between:1,1000000000|gt:price';
             $rules['count_sale_count'] = 'nullable|required_with:count_sale_percent|numeric|between:1,9999';
             $rules['count_sale_percent'] = 'nullable|required_with:count_sale_count|numeric|between:1,100';
-            $rules['available'] = 'nullable|integer|digits_between:1,10';
+            $rules['available'] = 'required|integer|digits_between:1,10';
             $rules['min_count'] = 'required|numeric|between:1,1000000000';
             $rules['multiplication'] = 'required|numeric|between:1,1000000000';
             $rules['oem'] = 'nullable|string|max:255|unique:parts,oem'.$unique;

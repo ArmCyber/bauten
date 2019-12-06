@@ -63,8 +63,8 @@ class PartCatalogsController extends BaseController
         $result = ['success'=>false];
         $id = $request->input('item_id');
         if ($id && is_id($id)) {
-            $item = PartCatalog::where('id',$id)->first();
-            if ($item && PartCatalog::deleteItem($item)) $result['success'] = true;
+            $item = PartCatalog::where('id',$id)->withCount('parts')->first();
+            if ($item && !$item->parts_count && PartCatalog::deleteItem($item)) $result['success'] = true;
         }
         return response()->json($result);
     }

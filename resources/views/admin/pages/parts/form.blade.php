@@ -58,7 +58,7 @@
             <div class="card">
                 <div class="c-title">Остаток</div>
                 <div class="little-p">
-                    <input type="text" name="available" class="form-control" placeholder="Остаток" maxlength="10" value="{{ old('available', $item->available??null) }}">
+                    <input type="text" name="available" class="form-control" placeholder="Остаток" maxlength="10" value="{{ old('available', $item->available??0) }}">
                 </div>
             </div>
             <div class="card">

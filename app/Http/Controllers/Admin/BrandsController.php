@@ -59,8 +59,8 @@ class BrandsController extends BaseController
         $result = ['success'=>false];
         $id = $request->input('item_id');
         if ($id && is_id($id)) {
-            $item = Brand::where('id',$id)->first();
-            if ($item && Brand::deleteItem($item)) $result['success'] = true;
+            $item = Brand::where('id',$id)->withCount('parts')->first();
+            if ($item && !$item->parts_count && Brand::deleteItem($item)) $result['success'] = true;
         }
         return response()->json($result);
     }

@@ -65,7 +65,7 @@ class PartCatalog extends Model
     public static function homeList(){
         return self::whereHas('parts', function($q){
             $q->where('active', 1)->brandAllowed();
-        })->where('in_home', 1)->whereNotNull('image')->withCount(['parts as parts_min_price'=>function($q){
+        })->where('in_home', 1)->withCount(['parts as parts_min_price'=>function($q){
             $q->select(DB::raw('MIN(`price`)'))->where('active', 1)->brandAllowed();
         }])->with('group')->sort()->get()->values();
     }

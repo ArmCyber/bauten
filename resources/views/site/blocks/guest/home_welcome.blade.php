@@ -54,11 +54,14 @@
         @endpush
     @endif
 @endif
+@if (count($home_catalogs_with_image = $home_catalogs->filter(function($item){
+    return $item->image;
+})))
 <section class="section section-bg">
     <div class="container">
         <h2 class="section-title">{{ $banners->block_titles->catalogue }}</h2>
         <div class="section-content row row-grid">
-            @foreach($home_catalogs as $catalog)
+            @foreach($home_catalogs_with_image as $catalog)
                 <div class="col-12 col-sm-6 col-md-4 col-xl-3">
                     <div class="catalogue-item">
                         <div class="catalogue-left">
@@ -74,3 +77,4 @@
         </div>
     </div>
 </section>
+@endif

@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
+use App\Http\Traits\GetIncrement;
 use App\Http\Traits\Sortable;
 use App\Http\Traits\UrlUnique;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 
 class Group extends Model
 {
-    use UrlUnique, Sortable;
+    use UrlUnique, Sortable, GetIncrement;
 
     protected $sortableDesc = false;
 

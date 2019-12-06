@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 @section('content')
-<form action="{!! url()->current() !!}" method="post" enctype="multipart/form-data">@csrf
+<form id="form" action="{!! url()->current() !!}" method="post" enctype="multipart/form-data">@csrf
     <div>Требуемые столбцы:
         @foreach($columns as $column)
             '<b>{{ $column }}</b>',
@@ -37,11 +37,35 @@
                 <div class="c-body">
                     @file(['name'=>'file', 'title'=>'Выберите файл...'])@endfile
                     <div class="pt-2 text-right">
-                        <button type="submit" class="btn btn-success">Импортировать</button>
+                        <button type="submit" id="form-submit" class="btn btn-success">Импортировать</button>
                     </div>
                 </div>
+            </div>
+            <div id="show-on-submit" class="font-weight-bold font-16" style="display: none">
+                <div class="text-danger">Подождите, идет импортирование...</div>
+                <div id="stopwatch">00:00</div>
             </div>
         </div>
     </div>
 </form>
 @endsection
+@push('js')
+    <script>
+        $('#form').on('submit', function(e){
+            $('#show-on-submit').show();
+            $('#form-submit').attr('disabled', 'disabled');
+            var stopwatch = $('#stopwatch'),
+                seconds = 0,
+                minutes = 0;
+            setInterval(function(){
+                if (seconds>=59) {
+                    seconds = 0;
+                    ++minutes;
+                } else ++seconds;
+                var thisSeconds = seconds>9?seconds:'0'+seconds.toString(),
+                    thisMinutes = minutes>9?minutes:'0'+minutes.toString();
+                stopwatch.html(thisMinutes+':'+thisSeconds);
+            }, 1000);
+        });
+    </script>
+@endpush

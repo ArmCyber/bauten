@@ -3,12 +3,12 @@
 @section('titleSuffix')| <a href="{!! route('admin.parts.add') !!}" class="text-cyan"><i class="mdi mdi-plus-box"></i> добавить</a>@endsection
 @endcan
 @section('content')
-    @if(count($items))
         <div class="card">
             <div class="table-responsive p-2">
                 <table class="table table-striped m-b-0 columns-middle init-dataTable">
                     <thead>
                     <tr>
+                        <th>REF</th>
                         <th>Артикул</th>
                         <th>Название</th>
                         <th>Категория</th>
@@ -20,7 +20,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($items as $item)
+                    @foreach($items??[] as $item)
                         <tr class="item-row" data-id="{!! $item->id !!}">
                             <td>{{ $item->code }}</td>
                             <td class="item-title">{{ $item->name}}</td>
@@ -37,8 +37,9 @@
                                 <a href="{{ route('admin.parts.attached_parts', ['id'=>$item->id]) }}" {!! tooltip('С этим советуем') !!} class="icon-btn parts"></a>
                                 <a href="{{ route('admin.parts.filters', ['id'=>$item->id]) }}" {!! tooltip('Фильтры') !!} class="icon-btn filters"></a>
 {{--                                <a href="{{ route('admin.parts.engine_filters', ['id'=>$item->id]) }}" {!! tooltip('Фильтры двигателя') !!} class="icon-btn filters-alt"></a>--}}
-                                <a href="{{ route('admin.gallery', ['gallery'=>'parts', 'id'=>$item->id]) }}" {!! tooltip('Галерея') !!} class="icon-btn gallery"></a>
                                 @endcan
+                                <a href="{{ route('admin.analogs.main', ['id'=>$item->id]) }}" {!! tooltip('Аналогы') !!} class="icon-btn analogs"></a>
+                                <a href="{{ route('admin.gallery', ['gallery'=>'parts', 'id'=>$item->id]) }}" {!! tooltip('Галерея') !!} class="icon-btn gallery"></a>
                                 <a href="{{ route('admin.parts.edit', ['id'=>$item->id]) }}" {!! tooltip('Редактировать') !!} class="icon-btn edit"></a>
                                 @can('admin')
                                 <span class="d-inline-block"  style="margin-left:4px;" data-toggle="modal" data-target="#itemDeleteModal"><a href="javascript:void(0)" class="icon-btn delete" {!! tooltip('Удалить') !!}></a></span>
@@ -51,9 +52,6 @@
                 </table>
             </div>
         </div>
-    @else
-        <h4 class="text-danger">@lang('admin/all.empty')</h4>
-    @endif
     @modal(['id'=>'itemDeleteModal', 'centered'=>true, 'loader'=>true,
         'saveBtn'=>'Удалить',
         'saveBtnClass'=>'btn-danger',
@@ -61,11 +59,23 @@
         'form'=>['id'=>'itemDeleteForm', 'action'=>'javascript:void(0)']])
     @slot('title')Удаление запчаста@endslot
     <input type="hidden" id="pdf-item-id">
-    <p class="font-14">Вы действительно хотите удалить запчаст &Lt;<span id="pdm-title"></span>&Gt;?</p>
+    <p class="font-14">Вы действительно хотите удалить данный запчаст?</p>
     @endmodal
 @endsection
 @push('css')
     @css(aApp('datatables/datatables.css'))
+    <style>
+        table {
+            width:100% !important;
+            overflow: hidden;
+        }
+        th:first-child, td:first-child {
+            display: none !important;
+        }
+        td:last-child {
+            white-space: nowrap;
+        }
+    </style>
 @endpush
 @push('js')
     @js(aApp('datatables/datatables.js'))
@@ -127,6 +137,53 @@
             }
             else modalError();
         });
-        $('.init-dataTable').dataTable();
+        $('.init-dataTable').dataTable({
+            ajax: '{{ route('admin.parts.list_ajax') }}',
+            serverSide: true,
+            processing: true,
+            createdRow: function (row, data) {
+                $(row).addClass('item-row').attr('data-id', data.id);
+            },
+            columns: [
+                {data: "ref"},
+                {data: "code"},
+                {data: "name"},
+                {
+                    data: "catalogue.name",
+                    orderable: false
+                },
+                {
+                    data: "brand.name",
+                    orderable: false
+                },
+                {
+                    data: "active",
+                    render: function(val){
+                        if (parseInt(val)===1) {
+                            return '<span class="text-success">Активно</span>';
+                        }
+                        return '<span class="text-danger">Неактивно</span>';
+                    }
+                },
+                {
+                    data: "id",
+                    orderable: false,
+                    render: function(id){
+                        return ''+
+                            @can('admin')
+                                '<a href="{{ route('admin.parts.attached_parts') }}/'+id+'" {!! tooltip('С этим советуем') !!} class="icon-btn parts"></a>'+
+                                '<a href="{{ route('admin.parts.filters') }}/'+id+'" {!! tooltip('Фильтры') !!} class="icon-btn filters"></a>'+
+                            @endcan
+                            '<a href="{{ route('admin.analogs.main') }}/'+id+'" {!! tooltip('Аналогы') !!} class="icon-btn analogs"></a>'+
+                            '<a href="{{ route('admin.gallery', ['gallery'=>'parts']) }}/'+id+'" {!! tooltip('Галерея') !!} class="icon-btn gallery"></a>'+
+                            '<a href="{{ route('admin.parts.edit') }}/'+id+'" {!! tooltip('Редактировать') !!} class="icon-btn edit"></a>'+
+                            @can('admin')
+                                '<span class="d-inline-block"  style="margin-left:4px;" data-toggle="modal" data-target="#itemDeleteModal"><a href="javascript:void(0)" class="icon-btn delete" {!! tooltip('Удалить') !!}></a></span>'+
+                            @endcan
+                        '';
+                    }
+                }
+            ]
+        });
     </script>
 @endpush

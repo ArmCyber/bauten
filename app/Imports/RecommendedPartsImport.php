@@ -9,10 +9,6 @@ use Illuminate\Support\Facades\DB;
 
 class RecommendedPartsImport extends AbstractImport
 {
-    protected $keys = [
-        'user' => 0,
-        'parts' => 1,
-    ];
     protected $rules = [
         'user' => 'required|integer|digits_between:1,10',
         'parts' => 'nullable|string',
@@ -26,7 +22,7 @@ class RecommendedPartsImport extends AbstractImport
     protected function filter($data) {
         $data['user'] = (int) $data['user'];
         if ($this->rows->where('user', $data['user'])->count()) return $this->skip('duplicate', ['name'=>'пользователь']);
-        $parts = explode(';', $data['parts']);
+        $parts = explode(',', $data['parts']);
         $data['parts'] = [];
         foreach ($parts as $key=>$part) {
             $part = trim($part);

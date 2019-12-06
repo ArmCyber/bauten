@@ -9,11 +9,6 @@ use App\Models\PartCatalog;
 
 class CatalogsImport extends AbstractImport
 {
-    protected $keys = [
-        'cid'=>0,
-        'name'=>1,
-        'group'=>2,
-    ];
     protected $rules = [
         'cid' => 'required|integer|digits_between:1,255',
         'name' => 'required|string|max:255',
@@ -35,9 +30,11 @@ class CatalogsImport extends AbstractImport
 
     protected function callback(){
         $groups = $this->rows->pluck('group');
+        $groupIncrement = Group::getIncrement();
         $result_groups = Group::selectRaw('`id`, LOWER(`name`) as name')->whereIn('name', $groups)->get();
         $result_names = PartCatalog::selectRaw('`id`, LOWER(`name`) as name')->whereIn('name', $this->rows->pluck('name'))->whereNotIn('cid', $this->rows->pluck('cid'))->get();
         $final = [];
+        $insertGroups = [];
         foreach($this->rows as $row) {
             $name = $result_names->where('name', mb_strtolower($row['name']))->first();
             if ($name) {
@@ -46,16 +43,24 @@ class CatalogsImport extends AbstractImport
             }
             $find_group = $result_groups->where('name', mb_strtolower($row['group']))->first();
             if (!$find_group) {
-                $this->addError($row['_row'], 'not_found', ['name'=>'группа']);
-                continue;
-            }
+                $thisGroupId = $groupIncrement++;
+                $thisInsertGroup = [
+                    'id' => $thisGroupId,
+                    'name' => $row['group'],
+                    'url' => to_url($row['group']),
+                ];
+                $insertGroups[] = $thisInsertGroup;
+                $thisInsertGroup['name'] = mb_strtolower($thisInsertGroup['name']);
+                $result_groups->push($thisInsertGroup);
+            } else $thisGroupId = $find_group['id'];
             $final[] = [
                 'cid' => $row['cid'],
-                'group_id' => $find_group->id,
+                'group_id' => $thisGroupId,
                 'name' => $row['name'],
                 'url' => to_url($row['name']),
             ];
         }
+        if (count($insertGroups)) Group::insert($insertGroups);
         if(count($final)) PartCatalog::insertOrUpdate($final, ['name', 'group_id', 'url']);
     }
 }

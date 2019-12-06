@@ -19,6 +19,7 @@
         "maatwebsite/excel": "^3.1",
         "spatie/laravel-db-snapshots": "^1.2",
         "spatie/valuestore": "^1.2",
+        "yajra/laravel-datatables-oracle": "~9.0",
         "zakhayko/banners": "^1.1",
         "zakhayko/settings": "^1.0"
     },

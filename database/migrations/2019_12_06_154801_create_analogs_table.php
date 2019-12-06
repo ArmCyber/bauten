@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBasketTable extends Migration
+class CreateAnalogsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateBasketTable extends Migration
      */
     public function up()
     {
-        Schema::create('basket', function (Blueprint $table) {
+        Schema::create('analogs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('part_id')->unsigned();
-            $table->bigInteger('user_id')->unsigned();
-            $table->integer('count')->unsigned()->default(1);
-            $table->boolean('checked')->default(1);
+            $table->string('brand')->nullable();
+            $table->string('number')->nullable();
+            $table->bigInteger('sort')->unsigned()->default(0);
             $table->foreign('part_id')->references('id')->on('parts')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -31,6 +30,6 @@ class CreateBasketTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('basket');
+        Schema::dropIfExists('analogs');
     }
 }

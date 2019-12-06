@@ -9,10 +9,6 @@ use Illuminate\Support\Facades\DB;
 
 class AttachedPartsImport extends AbstractImport
 {
-    protected $keys = [
-        'part' => 0,
-        'attached_parts' => 1,
-    ];
     protected $rules = [
         'part' => 'required|string',
         'attached_parts' => 'nullable|string',
@@ -26,7 +22,7 @@ class AttachedPartsImport extends AbstractImport
     protected function filter($data) {
         if ($this->rows->where('part', $data['part'])->count()) return $this->skip('duplicate', ['name'=>'запчасть']);
         if (!in_array($data['part'], $this->allParts)) $this->allParts[] = $data['part'];
-        $attached_parts = explode(';', $data['attached_parts']);
+        $attached_parts = explode(',', $data['attached_parts']);
         $data['attached_parts'] = [];
         foreach ($attached_parts as $key=>$attached_part) {
             $attached_part = trim($attached_part);

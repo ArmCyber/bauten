@@ -224,14 +224,14 @@ a.menu-dropdown-link {
     pointer-events: all;
 }
 .menu-catalog-blocks {
-    display:flex;
-    flex-wrap:wrap;
+    column-count: 4;
+    column-gap:0;
     padding:0 20px 20px 20px;
     @include box-shadow (0 3px 6px rgba(0,0,0,.1));
 }
 .menu-catalog-block {
-    flex: 0 0 20%;
-    max-width: 20%;
+    break-inside: avoid;
+    page-break-inside: avoid;
     padding:30px 10px 10px 10px;
 }
 .menu-catalog-letter {
@@ -244,6 +244,7 @@ a.menu-dropdown-link {
     }
 }
 .menu-catalog-link {
+    white-space: normal;
     padding-top: 10px;
     a{
         font-size:15px;

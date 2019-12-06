@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Imports\AnalogsImport;
 use App\Imports\AttachedPartsImport;
 use App\Imports\CatalogsImport;
 use App\Imports\EnginesImport;
@@ -52,6 +53,10 @@ class ImportController extends BaseController
             'importer' => ModelsImport::class,
             'title' => 'Импортирование моделей',
         ],
+        'generations' => [
+            'importer' => GenerationsImport::class,
+            'title' => 'Импортирование козовов',
+        ],
         'modifications' => [
             'importer' => ModificationsImport::class,
             'title' => 'Импортирование модификацией',
@@ -70,11 +75,15 @@ class ImportController extends BaseController
         ],
         'recommended_parts' => [
             'importer' => RecommendedPartsImport::class,
-            'title' => 'Импортирование рекомендованных товаров'
+            'title' => 'Импортирование "Товары для вас"'
         ],
         'attached_parts' => [
             'importer' => AttachedPartsImport::class,
             'title' => 'Импортирование запчастов "С этим советуем"'
+        ],
+        'analogs' => [
+            'importer' => AnalogsImport::class,
+            'title' => 'Импортирование аналогов'
         ]
     ];
 }

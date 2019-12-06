@@ -136,7 +136,7 @@ class UsersController extends BaseController
         $data['user'] = User::getItem($id);
         $data['items'] = $data['user']->recommended_parts;
         $data['back_url'] = route('admin.users.main');
-        $data['title'] = 'Рекомендованные товары полязователя "'.$data['user']->email.'"';
+        $data['title'] = 'Товары для полязователя "'.$data['user']->email.'"';
         return view('admin.pages.users.recommended_parts', $data);
     }
 

@@ -168,6 +168,9 @@ a {
     @include newBtn('restricted-brands', #ff0000, #bb0000) {
         @include fas(f1ad);
     }
+    @include newBtn('analogs', #28b779, #219864) {
+        @include fas(f8d9);
+    }
 }
 
 .table-responsive th {

@@ -143,20 +143,29 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
         //region Parts
         Route::prefix('parts')->name('parts.')->group(function() { $c = 'PartsController@';
             Route::middleware('can:manager_content')->get('', $c.'main')->name('main');
+            Route::middleware(['can:manager_content', 'ajax'])->get('list_ajax', $c.'listAjax')->name('list_ajax');
             Route::middleware('can:admin')->get('add', $c.'add')->name('add');
             Route::middleware('can:admin')->put('add', $c.'add_put');
-            Route::middleware('can:content')->get('edit/{id}', $c.'edit')->name('edit');
+            Route::middleware('can:content')->get('edit/{id?}', $c.'edit')->name('edit');
             Route::middleware('can:content')->patch('edit/{id}', $c.'edit_patch');
-            Route::middleware('can:admin')->get('filters/{id}', $c.'filters')->name('filters');
-            Route::middleware('can:admin')->patch('filters/{id}', $c.'filters_patch')->name('filters');
+            Route::middleware('can:admin')->get('filters/{id?}', $c.'filters')->name('filters');
+            Route::middleware('can:admin')->patch('filters/{id}', $c.'filters_patch');
             Route::middleware('can:admin')->get('engine-filters/{id}', $c.'engineFilters')->name('engine_filters');
             Route::middleware('can:admin')->patch('engine-filters/{id}', $c.'engineFilters_patch')->name('engine_filters');
             Route::middleware('can:admin')->delete('delete', $c.'delete')->middleware('ajax')->name('delete');
-            Route::middleware('can:admin')->get('attached-parts/{id}', $c.'attachedParts')->name('attached_parts');
+            Route::middleware('can:admin')->get('attached-parts/{id?}', $c.'attachedParts')->name('attached_parts');
             Route::middleware('can:admin')->put('attached-parts/add/{id}', $c.'attachedParts_add')->name('attached_parts.add');
             Route::middleware('can:admin')->delete('attached-parts/delete/{id}', $c.'attachedParts_delete')->name('attached_parts.delete');
             Route::middleware('can:admin')->get('zip/', $c.'zip')->name('zip');
             Route::middleware('can:admin')->post('zip/', $c.'zip_post');
+        });
+        //endregion
+        //region Analogs
+        Route::middleware('can:content')->prefix('analogs')->name('analogs.')->group(function() { $c = 'AnalogsController@';
+            Route::get('{id?}', $c.'main')->name('main');
+            Route::put('add/{id}', $c.'add')->name('add');
+            Route::patch('sort', $c.'sort')->middleware('ajax')->name('sort');
+            Route::delete('delete', $c.'delete')->middleware('ajax')->name('delete');
         });
         //endregion
         //region Brands

@@ -21,6 +21,10 @@ class Part extends Model
         return self::with(['catalogue', 'brand', 'engines', 'modifications'])->sort()->get();
     }
 
+    public static function adminListBuilder(){
+        return self::with(['catalogue', 'brand', 'engines', 'modifications']);
+    }
+
     public static function catalogsList($ids, $criteria = [], $sort = []){
         return self::whereIn('part_catalog_id', $ids)->brandAllowed()->where('active', 1)->filtered($criteria)->sort($sort)->paginate(settings('pagination'));
     }
@@ -39,7 +43,7 @@ class Part extends Model
         $model['show_image'] = (int) array_key_exists('show_image', $inputs);
         $model['url'] = self::actionUrl($inputs, $ignore);
         if (Gate::check('admin')) {
-            $model['ref'] = $inputs['ref'];
+            $model['ref'] = mb_strtolower($inputs['ref']);
             $model['code'] = $inputs['code'];
             $model['price'] = $inputs['price'];
             $model['sale'] = $inputs['sale'];
@@ -110,6 +114,10 @@ class Part extends Model
 
     public function brand() {
         return $this->belongsTo('App\Models\Brand', 'brand_id', 'id');
+    }
+
+    public function analogs(){
+        return $this->hasMany('App\Models\Analog')->sort();
     }
 
 //    public function marks(){

@@ -24,7 +24,7 @@
                             <td class="item-title">{{ $item->name}}</td>
                             <td>{!! $item->group?e($item->group->name):'<span class="text-danger">Не привязано</span>' !!}</td>
                             <td>{{ $item->parts_count }}</td>
-                            @if($item->in_home && $item->image)
+                            @if($item->in_home)
                                 <td class="text-success">Показано</td>
                             @else
                                 <td class="text-danger">Не показано</td>
