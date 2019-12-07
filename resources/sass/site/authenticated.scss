@@ -341,6 +341,12 @@ button.header-search-btn {
     }
 
 }
+input.basket-checkbox {
+    -webkit-appearance: checkbox;
+    width:15px;
+    height:15px;
+    vertical-align: middle;
+}
 @include media(1599) {
     button.home-search-btn {
         height: 45px;

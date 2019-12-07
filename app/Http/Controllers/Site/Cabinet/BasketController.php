@@ -46,8 +46,9 @@ class BasketController extends BaseController
 
     public function updateItem(Request $request) {
         $item_id = (int) $request->input('itemId', 0);
+        $user_id = $this->shared['user']->id;
         if ($item_id==0) abort(404);
-        $basket_item = Basket::where('part_id', $item_id)->first();
+        $basket_item = Basket::where(['part_id' => $item_id, 'user_id'=>$user_id])->first();
         if (!$basket_item) abort(404);
         $count = $request->input('count');
         if (!$count || !is_numeric($count) || $count<$basket_item->part->min_count || $count>($basket_item->part->available??9999) || $count%$basket_item->part->multiplication!=0) abort(404);
@@ -58,10 +59,27 @@ class BasketController extends BaseController
 
     public function deleteFromBasket(Request $request) {
         $item_id = (int) $request->input('itemId', 0);
+        $user_id = $this->shared['user']->id;
         if ($item_id==0) abort(404);
-        $basket_item = Basket::where('part_id', $item_id)->first();
+        $basket_item = Basket::where(['part_id' => $item_id, 'user_id'=>$user_id])->first();
         if (!$basket_item) abort(404);
         $basket_item->delete();
         return response('1');
+    }
+
+    public function check(Request $request) {
+        $item_id = (int) $request->input('itemId', 0);
+        $user_id = $this->shared['user']->id;
+        $newStatus = $request->input('status', false)?1:0;
+        if ($item_id==0) {
+            Basket::where('user_id',$user_id)->update(['checked' => $newStatus]);
+        }
+        else {
+            $basket_item = Basket::where(['part_id' => $item_id, 'user_id'=>$user_id])->first();
+            if (!$basket_item) abort(404);
+            $basket_item->checked = $newStatus;
+            $basket_item->save();
+        }
+        return response(1);
     }
 }

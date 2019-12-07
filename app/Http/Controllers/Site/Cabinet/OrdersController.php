@@ -51,7 +51,7 @@ class OrdersController extends BaseController
             'phone' => 'Недействительный номер телефона.',
             'integer' => 'Поле обязательно для заполнения.',
         ])->validate();
-        if (!count($this->shared['basket_parts'])) return redirect()->route('cabinet.basket');
+        if (!count($this->shared['basket_parts']->where('checked', 1))) return redirect()->route('cabinet.basket');
         if (! $order_id = Order::makeOrder($inputs)) return redirect()->route('cabinet.order');
         Basket::clear();
         return redirect()->route('cabinet.orders.view', ['id'=>$order_id]);

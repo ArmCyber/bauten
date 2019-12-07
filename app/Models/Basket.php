@@ -39,7 +39,7 @@ class Basket extends Model
     }
 
     public static function clear(){
-        return self::where('user_id', auth()->user()->id)->delete();
+        return self::where(['user_id' => auth()->user()->id, 'checked'=>1])->delete();
     }
 
     public function part(){

@@ -54,7 +54,7 @@
                             @if ($menu_item->static=='catalogs')
                                 <div class="menu-item has-fluid-dropdown{{ ($active_page??null)==$menu_item->id?' active':'' }}">
                                     <a href="javascript:void(0)">{{ $menu_item->title }}</a>
-                                    <div class="fluid-dropdown">
+                                    <div class="fluid-dropdown" style="display: none">
                                         <div class="fluid-dropdown-content">
                                             <div class="menu-catalog-blocks">
                                                 @foreach($groups as $group)

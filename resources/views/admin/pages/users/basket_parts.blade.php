@@ -7,6 +7,7 @@
                 <table class="table table-striped m-b-0 columns-middle init-dataTable">
                     <thead>
                     <tr>
+                        <th>Выбрано</th>
                         <th>Артикул</th>
                         <th>Название</th>
                         <th>Количество</th>
@@ -15,6 +16,13 @@
                     <tbody>
                     @foreach($items as $item)
                         <tr class="item-row" data-id="{!! $item->id !!}">
+                            <td>
+                                @if ($item->checked)
+                                    <span class="text-success">Да</span>
+                                @else
+                                    <span class="text-danger">Нет</span>
+                                @endif
+                            </td>
                             <td>{{ $item->part->code }}</td>
                             <td class="item-title">{{ $item->part->name}}</td>
                             <td>{{ $item->count }}</td>

@@ -385,6 +385,7 @@ Route::namespace('Site')->group(function() {
             Route::post('basket/add', 'BasketController@addToBasket')->name('basket.add');
             Route::post('basket/delete', 'BasketController@deleteFromBasket')->name('basket.delete');
             Route::post('basket/update', 'BasketController@updateItem')->name('basket.update');
+            Route::post('basket/check', 'BasketController@check')->name('basket.check');
             Route::get('favourites', 'FavouritesController@main')->name('favourites');
             Route::post('favourites/add', 'FavouritesController@add')->middleware('ajax')->name('favourites.add');
             Route::get('order', 'OrdersController@order')->name('order');

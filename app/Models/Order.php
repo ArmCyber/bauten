@@ -82,7 +82,7 @@ class Order extends Model
     }
 
     public static function getOrderData(){
-        $basket_parts = view()->shared('basket_parts');
+        $basket_parts = view()->shared('basket_parts')->where('checked', 1);
         $basket_parts->load('part');
         $user = auth()->user();
         $parts = [];

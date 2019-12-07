@@ -6,6 +6,9 @@ var Basket = function(){
         orderModalToggle: $('#order-modal-toggle'),
         ifCantShop: $('.if-cant-shop'),
         ifCantDelivery: $('.if-cant-delivery'),
+        allCheckbox: $('#all-checkbox'),
+        ifNotChecked: $('.if-not-checked'),
+        priceBlock: $('.price-block')
     };
 
     this.real = {};
@@ -31,6 +34,7 @@ var Basket = function(){
             allPrice = 0,
             salePrice = 0;
         self.dom.allSaleBlock.hide();
+        var anyPart = false;
         $.each($('.basket-part-row'), function(i,e){
             var item = $(e),
                 numberInput = item.find('.number-input'),
@@ -40,17 +44,21 @@ var Basket = function(){
                 csPercent = parseInt(numberInput.data('cs-percent')),
                 bpSale = item.find('.bp-sale').hide(),
                 bpSaleSum = bpSale.find('.bp-sale-sum');
-            var selfPrice = count*price;
+            var selfPrice = count*price,
+                updateAllPrice = item.find('.part-checkbox:checked').length!==0;
             if (csCount && csPercent && count>=csCount) {
                 bpSaleSum.text(self.parsePrice(selfPrice));
                 bpSale.show();
                 selfPrice = selfPrice*(1-csPercent/100);
             }
-            else if (self.options.userSale) {
+            else if (self.options.userSale && updateAllPrice) {
                 salePrice += (selfPrice*self.options.userSale/100);
             }
             item.find('.bp-sum').text(self.parsePrice(selfPrice));
-            allPrice+=selfPrice;
+            if (updateAllPrice) {
+                allPrice+=selfPrice;
+                anyPart = true;
+            }
         });
         if (salePrice>0) {
             self.dom.allSale.text(self.parsePrice(allPrice));
@@ -60,13 +68,23 @@ var Basket = function(){
         else {
             self.real.sum = allPrice;
         }
-        if (self.real.sum<self.minimums.shop) {
+        if (!anyPart) {
+            self.dom.orderModalToggle.attr('disabled', 'disabled');
+            self.dom.ifCantShop.hide();
+            self.dom.ifNotChecked.show();
+            self.dom.priceBlock.hide();
+        }
+        else if (self.real.sum<self.minimums.shop) {
             self.dom.orderModalToggle.attr('disabled', 'disabled');
             self.dom.ifCantShop.show();
+            self.dom.ifNotChecked.hide();
+            self.dom.priceBlock.show();
         }
         else {
             self.dom.orderModalToggle.removeAttr('disabled');
             self.dom.ifCantShop.hide();
+            self.dom.ifNotChecked.hide();
+            self.dom.priceBlock.show();
         }
         self.dom.allPrice.text(self.parsePrice(self.real.sum));
         // self.updateDeliveryPrice();
@@ -83,6 +101,12 @@ var Basket = function(){
         self.dom.orderModalToggle.on('click', function(){
             if (self.dom.orderModalToggle.is(':disabled')) return false;
             window.location.href = self.config.actions.order;
+        });
+        $('.part-checkbox').on('change', function(){
+            self.changeChecked($(this));
+        });
+        self.dom.allCheckbox.on('change', function(){
+            self.changeAllChecked();
         });
     };
 
@@ -130,6 +154,7 @@ var Basket = function(){
     };
 
     this.sendAjax = function(url, data, callback){
+        var self=this;
         data._token = this.config.csrf;
         $.ajax({
             url: url,
@@ -149,7 +174,32 @@ var Basket = function(){
     };
 
     this.renderError = function(){
-        window.location.href = '';
+        // window.location.href = '';
+    };
+
+    this.changeChecked = function(elem) {
+        var self = this,
+            row = elem.parents('.basket-part-row'),
+            newStatus = elem.is(':checked')?1:0;
+        self.sendAjax(self.config.actions.check, {
+            itemId: row.data('id'),
+            status: newStatus
+        });
+        self.updatePrices();
+        if ($('.part-checkbox:not(:checked)').length===0) self.dom.allCheckbox.prop('checked', 'checked');
+        else self.dom.allCheckbox.prop('checked', '');
+    };
+
+    this.changeAllChecked = function(){
+        var self = this,
+            newStatus = self.dom.allCheckbox.is(':checked')?1:0;
+        self.sendAjax(self.config.actions.check, {
+            itemId: 0,
+            status: newStatus
+        });
+        if (newStatus===1) $('.part-checkbox').prop('checked', 'checked');
+        else $('.part-checkbox').prop('checked', '');
+        self.updatePrices();
     };
 
     this.init();
