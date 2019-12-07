@@ -39,7 +39,9 @@ class Brand extends Model
 
     public static function searchList(){
 //        return Cache::rememberForever(self::CACHE_KEY_SEARCH, function (){
-            return self::where('active', 1)->allowed()->orderBy('name', 'asc')->get()->mapToGroups(function($item, $key) {
+            return self::where('active', 1)->allowed()->whereHas('parts', function($q){
+                $q->where('active', 1);
+            })->orderBy('name', 'asc')->get()->mapToGroups(function($item, $key) {
                 return [mb_strtoupper(mb_substr($item->name,0,1))=>$item];
             });
 //        });

@@ -102,9 +102,10 @@ a.cs-link {
     color:#333333;
     font-size:15px;
     cursor:pointer;
+    user-select: none;
     text-decoration: none;
     &:hover {
-        text-decoration: underline;
+        //text-decoration: underline;
     }
     &:not(:last-child) {
         margin-right:18px;
@@ -165,17 +166,32 @@ select.home-search-control {
     margin-bottom:10px;
 }
 .search-group-select {
+    display:table;
+    user-select: none;
     color:#333333;
     margin-top:3px;
     cursor:pointer;
     &:hover {
-        text-decoration: underline;
+        //text-decoration: underline;
     }
 }
 .search-group-select.selected, .home-search-option.selected {
-    color:$blue;
-    font-weight:500;
-    text-decoration: underline;
+    display:inline-block;
+    background-color: #005498;
+    padding:3px 17px 3px 6px;
+    color: #ffffff;
+    position:relative;
+    line-height: 1.2;
+    &:after {
+        content:'×';
+        display:inline;
+        position:absolute;
+        right:4px;
+        top:47%;
+        transform: translateY(-50%);
+        color:#eeeeee;
+        font-size:15px;
+    }
 }
 .home-search-toggle {
     &:after {
@@ -288,7 +304,7 @@ input:read-only {
     border-color:$blue;
 }
 .header-menu-search {
-    width:278px;
+    width:360px;
     height:40px;
     background-color: #ffffff;
     margin-left: auto;
@@ -365,6 +381,9 @@ input.basket-checkbox {
 @include media (1365) {
     .home-search-expanded {
         padding-left:0;
+    }
+    .header-menu-search {
+        width:278px;
     }
 }
 @media print {

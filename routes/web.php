@@ -366,6 +366,7 @@ Route::namespace('Site')->group(function() {
         Route::get('search-sm', 'SearchSmController@page')->name('search_sm');
         Route::middleware('ajax')->prefix('ajax')->group(function(){
             Route::get('search/disabled-brands', 'SearchController@getDisabledBrands')->name('search.get_disabled_brands');
+            Route::get('search/disabled-catalogs', 'SearchController@getDisabledCatalogs')->name('search.get_disabled_catalogs');
             Route::get('search/get-engines', 'SearchController@getEngines')->name('search.get_engines');
             Route::get('search/get-models', 'SearchController@getModels')->name('search.get_models');
             Route::get('search/get-generations', 'SearchController@getGenerations')->name('search.get_generations');

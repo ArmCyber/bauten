@@ -18,15 +18,15 @@ class Mark extends Model
     protected $sortableDesc = false;
 
     public static function homeList(){
-        return self::where(['in_home'=>1, 'active'=>1])->sort()->get();
+        return self::where(['in_home'=>1, 'active'=>1])->hasActiveParts()->sort()->get();
     }
 
     public static function siteList(){
-        return self::where('active',1)->sort()->get();
+        return self::where('active',1)->hasActiveParts()->sort()->get();
     }
 
     public static function searchList(){
-        return self::where('active', 1)->orderBy('name', 'asc')->get()->mapToGroups(function($item, $key) {
+        return self::where('active', 1)->hasActiveParts()->orderBy('name', 'asc')->get()->mapToGroups(function($item, $key) {
             return [mb_strtoupper(mb_substr($item->name,0,1))=>$item];
         });
     }
@@ -88,7 +88,7 @@ class Mark extends Model
     }
 
     public static function adminList(){
-        return self::withCount('models')->sort()->get();
+        return self::withCount('models')->withPartsCount()->sort()->get();
     }
 
     public static function getItem($id){
@@ -102,6 +102,32 @@ class Mark extends Model
 
     public function models(){
         return $this->hasMany('App\Models\Model', 'mark_id', 'id')->sort();
+    }
+
+    public function scopeHasActiveParts($q){
+        return $q->whereHas('models', function($q){
+            $q->whereHas('generations', function($q){
+                $q->whereHas('modifications', function($q){
+                    $q->whereHas('parts', function($q){
+                        $q->where('active', 1)->brandAllowed();
+                    });
+                });
+            });
+        });
+    }
+
+    public function scopeWithPartsCount($q){
+        return $q->with(['models'=>function($q){
+            $q->select('id', 'mark_id')->with(['generations'=>function($q){
+                $q->select('id', 'model_id')->with(['modifications' => function($q){
+                    $q->select('id', 'generation_id')->withCount('parts');
+                }]);
+            }]);
+        }]);
+    }
+
+    public function getPartsCountAttribute(){
+        return $this->models->pluck('generations')->flatten()->pluck('modifications')->flatten()->sum('parts_count');
     }
 
 //    public function engines(){

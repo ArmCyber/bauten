@@ -18,7 +18,8 @@ var Search = function(){
     };
 
     this.realTime = {
-        carBlocked: false
+        carBlocked: false,
+        brandBlocked: false,
     };
 
     this.urls = window.urls;
@@ -67,6 +68,7 @@ var Search = function(){
     };
 
     this.toggleCatalogueSelect = function(elem){
+        if (this.realTime.brandBlocked) return false;
         $('.home-search-brand.home-search-disabled').removeClass('home-search-disabled');
         if (elem.hasClass('selected')) {
             $('.home-search-catalogue.selected').removeClass('selected');
@@ -85,6 +87,7 @@ var Search = function(){
     };
 
     this.toggleBrandSelect = function(elem){
+        if (this.realTime.brandBlocked) return false;
         var self = this;
         if (elem.hasClass('home-search-disabled')) return false;
         var id = elem.data('id');
@@ -95,6 +98,7 @@ var Search = function(){
             if (self.dom.brandsBlock.hasClass('max-exceeded')) return false;
             $('.home-search-brand[data-id="'+id+'"]').addClass('selected');
         }
+        self.checkDisabledCatalogs();
         self.checkExceeded(self.dom.brandsBlock);
     };
 
@@ -254,10 +258,12 @@ var Search = function(){
     this.checkDisabledBrands = function(id) {
         var self = this;
         self.dom.brandsBlock.addClass('loader-shown');
+        self.realTime.brandBlocked = true;
         this.sendAjax('disabledBrands', {
             catalogueId: id
         }, true, function(e){
             self.dom.brandsBlock.removeClass('loader-shown');
+            self.realTime.brandBlocked = false;
             if (e.items.length) {
                 $.each(e.items, function(key, id) {
                     $('.home-search-brand[data-id="'+id+'"]').removeClass('selected').addClass('home-search-disabled');
@@ -265,6 +271,31 @@ var Search = function(){
             }
         });
         self.checkExceeded(self.dom.brandsBlock);
+    };
+
+    this.checkDisabledCatalogs = function(){
+        $('.home-search-catalogue.home-search-disabled').removeClass('home-search-disabled');
+        var self = this,
+            selectedBrands = $('.search-group-select.home-search-brand.selected'),
+            ids = [];
+        $.each(selectedBrands, function(key, elem){
+            ids.push($(elem).data('id'));
+        });
+        if (ids.length) {
+            self.realTime.brandBlocked = true;
+            self.dom.catalogueBlock.addClass('loader-shown');
+            self.sendAjax('disabledCatalogs', {
+                ids: ids
+            }, true, function(e){
+                if (e.items.length) {
+                    $.each(e.items, function(key, id){
+                        $('.home-search-catalogue[data-id="'+id+'"]').removeClass('selected').addClass('home-search-disabled');
+                    });
+                }
+                self.realTime.brandBlocked = false;
+                self.dom.catalogueBlock.removeClass('loader-shown');
+            });
+        }
     };
 
     this.toggleExpand = function(btn) {

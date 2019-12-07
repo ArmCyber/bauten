@@ -41,6 +41,10 @@ class Modification extends Model
         return $this->generation->model;
     }
 
+    public function parts(){
+        return $this->belongsToMany('App\Models\Part');
+    }
+
     public static function deleteItem($model){
         return $model->delete();
     }

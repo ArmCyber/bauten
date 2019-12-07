@@ -41,8 +41,19 @@ class Model extends Eloquent
         $q->orderBy('name', 'asc');
     }
 
+    public function scopeHasActiveParts($q){
+        return $q->whereHas('generations', function($q){
+            $q->whereHas('modifications', function($q){
+                $q->whereHas('parts', function($q){
+                    $q->where('active', 1)->brandAllowed();
+                });
+            });
+        });
+    }
+
+
     public static function getSearchData($mark_ids) {
-        return self::where('active',1)->whereIn('mark_id', $mark_ids)->sort()->get()->mapToGroups(function($item, $key) {
+        return self::where('active',1)->whereIn('mark_id', $mark_ids)->hasActiveParts()->sort()->get()->mapToGroups(function($item, $key) {
             return [mb_strtoupper(mb_substr($item->name,0,1))=>$item];
         });
     }

@@ -14,7 +14,7 @@
                 <div class="expanded-container">
                     <div class="row row-grid">
                         @foreach($groups as $group)
-                            <div class="col-xl-3 col-xxl-2">
+                            <div class="col-xl-3">
                                 <div class="search-group">
                                     <div class="search-group-title">{{ $group->name }}</div>
                                     <div class="search-group-items">
@@ -33,7 +33,7 @@
         <div class="home-search-block position-relative home-block-brand">
             <div class="home-search-title">БРЕНДЫ</div>
             <div class="home-search-content">
-                @foreach($brands->take($max_take) as $brand)
+                @foreach($brands->whereIn('id', $search_brands->flatten()->pluck('id'))->values()->take($max_take) as $brand)
                     <span class="home-search-option home-search-brand" data-id="{{ $brand->id }}">{{ $brand->name }}</span>
                 @endforeach
             </div>
@@ -174,6 +174,7 @@
     <script>
         window.urls = {
             disabledBrands: '{{ route('search.get_disabled_brands') }}',
+            disabledCatalogs: '{{ route('search.get_disabled_catalogs') }}',
             engines: '{{ route('search.get_engines') }}',
             getModels: '{{ route('search.get_models') }}',
             getGenerations: '{{ route('search.get_generations') }}',

@@ -11,20 +11,23 @@ responsive
 
 sort + filter - ajax-ov
 
-+ utochnenie ceni 
-
-part excel
-
 1s ref-qanak-gin-arjeq-gnordi id+order id
 
-filteri id-import 
-
-+ chtoxel jnjel, kategoria grupa
-
 puchur poisk escape
-
-+ tvakanner
 
 kuzov cid remove
 mark cid remove
 engine cid remove
+
+s etim sovetum - refov
+tovari dlya vas - refov
+brend - id
+category - id
+dvigatel - id
+
+
+4 jamy mek 1s
+
+urli harcer krknvelu:::
+
+~column count

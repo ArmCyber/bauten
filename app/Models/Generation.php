@@ -64,11 +64,23 @@ class Generation extends Model
     }
 
     public static function getSearchData($model_ids) {
-        return self::whereIn('model_id', $model_ids)->where('active',1)->sort()->get()->mapToGroups(function($item, $key) {
+        return self::whereIn('model_id', $model_ids)->where('active',1)->hasActiveParts()->sort()->get()->mapToGroups(function($item, $key) {
             return [$item->name?mb_strtoupper(mb_substr($item->name,0,1)):'#'=>[
                 'id'=>$item->id,
                 'name'=>$item->full_name,
             ]];
+        });
+    }
+
+    public function modifications(){
+        return $this->hasMany('App\Models\Modification');
+    }
+
+    public function scopeHasActiveParts($q){
+        return $q->whereHas('modifications', function($q){
+            $q->whereHas('parts', function($q){
+                $q->where('active', 1)->brandAllowed();
+            });
         });
     }
 

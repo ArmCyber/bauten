@@ -35,15 +35,28 @@ class SearchController extends BaseController
         $id = $request->input('catalogueId');
         if (!$id || !PartCatalog::where('id', $id)->count()) abort(404);
         $brands = Brand::whereDoesntHave('parts', function ($q) use ($id){
-            $q->where('part_catalog_id', $id);
+            $q->where(['active'=>1, 'part_catalog_id'=>$id]);
         })->pluck('id');
         return response()->json(['items'=>$brands]);
+    }
+
+    public function getDisabledCatalogs(Request $request){
+        $request_ids = $request->input('ids');
+        if (!is_array($request_ids) || count($request_ids)==0) abort(404);
+        $ids = Brand::whereIn('id', $request_ids)->pluck('id')->toArray();
+        if (!count($ids)) abort(404);
+        $catalogs = PartCatalog::whereDoesntHave('parts', function($q) use ($ids){
+            $q->where('active', 1)->whereIn('brand_id', $ids);
+        })->pluck('id');
+        return response()->json(['items'=>$catalogs]);
     }
 
     public function getEngines(Request $request){
         $query = $request->get('q');
         if (!$query || mb_strlen($query)<3) return response()->json([]);
-        $result = Engine::select('id', 'name')->where('name', 'like', '%'.escape_like($query).'%')->get()->map(function($item){
+        $result = Engine::select('id', 'name')->whereHas('parts', function($q){
+            $q->where('active', 1)->brandAllowed();
+        })->where('name', 'like', '%'.escape_like($query).'%')->get()->map(function($item){
             return [
                 'id' => $item->id,
                 'text' => $item->name,
@@ -108,8 +121,8 @@ class SearchController extends BaseController
             }])->sort()->limit(5)->get();
             if (count($get_generations)) {
                 $modelsForNames = $get_generations->pluck('model');
-                $names['marks'] = $modelsForNames->pluck('mark')->pluck('name')->toArray();
-                $names['models'] = $modelsForNames->pluck('name')->toArray();
+                $names['marks'] = $modelsForNames->pluck('mark')->pluck('name')->unique()->toArray();
+                $names['models'] = $modelsForNames->pluck('name')->unique()->toArray();
                 $names['generations'] = $get_generations->pluck('name')->toArray();
                 $generation_ids = $get_generations->pluck('id')->toArray();
                 $appends['ge'] = implode('-', $generation_ids);
@@ -122,7 +135,7 @@ class SearchController extends BaseController
             $modelsUnfiltered = explode('-', $modelsString);
             $get_models = Model::select('name', 'id', 'mark_id')->where('active', 1)->whereIn('id', $modelsUnfiltered)->with('mark')->sort()->limit(5)->get();
             if (count($get_models)) {
-                $names['marks'] = $get_models->pluck('mark')->pluck('name')->toArray();
+                $names['marks'] = $get_models->pluck('mark')->pluck('name')->unique()->toArray();
                 $names['models'] = $get_models->pluck('name')->toArray();
                 $model_ids = $get_models->pluck('id')->toArray();
                 $appends['mo'] = implode('-', $model_ids);
