@@ -219,6 +219,7 @@ return [
         'articule' => 'Артикул',
         'number' => 'Номер',
         'cid' => 'ID',
-        'generation_id' => 'Кузов'
+        'generation_id' => 'Кузов',
+        'ref' => 'УИД',
     ],
 ];

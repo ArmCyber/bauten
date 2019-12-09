@@ -15,25 +15,29 @@ class PartsImport extends AbstractImport
     protected $rules = [
         'ref' => 'required|string|max:255',
         'code' => 'required|string|max:255',
-        'name' => 'required|string|max:255',
-        'brand' => 'required|string',
-        'available' => 'nullable|integer|digits_between:1,10',
-        'price' => 'required|numeric|between:1,10000000000',
-        'catalogue' => 'required|string',
-        'engines' => 'nullable|string',
+        'brand' => 'required|integer',
+        'catalogue' => 'required|integer',
+        'name' => 'required|string|max:500',
         'modifications' => 'nullable|string',
+        'engines' => 'nullable|string',
+        'min_count' => 'nullable|integer|min:1',
+        'multiplication' => 'nullable|integer|min:1',
+        'price' => 'required|numeric|between:1,10000000000',
+        'available' => 'nullable|integer|digits_between:1,10',
         'criteria' => 'nullable|string',
     ];
     protected $names = [
-        'ref' => 'уид',
+        'ref' => 'ref',
         'code' => 'артикул',
-        'name' => 'наименование',
-        'brand' => 'бренд',
-        'available' => 'остаток',
-        'price' => 'цена',
+        'brand' => 'производитель',
         'catalogue' => 'категория',
+        'name' => 'полное наименование',
+        'modifications' => 'модификация авто',
         'engines' => 'двигатель',
-        'modifications' => 'модификация',
+        'min_count' => 'минимальное количество заказа',
+        'multiplication' => 'количество в пакете',
+        'price' => 'цена',
+        'available' => 'остаток',
         'criteria' => 'фильтры',
     ];
 
@@ -44,17 +48,13 @@ class PartsImport extends AbstractImport
     private $all_criteria = [];
     private $refs = [];
 
-//public $ok = [];
     protected function filter($data) {
-        if (array_key_exists($data['brand'], $this->ok)) $this->ok[$data['brand']]++;
-        else $this->ok[$data['brand']] = 1;
-
         $data['ref'] = mb_strtolower($data['ref']);
         if (in_array($data['ref'], $this->refs)) return $this->skip('duplicate_in_file');
         $this->refs[] = $data['ref'];
-        $thisBrand = mb_strtolower($data['brand']);
+        $thisBrand = $data['brand'];
         if (!in_array($thisBrand, $this->all_brands)) $this->all_brands[] = $thisBrand;
-        $thisCatalogue = mb_strtolower($data['catalogue']);
+        $thisCatalogue = $data['catalogue'];
         if (!in_array($thisCatalogue, $this->all_catalogue)) $this->all_catalogue[] = $thisCatalogue;
         if (!$data['available']) $data['available'] = 0;
         $this_engines = [];
@@ -91,13 +91,11 @@ class PartsImport extends AbstractImport
     }
 
     protected function callback(){
-//        arsort($this->ok);
-//        dd($this->ok);
         $result_parts = Part::select('id', 'ref')->whereIn('ref', $this->refs)->get()->mapWithKeys(function($item){
             return [$item->ref => $item];
         });
-        $result_brands = Brand::selectRaw('`id`, LOWER(`name`) as `name`')->whereIn('name', $this->all_brands)->get();
-        $result_catalogue = PartCatalog::selectRaw('`id`, `group_id`, LOWER(`name`) as `name`')->whereIn('name', $this->all_catalogue)->get();
+        $result_brands = Brand::whereIn('id', $this->all_brands)->pluck('id')->toArray();
+        $result_catalogue = PartCatalog::select('id', 'group_id')->whereIn('id', $this->all_catalogue)->get();
         $result_criteria = Criterion::select('id', 'filter_id')->whereIn('id', $this->all_criteria)->with(['filter' => function($q){
             $q->select('id', 'group_id');
         }])->get();
@@ -112,12 +110,12 @@ class PartsImport extends AbstractImport
         $remove_ids = [];
 
         foreach($this->rows as $row) {
-            $brand = $result_brands->where('name', mb_strtolower($row['brand']))->first();
-            if (!$brand) {
+            $brand = $row['brand'];
+            if (!in_array($brand, $result_brands)) {
                 $this->addError($row['_row'], 'not_found', ['name'=>'Бренд']);
                 continue;
             }
-            $catalogue = $result_catalogue->where('name', mb_strtolower($row['catalogue']))->first();
+            $catalogue = $result_catalogue->where('id', $row['catalogue'])->first();
             if (!$catalogue) {
                 $this->addError($row['_row'], 'not_found', ['name'=>'Каталог']);
                 continue;
@@ -189,17 +187,21 @@ class PartsImport extends AbstractImport
             $insert_criteria = array_merge($insert_criteria, $this_insert_criteria);
             $insert_modifications = array_merge($insert_modifications, $this_insert_modifications);
             $insert_engines = array_merge($insert_engines, $this_insert_engines);
+            if (!$row['min_count']) $row['min_count'] = 1;
+            if (!$row['multiplication']) $row['multiplication'] = 1;
             if ($edit) {
                 $remove_ids[] = $this_id;
                 $updates[] = [
                     'id' => $this_id,
                     'ref' => $row['ref'],
                     'code' => $row['code'],
-                    'brand_id' => $brand->id,
+                    'brand_id' => $brand,
                     'part_catalog_id' => $catalogue->id,
                     'name' => $row['name'],
                     'price' => $row['price'],
                     'available' => $row['available'],
+                    'min_count' => $row['min_count'],
+                    'multiplication' => $row['multiplication'],
                 ];
             }
             else {
@@ -208,18 +210,20 @@ class PartsImport extends AbstractImport
                     'id' => $this_id,
                     'ref' => $row['ref'],
                     'code' => $row['code'],
-                    'brand_id' => $brand->id,
+                    'brand_id' => $brand,
                     'part_catalog_id' => $catalogue->id,
                     'name' => $row['name'],
                     'price' => $row['price'],
                     'url' => to_url_suf($row['name']),
                     'available' => $row['available'],
+                    'min_count' => $row['min_count'],
+                    'multiplication' => $row['multiplication'],
                 ];
             }
         }
         DB::transaction(function() use ($inserts, $updates, $remove_ids, $insert_engines, $insert_modifications, $insert_criteria){
             if (count($inserts)) Part::insert($inserts);
-            if (count($updates)) Part::insertOrUpdate($updates, ['brand_id', 'part_catalog_id', 'name', 'price', 'code', 'available']);
+            if (count($updates)) Part::insertOrUpdate($updates, ['brand_id', 'part_catalog_id', 'name', 'price', 'code', 'available', 'min_count', 'multiplication']);
             if (count($remove_ids)) {
                 DB::table('criterion_part')->whereIn('part_id', $remove_ids)->delete();
                 DB::table('modification_part')->whereIn('part_id', $remove_ids)->delete();

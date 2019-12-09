@@ -143,15 +143,15 @@ class UsersController extends BaseController
     public function recommendedParts_add(Request $request, $id) {
         $user = User::getItem($id);
         $request->validate([
-            'code' => [
+            'ref' => [
                 'required',
                 'string',
-                'exists:parts,code',
+                'exists:parts,ref',
             ]
         ]);
-        $part = Part::getItemFromCode($request->code);
+        $part = Part::getItemFromRef($request->ref);
         if ($user->recommended_parts()->where('parts.id', $part->id)->count()) {
-            return redirect()->back()->withErrors(['code'=>'Запчасть уже прикреплен.'])->withInput();
+            return redirect()->back()->withErrors(['ref'=>'Запчасть уже прикреплен.'])->withInput();
         }
         $user->recommended_parts()->attach($part->id);
         Notify::success('Запчасть прикреплен.');

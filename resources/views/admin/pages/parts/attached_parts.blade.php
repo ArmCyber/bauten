@@ -4,11 +4,11 @@
         <div class="col-12 col-dxl-6">
             @card(['title'=>'Прикрепление запчаста'])
                 <form action="{{ route('admin.parts.attached_parts.add', ['id'=>$part->id]) }}" method="post">@csrf @method('put')
-                    @error('code')
+                    @error('ref')
                     <div class="mb-2 text-danger">{{ $message }}</div>
                     @enderror
                     <div>
-                        <input type="text" name="code" class="form-control" placeholder="Артикул" maxlength="255" value="{{ old('code') }}">
+                        <input type="text" name="ref" class="form-control" placeholder="УИД" maxlength="255" value="{{ old('ref') }}">
                     </div>
                     <div class="mt-2">
                         <button class="btn btn-success" type="submit">Прикреплять</button>
@@ -23,6 +23,7 @@
                 <table class="table table-striped m-b-0 columns-middle init-dataTable">
                     <thead>
                     <tr>
+                        <th>УИД</th>
                         <th>Артикул</th>
                         <th>Название</th>
                         <th>Статус запчаста</th>
@@ -32,6 +33,7 @@
                     <tbody>
                     @foreach($items as $item)
                         <tr class="item-row" data-id="{!! $item->id !!}">
+                            <td>{{ $item->ref }}</td>
                             <td>{{ $item->code }}</td>
                             <td>{{ $item->name }}</td>
                             @if($item->active)

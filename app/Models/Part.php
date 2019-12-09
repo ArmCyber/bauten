@@ -88,6 +88,10 @@ class Part extends Model
         return self::where('code', $code)->firstOrFail();
     }
 
+    public static function getItemFromRef($ref) {
+        return self::where('ref', $ref)->firstOrFail();
+    }
+
     public static function getItemForFilters($id) {
         return self::where('id', $id)->withCount(['catalogue as group_id'=>function($q){
             $q->select('group_id');

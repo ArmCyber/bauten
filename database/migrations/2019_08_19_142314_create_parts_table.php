@@ -17,7 +17,7 @@ class CreatePartsTable extends Migration
             $table->bigIncrements('id');
             $table->string('ref')->collation('utf8_general_ci')->unique();
             $table->string('code');
-            $table->string('name')->nullable();
+            $table->string('name', 500)->nullable();
             $table->integer('price')->unsigned()->nullable();
             $table->integer('sale')->unsigned()->nullable();
             $table->integer('count_sale_count')->unsigned()->nullable();

@@ -13,21 +13,26 @@ sort + filter - ajax-ov
 
 1s ref-qanak-gin-arjeq-gnordi id+order id
 
-puchur poisk escape
+!puchur poisk escape
 
-kuzov cid remove
-mark cid remove
-engine cid remove
+!kuzov cid remove
+!mark cid remove
+!engine cid remove
 
-s etim sovetum - refov
-tovari dlya vas - refov
-brend - id
-category - id
-dvigatel - id
+------------------------------
+
++s etim sovetum - refov
++tovari dlya vas - refov
++brend - id
++category - id
++dvigatel - id
 
 
 4 jamy mek 1s
 
-urli harcer krknvelu:::
+!urli harcer krknvelu:::
 
 ~column count
+
+
+font 14 + 3tox --- apranqi kart + nersi eji krtel

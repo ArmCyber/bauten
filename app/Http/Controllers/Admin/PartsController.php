@@ -155,18 +155,18 @@ class PartsController extends BaseController
     public function attachedParts_add(Request $request, $id) {
         $part = Part::getItem($id);
         $request->validate([
-            'code' => [
+            'ref' => [
                 'required',
                 'string',
-                'exists:parts,code',
+                'exists:parts,ref',
             ]
         ]);
-        $attached_part = Part::getItemFromCode($request->code);
+        $attached_part = Part::getItemFromRef($request->ref);
         if ($part->attached_parts()->where('parts.id', $attached_part->id)->count()) {
-            return redirect()->back()->withErrors(['code'=>'Запчасть уже прикреплен.'])->withInput();
+            return redirect()->back()->withErrors(['ref'=>'Запчасть уже прикреплен.'])->withInput();
         }
         else if ($part->id == $attached_part->id) {
-            return redirect()->back()->withErrors(['code'=>'Запчасть не может прикрепится к себе.'])->withInput();
+            return redirect()->back()->withErrors(['ref'=>'Запчасть не может прикрепится к себе.'])->withInput();
         }
         $part->attached_parts()->attach($attached_part->id);
         Notify::success('Запчасть прикреплен.');
@@ -277,7 +277,7 @@ class PartsController extends BaseController
         $inputs['generated_url'] = !empty($inputs['name'])?to_url($inputs['name']):null;
         $request->merge(['url' => $inputs['url']]);
         $rules = [
-            'name' => 'nullable|string|max:255',
+            'name' => 'nullable|string|max:500',
             'image' => 'nullable|image',
             'description' => 'nullable|string',
         ];

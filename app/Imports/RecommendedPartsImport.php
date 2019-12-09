@@ -37,7 +37,7 @@ class RecommendedPartsImport extends AbstractImport
         $removeParts = [];
         $user_ids = $this->rows->pluck('user')->toArray();
         $users = User::whereIn('id', $user_ids)->pluck('id')->toArray();
-        $parts = Part::selectRaw('`id`, LOWER(`code`) as `code`')->whereIn('code', $this->allParts)->orderBy('id', 'asc')->get();
+        $parts = Part::selectRaw('`id`, LOWER(`ref`) as `ref`')->whereIn('ref', $this->allParts)->orderBy('id', 'asc')->get();
         foreach ($this->rows as $row) {
             if (!in_array($row['user'], $users)) {
                 $this->addError($row['_row'], 'not_found', ['name'=>'пользователь']);
@@ -46,7 +46,7 @@ class RecommendedPartsImport extends AbstractImport
             $thisParts = [];
             foreach($row['parts'] as $part) {
                 if ($part==='' || $part===null) continue;
-                $findPart = $parts->where('code', mb_strtolower($part))->first();
+                $findPart = $parts->where('ref', mb_strtolower($part))->first();
                 if (!$findPart) {
                     $this->addError($row['_row'], 'not_found', ['name'=>'запчасть "'.$part.'"']);
                     $thisParts = false;

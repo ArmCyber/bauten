@@ -14,14 +14,14 @@
             <div class="card">
                 <div class="c-title">Название</div>
                 <div class="little-p">
-                    <input type="text" name="name" class="form-control" placeholder="Название" maxlength="255" value="{{ old('name', $item->name??null) }}">
+                    <input type="text" name="name" class="form-control" placeholder="Название" maxlength="500" value="{{ old('name', $item->name??null) }}">
                 </div>
             </div>
             @can('admin')
             <div class="card">
-                <div class="c-title">REF</div>
+                <div class="c-title">УИД</div>
                 <div class="little-p">
-                    <input type="text" name="ref" class="form-control" placeholder="REF" maxlength="255" value="{{ old('ref', $item->ref??null) }}">
+                    <input type="text" name="ref" class="form-control" placeholder="УИД" maxlength="255" value="{{ old('ref', $item->ref??null) }}">
                 </div>
             </div>
             <div class="card">

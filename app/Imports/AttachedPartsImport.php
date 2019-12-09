@@ -35,9 +35,9 @@ class AttachedPartsImport extends AbstractImport
     protected function callback(){
         $final = [];
         $removeParts = [];
-        $parts = Part::selectRaw('`id`, LOWER(`code`) as `code`')->whereIn('code', $this->allParts)->orderBy('id', 'asc')->get();
+        $parts = Part::selectRaw('`id`, LOWER(`ref`) as `ref`')->whereIn('ref', $this->allParts)->orderBy('id', 'asc')->get();
         foreach ($this->rows as $row) {
-            $findPart = $parts->where('code', mb_strtolower($row['part']))->first();
+            $findPart = $parts->where('ref', mb_strtolower($row['part']))->first();
             if (!$findPart) {
                 $this->addError($row['_row'], 'not_found', ['name'=>'запчасть']);
                 continue;
@@ -45,7 +45,7 @@ class AttachedPartsImport extends AbstractImport
             $thisParts = [];
             foreach($row['attached_parts'] as $part) {
                 if ($part==='' || $part===null) continue;
-                $findAttachedPart = $parts->where('code', mb_strtolower($part))->first();
+                $findAttachedPart = $parts->where('ref', mb_strtolower($part))->first();
                 if (!$findAttachedPart) {
                     $this->addError($row['_row'], 'not_found', ['name'=>'прикрепленный запчасть "'.$part.'"']);
                     $thisParts = false;
