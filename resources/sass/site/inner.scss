@@ -271,6 +271,7 @@ input.filter-checkbox {
 }
 
 .product-page-items {
+    min-height: 150px;
     //margin-top: 20px;
 }
 
@@ -961,6 +962,9 @@ img.news-page-image {
     >a {
         color:$blue;
     }
+}
+.products-sort {
+    padding-bottom:10px;
 }
 @include media(1599) {
     .product-title {

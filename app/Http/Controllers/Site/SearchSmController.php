@@ -62,26 +62,39 @@ class SearchSmController extends BaseController
     public function page(Request $request){
         $data = [
             'seo' => self::staticSEO('Результаты поиска'),
-            'appends' => [],
+//            'appends' => [],
         ];
         $string = trim($request->get('q'));
         if ($string) {
             $data['search_val'] = $string;
-            $appends['q'] = $string;
+//            $appends['q'] = $string;
         }
         $query = $this->search_str($request);
         if (!$query) return redirect()->route('page');
-        $ids = (clone $query)->pluck('id');
+        $ids = $query->where('active', 1)->brandAllowed()->pluck('id');
+        $data['filters'] = Filter::siteListForIds($ids);
+        $data['filtered'] = $this->getFilters();
+//        $criteriaGrouped = $this->filterCriteria($data['filters'], $data['filtered']['criteria']);
+//        $data['appends'] = $appends;
+//        $appends['filters'] = $request->get('filters');
+//        $appends['sort'] = $data['filtered']['sort'];
+        $data['items_count'] = count($ids);
+//        $appends['sort_type'] = $data['filtered']['sort_type']=='asc'?0:1;
+//        $data['items']->appends($appends);
+        $data['currentPaginationPage'] = (int) request()->get('page', 1);
+        if ($data['currentPaginationPage']<1) $data['currentPaginationPage'] = 1;
+        return view('site.pages.search_sm', $data);
+    }
+
+    public function pageAjax(Request $request){
+        $data = [];
+        $query = $this->search_str($request);
+        if (!$query) abort(404);
+        $ids = (clone $query)->where('active', 1)->brandAllowed()->pluck('id');
         $data['filters'] = Filter::siteListForIds($ids);
         $data['filtered'] = $this->getFilters();
         $criteriaGrouped = $this->filterCriteria($data['filters'], $data['filtered']['criteria']);
-        $data['appends'] = $appends;
-        $appends['filters'] = $request->get('filters');
-        $appends['sort'] = $data['filtered']['sort'];
         $data['items'] = $query->where('active', 1)->brandAllowed()->filtered($criteriaGrouped)->sort([$data['filtered']['sort']])->paginate(settings('pagination'));
-//        $appends['sort_type'] = $data['filtered']['sort_type']=='asc'?0:1;
-        $data['items']->appends($appends);
-
-        return view('site.pages.search_sm', $data);
+        return view('site.ajax.parts', $data);
     }
 }

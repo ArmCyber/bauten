@@ -22,20 +22,20 @@
                 <p><b>{{ count($names['engines'])==1?'Двигатель':'Двигатели' }}:</b> {{ implode(', ', $names['engines']) }}</p>
             @endif
             <div class="pt-3 font-weight-bold">
-                @if($items->total() == 0)
+                @if($items_count == 0)
                     <span class="text-danger">К сожалению по вашему запросу ничего не найдено.</span>
                 @else
-                    <span>По вашему запросу найдено {{ $items->total() }} запчаст(ов).</span>
+                    <span>По вашему запросу найдено {{ $items_count }} запчаст(ов).</span>
                 @endif
             </div>
         </div>
     </div>
-    @if($items->total())
+    @if($items_count)
         <div class="container pt-s">
             <form id="filter-form" action="javascript:void(0)" method="get">
-                @foreach($appends as $key=>$val)
-                    <input type="hidden" name="{{ $key }}" value="{{ $val }}">
-                @endforeach
+{{--                @foreach($appends as $key=>$val)--}}
+{{--                    <input type="hidden" name="{{ $key }}" value="{{ $val }}">--}}
+{{--                @endforeach--}}
                 <div class="products-block">
                     @if($has_filter = (count($filters)>0))
                         <div class="products-filters">
@@ -54,20 +54,17 @@
                                     </div>
                                 </div>
                             @endforeach
-                            <div class="pt-2 text-right">
-                                <button class="home-search-btn filter-apply">Применить</button>
-                            </div>
                         </div>
                     @endif
                     <div class="products-content">
                         <div class="products-sort">
                             <div>
-{{--                                <span class="sort-select-title">Сортировать по</span>--}}
-{{--                                <select name="sort" id="sort-select" data-smart-positioning="false">--}}
-{{--                                    <option value="price" {!! $filtered['sort'] == 'price'?'selected':null !!}>Ценам</option>--}}
-{{--                                    <option value="new" {!! $filtered['sort'] == 'new'?'selected':null !!}>Новинкам</option>--}}
-{{--                                    <option value="sale" {!! $filtered['sort'] == 'sale'?'selected':null !!}>Скидкам</option>--}}
-{{--                                </select>--}}
+                                <span class="sort-select-title">Сортировать по</span>
+                                <select name="sort" id="sort-select" data-smart-positioning="false">
+                                    <option value="price" {!! $filtered['sort'] == 'price'?'selected':null !!}>Ценам</option>
+                                    <option value="new" {!! $filtered['sort'] == 'new'?'selected':null !!}>Новинкам</option>
+                                    <option value="sale" {!! $filtered['sort'] == 'sale'?'selected':null !!}>Скидкам</option>
+                                </select>
 {{--                                <select name="sort_type" id="sort-type-select" data-smart-positioning="false">--}}
 {{--                                    <option value="0" {!! $filtered['sort_type']=='asc'?'selected':'false' !!}>по возрастанию</option>--}}
 {{--                                    <option value="1" {!! $filtered['sort_type']=='desc'?'selected':'false' !!}>по убыванию</option>--}}
@@ -75,18 +72,9 @@
 {{--                                <button class="home-search-btn filter-apply">Применить</button>--}}
                             </div>
                         </div>
-                        <div class="product-page-items">
-                            {{ $items->links() }}
-                            <div class="row row-grid">
-                                @foreach($items as $item)
-                                    <div class="col-12 col-sm-6 col-md-4 {!! $has_filter?'col-xl-3':'col-xl-1-5' !!}">
-                                        @component('site.components.part', ['item'=>$item])@endcomponent
-                                    </div>
-                                @endforeach
-                            </div>
-                            <div class="pt-4">
-                                {{ $items->links() }}
-                            </div>
+                        <div id="list-wrapper" class="position-relative loader-shown">
+                            <div class="product-page-items" id="list-container"></div>
+                            <div class="loader" style="background-color: transparent"></div>
                         </div>
                     </div>
                 </div>
@@ -98,10 +86,18 @@
     @css(aSite('assets/styler/styler.css'))
 @endpush
 @push('js')
-    <script>
-        window.csrf = "{{ csrf_token() }}";
-        window.filtersUrl = "{{ route('search') }}";
-    </script>
+{{--    <script>--}}
+{{--        window.csrf = "{{ csrf_token() }}";--}}
+{{--        window.filtersUrl = "{{ route('search') }}";--}}
+{{--     </script>--}}
     @js(aSite('assets/styler/styler.js'))
-    @js(aSite('js/catalogue.js'))
+    @js(aSite('js/part-list.js'))
+{{--    @js(aSite('js/catalogue.js'))--}}
+    <script>
+        new PartList({
+            url: "{{ route('ajax.search', $appends) }}",
+            realUrl: "{{ route('search', $appends) }}",
+            page: {{ $currentPaginationPage }},
+        });
+    </script>
 @endpush

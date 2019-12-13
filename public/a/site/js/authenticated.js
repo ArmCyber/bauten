@@ -1,7 +1,8 @@
 $('.action-logout').on('click', function(){
     $('<form action="/logout" method="post"></form>').appendTo('body').submit();
 });
-$('.product-favourite').on('click', function(){
+
+$(document).on('click', '.product-favourite', function(){
     var self = $(this);
     if (self.data('blocked') === true) return false;
     self.data('blocked', true);

@@ -86,7 +86,7 @@ class SearchController extends BaseController
         ]);
     }
 
-    public function search(Request $request){
+    private function initSearch($request) {
         $names = [];
         $appends = [];
         $catalogue = $request->get('ca');
@@ -174,21 +174,42 @@ class SearchController extends BaseController
                 });
             }
         }
-        if (!count($names)) return redirect()->route('page');
-        $data = [
+        if (!count($names)) return false;
+        return [
             'names' => $names,
-            'seo' => self::staticSEO('Результаты поиска'),
             'appends' => $appends,
+            'query' => $query,
         ];
-        $ids = (clone $query)->pluck('id')->toArray();
+    }
+
+    public function search(Request $request){
+        $searchData = $this->initSearch($request);
+        if (!$searchData) return redirect()->route('page');
+        $data = [
+            'names' => $searchData['names'],
+            'seo' => self::staticSEO('Результаты поиска'),
+            'appends' => $searchData['appends'],
+        ];
+        $ids = $searchData['query']->pluck('id')->toArray();
+        $data['filters'] = Filter::siteListForIds($ids);
+        $data['filtered'] = $this->getFilters();
+        $data['items_count'] = count($ids);
+        $data['currentPaginationPage'] = (int) request()->get('page', 1);
+        if ($data['currentPaginationPage']<1) $data['currentPaginationPage'] = 1;
+        return view('site.pages.search', $data);
+    }
+
+    public function searchAjax(Request $request){
+        $searchData = $this->initSearch($request);
+        $ids = (clone $searchData['query'])->pluck('id')->toArray();
         $data['filters'] = Filter::siteListForIds($ids);
         $data['filtered'] = $this->getFilters();
         $criteriaGrouped = $this->filterCriteria($data['filters'], $data['filtered']['criteria']);
-        $data['items'] = $query->filtered($criteriaGrouped)->sort([$data['filtered']['sort']])->paginate(settings('pagination'));
+        $data['items'] = $searchData['query']->filtered($criteriaGrouped)->sort([$data['filtered']['sort']])->paginate(settings('pagination'));
         $appends['filters'] = $request->get('filters');
         $appends['sort'] = $data['filtered']['sort'];
 //        $appends['sort_type'] = $data['filtered']['sort_type']=='asc'?0:1;
         $data['items']->appends($appends);
-        return view('site.pages.search', $data);
+        return view('site.ajax.parts', $data);
     }
 }

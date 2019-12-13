@@ -370,6 +370,10 @@ Route::namespace('Site')->group(function() {
             Route::get('search/get-engines', 'SearchController@getEngines')->name('search.get_engines');
             Route::get('search/get-models', 'SearchController@getModels')->name('search.get_models');
             Route::get('search/get-generations', 'SearchController@getGenerations')->name('search.get_generations');
+            Route::get('group/{url}', 'CatalogueController@groupAjax')->name('ajax.group');
+            Route::get('category/{url}', 'CatalogueController@categoryAjax')->name('ajax.catalogue');
+            Route::get('search-sm', 'SearchSmController@pageAjax')->name('ajax.search_sm');
+            Route::get('search', 'SearchController@searchAjax')->name('ajax.search');
         });
 
         Route::prefix('cabinet')->namespace('Cabinet')->name('cabinet.')->group(function(){

@@ -28,20 +28,20 @@
                             </div>
                         </div>
                     @endforeach
-                    <div class="pt-2 text-right">
-                        <button class="home-search-btn filter-apply">Применить</button>
-                    </div>
+{{--                    <div class="pt-2 text-right">--}}
+{{--                        <button class="home-search-btn filter-apply">Применить</button>--}}
+{{--                    </div>--}}
                 </div>
             @endif
             <div class="products-content">
                 <div class="products-sort">
                     <div>
-{{--                        <span class="sort-select-title">Сортировать по</span>--}}
-{{--                        <select name="sort" id="sort-select" data-smart-positioning="false">--}}
-{{--                            <option value="price" {!! $filtered['sort'] == 'price'?'selected':null !!}>Ценам</option>--}}
-{{--                            <option value="new" {!! $filtered['sort'] == 'new'?'selected':null !!}>Новинкам</option>--}}
-{{--                            <option value="sale" {!! $filtered['sort'] == 'sale'?'selected':null !!}>Скидкам</option>--}}
-{{--                        </select>--}}
+                        <span class="sort-select-title">Сортировать по</span>
+                        <select name="sort" id="sort-select" data-smart-positioning="false" style="display: none">
+                            <option value="price" {!! $filtered['sort'] == 'price'?'selected':null !!}>Ценам</option>
+                            <option value="new" {!! $filtered['sort'] == 'new'?'selected':null !!}>Новинкам</option>
+                            <option value="sale" {!! $filtered['sort'] == 'sale'?'selected':null !!}>Скидкам</option>
+                        </select>
 {{--                        <select name="sort_type" id="sort-type-select" data-smart-positioning="false">--}}
 {{--                            <option value="0" {!! $filtered['sort_type']=='asc'?'selected':'false' !!}>по возрастанию</option>--}}
 {{--                            <option value="1" {!! $filtered['sort_type']=='desc'?'selected':'false' !!}>по убыванию</option>--}}
@@ -49,6 +49,11 @@
 {{--                        <button class="home-search-btn filter-apply">Применить</button>--}}
                     </div>
                 </div>
+                <div id="list-wrapper" class="position-relative loader-shown">
+                    <div class="product-page-items" id="list-container"></div>
+                    <div class="loader" style="background-color: transparent"></div>
+                </div>
+                @if (false)
                 <div class="product-page-items">
                     {{ $items->links() }}
                     <div class="row row-grid">
@@ -62,6 +67,7 @@
                         {{ $items->links() }}
                     </div>
                 </div>
+                @endif
             </div>
         </div>
     </form>
@@ -71,10 +77,16 @@
     @css(aSite('assets/styler/styler.css'))
 @endpush
 @push('js')
-    <script>
-        window.csrf = "{{ csrf_token() }}";
-        window.filtersUrl = "{{ url()->current() }}";
-    </script>
     @js(aSite('assets/styler/styler.js'))
-    @js(aSite('js/catalogue.js'))
+{{--    @js(aSite('js/catalogue.js'))--}}
+    @js(aSite('js/part-list.js'))
+    <script>
+{{--        window.csrf = "{{ csrf_token() }}";--}}
+{{--        window.filtersUrl = "{{ url()->current() }}";--}}
+        new PartList({
+            url: "{{ $type=='group'?route('ajax.group', ['url'=>$group->url]):route('ajax.catalogue', ['url'=>$catalogue->url]) }}",
+            realUrl: "{{ $type=='group'?route('group', ['url'=>$group->url]):route('catalogue', ['url'=>$catalogue->url]) }}",
+            page: {{ $currentPaginationPage }},
+        });
+    </script>
 @endpush
