@@ -54,6 +54,8 @@ class CatalogueController extends BaseController
         $data['active_page'] = $page->id;
         $data['page_title'] = $page->title;
         $data['catalogue_title'] = $group->name;
+        $data['view_type'] = $request->get('view_type')=='grid'?'grid':'list';
+        session(['view_type' => $data['view_type']]);
         $data['seo'] = $this->staticSEO($data['catalogue_title']);
 //        $appends = [
 //            'filters' => request()->get('filters'),
@@ -89,7 +91,7 @@ class CatalogueController extends BaseController
         return view('site.pages.catalogue', $data);
     }
 
-    public function categoryAjax($url) {
+    public function categoryAjax($url, Request $request) {
         $data = [];
         $catalogue = PartCatalog::getItemSite($url);
         $data['type'] = 'catalogue';
@@ -97,6 +99,8 @@ class CatalogueController extends BaseController
         $data['filtered'] = $this->getFilters();
         $criteriaGrouped = $this->filterCriteria($data['filters'], $data['filtered']['criteria']);
         $data['items'] = Part::catalogsList([$catalogue->id], $criteriaGrouped, [$data['filtered']['sort']]);
+        $data['view_type'] = $request->get('view_type')=='grid'?'grid':'list';
+        session(['view_type' => $data['view_type']]);
         return view('site.ajax.parts', $data);
     }
 

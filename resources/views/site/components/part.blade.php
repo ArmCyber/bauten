@@ -19,7 +19,7 @@
         @if (!$item->price)
             <div class="part-status part-noprice">Под заказ</div>
         @elseif(!$item->max_count_wo_basket)
-                <div class="part-status part-nis">Нет на складе</div>
+                <div class="part-status part-nis">Нет в наличии</div>
         @endif
     </div>
 </div>

@@ -786,7 +786,7 @@ a.brand-item {
 }
 a.link-bauten {
     color:$blue;
-    font-weight: 500;
+    //font-weight: 500;
     &:hover {
         color:$blue
     }
@@ -798,6 +798,9 @@ a.link-bauten {
 .mm {
     background: #ffffff;
     color: #333;
+}
+.nowrap {
+    white-space: nowrap !important;
 }
 @include media(1599) {
     //region Header

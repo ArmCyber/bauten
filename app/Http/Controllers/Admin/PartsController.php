@@ -212,7 +212,7 @@ class PartsController extends BaseController
                 rsort($files[$key]);
             }
             $codes = array_keys($files);
-            $findParts = Part::select('id', 'code', 'image')->whereIn('code', $codes)->orderBy('id')->groupBy('code')->get();
+            $findParts = Part::select('id', 'ref', 'image')->whereIn('ref', $codes)->orderBy('id')->groupBy('code')->get();
             $path = storage_path('zip/');
             $zip->setMask(0755);
             $zip->extract($path, $allFiles);
@@ -230,7 +230,7 @@ class PartsController extends BaseController
         $updateParts = [];
         $insertGallery = [];
         foreach($parts as $part) {
-            $thisImages = $files[$part->code];
+            $thisImages = $files[$part->ref];
             $first = true;
             if ($part->image) File::delete($imagesPath.$part->image);
             foreach($thisImages as $image) {

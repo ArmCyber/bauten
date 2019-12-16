@@ -42,6 +42,10 @@
                             <option value="new" {!! $filtered['sort'] == 'new'?'selected':null !!}>Новинкам</option>
                             <option value="sale" {!! $filtered['sort'] == 'sale'?'selected':null !!}>Скидкам</option>
                         </select>
+                        <span class="view-toggles">
+                            <a href="javascript:void(0)" id="view-list"><i class="fas fa-th-list"></i></a>
+                            <a href="javascript:void(0)" id="view-grid"><i class="fas fa-th-large"></i></a>
+                        </span>
 {{--                        <select name="sort_type" id="sort-type-select" data-smart-positioning="false">--}}
 {{--                            <option value="0" {!! $filtered['sort_type']=='asc'?'selected':'false' !!}>по возрастанию</option>--}}
 {{--                            <option value="1" {!! $filtered['sort_type']=='desc'?'selected':'false' !!}>по убыванию</option>--}}
@@ -74,9 +78,11 @@
 </div>
 @endsection
 @push('css')
+    @css(aApp('fancybox/fancybox.css'))
     @css(aSite('assets/styler/styler.css'))
 @endpush
 @push('js')
+    @js(aApp('fancybox/fancybox.js'))
     @js(aSite('assets/styler/styler.js'))
 {{--    @js(aSite('js/catalogue.js'))--}}
     @js(aSite('js/part-list.js'))
@@ -87,6 +93,7 @@
             url: "{{ $type=='group'?route('ajax.group', ['url'=>$group->url]):route('ajax.catalogue', ['url'=>$catalogue->url]) }}",
             realUrl: "{{ $type=='group'?route('group', ['url'=>$group->url]):route('catalogue', ['url'=>$catalogue->url]) }}",
             page: {{ $currentPaginationPage }},
+            viewType: '{{ session('view_type', 'list') }}'
         });
     </script>
 @endpush

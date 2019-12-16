@@ -94,7 +94,9 @@ class SearchSmController extends BaseController
         $data['filters'] = Filter::siteListForIds($ids);
         $data['filtered'] = $this->getFilters();
         $criteriaGrouped = $this->filterCriteria($data['filters'], $data['filtered']['criteria']);
-        $data['items'] = $query->where('active', 1)->brandAllowed()->filtered($criteriaGrouped)->sort([$data['filtered']['sort']])->paginate(settings('pagination'));
+        $data['items'] = $query->where('active', 1)->with('brand')->brandAllowed()->filtered($criteriaGrouped)->sort([$data['filtered']['sort']])->paginate(settings('pagination'));
+        $data['view_type'] = $request->get('view_type')=='grid'?'grid':'list';
+        session(['view_type' => $data['view_type']]);
         return view('site.ajax.parts', $data);
     }
 }

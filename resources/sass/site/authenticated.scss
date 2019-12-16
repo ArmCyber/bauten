@@ -363,6 +363,28 @@ input.basket-checkbox {
     height:15px;
     vertical-align: middle;
 }
+.view-toggles {
+    display:block;
+    font-size:24px;
+    float:right;
+    padding-top:10px;
+}
+a#view-list, a#view-grid {
+    color:#666666;
+    margin-left:4px;
+    @include transition(color .3s ease);
+    &:hover, &.active {
+        color:$blue;
+    }
+}
+.parts-table {
+    a {
+        color:$blue;
+    }
+    .image-toggle {
+        font-size:20px;
+    }
+}
 @include media(1599) {
     button.home-search-btn {
         height: 45px;

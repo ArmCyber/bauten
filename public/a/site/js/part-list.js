@@ -3,10 +3,15 @@ var PartList = function(params){
         sortSelect: $('#sort-select'),
         listWrapper: $('#list-wrapper'),
         listContainer: $('#list-container'),
+        viewToggle: {
+            list: $('#view-list'),
+            grid: $('#view-grid')
+        }
     };
 
     this.realTime = {
         ajax: false,
+        page: 1,
     };
 
     this.params = params;
@@ -19,6 +24,7 @@ var PartList = function(params){
 
     this.initPlugins = function(){
         this.dom.sortSelect.styler();
+        this.dom.viewToggle[this.params.viewType].addClass('active');
     };
 
     this.addEventListeners = function(){
@@ -42,8 +48,17 @@ var PartList = function(params){
             e.preventDefault();
             self.getParts(parseInt($(this).data('page')));
         });
-        addEventListener("popstate", function (e) {
-            window.location.href = '';
+        self.dom.viewToggle.list.on('click', function(){
+            self.dom.viewToggle.grid.removeClass('active');
+            self.dom.viewToggle.list.addClass('active');
+            self.params.viewType = 'list';
+            self.getParts(self.realTime.page);
+        });
+        self.dom.viewToggle.grid.on('click', function(){
+            self.dom.viewToggle.grid.addClass('active');
+            self.dom.viewToggle.list.removeClass('active');
+            self.params.viewType = 'grid';
+            self.getParts(self.realTime.page);
         });
     };
 
@@ -54,14 +69,16 @@ var PartList = function(params){
         $.each($('.filter-checkbox:checked'), function(key, item){
             filters.push($(item).val());
         });
+        self.realTime.page = page;
         var sort = self.dom.sortSelect.val(),
             qsParams = {
                 sort: sort,
                 page: page,
+                view_type: self.params.viewType,
             };
         if (filters.length) qsParams.filters = filters.join('_');
         var qs = $.param(qsParams);
-        history.pushState(null, null, self.params.realUrl+(self.params.realUrl.indexOf('?')===-1?'?':'&')+qs);
+        history.replaceState(null, null, self.params.realUrl+(self.params.realUrl.indexOf('?')===-1?'?':'&')+qs);
         self.dom.listWrapper.addClass('loader-shown');
         self.sendAjax(self.params.url, qsParams, function(e){
             self.dom.listContainer.html(e);
@@ -80,6 +97,7 @@ var PartList = function(params){
             self.realTime.ajax = false;
         }
         self.dom.listContainer.html('');
+        data._ = new Date().getTime();
         self.realTime.ajax = $.ajax({
             url: url,
             type: 'get',

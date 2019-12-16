@@ -205,11 +205,13 @@ class SearchController extends BaseController
         $data['filters'] = Filter::siteListForIds($ids);
         $data['filtered'] = $this->getFilters();
         $criteriaGrouped = $this->filterCriteria($data['filters'], $data['filtered']['criteria']);
-        $data['items'] = $searchData['query']->filtered($criteriaGrouped)->sort([$data['filtered']['sort']])->paginate(settings('pagination'));
+        $data['items'] = $searchData['query']->filtered($criteriaGrouped)->sort([$data['filtered']['sort']])->with('brand')->paginate(settings('pagination'));
         $appends['filters'] = $request->get('filters');
         $appends['sort'] = $data['filtered']['sort'];
+        $data['view_type'] = $request->get('view_type')=='grid'?'grid':'list';
+        session(['view_type' => $data['view_type']]);
 //        $appends['sort_type'] = $data['filtered']['sort_type']=='asc'?0:1;
-        $data['items']->appends($appends);
+//        $data['items']->appends($appends);
         return view('site.ajax.parts', $data);
     }
 }

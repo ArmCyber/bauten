@@ -44,6 +44,10 @@
                                     <option value="new" {!! $filtered['sort'] == 'new'?'selected':null !!}>Новинкам</option>
                                     <option value="sale" {!! $filtered['sort'] == 'sale'?'selected':null !!}>Скидкам</option>
                                 </select>
+                                <span class="view-toggles">
+                                    <a href="javascript:void(0)" id="view-list"><i class="fas fa-th-list"></i></a>
+                                    <a href="javascript:void(0)" id="view-grid"><i class="fas fa-th-large"></i></a>
+                                </span>
 {{--                                <select name="sort_type" id="sort-type-select" data-smart-positioning="false">--}}
 {{--                                    <option value="0" {!! $filtered['sort_type']=='asc'?'selected':'false' !!}>по возрастанию</option>--}}
 {{--                                    <option value="1" {!! $filtered['sort_type']=='desc'?'selected':'false' !!}>по убыванию</option>--}}
@@ -77,6 +81,7 @@
             url: "{{ route('ajax.search_sm', ['q'=>$search_val]) }}",
             realUrl: "{{ route('search_sm', ['q'=>$search_val]) }}",
             page: {{ $currentPaginationPage }},
+            viewType: '{{ session('view_type', 'list') }}'
         });
     </script>
 @endpush

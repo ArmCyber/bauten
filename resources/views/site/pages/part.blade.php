@@ -58,7 +58,7 @@
                                 @if (!$item->price)
                                     <div class="part-status-lg part-noprice">Под заказ</div>
                                 @elseif(!$item->max_count_wo_basket)
-                                    <div class="part-status-lg part-nis">Нет на складе</div>
+                                    <div class="part-status-lg part-nis">Нет в наличии</div>
                                 @endif
                             </div>
 {{--                        @if($item->description)--}}
@@ -71,6 +71,9 @@
                                 </div>
                                 @if($item->sale)
                                     <div class="product-page-mincount">Цена без скидки: {{ $item->sale }} <span class="kzt"></span>.</div>
+                                @endif
+                                @if ($item->price && $item->max_count>0)
+                                    <div class="product-page-mincount">В наличии: {{ $item->max_count }} шт.</div>
                                 @endif
                                 @if($item->min_count!=1 && $item->min_count>$item->multiplication)
                                     <div class="product-page-mincount">Мин. количество: {{ $item->min_count }} шт.</div>
@@ -85,7 +88,7 @@
                         @endif
                         @if ($item->price)
                             @if($item->application_only)
-                                <div class="h4 text-danger pt-2 not-in-stock">Нет на складе</div>
+                                <div class="h4 text-danger pt-2 not-in-stock">Нет в наличии</div>
                             @else
                                 @if($item->max_count)
                                     <div class="product-page-shop not-in-stock-hidden">
@@ -102,7 +105,7 @@
                                         <div class="product-page-price mt-3">Общая стоимость: <span id="sale-from" class="sale-price" style="display: none"><span id="part-sale-price"></span> <span class="kzt"></span></span> <span class="ppp" id="full-price"></span> <span class="kzt"></span> </div>
                                     </div>
                                 @endif
-                                <div class="h4 text-danger pt-2 not-in-stock">Нет на складе</div>
+                                <div class="h4 text-danger pt-2 not-in-stock">Нет в наличии</div>
                             @endif
                         @endif
                         @if (!$item->price)
@@ -277,6 +280,7 @@
                 <div class="tab-pane fade active show" id="part-description" role="tabpanel">
                     <div class="p-2">
                         <div class="pr-specs-tbl py-2">
+                            <div class="pr-specs-item"><div class="pr-specs-key">Каталог</div><div class="pr-specs-value">{{ $item->catalogue->name }}</div></div>
                             <div class="pr-specs-item"><div class="pr-specs-key">Бренд</div><div class="pr-specs-value">{{ $item->brand->name }}</div></div>
                             @foreach($item_filters as $item_filter)
                                 <div class="pr-specs-item"><div class="pr-specs-key">{{ $item_filter[0]->filter->title }}</div><div class="pr-specs-value">
