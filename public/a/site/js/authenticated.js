@@ -54,3 +54,95 @@ $('#live-search').on('input', function(){
 $('.header-search-form').on('submit', function(e){
     if (!$.trim($('#live-search').val())) e.preventDefault();
 });
+$(document).on('input', '.live-basket-input', function(){
+    var self = $(this);
+    self.val(self.val().replace(/^0|[^0-9]+/g, ''));
+}).on('change', '.live-basket-input', function(){
+    var self = $(this),
+        minimum = parseInt(self.data('minimum')),
+        maximum = parseInt(self.data('available')),
+        multiplication = parseInt(self.data('multiplication')),
+        value = self.val();
+    value = value?parseInt(value):value;
+    if (value < minimum) self.val(minimum);
+    else if (value > maximum) self.val(maximum);
+    else if (value%multiplication !== 0) {
+        var x = Math.floor(value/multiplication);
+        self.val(x*multiplication);
+    }
+    else return true;
+}).on('click', '.live-num-plus', function(){
+    stepNumberInput($(this).siblings('.live-basket-input'),true)
+}).on('click', '.live-num-minus', function(){
+    stepNumberInput($(this).siblings('.live-basket-input'),false)
+}).on('keydown', '.live-basket-input', function(e){
+    if (e.keyCode === 38) {
+        e.preventDefault();
+        stepNumberInput($(this), true);
+    }
+    else if (e.keyCode === 40) {
+        e.preventDefault();
+        stepNumberInput($(this), false);
+    }
+}).on('click', '.live-to-basket', function(){
+    var $this = $(this);
+    setTimeout(function(){
+        var section = $this.parents('.to-basket-section'),
+            group = section.find('.live-basket-group'),
+            input = group.find('.live-basket-input'),
+            value = input.val(),
+            partId = parseInt(input.data('id')),
+            multiplication = parseInt(input.data('multiplication'));
+        if (group.hasClass('loader-shown')) return false;
+        group.addClass('loader-shown');
+        input.removeClass('anim');
+        if (!value || isNaN(value)) renderError();
+        value = parseInt(value);
+        $.ajax({
+            url: window.basketUrl,
+            type: 'get',
+            dataType: 'json',
+            data: {
+                part: partId,
+                count: value,
+            },
+            success: function(e) {
+                var maxCount = parseInt(e.max_count);
+                checkBasketCounter(partId);
+                if (maxCount<multiplication) {
+                    $('.live-basket-input[data-id="'+partId+'"]').parents('.to-basket-section').html('');
+                }
+                else {
+                    input.attr('data-minimum', multiplication);
+                    input.attr('data-available', e.max_count);
+                    input.val(multiplication).trigger('change');
+                }
+                group.removeClass('loader-shown');
+                input.addClass('anim')
+            },
+            error: function(e) {
+                renderError()
+            }
+        });
+    },0);
+});
+var renderError = function(){
+    window.location.href = '';
+};
+var stepNumberInput = function(input, positive){
+    var val = input.val(),
+        multiplication = parseInt(input.data('multiplication'));
+    val = isNaN(val)?0:parseInt(input.val());
+    if (positive) val+=multiplication;
+    else val-=multiplication;
+    input.val(val).trigger('change');
+};
+var checkBasketCounter = function(partId) {
+    partId = parseInt(partId);
+    if (window.basketPartIds.indexOf(partId)===-1) {
+        window.basketPartIds.push(partId);
+        var length = window.basketPartIds.length;
+        if (length>9) length='9+';
+        basketCounter.html(length).show();
+    }
+};

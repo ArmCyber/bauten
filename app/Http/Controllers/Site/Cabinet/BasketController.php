@@ -51,7 +51,7 @@ class BasketController extends BaseController
         $basket_item = Basket::where(['part_id' => $item_id, 'user_id'=>$user_id])->first();
         if (!$basket_item) abort(404);
         $count = $request->input('count');
-        if (!$count || !is_numeric($count) || $count<$basket_item->part->min_count || $count>($basket_item->part->available??9999) || $count%$basket_item->part->multiplication!=0) abort(404);
+        if (!$count || !is_numeric($count) || $count<$basket_item->part->min_count || $count>($basket_item->part->available??999999) || $count%$basket_item->part->multiplication!=0) abort(404);
         $basket_item->count = $count;
         $basket_item->save();
         return response(1);

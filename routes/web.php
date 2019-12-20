@@ -387,7 +387,7 @@ Route::namespace('Site')->group(function() {
             Route::post('profile/change-email', 'ProfileController@changeEmail_post');
             Route::get('profile/change-email/cancel', 'ProfileController@cancelChangeEmail')->name('profile.change_email.cancel');
             Route::get('basket', 'BasketController@basket')->name('basket');
-            Route::post('basket/add', 'BasketController@addToBasket')->name('basket.add');
+            Route::get('basket/add', 'BasketController@addToBasket')->name('basket.add');
             Route::post('basket/delete', 'BasketController@deleteFromBasket')->name('basket.delete');
             Route::post('basket/update', 'BasketController@updateItem')->name('basket.update');
             Route::post('basket/check', 'BasketController@check')->name('basket.check');

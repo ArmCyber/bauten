@@ -72,8 +72,8 @@
                                 @if($item->sale)
                                     <div class="product-page-mincount">Цена без скидки: {{ $item->sale }} <span class="kzt"></span>.</div>
                                 @endif
-                                @if ($item->price && $item->max_count>0)
-                                    <div class="product-page-mincount">В наличии: {{ $item->max_count }} шт.</div>
+                                @if ($item->price && $item->max_count_wo_basket>0)
+                                    <div class="product-page-mincount">В наличии: {{ $item->max_count_wo_basket }} шт.</div>
                                 @endif
                                 @if($item->min_count!=1 && $item->min_count>$item->multiplication)
                                     <div class="product-page-mincount">Мин. количество: {{ $item->min_count }} шт.</div>
@@ -185,7 +185,7 @@
                                     <div class="product-page-count">
                                         <div class="number-group">
                                             <button class="number-btn number-input-minus">-</button>
-                                            <input type="text" value="{{ $item->min_count_ceil }}" data-multiplication="{{ $item->multiplication }}" data-price="{{ $item->price }}" data-available="9999" class="number-input" readonly>
+                                            <input type="text" value="{{ $item->min_count_ceil }}" data-multiplication="{{ $item->multiplication }}" data-price="{{ $item->price }}" data-available="999999" class="number-input" readonly>
                                             <button class="number-btn number-input-plus">+</button>
                                         </div>
                                     </div>

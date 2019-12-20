@@ -166,7 +166,7 @@ class Part extends Model
     public function scopeSort($q, $sort=[]) {
         $sort = $sort[0]??'price';
         if ($sort == 'new') {
-            return $q->orderBy('new', 'desc')->orderBy('price', 'asc');
+            return $q->orderBy('new', 'desc')->orderBy('id', 'desc');
         }
         if ($sort == 'sale') {
             return $q->orderByRaw('`sale`/`price` desc')->orderBy('price', 'asc');
@@ -190,7 +190,7 @@ class Part extends Model
     public function getMaxCountAttribute(){
         if (!array_key_exists('max_count', $this->mutedAttributes)) {
             $available = $this->available;
-            if ($available===null) $available = 9999;
+            if ($available===null) $available = 999999;
             $basket_part = $this->basket_part;
             if ($basket_part) $available-=$basket_part->count;
             if ($available<$this->min_count_ceil) return 0;
@@ -202,7 +202,7 @@ class Part extends Model
     public function getMaxCountWoBasketAttribute(){
         if (!array_key_exists('max_count_wo_basket', $this->mutedAttributes)) {
             $available = $this->available;
-            if ($available===null) $available = 9999;
+            if ($available===null) $available = 999999;
             if ($available<$this->min_count_ceil) return 0;
             $this->mutedAttributes['max_count_wo_basket'] = floor($available/$this->multiplication)*$this->multiplication;
         }

@@ -28,7 +28,7 @@ class AppController extends BaseController
             'trace' => true,
             'features' => SOAP_USE_XSI_ARRAY_TYPE
         ]);
+        $soap->FileExists(['FileName' => 'ok']);
 //        dd($soap);
-//        dd($soap->FileExists('ok'));
     }
 }

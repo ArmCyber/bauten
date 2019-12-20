@@ -40,7 +40,7 @@ class MainController extends BaseController
             'phone' => 'Недействительный номер телефона.',
         ])->validate();
         $count = $request->input('count');
-        if (!$count || !is_id($count) || $count>9999 || $count%$item->multiplication!=0) {
+        if (!$count || !is_id($count) || $count>999999 || $count%$item->multiplication!=0) {
             Notify::get('error_occurred');
             return redirect()->back();
         }
