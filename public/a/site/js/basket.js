@@ -95,6 +95,39 @@ var Basket = function(){
         $('.number-btn').on('click', function(){
             self.stepNumberInput($(this));
         });
+        $('.number-input').on('input', function(){
+            var $this = $(this);
+            $this.val($this.val().replace(/^0|[^0-9]+/g, ''));
+        }).on('change', function(){
+            var $this = $(this),
+                minimum = parseInt($this.attr('data-minimum')),
+                maximum = parseInt($this.attr('data-available')),
+                multiplication = parseInt($this.attr('data-multiplication')),
+                value = $this.val();
+            value = value?parseInt(value):0;
+            if (value < minimum) {
+                value = minimum;
+                $this.val(minimum);
+            }
+            else if (value > maximum) {
+                value = maximum;
+                $this.val(maximum);
+            }
+            else if (value%multiplication !== 0) {
+                var x = Math.floor(value/multiplication);
+                value = x*multiplication;
+                $this.val(value);
+            }
+            var row = $this.parents('.basket-part-row');
+            row.addClass('loader-shown');
+            self.sendAjax(self.config.actions.update, {
+                itemId: row.data('id'),
+                count: value,
+            }, function(){
+                self.updatePrices();
+                row.removeClass('loader-shown');
+            });
+        });
         $('.delete-basket-item').on('click', function(){
             self.deleteBasketItem($(this));
         });
@@ -174,7 +207,7 @@ var Basket = function(){
     };
 
     this.renderError = function(){
-        // window.location.href = '';
+        window.location.href = '';
     };
 
     this.changeChecked = function(elem) {

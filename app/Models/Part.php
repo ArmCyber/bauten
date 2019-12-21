@@ -174,6 +174,13 @@ class Part extends Model
         return $q->orderBy('price', 'asc');
     }
 
+    public function getMinCountCeilWoBasketAttribute() {
+        if (!array_key_exists('min_count_ceil_wo_basket', $this->mutedAttributes)) {
+            $this->mutedAttributes['min_count_ceil_wo_basket'] = ceil($this->min_count/$this->multiplication)*$this->multiplication;
+        }
+        return $this->mutedAttributes['min_count_ceil_wo_basket'];
+    }
+
     public function getMinCountCeilAttribute() {
         if (!array_key_exists('min_count_ceil', $this->mutedAttributes)) {
             $minCount = $this->min_count;

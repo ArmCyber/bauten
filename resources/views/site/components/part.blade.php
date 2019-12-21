@@ -12,6 +12,17 @@
             @endif
         @endif
     </div>
+    @if ($item->price && $item->max_count)
+    <div class="nowrap d-flex to-basket-section position-relative mt-2">
+            <span class="live-basket-group number-group number-group-sm position-relative">
+                                <button class="number-btn number-input-minus live-num-minus">-</button>
+                                <input data-id="{{ $item->id }}" maxlength="6" type="text" value="{{ $item->min_count??1 }}" data-multiplication="{{ $item->multiplication }}" data-minimum="{{ $item->min_count_ceil??1 }}" data-available="{{ $item->max_count }}" class="number-input live-basket-input">
+                                <button class="number-btn number-input-plus live-num-plus">+</button>
+                                <span class="loader loader-ng"></span>
+                            </span>
+            <a href="javascript:void(0)" class="live-to-basket" style="margin-left: 8px; font-size: 20px"><i class="fas fa-shopping-basket"></i></a>
+    </div>
+    @endif
     <div class="part-statuses">
         @if ($item->new)
             <div class="part-status part-new">Новинка</div>

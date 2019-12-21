@@ -17,7 +17,7 @@
                 <th class="nowrap">Наименование</th>
                 <th class="nowrap">Производитель</th>
                 <th class="nowrap">Фото</th>
-                <th class="nowrap">Наличие</th>
+                <th class="nowrap">В наличии</th>
                 <th class="nowrap">Цена</th>
                 <th></th>
                 <th style="width: 1%"></th>
@@ -34,7 +34,7 @@
                             <a href="{{ asset('u/parts/'.$item->image) }}" class="image-toggle" data-fancybox="image-{{ $item->id }}"><i class="fas fa-camera"></i></a>
                         @endif
                     </td>
-                    <td class="nowrap">{!! ($item->price && $item->max_count_wo_basket)?$item->max_count_wo_basket:'<span class="text-danger">0</span>' !!}</td>
+                    <td class="nowrap">{!! ($item->price && $item->max_count_wo_basket)?'<span class="text-success">есть</span>':'<span class="text-danger">нет</span>' !!}</td>
                     <td class="nowrap">{!! $item->price?$item->price.' <span class="kzt"></span>':'<span class="text-danger">Под заказ</span>' !!}</td>
                     <td class="nowrap">
                         <span class="product-favourite position-static product-card-favourite{!! in_array($item->id, $favourite_ids)?' saved':null !!}" data-id="{{ $item->id }}" title="Сохранить"></span>
@@ -43,7 +43,7 @@
                         @if ($item->price && $item->max_count)
                             <span class="live-basket-group number-group number-group-sm position-relative">
                                 <button class="number-btn number-input-minus live-num-minus">-</button>
-                                <input data-id="{{ $item->id }}" maxlength="6" type="text" value="{{ $item->min_count??1 }}" data-multiplication="{{ $item->multiplication }}" data-minimum="{{ $item->min_count_ceil??1 }}" data-available="{{ $item->max_count }}" class="number-input live-basket-input">
+                                <input data-id="{{ $item->id }}" maxlength="6" type="text" value="{{ $item->min_count_ceil }}" data-multiplication="{{ $item->multiplication }}" data-minimum="{{ $item->min_count_ceil??1 }}" data-available="{{ $item->max_count }}" class="number-input live-basket-input">
                                 <button class="number-btn number-input-plus live-num-plus">+</button>
                                 <span class="loader loader-ng"></span>
                             </span>

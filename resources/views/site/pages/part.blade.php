@@ -72,9 +72,9 @@
                                 @if($item->sale)
                                     <div class="product-page-mincount">Цена без скидки: {{ $item->sale }} <span class="kzt"></span>.</div>
                                 @endif
-                                @if ($item->price && $item->max_count_wo_basket>0)
-                                    <div class="product-page-mincount">В наличии: {{ $item->max_count_wo_basket }} шт.</div>
-                                @endif
+{{--                                @if ($item->price && $item->max_count_wo_basket>0)--}}
+{{--                                    <div class="product-page-mincount">В наличии: {{ $item->max_count_wo_basket }} шт.</div>--}}
+{{--                                @endif--}}
                                 @if($item->min_count!=1 && $item->min_count>$item->multiplication)
                                     <div class="product-page-mincount">Мин. количество: {{ $item->min_count }} шт.</div>
                                 @endif
@@ -95,9 +95,9 @@
                                         <div class="product-page-form">
                                             <div class="product-page-count">
                                                 <div class="number-group">
-                                                    <button class="number-btn number-input-minus">-</button>
-                                                    <input type="text" value="{{ $item->min_count_ceil }}" data-multiplication="{{ $item->multiplication }}" data-price="{{ $item->price }}" data-available="{{ $item->max_count }}" class="number-input" readonly>
-                                                    <button class="number-btn number-input-plus">+</button>
+                                                    <button class="number-btn number-input-minus this-number-input-minus">-</button>
+                                                    <input type="text" value="{{ $item->min_count_ceil }}" data-multiplication="{{ $item->multiplication }}" data-price="{{ $item->price }}" data-available="{{ $item->max_count }}" class="number-input this-number-input">
+                                                    <button class="number-btn number-input-plus this-number-input-plus">+</button>
                                                 </div>
                                             </div>
                                             <div class="product-page-submit position-relative"><button id="to-basket">В корзину</button><span class="loader loader-sm"></span></div>
@@ -184,9 +184,9 @@
                                 <div class="product-page-form">
                                     <div class="product-page-count">
                                         <div class="number-group">
-                                            <button class="number-btn number-input-minus">-</button>
-                                            <input type="text" value="{{ $item->min_count_ceil }}" data-multiplication="{{ $item->multiplication }}" data-price="{{ $item->price }}" data-available="999999" class="number-input" readonly>
-                                            <button class="number-btn number-input-plus">+</button>
+                                            <button class="number-btn number-input-minus this-number-input-minus">-</button>
+                                            <input type="text" value="{{ $item->min_count_ceil }}" data-multiplication="{{ $item->multiplication }}" data-price="{{ $item->price }}" data-available="999999" class="number-input this-number-input">
+                                            <button class="number-btn number-input-plus this-number-input-plus">+</button>
                                         </div>
                                     </div>
                                 </div>
@@ -386,9 +386,9 @@
                 <div class="prod-tbl-title pb-3 pb-lg-5">С этим советуем</div>
                 <div id="attached-parts-slider" class="swiper-container show-after-init equal-heights">
                     <div class="swiper-wrapper">
-                        @foreach($attached_parts as $item)
+                        @foreach($attached_parts as $attached_part)
                             <div class="swiper-slide p-shadow">
-                                @component('site.components.part', ['item'=>$item])@endcomponent
+                                @component('site.components.part', ['item'=>$attached_part])@endcomponent
                             </div>
                         @endforeach
                     </div>

@@ -1,4 +1,4 @@
-var numberInput = $('input.number-input');
+(function(){var numberInput = $('input.this-number-input');
 if (numberInput.length) {
     var multiplication = parseInt(numberInput.data('multiplication')),
         minCount = parseInt(numberInput.attr('value')),
@@ -23,16 +23,32 @@ if (numberInput.length) {
             updatePartFullPrice(newVal);
         }
     };
-    $(document).on('click', '.number-input-plus', function(){
-        var input = $(this).parent().find('>input.number-input');
+    $(document).on('click', '.this-number-input-plus', function(){
+        var input = $(this).parent().find('>input.this-number-input');
         if (input.length) {
             stepNumberInput(input, true);
         }
-    }).on('click', '.number-input-minus', function(){
-        var input = $(this).parent().find('>input.number-input');
+    }).on('click', '.this-number-input-minus', function(){
+        var input = $(this).parent().find('>input.this-number-input');
         if (input.length) {
             stepNumberInput(input, false);
         }
+    }).on('input', '.this-number-input', function(){
+        var self = $(this);
+        self.val(self.val().replace(/^0|[^0-9]+/g, ''));
+    }).on('change', '.this-number-input', function(){
+        var self = $(this),
+            minimum = minCount,
+            maximum = available,
+            val = self.val(),
+            value = val?parseInt(val):0;
+        if (value < minimum) self.val(minimum);
+        else if (value > maximum) self.val(maximum);
+        else if (value%multiplication !== 0) {
+            var x = Math.floor(value/multiplication);
+            self.val(x*multiplication);
+        }
+        else return true;
     });
 }
 if ($('#product-thumbs').length) {
@@ -55,10 +71,9 @@ toBasket.on('click', function(){
     var count = numberInput.val();
     $.ajax({
         url: window.basketUrl,
-        type: 'post',
+        type: 'get',
         dataType: 'json',
         data: {
-            _token: window.csrf,
             part: window.partId,
             count: count,
         },
@@ -126,3 +141,4 @@ var updatePartFullPrice = function(count) {
 if ($('.product-page-shop').length) {
     updatePartFullPrice(parseInt(numberInput.val()));
 }
+})();

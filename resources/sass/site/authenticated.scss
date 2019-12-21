@@ -385,6 +385,23 @@ a#view-list, a#view-grid {
         font-size:20px;
     }
 }
+.number-group.anim {
+    @include animation(success .6s linear);
+}
+@keyframes success {
+    0%{
+        background-color: #ffffff;
+        border-color:#c6c6c6;
+    }
+    50%{
+        background-color: #ddeedd;
+        border-color:#008000;
+    }
+    100%{
+        background-color: #ffffff;
+        border-color:#c6c6c6;
+    }
+}
 @include media(1599) {
     button.home-search-btn {
         height: 45px;

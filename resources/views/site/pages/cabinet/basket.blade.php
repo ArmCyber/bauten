@@ -30,7 +30,7 @@
                             <td>
                                 <div class="number-group number-group-sm position-relative">
                                     <button class="number-btn number-input-minus">-</button>
-                                    <input type="text" value="{{ $basket_part->count }}" data-multiplication="{{ $basket_part->part->multiplication }}" data-price="{{ $basket_part->part->price }}" data-minimum="{{ $basket_part->min_count??1 }}" data-available="{{ $basket_part->part->available??999999 }}" data-cs-count="{{ $basket_part->part->count_sale_count??null }}" data-cs-percent="{{ $basket_part->part->count_sale_percent??null }}" class="number-input" readonly="">
+                                    <input type="text" value="{{ $basket_part->count }}" data-multiplication="{{ $basket_part->part->multiplication }}" data-price="{{ $basket_part->part->price }}" data-minimum="{{ $basket_part->part->min_count_ceil_wo_basket??1 }}" data-available="{{ $basket_part->part->max_count_wo_basket??999999 }}" data-cs-count="{{ $basket_part->part->count_sale_count??null }}" data-cs-percent="{{ $basket_part->part->count_sale_percent??null }}" class="number-input">
                                     <button class="number-btn number-input-plus">+</button>
                                     <div class="loader loader-ng"></div>
                                 </div>
