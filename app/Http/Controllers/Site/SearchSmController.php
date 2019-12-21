@@ -18,27 +18,27 @@ class SearchSmController extends BaseController
             $exploded = array_map('trim', explode(' ', $string));
             foreach ($exploded as $str) {
                 $query->where(function($q) use ($str){
-                    $q->where('name', 'like', '%'.$str.'%')->orWhere('oem', $str)->orWhere('code', $str)->orWhere('description', 'like', '%'.$str.'%')->orWhereHas('criteria', function($q) use ($str) {
-                        $q->where('criteria.title', 'like', '%'.$str.'%')->orWhereHas('filter', function($q) use ($str){
-                            $q->where('filters.title', 'like', '%'.$str.'%');
+                    $q->where('name', 'like', '%'.escape_like($str).'%')->orWhere('oem', $str)->orWhere('code', $str)->orWhere('description', 'like', '%'.escape_like($str).'%')->orWhereHas('criteria', function($q) use ($str) {
+                        $q->where('criteria.title', 'like', '%'.escape_like($str).'%')->orWhereHas('filter', function($q) use ($str){
+                            $q->where('filters.title', 'like', '%'.escape_like($str).'%');
                         });
                     })->orWhereHas('catalogue', function ($q) use ($str){
-                        $q->where('part_catalogs.name', 'like', '%'.$str.'%')->orWhereHas('group', function($q) use ($str) {
-                            $q->where('groups.name', 'like', '%'.$str.'%');
+                        $q->where('part_catalogs.name', 'like', '%'.escape_like($str).'%')->orWhereHas('group', function($q) use ($str) {
+                            $q->where('groups.name', 'like', '%'.escape_like($str).'%');
                         });
                     })->orWhereHas('brand', function ($q) use ($str){
-                        $q->where('brands.name', 'like', '%'.$str.'%');
+                        $q->where('brands.name', 'like', '%'.escape_like($str).'%');
                     })->orWhereHas('modifications', function($q) use ($str){
                         $q->whereHas('generation', function($q) use ($str){
-                            $q->where('generations.name', 'like', '%'.$str.'%')->orWhereHas('model', function($q) use ($str){
-                                $q->where('models.name', 'like', '%'.$str.'%')->orWhereHas('mark', function($q) use ($str){
-                                    $q->where('marks.name', 'like', '%'.$str.'%');
+                            $q->where('generations.name', 'like', '%'.escape_like($str).'%')->orWhereHas('model', function($q) use ($str){
+                                $q->where('models.name', 'like', '%'.escape_like($str).'%')->orWhereHas('mark', function($q) use ($str){
+                                    $q->where('marks.name', 'like', '%'.escape_like($str).'%');
                                 });
                             });
                         });
                     })
                     ->orWhereHas('engines', function ($q) use ($str){
-                        $q->where('engines.name', 'like', '%'.$str.'%');
+                        $q->where('engines.name', 'like', '%'.escape_like($str).'%');
                     });
                 });
             }

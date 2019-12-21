@@ -50,7 +50,7 @@ class AdminServiceProvider extends ServiceProvider
         //endregion
         //region Validator rules
         Validator::extend('is_url', function ($attribute, $value, $parameters, $validator) {
-            return to_url($value) == $value;
+            return to_url($value, false) == $value;
         });
         Validator::extend('not_in_routes', function ($attribute, $value, $parameters, $validator) {
             return !PageManager::inUsedRoutes($value);

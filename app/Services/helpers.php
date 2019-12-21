@@ -163,9 +163,11 @@ if (!function_exists('lcm')) {
 }
 //endregion
 if (!function_exists('to_url')) {
-    function to_url($string)
+    function to_url($string, $cut=true)
     {
-        return mb_substr(Str::slug($string), 0, 250);
+        $str = Str::slug($string);
+        if($cut) return mb_substr($str, 0, 100);
+        return $str;
     }
 }
 if (!function_exists('to_url_suf')) {
@@ -281,5 +283,13 @@ if (!function_exists('clear_dir')) {
                 }
             }
         }
+    }
+}
+if (!function_exists('escape_like')) {
+    function escape_like($string)
+    {
+        $search = array('%', '_');
+        $replace   = array('\%', '\_');
+        return str_replace($search, $replace, $string);
     }
 }
