@@ -792,7 +792,7 @@ a.link-bauten {
     }
 }
 //endregion
-#menu-mobile:not(.mm) {
+#menu-mobile:not(.mm), #cabinet-menu-mobile:not(.mm) {
     display:none;
 }
 .mm {
@@ -801,6 +801,17 @@ a.link-bauten {
 }
 .nowrap {
     white-space: nowrap !important;
+}
+a.mobile-login {
+    text-decoration: none;
+    color:#ffffff;
+    display: inline-block;
+    margin-right:4px;
+    @include m(width height line-height, 40px);
+    background-color: $blue;
+    font-size:20px;
+    vertical-align: middle;
+    text-align: center;
 }
 @include media(1599) {
     //region Header
@@ -996,7 +1007,7 @@ a.link-bauten {
 }
 
 @include media(1199, false) {
-    #menu-mobile {
+    #menu-mobile, #cabinet-menu-mobile {
         display:none;
     }
 }
@@ -1043,7 +1054,7 @@ a.link-bauten {
         border: 2px solid $purple-blue;
         padding: 5px;
         text-align: center;
-
+        vertical-align: middle;
         > .ic-hamburger {
             & > span, &:before, &:after {
                 background-color: #fff;

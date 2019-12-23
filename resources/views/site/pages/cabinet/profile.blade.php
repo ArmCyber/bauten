@@ -33,13 +33,13 @@
             <div class="cabinet-block-info">Регион: <b>{{ $user->region }}</b></div>
             <div class="cabinet-block-info">Город: <b>{{ $user->city }}</b></div>
             <div class="pt-3">
-                <a href="{{ route('cabinet.profile.settings') }}" class="bauten-btn">Изменить личные данные</a>
+                <a href="{{ route('cabinet.profile.settings') }}" class="bauten-btn mt-1">Изменить личные данные</a>
                 @if(!$change_email)
-                    <a href="{{ route('cabinet.profile.change_email') }}" class="bauten-btn">Изменить e-mail</a>
+                    <a href="{{ route('cabinet.profile.change_email') }}" class="bauten-btn mt-1">Изменить e-mail</a>
                 @else
-                    <a href="{{ route('cabinet.profile.change_email.cancel') }}" class="bauten-btn">Отменить новый e-mail</a>
+                    <a href="{{ route('cabinet.profile.change_email.cancel') }}" class="bauten-btn mt-1">Отменить новый e-mail</a>
                 @endif
-                <a href="{{ route('cabinet.profile.change_password') }}" class="bauten-btn">Изменить пароль</a>
+                <a href="{{ route('cabinet.profile.change_password') }}" class="bauten-btn mt-1">Изменить пароль</a>
             </div>
         </div>
     </div>

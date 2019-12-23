@@ -39,8 +39,17 @@
                                 <a href="{{ route('register') }}" class="ht-login-right">Регистрация</a>
                             @endauth
                         </div>
-                        <div class="ht-hamburger" id="menu-toggle">
-                            <button class="hamburger">
+                        <div class="ht-hamburger">
+                            @auth
+                                <a class="mobile-login" id="cabinet-menu-toggle" href="#">
+                                    <i class="fas fa-user"></i>
+                                </a>
+                            @else
+                                <a class="mobile-login" href="{{ route('login') }}">
+                                    <i class="fas fa-key"></i>
+                                </a>
+                            @endauth
+                            <button class="hamburger" id="menu-toggle">
                                 <span class="ic-hamburger"><span></span></span>
                             </button>
                         </div>
@@ -109,7 +118,34 @@
                         </div>
                     @endauth
                 </div>
-                <nav id="menu-mobile"><ul>@stack('menu_mobile')</ul></nav>
+                <nav id="menu-mobile">
+                    <ul>
+                        @auth
+                            <li class="header-search-li">
+                                <form action="{{ route('search_sm') }}" class="header-search-form" method="get" autocomplete="off">
+                                    <input class="header-search-input ui search" type="text" name="q" placeholder="Поиск" value="{{ $search_val??null }}">
+                                    <button class="header-search-btn"><i class="fas fa-search"></i></button>
+                                </form>
+                            </li>
+                        @endauth
+                        @stack('menu_mobile')
+                    </ul>
+                </nav>
+                @auth
+                <nav id="cabinet-menu-mobile" data-name="Кабинет ({{ $user->name }})">
+                    <ul>
+                        <li><a href="{{ route('cabinet.main') }}">Главная</a></li>
+                        <li><a href="{{ route('cabinet.basket') }}">Корзина</a></li>
+                        <li><a href="{{ route('cabinet.favourites') }}">Сохраненные</a></li>
+                        @if($pending_orders_count)
+                            <li><a href="{{ route('cabinet.orders.pending') }}">Заказы</a></li>
+                        @endif
+                        <li><a href="{{ route('cabinet.orders.done') }}">Покупки</a></li>
+                        <li><a href="{{ route('cabinet.profile') }}">Профиль</a></li>
+                        <li><a href="javascript:void(0)" class="action-logout">Выйти</a></li>
+                    </ul>
+                </nav>
+                @endauth
             </div>
         </header>
         <main id="main" @isset($main_class) class="{{ $main_class }}" @endif>@yield('main')</main>

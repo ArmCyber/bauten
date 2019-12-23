@@ -1,5 +1,33 @@
 BAUTEN
 
+ref
+
+Sort
+
+FRONT-END
+
+---ROOT---
+part component
+Brand item
+Catalogue
+Part
+Search
+Search SM
+
+
+---CABINET--- 
+Basket
+Favourites
+Order
+Order-form
+Orders
+
+
+
+
+
+
+
 REMOVES 
 kuzovneri engine
 Engine filters.
@@ -9,25 +37,14 @@ kuzov cid
 mark cid
 engine cid
 
-
-
 maileri harcy
 responsive
 
-
 1s ref-qanak-gin-arjeq-gnordi id+order id
 
-+ puchur poisk escape
-
 4 jamy mek 1s
-
-+ urli harcer krknvelu
 
 ~column count
 
 
 font 14 + 3tox --- apranqi kart + nersi eji krtel
-
-+ drsic zambyux
-
-+ counter-y nayev grelov + zambyuxum

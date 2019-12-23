@@ -6,7 +6,7 @@
     <div class="pt-s brands-page">
         <div class="row row-grid l-m">
             @foreach($items as $item)
-                <div class="col-6 col-sm-4 col-md-3 col-xl-2">
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2" style="max-width: 400px; margin:0 auto;">
                     @component('site.components.brand', ['item'=>$item])@endcomponent
                 </div>
             @endforeach

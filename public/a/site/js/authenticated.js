@@ -1,3 +1,22 @@
+document.addEventListener(
+    "DOMContentLoaded", () => {
+        const node = document.querySelector("#cabinet-menu-mobile");
+        const menu = new MmenuLight(node, {
+            title: $(node).data('name')
+        });
+
+        menu.enable( "(max-width: 1199px)" );
+        menu.offcanvas({
+            position:'right',
+        });
+
+        document.querySelector( '#cabinet-menu-toggle' )
+            .addEventListener( 'click', ( evnt ) => {
+                menu.open();
+                evnt.preventDefault();
+                evnt.stopPropagation();
+            });
+    });
 (function(){
     var basketCounter = $('#basket-counter');
 
@@ -55,7 +74,7 @@
         }, 100);
     });
     $('.header-search-form').on('submit', function(e){
-        if (!$.trim($('#live-search').val())) e.preventDefault();
+        if (!$.trim($(this).find('input').val())) e.preventDefault();
     });
     $(document).on('input', '.live-basket-input', function(){
         var self = $(this);

@@ -12,9 +12,9 @@
             </div>
             <div class="home-search-expanded" style="display:none">
                 <div class="expanded-container">
-                    <div class="row row-grid">
+                    <div class="home-search-row">
                         @foreach($groups as $group)
-                            <div class="col-xl-3">
+                            <div class="home-search-col">
                                 <div class="search-group">
                                     <div class="search-group-title">{{ $group->name }}</div>
                                     <div class="search-group-items">
@@ -42,9 +42,9 @@
             </div>
             <div class="home-search-expanded" style="display:none">
                 <div class="expanded-container">
-                    <div class="row row-grid">
+                    <div class="home-search-row">
                         @foreach($search_brands as $key=>$search_brand_group)
-                            <div class="col-xl-3 col-xxl-2">
+                            <div class="home-search-col">
                                 <div class="search-group">
                                     <div class="search-group-title">{{ $key }}</div>
                                     <div class="search-group-items">
@@ -72,9 +72,9 @@
             </div>
             <div class="home-search-expanded" style="display:none">
                 <div class="expanded-container">
-                    <div class="row row-grid">
+                    <div class="home-search-row">
                         @foreach($search_marks as $key=>$search_mark_group)
-                            <div class="col-xl-3 col-xxl-2">
+                            <div class="home-search-col">
                                 <div class="search-group">
                                     <div class="search-group-title">{{ $key }}</div>
                                     <div class="search-group-items">
@@ -91,28 +91,28 @@
             <div class="loader"></div>
         </div>
         <div class="home-search-block position-relative" id="home-models-block" style="display:none">
-            <div class="home-search-title align-self-baseline">МОДЕЛЬ</div>
+            <div class="home-search-title align-self-baseline home-search-br">МОДЕЛЬ</div>
             <div class="home-search-content">
                 <div class="expanded-container pt-0 ">
-                    <div class="row row-grid" id="home-models-row"></div>
+                    <div class="home-search-row" id="home-models-row"></div>
                 </div>
             </div>
             <div class="loader"></div>
         </div>
         <div class="home-search-block position-relative" id="home-generations-block" style="display:none">
-            <div class="home-search-title align-self-baseline">КУЗОВ</div>
+            <div class="home-search-title align-self-baseline home-search-br">КУЗОВ</div>
             <div class="home-search-content">
                 <div class="expanded-container pt-0 ">
-                    <div class="row row-grid" id="home-generations-row"></div>
+                    <div class="home-search-row" id="home-generations-row"></div>
                 </div>
             </div>
             <div class="loader"></div>
         </div>
         <div class="home-search-block">
-            <div class="home-search-title"><label class="all-inherit" for="home-search-engine">ДВИГАТЕЛЬ</label></div>
+            <div class="home-search-title home-search-br"><label class="all-inherit" for="home-search-engine">ДВИГАТЕЛЬ</label></div>
             <div class="home-search-content">
                 <div class="home-search-input">
-                    <select class="home-search-control d-none" id="home-search-engine" multiple></select>
+                    <select class="home-search-control d-none" id="home-search-engine" multiple style="width: 100%;"></select>
                 </div>
             </div>
             <div class="home-search-buttons">

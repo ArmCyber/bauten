@@ -64,7 +64,7 @@ if (!function_exists('newCss')) {
 if (!function_exists('newJs')) {
     function newJs($asset)
     {
-        return '<script src="' . $asset . '"></script>';
+        return '<script src="' . $asset . '?t=1.0"></script>';
     }
 }
 if (!function_exists('tooltip')) {

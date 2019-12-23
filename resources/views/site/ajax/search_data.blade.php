@@ -1,5 +1,5 @@
 @foreach($items as $key=>$elems)
-    <div class="col-2">
+    <div class="home-search-col">
         <div class="search-group">
             <div class="search-group-title">{{ $key }}</div>
             <div class="search-group-items">
