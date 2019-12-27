@@ -117,7 +117,7 @@ document.addEventListener(
                 multiplication = parseInt(input.attr('data-multiplication'));
             if (group.hasClass('loader-shown')) return false;
             group.addClass('loader-shown');
-            input.removeClass('anim');
+            group.removeClass('anim');
             if (!value || isNaN(value)) renderError();
             value = parseInt(value);
             $.ajax({
@@ -140,7 +140,7 @@ document.addEventListener(
                         input.val(multiplication).trigger('change');
                     }
                     group.removeClass('loader-shown');
-                    input.addClass('anim')
+                    group.addClass('anim')
                 },
                 error: function(e) {
                     renderError()

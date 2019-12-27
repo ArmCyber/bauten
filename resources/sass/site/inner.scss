@@ -251,9 +251,16 @@ input.filter-checkbox {
 
 .product-title {
     margin-top: 10px;
-    font-size: 19px;
+    font-size: 15px;
     >a {
         color: #333333;
+        line-height:20px;
+        max-height: 60px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
     }
 }
 
@@ -502,14 +509,9 @@ a.bauten-btn {
     padding-left: 15px;
 }
 
-.product-page-info {
-    max-width: 382px;
-    width: 70%;
-}
-
 .product-page-title {
     color: #333333;
-    font-size: 21px;
+    font-size: 19px;
 }
 
 .product-page-codes {
@@ -967,9 +969,6 @@ img.news-page-image {
     padding-bottom:10px;
 }
 @include media(1599) {
-    .product-title {
-        font-size: 19px;
-    }
     .filter-name {
         font-size: 16px;
         height: 45px;
@@ -1104,9 +1103,6 @@ img.news-page-image {
 }
 
 @include media(991) {
-    .product-title {
-        font-size: 17px;
-    }
     .registration-page {
         text-align: center;
     }
@@ -1152,10 +1148,6 @@ img.news-page-image {
     }
     .product-page-content {
         padding-left:0;
-    }
-    .product-page-info {
-        max-width: none;
-        width:auto;
     }
     .product-page-description {
         margin-top:15px;

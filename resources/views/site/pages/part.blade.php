@@ -284,7 +284,7 @@
                             <div class="pr-specs-item"><div class="pr-specs-key">Бренд</div><div class="pr-specs-value">{{ $item->brand->name }}</div></div>
                             @foreach($item_filters as $item_filter)
                                 <div class="pr-specs-item"><div class="pr-specs-key">{{ $item_filter[0]->filter->title }}</div><div class="pr-specs-value">
-                                        @foreach($item_filter as $item_criterion) @if(!$loop->first)<br>@endif <span>{{ $item_criterion->title }}</span> @endforeach
+                                        {{ implode(', ', $item_filter->pluck('title')->toArray()) }}
                                     </div></div>
                             @endforeach
                         </div>

@@ -21,9 +21,9 @@
     </div>
     @if ($user && count($brand_groups))
         <div class="brand-groups">
-            <div class="row row-grid">
+            <div class="brand-page-catalogs">
                 @foreach($brand_groups as $brand_group)
-                    <div class="col-2 brand-group">
+                    <div class="brand-catalog-group brand-group">
                         <div class="brand-group-title">{{ $brand_group->name }}</div>
                         <div class="brand-group-catalogs">
                                 @foreach($brand_group->catalogs as $brand_catalog)

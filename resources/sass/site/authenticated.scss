@@ -379,6 +379,8 @@ a#view-list, a#view-grid {
     }
 }
 .parts-table {
+    font-size: 15px;
+    line-height: 20px;
     a {
         color:$blue;
     }
@@ -428,6 +430,41 @@ a#view-list, a#view-grid {
         height:49px;
     }
 }
+.brand-page-catalogs {
+    column-count: 4;
+    column-gap:15px;
+}
+.brand-catalog-group {
+    margin-bottom:15px;
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+.to-basket-section a{
+    color:$blue;
+}
+.table-part-name {
+    display:-webkit-box;
+    font-size: 15px;
+    line-height: 20px;
+    max-height: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+.basket-table {
+    font-size:15px;
+}
+a.basket-part-title {
+    display:-webkit-box;
+    font-size: 15px;
+    line-height: 20px;
+    max-height: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
 @include media(1599) {
     button.home-search-btn {
         height: 45px;
@@ -442,6 +479,22 @@ a#view-list, a#view-grid {
     .home-search-expanded {
         padding-left:120px;
     }
+    .cabinet-left {
+        flex-basis:320px;
+        max-width: 320px;
+    }
+    a.cs-link {
+        padding: 10px 18px;
+    }
+    .cabinet-sidebar {
+        padding: 15px 0;
+    }
+    .cs-name {
+        font-size:17px;
+    }
+    .cs-region {
+        font-size:13px;
+    }
 }
 @include media (1365) {
     .home-search-expanded {
@@ -455,13 +508,24 @@ a#view-list, a#view-grid {
         max-width: 100%;
         margin-bottom: 10px;
     }
+    .brand-page-catalogs {
+        column-count: 3;
+    }
 }
 @include media(1199) {
+    .cabinet-row {
+        display:block;
+    }
     .cabinet-left {
         display:none;
     }
     .home-search-row {
         column-count: 3;
+    }
+}
+@include media(991) {
+    .brand-page-catalogs {
+        column-count: 2;
     }
 }
 @include media(767) {
@@ -491,6 +555,13 @@ a#view-list, a#view-grid {
     #home-search-engine input {
         font-size: 16px;
     }
+    .basket-table-container {
+        width: 100%;
+        overflow-x: auto;
+        >table {
+            min-width: 720px;
+        }
+    }
 }
 @include media(575){
     .cabinet-title {
@@ -500,6 +571,9 @@ a#view-list, a#view-grid {
         max-width:100%;
     }
     .home-search-row {
+        column-count: 1;
+    }
+    .brand-page-catalogs {
         column-count: 1;
     }
 }

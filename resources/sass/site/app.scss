@@ -499,6 +499,10 @@ a.check-cursor[href="javascript:void(0)"] {
         color: #9D9D9D;
         font-size: 14px;
         font-style: italic;
+        max-width: 450px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         > a {
             color: #4A4A4A;
             text-decoration: underline;

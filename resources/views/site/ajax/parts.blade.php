@@ -27,7 +27,7 @@
             @foreach($items as $item)
                 <tr>
                     <td style="min-width: 150px"><a href="{{ route('part', ['url'=>$item->url]) }}">{{ $item->code }}</a></td>
-                    <td><a href="{{ route('part', ['url'=>$item->url]) }}">{{ $item->name }}</a></td>
+                    <td><a class="table-part-name" href="{{ route('part', ['url'=>$item->url]) }}">{{ $item->name }}</a></td>
                     <td style="min-width: 170px">{{ $item->brand->name }}</td>
                     <td class="nowrap">
                         @if ($item->image)

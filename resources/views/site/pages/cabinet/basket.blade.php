@@ -3,8 +3,9 @@
     <div class="cabinet-title">Корзина</div>
     @if($basket_parts_count = count($basket_parts))
         <div class="basket-table pt-2 not-in-stock-hidden">
-            <table class="table table-striped">
-                <thead>
+            <div class="basket-table-container">
+                <table class="table table-striped">
+                    <thead>
                     <tr>
                         <th><input type="checkbox" id="all-checkbox" class="basket-checkbox" @if(!$basket_parts->where('checked', '0')->count()) checked @endif></th>
                         <th>Артикул</th>
@@ -14,13 +15,13 @@
                         <th style="white-space: nowrap">Сумма</th>
                         <th></th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     @foreach($basket_parts as $basket_part)
                         <tr class="basket-part-row" data-id="{{ $basket_part->part->id }}">
                             <td><input type="checkbox" class="basket-checkbox part-checkbox" @if($basket_part->checked) checked @endif></td>
                             <td style="min-width: 120px"><a href="{{ route('part', ['url'=>$basket_part->part->url]) }}" class="link-bauten">{{ $basket_part->part->code }}</a></td>
-                            <td><a href="{{ route('part', ['url'=>$basket_part->part->url]) }}" class="link-bauten">{{ $basket_part->part->name }}</a></td>
+                            <td><a href="{{ route('part', ['url'=>$basket_part->part->url]) }}" class="link-bauten basket-part-title">{{ $basket_part->part->name }}</a></td>
                             <td style="white-space: nowrap">
                                 @if($basket_part->part->sale)
                                     <span style="text-decoration: line-through">{{ $basket_part->part->sale }} <span class="kzt"></span></span>&nbsp;
@@ -46,8 +47,9 @@
                             <td><a href="javascript:void(0)" class="text-danger delete-basket-item" data-id="{{ $basket_part->part->id }}"><i class="fas fa-trash-alt"></i></a></td>
                         </tr>
                     @endforeach
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
             <div class="cabinet-title text-right price-block">Итого: <span class="all-sale-block sale-price" style="display:none;"><span class="all-sale"></span> <span class="kzt"></span></span> <span class="all-price"></span> <span class="kzt"></span></div>
             <div class="text-right pt-3"><button id="order-modal-toggle" class="bauten-btn" disabled>Заказать</button></div>
             <div class="text-right pt-2 text-danger small-text if-cant-shop" style="display: none">Чтобы заказать вам надо сделать покупку суммы {{ $settings->minimum->shop }} <span class="kzt"></span></div>
