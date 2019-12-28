@@ -124,6 +124,21 @@ class UsersController extends BaseController
         return redirect()->route('admin.users.view', ['id'=>$user->id]);
     }
 
+    public function editRef(Request $request) {
+        $user = User::getItem($request->input('id'));
+        $validator = Validator::make($request->only('ref'), [
+            'ref' => 'nullable|string|max:255|unique:users,ref,'.$user->id,
+        ]);
+        if ($validator->fails()) {
+            Notify::error($validator->errors()->first('ref'));
+            return redirect()->back();
+        }
+        $user->ref = $request->input('ref');
+        $user->save();
+        Notify::get('changes_saved');
+        return redirect()->route('admin.users.view', ['id'=>$user->id]);
+    }
+
     public function delete(Request $request) {
         $user = User::getItem($request->input('id'));
         User::deleteItem($user);

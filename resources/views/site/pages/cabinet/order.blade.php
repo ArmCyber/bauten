@@ -56,7 +56,7 @@
             @else
                 <div class="cabinet-block-info">Адрес точки самовывоза: <b>{{ $item->pickup_point_address }}</b></div>
                 @if ($item->pickup_point)
-                    <div id="map" style="width:100%;height:250px"></div>
+                    <div id="map" style="width:100%;height:230px"></div>
                     @push('js')
                         <script src="https://api-maps.yandex.ru/2.1/?apikey=2e699e9e-5f6d-489c-ab71-0a755f489101&lang=ru_RU"></script>
                         <script>
@@ -92,29 +92,30 @@
         <div class="cabinet-block-title">Запчасти</div>
         <div class="cabinet-block-content">
             <div class="pt-2">
-                <table class="table table-striped">
+                <div class="orders-table-container pb-1">
+                <table class="table table-striped orders-table">
                     <thead>
                     <tr>
-                        <th>Артикул</th>
-                        <th>Название</th>
-                        <th>Цена</th>
-                        <th>Кол-во</th>
-                        <th>Сумма</th>
+                        <th class="nowrap">Артикул</th>
+                        <th class="nowrap">Название</th>
+                        <th class="nowrap">Цена</th>
+                        <th class="nowrap">Кол-во</th>
+                        <th class="nowrap">Сумма</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($item->parts as $part)
                         <tr>
-                            <td>{{ $part->pivot->code }}</td>
-                            <td>{{ $part->pivot->name }}</td>
-                            <td>
+                            <td style="min-width: 110px">{{ $part->pivot->code }}</td>
+                            <td><span class="lines-3">{{ $part->pivot->name }}</span></td>
+                            <td class="nowrap">
                                 {{ $part->pivot->price }} <span class="kzt"></span>
                                 @if($part->pivot->real_price)
                                     <span style="text-decoration: line-through">{{ $part->pivot->real_price }} <span class="kzt"></span></span>
                                 @endif
                             </td>
-                            <td>{{ $part->pivot->count }}</td>
-                            <td>
+                            <td class="nowrap">{{ $part->pivot->count }}</td>
+                            <td class="nowrap">
                                 {{ $part->pivot->sum }} <span class="kzt"></span>
                                 @if($part->pivot->sum != $part->pivot->price*$part->pivot->count)
                                     <span class="bp-sale" style="text-decoration:line-through;">
@@ -126,6 +127,7 @@
                     @endforeach
                     </tbody>
                 </table>
+                </div>
                 <div class="cabinet-title-sm">Сумма: @if($item->sum!=$item->real_sum)<span class="sale-price-sm">{{ $item->real_sum }} <span class="kzt"></span></span>@endif {{ $item->sum }} <span class="kzt"></span></div>
                 @if($item->delivery)
                     <div class="cabinet-title-sm">Цена доставки: {{ $item->delivery_price }} <span class="kzt"></span></div>

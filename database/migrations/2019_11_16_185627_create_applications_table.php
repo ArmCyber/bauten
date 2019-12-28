@@ -24,10 +24,10 @@ class CreateApplicationsTable extends Migration
             $table->string('part_name')->nullable();
             $table->string('part_code')->nullable();
             $table->integer('count')->unsigned();
-            $table->float('price')->unsigned();
+            $table->float('price', 18, 2)->unsigned();
             $table->integer('real_price')->unsigned()->nullable();
-            $table->float('sum')->unsigned();
-            $table->float('real_sum')->unsigned()->nullable();
+            $table->float('sum', 18, 2)->unsigned();
+            $table->float('real_sum', 18, 2)->unsigned()->nullable();
             $table->timestamps();
         });
     }

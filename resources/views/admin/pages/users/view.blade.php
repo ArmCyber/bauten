@@ -2,6 +2,7 @@
 @section('content')
     <div class="card">
         <div class="card-body">
+            <div class="view-line"><span class="view-label">REF:</span> {{ $item->ref??'(не назначен)' }} @can('manager')  <a href="javascript:void(0)" class="icon-btn edit" data-toggle="modal" data-target="#editRefModal"></a> @endcan</div>
             <div class="view-line"><span class="view-label">ФИО:</span> {{ $item->name??'-' }}</div>
 {{--            <div class="view-line"><span class="view-label">Фамилия:</span> {{ $item->last_name??'-' }}</div>--}}
             <div class="view-line"><span class="view-label">Эл.почта:</span> {{ $item->email }} @if($item->verification) <span class="text-danger">(не подтверждена)</span> @else <span class="text-success">(подтверждена)</span> @endif</div>
@@ -143,7 +144,18 @@
         @csrf @method('delete')
         <p>Вы дейстительно хотите <span class="text-danger font-weight-bold">УДАЛИТЬ ПРОФИЛЬ НАВСЕГДА</span>?</p>
     @endmodal
-
+    @modal(['can'=>'manager', 'id'=>'editRefModal', 'saveBtn'=>'Сохранить', 'saveBtnClass'=>'btn-success', 'closeBtn' => 'Отменить', 'centered'=>true,
+    'form'=>['method'=>'post','action'=>route('admin.users.edit_ref')]])
+    @slot('title')REF пользователя@endslot
+    <input type="hidden" name="id" value="{{ $item->id }}">
+    @csrf @method('patch')
+    <div class="card">
+        <div class="c-title">REF</div>
+        <div class="little-p">
+            <input type="text" name="ref" value="{{ old('ref', $item->ref) }}" class="form-control" placeholder="REF" maxlength="255">
+        </div>
+    </div>
+    @endmodal
 @endsection
 @push('js')
     @js(aApp('select2/select2.js'))

@@ -7,7 +7,7 @@
                 <div class="cabinet-block-title">Личные данные покупателя</div>
                 <div class="cabinet-block-content pt-2">
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="form-name">ФИО</label>
                                 <input type="text" id="form-name" class="form-control @error('name') has-error @enderror" name="name" value="{{ old('name', $user->name) }}" maxlength="255">
@@ -16,7 +16,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="form-phone">Телефон</label>
                                 <input type="text" id="form-phone" class="form-control @error('phone') has-error @enderror" name="phone" value="{{ old('phone', $user->phone) }}" maxlength="255">
@@ -34,7 +34,7 @@
                     <div class="text-block for-pickup pb-3">{!! $texts->data->pickup !!}</div>
                     <div class="text-block for-delivery pb-3" style="display:none">{!! $texts->data->delivery !!}</div>
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-12 col-md-6">
                             <div class="form-group cabinet-select2">
                                 <label for="form-delivery">Выберите метод доставки</label>
                                 <select name="delivery" id="form-delivery" class="select2" style="width: 100%;">
@@ -50,7 +50,7 @@
                             </div>
                         </div>
                         @if (count($pickup_points))
-                            <div class="col-6 for-pickup">
+                            <div class="col-12 col-md-6 for-pickup">
                                 <div class="form-group cabinet-select2">
                                     <label for="form-pickup-point">Точка самовывоза</label>
                                     <select class="select2" id="form-pickup-point" name="pickup_point_id" style="width: 100%">
@@ -64,11 +64,11 @@
                                 </div>
                             </div>
                             <div class="col-12 for-pickup">
-                                <div id="map" style="width: 100%; height: 400px"></div>
+                                <div id="map" class="order-form-map"></div>
                             </div>
                         @endif
                         @if (count($regions))
-                            <div class="col-6 for-delivery" style="display:none">
+                            <div class="col-12 col-md-6 for-delivery" style="display:none">
                                 <div class="form-group cabinet-select2">
                                     <label for="form-region">Регион</label>
                                     <select class="select2" id="form-region" style="width: 100%" name="region_id">
@@ -81,7 +81,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-6 for-delivery" style="display:none">
+                            <div class="col-12 col-md-6 for-delivery" style="display:none">
                                 <div class="form-group cabinet-select2">
                                     <label for="form-cities">Насиленный пункт</label>
                                     <select class="select2" id="form-cities" style="width: 100%" name="city_id"></select>
@@ -90,7 +90,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-6 for-delivery" style="display:none">
+                            <div class="col-12 col-md-6 for-delivery" style="display:none">
                                 <div class="form-group cabinet-select2">
                                     <label for="form-address">Адрес</label>
                                     <input type="text" id="form-address" class="form-control @error('address') has-error @enderror" name="address" value="{{ old('address') }}" maxlength="255">
@@ -107,7 +107,7 @@
                 <div class="cabinet-block-title">Метод оплаты</div>
                 <div class="cabinet-block-content pt-2">
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-12 col-md-6">
                             <div class="form-group cabinet-select2">
                                 <label for="form-payment">Выберите метод оплаты</label>
                                 <select name="payment_method" id="form-payment" class="select2" style="width: 100%;">

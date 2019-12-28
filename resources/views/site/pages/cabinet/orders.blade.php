@@ -2,8 +2,8 @@
 @section('content')
     <div class="cabinet-title">{{ $page_title }}</div>
     @if(count($orders))
-        <div class="pt-2">
-            <table class="table table-striped">
+        <div class="pt-2 orders-table-container">
+            <table class="table table-striped orders-table">
                 <thead>
                     <tr>
                         <th>ID</th>

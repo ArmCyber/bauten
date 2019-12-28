@@ -291,6 +291,7 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
         Route::prefix('users')->name('users.')->group(function() { $c = 'UsersController@';
             Route::middleware('can:operator_manager')->get('', $c.'main')->name('main');
             Route::middleware('can:operator_manager')->get('view/{id}', $c.'view')->name('view');
+            Route::middleware('can:manager')->patch('edit-ref', $c.'editRef')->name('edit_ref');
             Route::middleware('can:admin')->patch('change-manager', $c.'changeManager')->name('change_manager');
             Route::middleware('can:operator_manager')->patch('change-partner-group', $c.'changePartnerGroup')->name('change_partner_group');
             Route::middleware('can:manager')->patch('change-status', $c.'changeStatus')->name('change_status');

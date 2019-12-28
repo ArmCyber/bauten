@@ -1,27 +1,17 @@
 BAUTEN
 
-ref
-
 Sort
 
 FRONT-END
 
 ---ROOT---
-Catalogue
 Part
+Catalogue
 Search
 Search SM
 
-
----CABINET--- 
-Basket
-Favourites
-Order
-Order-form
-Orders
-
-
-
+Orderi qanak minus
+Maileri harcy
 
 
 REMOVES 
@@ -32,16 +22,3 @@ brand code
 kuzov cid
 mark cid
 engine cid
-
-
-
-
-
-maileri harcy
-
-
-
-
-1s ref-qanak-gin-arjeq-gnordi id+order id
-
-4 jamy mek 1s
