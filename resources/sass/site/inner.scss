@@ -16,6 +16,7 @@ label {
 .products-content {
     flex: 0 0 100%;
     max-width: 100%;
+    width: 100%;
     .products-filters+& {
         flex: 0 0 75%;
         max-width: 75%;
@@ -103,7 +104,7 @@ input.filter-checkbox {
 
     + span {
         display: inline-flex;
-        font-size: 19px;
+        font-size: 15px;
         color: #4A4A4A;
         align-items: center;
 
@@ -757,7 +758,7 @@ button.number-btn {
 .pr-specs-item {
     display: flex;
     padding:11px 60px;
-    font-size:18px;
+    font-size:16px;
     &:nth-child(odd) {
         background-color: #F7F7F7;
     }
@@ -789,7 +790,7 @@ button.number-btn {
         width:100%;
     }
     th {
-        font-size:23px;
+        font-size:18px;
         color:$blue;
         font-weight:500;
         padding:8px 13px;
@@ -798,7 +799,7 @@ button.number-btn {
         }
     }
     td {
-        font-size:19px;
+        font-size:16px;
         color:#4B4B4B;
         font-weight:500;
         padding:13px;
@@ -968,6 +969,17 @@ img.news-page-image {
 .products-sort {
     padding-bottom:10px;
 }
+.product-page-body .nav-link {
+    color:$blue;
+    &.active {
+        background-color: $blue;
+        color:#ffffff;
+    }
+}
+.cat-title {
+    font-size: 28px;
+    font-weight: 500;
+}
 @include media(1599) {
     .filter-name {
         font-size: 16px;
@@ -1063,19 +1075,36 @@ img.news-page-image {
     .news-page-title {
         font-size:24px;
     }
+    .cat-title {
+        font-size: 22px;
+    }
 }
 @include media(1199) {
+    .products-block {
+        flex-direction: column;
+    }
     .sort-select-title {
         margin-right: 25px;
     }
     .products-filters+.products-content {
-        @include m(max-width flex-basis, 100%);
+        @include m(max-width flex-basis width, 100%);
     }
     .products-filters {
-        display: none;
-    }
-    .products-sort {
-        display: none;
+        display: block;
+        width: 97%;
+        max-width: 400px;
+        margin-bottom: 19px;
+        position: fixed;
+        background: #ffffff;
+        z-index: 20;
+        top: 52px;
+        bottom: 0;
+        padding: 20px;
+        box-shadow: 0 3px 6px 0 rgba(0,0,0,.6);
+        height: auto;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+        left:-100%;
     }
     .registration-title {
         font-size: 27px;
@@ -1186,9 +1215,15 @@ img.news-page-image {
     .news-page-content {
         text-align: center;
     }
+    .cat-title {
+        font-size: 19px;
+    }
 }
 
 @include media(767) {
+    .page-breadcrumb {
+        display:none;
+    }
     .c-form-group {
         flex-direction: column;
         max-width: 350px;
@@ -1256,6 +1291,9 @@ img.news-page-image {
     .error-message {
         margin-top:5px;
         font-size:16px;
+    }
+    .product-page-body .nav-tabs {
+        flex-direction: column;
     }
 }
 
@@ -1339,6 +1377,9 @@ img.news-page-image {
     }
     .prod-tbl-title {
         font-size: 19px;
+    }
+    .sort-select-title {
+        padding-left:0;
     }
 }
 @include media(1199, false) {

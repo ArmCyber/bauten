@@ -26,7 +26,7 @@ class Part extends Model
     }
 
     public static function catalogsList($ids, $criteria = [], $sort = []){
-        return self::whereIn('part_catalog_id', $ids)->brandAllowed()->where('active', 1)->filtered($criteria)->with('brand')->sort($sort)->paginate(settings('pagination'));
+        return self::whereIn('parts.part_catalog_id', $ids)->brandAllowed()->where('parts.active', 1)->filtered($criteria)->with('brand')->sort($sort)->paginate(settings('pagination'));
     }
 
     public static function action($model, $inputs) {
@@ -163,13 +163,26 @@ class Part extends Model
         return $q;
     }
 
-    public function scopeSort($q, $sort=[]) {
-        $sort = $sort[0]??'price';
+    public function scopeSort($q, $sort_array=[]) {
+        $sort = $sort_array[0]??'price';
+        $sort_type = $sort_array[1]??'asc';
         if ($sort == 'new') {
             return $q->orderBy('new', 'desc')->orderBy('id', 'desc');
         }
-        if ($sort == 'sale') {
+        elseif ($sort == 'sale') {
             return $q->orderByRaw('`sale`/`price` desc')->orderBy('price', 'asc');
+        }
+        elseif($sort == 'price') {
+            return $q->orderBy('price', $sort_type);
+        }
+        elseif ($sort == 'name') {
+            return $q->orderBy('name', $sort_type);
+        }
+        elseif ($sort == 'brand') {
+            return $q->select('parts.*')->leftJoin('brands', 'parts.brand_id', '=', 'brands.id')->orderBy('brands.name', $sort_type);
+        }
+        elseif ($sort == 'code') {
+            return $q->orderBy('code', $sort_type);
         }
         return $q->orderBy('price', 'asc');
     }

@@ -3,6 +3,10 @@ var PartList = function(params){
         sortSelect: $('#sort-select'),
         listWrapper: $('#list-wrapper'),
         listContainer: $('#list-container'),
+        cSort: $('#c_sort'),
+        cSortType: $('#c_sort_type'),
+        filtersContainer: $('.products-filters'),
+        mobileFiltersToggle: $('#mobile-filters-toggle'),
         viewToggle: {
             list: $('#view-list'),
             grid: $('#view-grid')
@@ -42,11 +46,24 @@ var PartList = function(params){
             self.getParts();
         });
         self.dom.sortSelect.on('change', function(){
+            self.dom.sortSelect.find('option[value="other"]').remove();
+            self.dom.sortSelect.trigger('refresh');
+            $('.sort_asc').removeClass('sort_asc');
+            $('.sort_desc').removeClass('sort_desc');
             self.getParts();
         });
         self.dom.listContainer.on('click', 'a.page-link', function(e){
             e.preventDefault();
             self.getParts(parseInt($(this).data('page')));
+        }).on('click', '.c-sorting', function(){
+            if (self.dom.sortSelect.val()!=='other') {
+                if (self.dom.sortSelect.find('option[value="other"]').length===0)self.dom.sortSelect.append('<option value="other">Другое</option>');
+                self.dom.sortSelect.val('other').trigger('refresh');
+            }
+            var $this = $(this);
+            self.dom.cSort.val($this.attr('data-sort'));
+            self.dom.cSortType.val($this.hasClass('sort_asc')?'desc':'asc');
+            self.getParts();
         });
         self.dom.viewToggle.list.on('click', function(){
             self.dom.viewToggle.grid.removeClass('active');
@@ -60,19 +77,33 @@ var PartList = function(params){
             self.params.viewType = 'grid';
             self.getParts(self.realTime.page);
         });
+        self.dom.mobileFiltersToggle.on('click', function(){
+            self.dom.filtersContainer.animate({left: 0}, 300);
+            $('body').css('overflow', 'hidden');
+        });
+        $('#close-filters').on('click', function(){
+            self.dom.filtersContainer.animate({left: '-100%'}, 300);
+            $('body').css('overflow', '');
+        });
     };
 
     this.getParts = function(page){
         var self = this,
             filters = [];
-        if (typeof page === 'undefined') page = 1;
+        if (typeof page === 'undefined' || page===false) page = 1;
         $.each($('.filter-checkbox:checked'), function(key, item){
             filters.push($(item).val());
         });
         self.realTime.page = page;
         var sort = self.dom.sortSelect.val(),
-            qsParams = {
+            sort_type = 'asc';
+        if (sort === 'other') {
+            sort = self.dom.cSort.val();
+            sort_type = self.dom.cSortType.val();
+        }
+        var qsParams = {
                 sort: sort,
+                sort_type: sort_type,
                 page: page,
                 view_type: self.params.viewType,
             };
@@ -87,7 +118,7 @@ var PartList = function(params){
     };
 
     this.renderError = function(){
-        // window.location.href = '';
+        window.location.href = '';
     };
 
     this.sendAjax = function(url, data, callback){

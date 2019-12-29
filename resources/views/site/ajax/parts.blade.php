@@ -13,12 +13,12 @@
     <table class="table-responsive table table-striped parts-table">
         <thead>
             <tr>
-                <th class="nowrap">Артикул</th>
-                <th class="nowrap">Наименование</th>
-                <th class="nowrap">Производитель</th>
+                <th class="nowrap c-sorting {{ $filtered['sort']=='code'?($filtered['sort_type']=='desc'?'sort_desc':'sort_asc'):null }}" data-sort="code">Артикул</th>
+                <th class="nowrap c-sorting {{ $filtered['sort']=='name'?($filtered['sort_type']=='desc'?'sort_desc':'sort_asc'):null }}" data-sort="name">Наименование</th>
+                <th class="nowrap c-sorting {{ $filtered['sort']=='brand'?($filtered['sort_type']=='desc'?'sort_desc':'sort_asc'):null }}" data-sort="brand">Производитель</th>
                 <th class="nowrap">Фото</th>
                 <th class="nowrap">В наличии</th>
-                <th class="nowrap">Цена</th>
+                <th class="nowrap c-sorting {{ $filtered['sort']=='price'?($filtered['sort_type']=='desc'?'sort_desc':'sort_asc'):null }}" data-sort="price">Цена</th>
                 <th></th>
                 <th style="width: 1%"></th>
             </tr>
@@ -26,16 +26,25 @@
         <tbody>
             @foreach($items as $item)
                 <tr>
-                    <td style="min-width: 150px"><a href="{{ route('part', ['url'=>$item->url]) }}">{{ $item->code }}</a></td>
-                    <td><a class="table-part-name" href="{{ route('part', ['url'=>$item->url]) }}">{{ $item->name }}</a></td>
-                    <td style="min-width: 170px">{{ $item->brand->name }}</td>
+                    <td style="min-width: 140px"><a href="{{ route('part', ['url'=>$item->url]) }}">{{ $item->code }}</a></td>
+                    <td style="min-width: 200px"><a class="table-part-name" href="{{ route('part', ['url'=>$item->url]) }}">{{ $item->name }}</a></td>
+                    <td style="min-width: 130px">{{ $item->brand->name }}</td>
                     <td class="nowrap">
                         @if ($item->image)
                             <a href="{{ asset('u/parts/'.$item->image) }}" class="image-toggle" data-fancybox="image-{{ $item->id }}"><i class="fas fa-camera"></i></a>
                         @endif
                     </td>
                     <td class="nowrap">{!! ($item->price && $item->max_count_wo_basket)?'<span class="text-success">есть</span>':'<span class="text-danger">нет</span>' !!}</td>
-                    <td class="nowrap">{!! $item->price?$item->price.' <span class="kzt"></span>':'<span class="text-danger">Под заказ</span>' !!}</td>
+                    <td class="nowrap">
+                        @if ($item->price)
+                            @if ($item->sale)
+                            <del>{{ $item->sale }} <span class="kzt"></span></del>
+                            @endif
+                            {{ $item->price }} <span class="kzt"></span>
+                        @else
+                            <span class="text-danger">Под заказ</span>
+                        @endif
+                    </td>
                     <td class="nowrap">
                         <span class="product-favourite position-static product-card-favourite{!! in_array($item->id, $favourite_ids)?' saved':null !!}" data-id="{{ $item->id }}" title="Сохранить"></span>
                     </td>

@@ -1,19 +1,16 @@
 BAUTEN
 
-Sort
-
-FRONT-END
-
----ROOT---
-Part
-Catalogue
-Search
-Search SM
-
-Orderi qanak minus
-Maileri harcy
+ZAKAZNERI JAMANAK CHSHTEL UM U ERB PITI MAIL GNA UXARKEL
 
 
+
+
+
+
+
+
+
+---------------------------
 REMOVES 
 kuzovneri engine
 Engine filters.

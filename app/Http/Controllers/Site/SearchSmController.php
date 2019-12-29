@@ -18,7 +18,7 @@ class SearchSmController extends BaseController
             $exploded = array_map('trim', explode(' ', $string));
             foreach ($exploded as $str) {
                 $query->where(function($q) use ($str){
-                    $q->where('name', 'like', '%'.escape_like($str).'%')->orWhere('oem', $str)->orWhere('code', $str)->orWhere('description', 'like', '%'.escape_like($str).'%')->orWhereHas('criteria', function($q) use ($str) {
+                    $q->where('parts.name', 'like', '%'.escape_like($str).'%')->orWhere('oem', $str)->orWhere('parts.code', $str)->orWhere('parts.description', 'like', '%'.escape_like($str).'%')->orWhereHas('criteria', function($q) use ($str) {
                         $q->where('criteria.title', 'like', '%'.escape_like($str).'%')->orWhereHas('filter', function($q) use ($str){
                             $q->where('filters.title', 'like', '%'.escape_like($str).'%');
                         });
@@ -71,7 +71,7 @@ class SearchSmController extends BaseController
         }
         $query = $this->search_str($request);
         if (!$query) return redirect()->route('page');
-        $ids = $query->where('active', 1)->brandAllowed()->pluck('id');
+        $ids = $query->where('parts.active', 1)->brandAllowed()->pluck('id');
         $data['filters'] = Filter::siteListForIds($ids);
         $data['filtered'] = $this->getFilters();
 //        $criteriaGrouped = $this->filterCriteria($data['filters'], $data['filtered']['criteria']);
@@ -90,11 +90,11 @@ class SearchSmController extends BaseController
         $data = [];
         $query = $this->search_str($request);
         if (!$query) abort(404);
-        $ids = (clone $query)->where('active', 1)->brandAllowed()->pluck('id');
+        $ids = (clone $query)->where('parts.active', 1)->brandAllowed()->pluck('id');
         $data['filters'] = Filter::siteListForIds($ids);
         $data['filtered'] = $this->getFilters();
         $criteriaGrouped = $this->filterCriteria($data['filters'], $data['filtered']['criteria']);
-        $data['items'] = $query->where('active', 1)->with('brand')->brandAllowed()->filtered($criteriaGrouped)->sort([$data['filtered']['sort']])->paginate(settings('pagination'));
+        $data['items'] = $query->where('parts.active', 1)->with('brand')->brandAllowed()->filtered($criteriaGrouped)->sort([$data['filtered']['sort'], $data['filtered']['sort_type']])->paginate(settings('pagination'));
         $data['view_type'] = $request->get('view_type')=='grid'?'grid':'list';
         session(['view_type' => $data['view_type']]);
         return view('site.ajax.parts', $data);

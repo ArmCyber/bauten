@@ -10,7 +10,9 @@ var Search = function(){
         generationsBlock: $('#home-generations-block'),
         generationsRow: $('#home-generations-row'),
         clearButton: $('#home-search-clear'),
-        applyButton: $('#home-search-apply')
+        applyButton: $('#home-search-apply'),
+        brandsBlockContent: $('.home-block-brand .home-search-content'),
+        catalogueBlockContent: $('#home-catalogue-block .home-search-content'),
     };
 
     this.options = {
@@ -44,10 +46,10 @@ var Search = function(){
         $('.home-search-toggle').on('click', function(){
             self.toggleExpand($(this));
         });
-        $('.home-search-catalogue').on('click', function(){
+        self.dom.catalogueBlock.on('click', '.home-search-catalogue', function(){
             self.toggleCatalogueSelect($(this));
         });
-        $('.home-search-brand').on('click', function(){
+        self.dom.brandsBlock.on('click', '.home-search-brand', function(){
             self.toggleBrandSelect($(this));
         });
         $('.home-search-mark').on('click', function(){
@@ -70,6 +72,7 @@ var Search = function(){
     this.toggleCatalogueSelect = function(elem){
         if (this.realTime.brandBlocked) return false;
         $('.home-search-brand.home-search-disabled').removeClass('home-search-disabled');
+        $('.home-search-brand.home-search-temp').remove();
         if (elem.hasClass('selected')) {
             $('.home-search-catalogue.selected').removeClass('selected');
         } else {
@@ -269,12 +272,27 @@ var Search = function(){
                     $('.home-search-brand[data-id="'+id+'"]').removeClass('selected').addClass('home-search-disabled');
                 });
             }
+            var append = $('.home-search-option.home-search-brand.home-search-disabled').length;
+            if (append>0) {
+                $.each($('.search-group-select.home-search-brand:not(.home-search-disabled)'), function(i,e){
+                    var elem = $(e),
+                        elemId = elem.attr('data-id');
+                    if ($('.home-search-option.home-search-brand[data-id="'+elemId+'"]').length!==0) return true;
+                    var domElement = $('<span class="home-search-option home-search-brand home-search-temp" data-id="'+elemId+'"></span>');
+                    if (elem.hasClass('selected')) domElement.addClass('selected');
+                    domElement.html(elem.html());
+                    domElement.appendTo(self.dom.brandsBlockContent);
+                    append--;
+                    if (append === 0) return false;
+                });
+            }
+            self.checkExceeded(self.dom.brandsBlock);
         });
-        self.checkExceeded(self.dom.brandsBlock);
     };
 
     this.checkDisabledCatalogs = function(){
         $('.home-search-catalogue.home-search-disabled').removeClass('home-search-disabled');
+        $('.home-search-catalogue.home-search-temp').remove();
         var self = this,
             selectedBrands = $('.search-group-select.home-search-brand.selected'),
             ids = [];
@@ -290,6 +308,20 @@ var Search = function(){
                 if (e.items.length) {
                     $.each(e.items, function(key, id){
                         $('.home-search-catalogue[data-id="'+id+'"]').removeClass('selected').addClass('home-search-disabled');
+                    });
+                }
+                var append = $('.home-search-option.home-search-catalogue.home-search-disabled').length;
+                if (append>0) {
+                    $.each($('.search-group-select.home-search-catalogue:not(.home-search-disabled)'), function(i,e){
+                        var elem = $(e),
+                            elemId = elem.attr('data-id');
+                        if ($('.home-search-option.home-search-catalogue[data-id="'+elemId+'"]').length!==0) return true;
+                        var domElement = $('<span class="home-search-option home-search-catalogue home-search-temp" data-id="'+elemId+'"></span>');
+                        if (elem.hasClass('selected')) domElement.addClass('selected');
+                        domElement.html(elem.html());
+                        domElement.appendTo(self.dom.catalogueBlockContent);
+                        append--;
+                        if (append === 0) return false;
                     });
                 }
                 self.realTime.brandBlocked = false;
@@ -327,6 +359,7 @@ var Search = function(){
 
     this.clearSearch = function(){
         var self = this;
+        $('.home-search-temp').remove();
         $('.home-search-catalogue.selected').removeClass('selected');
         if (self.dom.catalogueBlock.hasClass('expanded')) self.dom.catalogueBlock.find('.home-search-toggle').trigger('click');
         $('.home-search-brand.home-search-disabled').removeClass('home-search-disabled');

@@ -95,7 +95,7 @@ class SearchController extends BaseController
         $modelsString = $request->get('mo');
         $generationsString = $request->get('ge');
         $enginesString = $request->get('en');
-        $query = Part::where('active', 1)->brandAllowed();
+        $query = Part::where('parts.active', 1)->brandAllowed();
         if ($catalogue && is_id($catalogue)) {
             $get_catalogue = PartCatalog::select('id', 'name')->where('id', $catalogue)->first();
             if ($get_catalogue) {
@@ -205,7 +205,7 @@ class SearchController extends BaseController
         $data['filters'] = Filter::siteListForIds($ids);
         $data['filtered'] = $this->getFilters();
         $criteriaGrouped = $this->filterCriteria($data['filters'], $data['filtered']['criteria']);
-        $data['items'] = $searchData['query']->filtered($criteriaGrouped)->sort([$data['filtered']['sort']])->with('brand')->paginate(settings('pagination'));
+        $data['items'] = $searchData['query']->filtered($criteriaGrouped)->sort([$data['filtered']['sort'],$data['filtered']['sort_type']])->with('brand')->paginate(settings('pagination'));
         $appends['filters'] = $request->get('filters');
         $appends['sort'] = $data['filtered']['sort'];
         $data['view_type'] = $request->get('view_type')=='grid'?'grid':'list';

@@ -63,7 +63,15 @@ class OrdersController extends BaseController
         if($request->input('status') == Order::STATUS_PENDING) {
             $newStatus = Order::STATUS_PENDING;
             $message = 'Заказ принят';
-            //TODO:: QANAKNER
+            $order->order_parts->load('part');
+            foreach($order->order_parts as $order_part) {
+                if ($order_part->part) {
+                    $new_count = $order_part->part->available - $order_part->count;
+                    if ($new_count<0) $new_count = 0;
+                    $order_part->part->available = $new_count;
+                    $order_part->part->save();
+                }
+            }
         }
         else {
             $newStatus = Order::STATUS_DECLINED;

@@ -11,14 +11,15 @@ trait GetFilters {
         foreach($criteriaArray as $criterion) if (is_id($criterion)) $criteria[] = $criterion;
         $sort = $request->get('sort');
         switch($sort) {
-            case 'new': case 'sale': break;
-            default: $sort = 'price';
+            case 'new': case 'sale': $sort_type='asc'; break;
+            case 'price':case 'name':case 'brand':case 'code': $sort_type=$request->get('sort_type')=='desc'?'desc':'asc'; break;
+            default: $sort = 'new'; $sort_type='asc';
         }
 //        $sort_type = $request->get('sort_type', '0')?'desc':'asc';
         return [
             'criteria' => $criteria,
             'sort' => $sort,
-//            'sort_type' => $sort_type,
+            'sort_type' => $sort_type,
         ];
     }
 

@@ -29,7 +29,11 @@
                             @if(count($gallery))
                                 <div id="product-thumbs" class="swiper-container">
                                     <div class="swiper-wrapper">
-                                        <div class="swiper-slide pr-thumb-slide"><div class="product-gallery-item pr-thumb-item"><img src="{{ asset('u/parts/'.$item->image) }}" alt="{{ $item->name }}" title="{{ $item->title }}"></div></div>
+                                        @if($item->image && $item->show_image)
+                                            <div class="swiper-slide pr-thumb-slide"><div class="product-gallery-item pr-thumb-item"><img src="{{ asset('u/parts/'.$item->image) }}" alt="{{ $item->name }}" title="{{ $item->title }}"></div></div>
+                                        @else
+                                            <div class="swiper-slide pr-thumb-slide"><div class="product-gallery-item pr-thumb-item"><img src="{{ $default_images->data->parts() }}" alt="{{ $item->name }}" title="{{ $item->title }}"></div></div>
+                                        @endif
                                         @stack('gallery_thumbs')
                                     </div>
                                 </div>

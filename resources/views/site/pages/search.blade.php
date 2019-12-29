@@ -1,7 +1,7 @@
 @extends('site.layouts.app')
 @section('main')
     <div class="container pt-2s pb-s">
-        <h1 class="h3">Результаты поиска</h1>
+        <h1 class="cat-title">Результаты поиска</h1>
         <div class="search-page-data">
             @if(array_key_exists('catalogue', $names))
                 <p><b>Запчасть: </b> {{ $names['catalogue'] }}</p>
@@ -38,7 +38,13 @@
 {{--                @endforeach--}}
                 <div class="products-block">
                     @if($has_filter = (count($filters)>0))
+                        <button id="mobile-filters-toggle"><i class="fas fa-filter"></i></button>
                         <div class="products-filters">
+                            <div class="d-block d-xl-none clearfix">
+                                <button id="close-filters" type="button" class="close" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
                             @foreach($filters as $filter)
                                 <div class="products-filter">
                                     <div class="filter-name">{{ $filter->title }}</div>
@@ -54,26 +60,28 @@
                                     </div>
                                 </div>
                             @endforeach
+                            {{--                    <div class="pt-2 text-right">--}}
+                            {{--                        <button class="home-search-btn filter-apply">Применить</button>--}}
+                            {{--                    </div>--}}
                         </div>
                     @endif
                     <div class="products-content">
                         <div class="products-sort">
+                            <input type="hidden" name="c_sort" value="{{ $filtered['sort'] }}" id="c_sort">
+                            <input type="hidden" name="c_sort_type" value="{{ $filtered['sort_type'] }}" id="c_sort_type">
                             <div>
                                 <span class="sort-select-title">Сортировать по</span>
-                                <select name="sort" id="sort-select" data-smart-positioning="false">
-                                    <option value="price" {!! $filtered['sort'] == 'price'?'selected':null !!}>Ценам</option>
+                                <select name="sort" id="sort-select" data-smart-positioning="false" style="display: none">
                                     <option value="new" {!! $filtered['sort'] == 'new'?'selected':null !!}>Новинкам</option>
                                     <option value="sale" {!! $filtered['sort'] == 'sale'?'selected':null !!}>Скидкам</option>
+                                    @if (in_array($filtered['sort'], ['code', 'name', 'brand', 'price']))
+                                        <option value="other" selected>Другое</option>
+                                    @endif
                                 </select>
                                 <span class="view-toggles">
-                                    <a href="javascript:void(0)" id="view-list"><i class="fas fa-th-list"></i></a>
-                                    <a href="javascript:void(0)" id="view-grid"><i class="fas fa-th-large"></i></a>
-                                </span>
-{{--                                <select name="sort_type" id="sort-type-select" data-smart-positioning="false">--}}
-{{--                                    <option value="0" {!! $filtered['sort_type']=='asc'?'selected':'false' !!}>по возрастанию</option>--}}
-{{--                                    <option value="1" {!! $filtered['sort_type']=='desc'?'selected':'false' !!}>по убыванию</option>--}}
-{{--                                </select>--}}
-{{--                                <button class="home-search-btn filter-apply">Применить</button>--}}
+                            <a href="javascript:void(0)" id="view-list"><i class="fas fa-th-list"></i></a>
+                            <a href="javascript:void(0)" id="view-grid"><i class="fas fa-th-large"></i></a>
+                        </span>
                             </div>
                         </div>
                         <div id="list-wrapper" class="position-relative loader-shown">
@@ -99,8 +107,8 @@
 {{--    @js(aSite('js/catalogue.js'))--}}
     <script>
         new PartList({
-            url: "{{ route('ajax.search', $appends) }}",
-            realUrl: "{{ route('search', $appends) }}",
+            url: "{!! route('ajax.search', $appends) !!}",
+            realUrl: "{!! route('search', $appends) !!}",
             page: {{ $currentPaginationPage }},
             viewType: '{{ session('view_type', 'list') }}'
         });
