@@ -20,6 +20,7 @@
     php artisan snapshot:load master
     ```
 8) Configure sass.
+ 
 ### Sass configuration for JetBrains PhpStorm
 ```
 Program: Your sass file path (Default path for windows installed globally with NPM: "C:\Users\\{User}\AppData\Roaming\npm\sass")

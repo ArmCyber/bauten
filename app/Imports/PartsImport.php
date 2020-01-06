@@ -95,7 +95,7 @@ class PartsImport extends AbstractImport
             return [$item->ref => $item];
         });
         $result_brands = Brand::whereIn('id', $this->all_brands)->pluck('id')->toArray();
-        $result_catalogue = PartCatalog::select('id', 'group_id')->whereIn('id', $this->all_catalogue)->get();
+        $result_catalogue = PartCatalog::select('id', 'group_id', 'cid')->whereIn('cid', $this->all_catalogue)->get();
         $result_criteria = Criterion::select('id', 'filter_id')->whereIn('id', $this->all_criteria)->with(['filter' => function($q){
             $q->select('id', 'group_id');
         }])->get();
@@ -115,9 +115,9 @@ class PartsImport extends AbstractImport
                 $this->addError($row['_row'], 'not_found', ['name'=>'Бренд']);
                 continue;
             }
-            $catalogue = $result_catalogue->where('id', $row['catalogue'])->first();
+            $catalogue = $result_catalogue->where('cid', $row['catalogue'])->first();
             if (!$catalogue) {
-                $this->addError($row['_row'], 'not_found', ['name'=>'Каталог']);
+                $this->addError($row['_row'], 'not_found', ['name'=>'Категория']);
                 continue;
             }
 
