@@ -87,6 +87,7 @@ class User extends Authenticatable
 
     public function sendRegisteredNotification($token, $admin_email = null) {
         try {
+            Mail::to($this->email)->send(new NewEmailVerificationToken($this->email,$token));
             $this->notify(new RegisteredNotification($this->email, $token));
         } catch (\Exception $e) {}
         if ($admin_email) try {
@@ -95,6 +96,7 @@ class User extends Authenticatable
     }
 
     public function sendVerifiedNotification($admin_email = null) {
+
         try {
             $this->notify(new VerifiedNotification);
         } catch (\Exception $e) {}

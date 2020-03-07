@@ -36,6 +36,12 @@
                 </div>
             </div>
             <div class="card">
+                <div class="c-title">IP адрес для авторизации 1C</div>
+                <div class="little-p">
+                    <input type="text" name="IP" maxlength="255" class="form-control"  placeholder="IP" value="{{ old('ip', $user->ip) }}">
+                </div>
+            </div>
+            <div class="card">
                 <div class="c-title">Текуший пароль</div>
                 <div class="little-p">
                     <input type="password" name="current_password" class="form-control" autocomplete="new-password" placeholder="Текуший пароль">

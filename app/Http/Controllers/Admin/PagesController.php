@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Admin;
 use App\Services\Notify\Facades\Notify;
 use App\Models\Page;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 class PagesController extends BaseController
 {
@@ -28,6 +29,7 @@ class PagesController extends BaseController
         ];
     */
     public function main(){
+
         $data = [];
         $data['content_pages'] = self::CONTENT_PAGES;
         $data['gallery_pages'] = self::GALLERY_PAGES;

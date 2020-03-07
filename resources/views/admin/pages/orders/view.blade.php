@@ -99,13 +99,15 @@
                         <th>Артикул</th>
                         <th>Название</th>
                         <th>Цена</th>
-                        <th>Кол-во</th>
+                        <th>Кол-во (подтверждено)</th>
+                        <th>кол-во (отправлено)</th>
                         <th>Сумма</th>
+
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($item->order_parts as $part)
-                        <tr>
+                        <tr style=" background: white; color: black; {{($part->count==0)?'background:#ff000033;':null}} {{( !empty($part->changed_count) && $part->count !=0 && $part->changed_count !='new')?'background:#ffff0042;':null}} {{( !empty($part->changed_count) && $part->changed_count =='new')?'background:#00800040;':null}}" >
                             <td>{{ $part->code }}</td>
                             <td>
                                 @if(Gate::check('admin') && $part->part)
@@ -116,11 +118,21 @@
                             </td>
                             <td>{{ $part->price }} @if($part->real_price) <del>{{ $part->real_price }}</del> @endif</td>
                             <td>{{ $part->count }}</td>
+                            <td>
+                                @if(!empty($part->changed_count) && $part->changed_count =='new')
+                                    Новый
+                                    @else
+                                    {{ ( !empty($part->changed_count))?$part->changed_count:$part->count}}
+
+                                @endif
+                            </td>
+
                             <td>{{ $part->sum }} @if($part->sum<($part->price * $part->count)) <del>{{ ($part->price * $part->count) }}</del> @endif</td>
                         </tr>
                     @endforeach
                     <tr class="font-weight-bold">
                         <td>Сумма</td>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>

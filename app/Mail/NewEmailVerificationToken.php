@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\User;
 use Illuminate\Mail\Mailable;
 
 class NewEmailVerificationToken extends Mailable
@@ -11,7 +12,8 @@ class NewEmailVerificationToken extends Mailable
 
     public function __construct($user, $token)
     {
-        $this->user = $user;
+
+        $this->user =  User::where('email',$user)->firstOrFail();;
         $this->token = $token;
     }
 

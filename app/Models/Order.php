@@ -12,12 +12,14 @@ class Order extends Model
     public const STATUS_NEW = 0;
     public const STATUS_PENDING = 1;
     public const STATUS_DONE = 2;
+    public const STATUS_PENDING_1C = 3;
 
     public const STATUSES = [
         self::STATUS_DECLINED => 'declined',
         self::STATUS_NEW => 'new',
         self::STATUS_PENDING => 'pending',
         self::STATUS_DONE => 'done',
+        self::STATUS_PENDING_1C => 'pending 1C',
     ];
 
     public const PROCESS = [
@@ -32,7 +34,7 @@ class Order extends Model
     }
 
     public static function getItemSite($id) {
-        return self::where(['id'=>$id, 'user_id'=>auth()->user()->id])->where('status', '<>', self::STATUS_DECLINED)->firstOrFail();
+        return self::where(['id'=>$id, 'user_id'=>auth()->user()->id])->with('order_parts')->where('status', '<>', self::STATUS_DECLINED)->firstOrFail();
     }
 
     public static function getOrdersWithStatus($status, $user_id=null){
@@ -171,17 +173,26 @@ class Order extends Model
 
     public function getStatusHtmlAttribute() {
         switch($this->status){
-            case self::STATUS_DECLINED: $result = '<span class="text-warning">Откланенный</span>'; break;
-            case self::STATUS_PENDING: $result = '<span class="text-danger">Невыполненный</span>'; break;
+            case self::STATUS_DECLINED: $result = '<span class="text-warning">Отклоненный</span>'; break;
+            case self::STATUS_PENDING: $result = '<span class="text-danger">В процессе</span>'; break;
             case self::STATUS_DONE: $result = '<span class="text-success">Выполненный</span>'; break;
+            case self::STATUS_PENDING_1C: $result = '<span class="text-success">Ожидание потверждения 1С</span>'; break;
             default: $result = '<span class="text-info">Новый</span>';
         }
         return $result;
     }
-
+    public function getStatusOrderExportAttribute() {
+        switch($this->status){
+            case self::STATUS_DECLINED: $result = 'Отклоненный'; break;
+            case self::STATUS_PENDING: $result = 'Невыполненный'; break;
+            case self::STATUS_DONE: $result = 'Выполненный'; break;
+            default: $result = 'Новый';
+        }
+        return $result;
+    }
     public function getStatusSiteHtmlAttribute() {
         switch($this->status){
-            case self::STATUS_DECLINED: $result = '<span class="text-warning">Откланенный</span>'; break;
+            case self::STATUS_DECLINED: $result = '<span class="text-warning">Отклоненный</span>'; break;
             case self::STATUS_DONE: $result = '<span class="text-success">Выполненный</span>'; break;
             default: $result = '<span class="text-danger">Невыполненный</span>';
         }

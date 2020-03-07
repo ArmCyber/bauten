@@ -35,8 +35,9 @@
                 <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i class="ti-more"></i></a>
             </div>
             <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
-                <ul class="navbar-nav float-left mr-auto">
+                <ul class="navbar-nav d-flex align-items-center float-left mr-auto">
                     <li class="nav-item d-none d-md-block"><a class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)" data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i></a></li>
+                    <a style="border: 1px solid #27a9e1; padding: 5px 20px; color: white;" href="{{route('sync.soapByRef')}}">Синхронизировать с 1С </a>
                 </ul>
                 <ul class="navbar-nav float-right">
                     <li class="nav-item dropdown">

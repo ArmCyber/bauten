@@ -2,12 +2,15 @@
     @if($new_orders_count)
         @alink(['can'=>'operator_manager', 'url'=>route('admin.orders.new'), 'icon'=>'fas fa-plus-circle', 'title'=>'Новые заказы', 'counter'=>$new_orders_count])@endalink
     @endif
+    @if($pending_1c_orders_count)
+        @alink(['can'=>'operator_manager', 'url'=>route('admin.orders.pending.1c'), 'icon'=>'fas fa-times-circle', 'title'=>'Ожидание потверждения 1С'])@endalink
+    @endif
     @if($pending_orders_count)
         @alink(['can'=>'operator_manager', 'url'=>route('admin.orders.pending'), 'icon'=>'fas fa-tasks', 'title'=>'Невыполненные заказы', 'counter'=>$pending_orders_count])@endalink
     @endif
-    @alink(['can'=>'operator_manager', 'url'=>route('admin.orders.done'), 'icon'=>'fas fa-check-circle', 'title'=>'Выполненные заказы'])@endalink
-    @if($declined_orders_count)
-        @alink(['can'=>'operator_manager', 'url'=>route('admin.orders.declined'), 'icon'=>'fas fa-times-circle', 'title'=>'Откланенные заказы'])@endalink
+@alink(['can'=>'operator_manager', 'url'=>route('admin.orders.done'), 'icon'=>'fas fa-check-circle', 'title'=>'Выполненные заказы'])@endalink
+@if($declined_orders_count)
+        @alink(['can'=>'operator_manager', 'url'=>route('admin.orders.declined'), 'icon'=>'fas fa-times-circle', 'title'=>'Отклоненный заказы'])@endalink
     @endif
 @endalink
 @alink(['can'=>'operator_manager', 'url'=>route('admin.applications.main'), 'icon'=>'far fa-file-alt', 'title'=>'Заявки', 'counter'=>$applications_count])@endalink

@@ -93,40 +93,42 @@
         <div class="cabinet-block-content">
             <div class="pt-2">
                 <div class="orders-table-container pb-1">
-                <table class="table table-striped orders-table">
-                    <thead>
-                    <tr>
-                        <th class="nowrap">Артикул</th>
-                        <th class="nowrap">Название</th>
-                        <th class="nowrap">Цена</th>
-                        <th class="nowrap">Кол-во</th>
-                        <th class="nowrap">Сумма</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($item->parts as $part)
+                    <table class="table table-striped">
+                        <thead>
                         <tr>
-                            <td style="min-width: 110px">{{ $part->pivot->code }}</td>
-                            <td><span class="lines-3">{{ $part->pivot->name }}</span></td>
-                            <td class="nowrap">
-                                {{ $part->pivot->price }} <span class="kzt"></span>
-                                @if($part->pivot->real_price)
-                                    <span style="text-decoration: line-through">{{ $part->pivot->real_price }} <span class="kzt"></span></span>
-                                @endif
-                            </td>
-                            <td class="nowrap">{{ $part->pivot->count }}</td>
-                            <td class="nowrap">
-                                {{ $part->pivot->sum }} <span class="kzt"></span>
-                                @if($part->pivot->sum != $part->pivot->price*$part->pivot->count)
-                                    <span class="bp-sale" style="text-decoration:line-through;">
-                                    {{ $part->pivot->price*$part->pivot->count }} <span class="kzt"></span>
-                                </span>
-                                @endif
-                            </td>
+                            <th>Артикул</th>
+                            <th>Название</th>
+                            <th>Цена</th>
+                            <th>Кол-во (подтверждено)</th>
+                            <th>кол-во (отправлено)</th>
+                            <th>Сумма</th>
+
                         </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        @foreach($item->order_parts as $part)
+                            <tr style=" background: white; color: black; {{($part->count==0)?'background:#ff000033;':null}} {{( !empty($part->changed_count) && $part->count !=0 && $part->changed_count !='new')?'background:#ffff0042;':null}} {{( !empty($part->changed_count) && $part->changed_count =='new')?'background:#00800040;':null}}">
+                                <td>{{ $part->code }}</td>
+                                <td style="max-width: 350px;">
+                                        {{ $part->name }}
+
+                                </td>
+                                <td >{{ $part->price }} <span class="kzt"></span> @if($part->real_price) <del>{{ $part->real_price }}  <span class="kzt"></span></del> @endif</td>
+                                <td>{{ $part->count }}</td>
+                                <td>
+                                    @if(!empty($part->changed_count) && $part->changed_count =='new')
+                                        Новый
+                                    @else
+                                        {{ ( !empty($part->changed_count))?$part->changed_count:$part->count}}
+
+                                    @endif
+                                </td>
+                                <td>{{ $part->sum }}  <span class="kzt"></span> @if($part->sum<($part->price * $part->count)) <del>{{ ($part->price * $part->count) }}  <span class="kzt"></span></del> @endif</td>
+                            </tr>
+                        @endforeach
+
+                        </tbody>
+                    </table>
                 </div>
                 <div class="cabinet-title-sm">Сумма: @if($item->sum!=$item->real_sum)<span class="sale-price-sm">{{ $item->real_sum }} <span class="kzt"></span></span>@endif {{ $item->sum }} <span class="kzt"></span></div>
                 @if($item->delivery)

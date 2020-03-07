@@ -14,6 +14,7 @@ use App\Models\PriceApplication;
 use App\Models\User;
 use App\Services\Notify\Facades\Notify;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
@@ -21,6 +22,7 @@ use Maatwebsite\Excel\Facades\Excel;
 class UsersController extends BaseController
 {
     public function main(){
+
         $data = ['title'=>'Клиентская база'];
         $data['items'] = User::adminList();
         $data['types'] = User::getTypes();

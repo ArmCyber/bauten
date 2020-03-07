@@ -70,6 +70,7 @@ class RegisterController extends BaseController
     }
 
     public function register(Request $request) {
+
         $inputs = $request->all();
         if (isset($inputs['type']) && $inputs['type']!=User::TYPE_ENTITY) $inputs['type']=User::TYPE_INDIVIDUAL;
         $this->validator($inputs)->validate();
@@ -82,6 +83,8 @@ class RegisterController extends BaseController
     }
 
     public function verify($email, $token) {
+
+
         $user = User::where('email', $email)->firstOrFail();
         if (!$user->verification || !Hash::check($token, $user->verification)) abort(404);
         $user['verification'] = null;

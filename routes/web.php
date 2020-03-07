@@ -2,7 +2,9 @@
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('soap-test', 'Admin\AppController@soapTest');
+Route::get('soap/sync/1c/allPriority/getByRef', 'Admin\AppController@soapForCron');
+Route::get('soap/sync/1c/allPriority/getByRef/fromSite', 'Admin\AppController@soapFromSite')->name('sync.soapByRef');
+Route::post('soap/check/1c/allPriority/getOrdersChecking', 'Admin\AppController@checking')->name('soap_checking_1c');
 
 //region Admin
 //region Login
@@ -314,11 +316,14 @@ Route::group(['prefix' => config('admin.prefix'), 'middleware' => ['auth:cms', '
             Route::middleware('can:operator_manager')->get('pending', $c.'pendingOrders')->name('pending');
             Route::middleware('can:operator_manager')->get('done', $c.'doneOrders')->name('done');
             Route::middleware('can:operator_manager')->get('declined', $c.'declinedOrders')->name('declined');
+            Route::middleware('can:operator_manager')->get('pending/1c', $c.'Pending1cOrders')->name('pending.1c');
             Route::middleware('can:operator_manager')->get('view/{id}', $c.'view')->name('view');
             Route::middleware('can:admin')->delete('delete', $c.'delete')->name('delete');
             Route::middleware('can:operator_manager')->patch('respond/{id}', $c.'respond')->name('respond');
             Route::middleware('can:operator_manager')->patch('change-process/{id}', $c.'changeProcess')->name('change_process');
             Route::middleware('can:operator_manager')->get('user/{id}/{status}', $c.'userOrders')->name('user');
+            Route::middleware('can:operator_manager')->any('export/{id}', $c.'exportOrder')->name('export');
+
         });
         //endregion
         //region Applications

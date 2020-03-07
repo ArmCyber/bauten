@@ -6,11 +6,19 @@ use App\Http\Controllers\Site\BaseController;
 use App\Models\Basket;
 use App\Models\DeliveryRegion;
 use App\Models\Order;
+use App\Models\Part;
 use App\Models\PickupPoint;
+use App\Models\User;
 use App\Services\Notify\Facades\Notify;
+use App\Services\Sync\SyncClient;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Spatie\ArrayToXml\ArrayToXml;
+use Spatie\DbDumper\DbDumper;
 use Zakhayko\Banners\Models\Banner;
 
 class OrdersController extends BaseController
@@ -33,6 +41,7 @@ class OrdersController extends BaseController
     }
 
     public function order_post(Request $request){
+
         $inputs = $request->all();
         $rules = [
             'name' => 'required|string|max:255',
@@ -53,6 +62,9 @@ class OrdersController extends BaseController
         ])->validate();
         if (!count($this->shared['basket_parts']->where('checked', 1))) return redirect()->route('cabinet.basket');
         if (! $order_id = Order::makeOrder($inputs)) return redirect()->route('cabinet.order');
+
+
+
         Basket::clear();
         return redirect()->route('cabinet.orders.view', ['id'=>$order_id]);
     }
@@ -62,6 +74,7 @@ class OrdersController extends BaseController
         $data['seo'] = $this->staticSEO('Заказы');
         $data['page_title'] = 'Заказы';
         $data['orders'] = Order::userPendingOrders($this->shared['user']->id);
+//        $data['orders'] = Order::where('user_id', $this->shared['user']->id)->whereIn('status', [-1,0,1])->with('parts')->sort()->get();
         $data['empty_text'] = 'У вас нет невыполненных заказов';
         return view('site.pages.cabinet.orders', $data);
     }
@@ -70,6 +83,7 @@ class OrdersController extends BaseController
         $data = [];
         $data['seo'] = $this->staticSEO('Покупки');
         $data['page_title'] = 'Покупки';
+
         $data['orders'] = Order::userDoneOrders($this->shared['user']->id);
         $data['empty_text'] = 'У вас нет покупок';
         return view('site.pages.cabinet.orders', $data);

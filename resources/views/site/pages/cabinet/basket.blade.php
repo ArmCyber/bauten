@@ -57,6 +57,7 @@
             @push('pageScripts') @js(aSite('js/basket.js')) @endpush
         </div>
     @endif
+
     <div class="h5 text-danger pt-2 not-in-stock">Корзина пуста.</div>
 @endsection
 @push('js')

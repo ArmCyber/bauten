@@ -27,6 +27,7 @@ class VerifyCsrfToken extends Middleware
     public function __construct(Application $app, Encrypter $encrypter){
         $this->except = [
             route('ckfinder_connector', [], false),
+            route('soap_checking_1c', [], false),
             route('admin.logout', [], false),
             route('cabinet.favourites.add', [], false),
             route('logout', [], false),

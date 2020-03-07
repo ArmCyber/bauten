@@ -30,6 +30,7 @@ var Basket = function(){
     };
 
     this.updatePrices = function(){
+
         var self=this,
             allPrice = 0,
             salePrice = 0;

@@ -34,5 +34,20 @@ class SyncClient {
         $result['success'] = true;
         return $result;
     }
+    public function check_order($ref){
+        $result = $this->sendRequest('<?xml version="1.0"?><root><UID>'.$this->getAccessCode().'</UID><TYPE>SALES_FOR_ORDER</TYPE><ORDER_ID>'.$ref.'</ORDER_ID></root>');
+        return $result;
+        if (!$result) ['success' => false, 'error'=>'Сервер 1с не отвечает.'];
+        if(($result->ACSESS??null)=='ACSESS DENIED') return ['success' => false, 'error'=>'Неправильный код доступа.'];
+        $result['success'] = true;
+        return $result;
+    }
+    public function set_order($xml){
+       return $result = $this->sendRequest($xml);
+        //        if (!$result) ['success' => false, 'error'=>'Сервер 1с не отвечает.'];
+//        if(($result->ACSESS??null)=='ACSESS DENIED') return ['success' => false, 'error'=>'Неправильный код доступа.'];
+//        $result['success'] = true;
+//        return $result;
+    }
 }
 

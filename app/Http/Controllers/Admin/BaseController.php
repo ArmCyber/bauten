@@ -32,6 +32,7 @@ class BaseController extends Controller
             $this->shared['new_orders_count'] = Order::getCount(Order::STATUS_NEW);
             $this->shared['pending_orders_count'] = Order::getCount(Order::STATUS_PENDING);
             $this->shared['declined_orders_count'] = Order::getCount(Order::STATUS_DECLINED);
+            $this->shared['pending_1c_orders_count'] = Order::getCount(Order::STATUS_PENDING_1C);
             $this->shared['applications_count'] = Application::getCount();
             $this->shared['price_applications_count'] = PriceApplication::getCount();
         }
