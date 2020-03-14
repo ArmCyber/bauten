@@ -25,6 +25,15 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label for="form-phone">Комментарий к заказу</label>
+                                <textarea type="text" id="form-comment" class="form-control @error('comment') has-error @enderror" name="comment" maxlength="255">{{ old('comment') }}</textarea>
+                                @error('comment')
+                                <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

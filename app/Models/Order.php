@@ -154,6 +154,7 @@ class Order extends Model
         $order['status'] = self::STATUS_NEW;
         $order['sale'] = $user->sale??0;
         $order['payment_method'] = ($inputs['payment_method']??null)=='bank'?'bank':'cash';
+        $order['comment'] =$inputs['comment'];
         $order->save();
         $order->parts()->attach($data['parts']);
         return $order->id;

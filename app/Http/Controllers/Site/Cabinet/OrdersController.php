@@ -44,6 +44,7 @@ class OrdersController extends BaseController
 
         $inputs = $request->all();
         $rules = [
+            'comment'=>'string|nullable|max:255',
             'name' => 'required|string|max:255',
             'phone' => 'required|string|phone|max:255',
             'pickup_point_id' => ['required','integer',Rule::exists('pickup_points', 'id')->where('active', 1)]

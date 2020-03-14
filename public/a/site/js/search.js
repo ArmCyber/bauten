@@ -75,9 +75,14 @@ var Search = function(){
         $('.home-search-brand.home-search-temp').remove();
         if (elem.hasClass('selected')) {
             $('.home-search-catalogue.selected').removeClass('selected');
+            $('.home-search-catalogue-content').html('');
         } else {
             $('.home-search-catalogue.selected').removeClass('selected');
             var id = elem.data('id');
+            $('.home-search-catalogue-content').html('');
+            $('.home-search-catalogue-content').append('<span class="home-search-option home-search-catalogue selected" data-id="'+id+'">'+elem.html()+'</span>')
+            // console.log('stea haa zapchast@');
+
             $('.home-search-catalogue[data-id="'+id+'"]').addClass('selected');
             this.checkDisabledBrands(id);
         }
@@ -96,9 +101,21 @@ var Search = function(){
         var id = elem.data('id');
         if (elem.hasClass('selected')) {
             $('.home-search-brand[data-id="'+id+'"]').removeClass('selected');
+            $('.home-search-brand-check-selected[data-id="'+id+'"]').remove();
+
         }
         else {
             if (self.dom.brandsBlock.hasClass('max-exceeded')) return false;
+            $('.home-search-brand-check-selected').each(function () {
+                if(!$(this).hasClass('selected')){
+                    $(this).remove();
+                }
+            })
+                $('.home-search-brand-content').append('<span class="home-search-option home-search-brand home-search-brand-check-selected selected" data-id="'+id+'">'+elem.html()+'</span>')
+
+
+            // console.log('stea haa brend@')
+
             $('.home-search-brand[data-id="'+id+'"]').addClass('selected');
         }
         self.checkDisabledCatalogs();
@@ -111,10 +128,21 @@ var Search = function(){
         if (self.realTime.carBlocked) return false;
         if (elem.hasClass('selected')) {
             $('.home-search-mark[data-id="'+dataId+'"]').removeClass('selected');
+            $('.home-search-mark-check[data-id="'+dataId+'"]').remove();
         }
         else {
+            // console.log('stea haa markeq@')
+
             if (self.dom.marksBlock.hasClass('max-exceeded')) return false;
+            $('.home-search-mark-check').each(function () {
+                if(!$(this).hasClass('selected')){
+                    $(this).remove();
+                }
+            })
             $('.home-search-mark[data-id="'+dataId+'"]').addClass('selected');
+
+            $('.home-search-mark-content').append('<span class="home-search-option home-search-mark home-search-mark-check selected" data-id="'+dataId+'">'+elem.html()+'</span>')
+
         }
         self.checkExceeded(self.dom.marksBlock);
         self.updateModelsSelect();
@@ -128,6 +156,8 @@ var Search = function(){
             $('.home-search-model[data-id="'+dataId+'"]').removeClass('selected');
         }
         else {
+            // console.log('stea haa model@')
+
             if (self.dom.modelsBlock.hasClass('max-exceeded')) return false;
             $('.home-search-model[data-id="'+dataId+'"]').addClass('selected');
         }
@@ -344,12 +374,14 @@ var Search = function(){
         if (typeof json === 'undefined') json=false;
         var self = this;
         $.ajax({
+
             url: self.urls[action],
             data: data,
             type: 'get',
             dataType: json?'json':'html',
             success: function(e){
                 if (typeof callback === 'function') callback(e);
+
             },
             error: function(e){
                 window.location.href = '';

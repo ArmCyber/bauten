@@ -28,8 +28,12 @@ class BasketController extends BaseController
         $min_count = $part->min_count_ceil;
         $max_count = $part->max_count;
         $multiplication = $part->multiplication;
-        if ($count<$min_count || $count>$max_count || $count%$multiplication!=0) abort(404);
+//        if ($count<$min_count || $count>$max_count || $count%$multiplication!=0) abort(404);
+        if ($count<$min_count || $count%$multiplication!=0) abort(404);
         $part_in_basket->count = $part_in_basket->count+$count;
+        if ( (int) $part_in_basket->count > 10000){
+            $part_in_basket->count=10000;
+        }
         $part_in_basket->save();
         return response()->json([
             'max_count' => $max_count-$count
@@ -51,8 +55,13 @@ class BasketController extends BaseController
         $basket_item = Basket::where(['part_id' => $item_id, 'user_id'=>$user_id])->first();
         if (!$basket_item) abort(404);
         $count = $request->input('count');
-        if (!$count || !is_numeric($count) || $count<$basket_item->part->min_count || $count>($basket_item->part->available??999999) || $count%$basket_item->part->multiplication!=0) abort(404);
+//        if (!$count || !is_numeric($count) || $count<$basket_item->part->min_count || $count>($basket_item->part->available??999999) || $count%$basket_item->part->multiplication!=0) abort(404);
+        if (!$count || !is_numeric($count) || $count<$basket_item->part->min_count || $count%$basket_item->part->multiplication!=0) abort(404);
+        if ($count>10000){
+            $count=10000;
+        }
         $basket_item->count = $count;
+
         $basket_item->save();
         return response(1);
     }

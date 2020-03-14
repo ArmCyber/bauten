@@ -2,7 +2,7 @@
     <div class="container">
         <div class="home-search-block position-relative" id="home-catalogue-block">
             <div class="home-search-title">ЗАПЧАСТЬ</div>
-            <div class="home-search-content">
+            <div class="home-search-content home-search-catalogue-content">
                 @foreach($home_catalogs->take($max_take = settings('max_take', 5)) as $catalog)
                     <span class="home-search-option home-search-catalogue" data-id="{{ $catalog->id }}">{{ $catalog->name }}</span>
                 @endforeach
@@ -32,9 +32,9 @@
         </div>
         <div class="home-search-block position-relative home-block-brand">
             <div class="home-search-title">БРЕНДЫ</div>
-            <div class="home-search-content">
+            <div class="home-search-content home-search-brand-content">
                 @foreach($brands->whereIn('id', $search_brands->flatten()->pluck('id'))->values()->take($max_take) as $brand)
-                    <span class="home-search-option home-search-brand" data-id="{{ $brand->id }}">{{ $brand->name }}</span>
+                    <span class="home-search-option home-search-brand  home-search-brand-check-selected" data-id="{{ $brand->id }}">{{ $brand->name }}</span>
                 @endforeach
             </div>
             <div class="home-search-buttons">
@@ -62,9 +62,9 @@
         </div>
         <div class="home-search-block position-relative" id="home-marks-block">
             <div class="home-search-title">МАРКА</div>
-            <div class="home-search-content">
+            <div class="home-search-content home-search-mark-content">
                 @foreach($marks->take($max_take) as $mark)
-                    <span class="home-search-option home-search-mark" data-id="{{ $mark->id }}">{{ $mark->name }}</span>
+                    <span class="home-search-option home-search-mark home-search-mark-check" data-id="{{ $mark->id }}">{{ $mark->name }}</span>
                 @endforeach
             </div>
             <div class="home-search-buttons">

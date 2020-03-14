@@ -19,7 +19,9 @@
                     </tr>
                     </thead>
                     <tbody>
+                @php($all_total=0)
                     @foreach($items as $item)
+                        @php($all_total+=$item->total )
                         <tr class="item-row" data-id="{!! $item->id !!}">
                             <td>{{ $item->id }}</td>
                             @if ($item->user)
@@ -40,6 +42,21 @@
                             </td>
                         </tr>
                     @endforeach
+                    <tr class="item-row" data-id="{!! $item->id !!}">
+                        <td></td>
+                            <td>  </td>
+                        <td></td>
+                        <td> Итог:   {{$all_total}}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="d-flex align-items-center">
+
+                        </td>
+                    </tr>
+
                     </tbody>
                 </table>
             </div>

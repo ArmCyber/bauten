@@ -52,7 +52,8 @@
                         @if ($item->price && $item->max_count)
                             <span class="live-basket-group number-group number-group-sm position-relative">
                                 <button class="number-btn number-input-minus live-num-minus">-</button>
-                                <input data-id="{{ $item->id }}" maxlength="6" type="text" value="{{ $item->min_count_ceil }}" data-multiplication="{{ $item->multiplication }}" data-minimum="{{ $item->min_count_ceil??1 }}" data-available="{{ $item->max_count }}" class="number-input live-basket-input">
+{{--                                <input data-id="{{ $item->id }}" maxlength="6" type="text" value="{{ $item->min_count_ceil }}" data-multiplication="{{ $item->multiplication }}" data-minimum="{{ $item->min_count_ceil??1 }}" data-available="{{ $item->max_count }}" class="number-input live-basket-input">--}}
+                                <input data-id="{{ $item->id }}" maxlength="6" type="text" value="{{ $item->min_count_ceil }}" data-multiplication="{{ $item->multiplication }}" data-minimum="{{ $item->min_count_ceil??1 }}" data-available="10000" class="number-input live-basket-input">
                                 <button class="number-btn number-input-plus live-num-plus">+</button>
                                 <span class="loader loader-ng"></span>
                             </span>

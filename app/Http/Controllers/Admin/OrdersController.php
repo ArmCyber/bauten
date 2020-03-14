@@ -91,7 +91,7 @@ class OrdersController extends BaseController
                 'DATA'=>$date,
                 'USER_REF'=>$user->ref,
                 'TOTAL'=>$order->sum,
-                'KOMMENT'=>'NO COMMENT',
+                'KOMMENT'=>$order->comment??'NO COMMENT',
             ];
             $products=[];
             $total=0;
@@ -102,7 +102,7 @@ class OrdersController extends BaseController
             $arrayToxml['ORDER']['PRODUCTS']['PRODUCT']=$products;
             $response=ArrayToXml::convert($arrayToxml) ;
             $sync=new SyncClient();
-        $result=$sync->set_order($response);
+            $result=$sync->set_order($response);
         if(!$result){
                 $order = Order::getItem($order->id);
                     $order->status = Order::STATUS_DECLINED;
