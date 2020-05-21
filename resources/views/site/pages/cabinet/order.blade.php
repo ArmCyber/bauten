@@ -99,7 +99,9 @@
                             <th>Артикул</th>
                             <th>Название</th>
                             <th>Цена</th>
-                            <th>Кол-во (подтверждено)</th>
+                            @if($item->status==\App\Models\Order::STATUS_PENDING)
+                                <th>Кол-во (подтверждено)</th>
+                            @endif
                             <th>кол-во (отправлено)</th>
                             <th>Сумма</th>
 
@@ -107,19 +109,21 @@
                         </thead>
                         <tbody>
                         @foreach($item->order_parts as $part)
-                            <tr style=" background: white; color: black; {{($part->count==0)?'background:#ff000033;':null}} {{( !empty($part->changed_count) && $part->count !=0 && $part->changed_count !='new')?'background:#ffff0042;':null}} {{( !empty($part->changed_count) && $part->changed_count =='new')?'background:#00800040;':null}}">
+                            <tr style=" background: white; color: black; {{($part->count==0)?'background:#ff000033;':null}} {{( !empty($part->first_count)  && ($part->count != $part->first_count) && $part->count !=0 && $part->first_count !='new')?'background:#ffff0042;':null}} {{( !empty($part->first_count) && $part->first_count =='new')?'background:#00800040;':null}}">
                                 <td>{{ $part->code }}</td>
                                 <td style="max-width: 350px;">
                                         {{ $part->name }}
 
                                 </td>
                                 <td >{{ $part->price }} <span class="kzt"></span> @if($part->real_price) <del>{{ $part->real_price }}  <span class="kzt"></span></del> @endif</td>
-                                <td>{{ $part->count }}</td>
+                                @if($item->status==\App\Models\Order::STATUS_PENDING)
+                                    <td>{{ $part->count }}</td>
+                                @endif
                                 <td>
-                                    @if(!empty($part->changed_count) && $part->changed_count =='new')
+                                    @if(!empty($part->first_count) && $part->first_count =='new')
                                         Новый
                                     @else
-                                        {{ ( !empty($part->changed_count))?$part->changed_count:$part->count}}
+                                        {{ ( !empty($part->first_count))?$part->first_count:$part->count}}
 
                                     @endif
                                 </td>

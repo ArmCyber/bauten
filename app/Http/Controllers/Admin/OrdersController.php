@@ -31,11 +31,13 @@ class OrdersController extends BaseController
 
         return view('admin.pages.orders.main', $data);
     }
-        public function exportOrder($id){
+
+    public function exportOrder($id){
         $order=Order::where('id',$id)->firstOrFail();
         $orderName='order-'.$id.'-'.$order->created_at->format('d-m-Y').'.xlsx';
             return \Maatwebsite\Excel\Facades\Excel::download(new OrderExport($id),$orderName );
         }
+
     public function Pending1cOrders() {
 
 
@@ -45,6 +47,7 @@ class OrdersController extends BaseController
         $data['items'] = Order::getOrdersWithStatus(Order::STATUS_PENDING_1C);
         return view('admin.pages.orders.main', $data);
     }
+
     public function doneOrders() {
         $data = [
             'title' => 'Выполненные заказы',
@@ -64,6 +67,11 @@ class OrdersController extends BaseController
     public function view($id) {
         $data = [];
         $data['item'] = Order::getItem($id);
+        $user_id =$data['item']->user_id;
+        if(!$data['item']->status){
+
+            $data['user_orders']=Order::getOrdersWithStatusAndOrderId(Order::STATUS_NEW,$user_id,$id);
+        }
         $data['title'] = 'Заказ N'.$data['item']->id;
         $data['process'] = Order::PROCESS;
         return view('admin.pages.orders.view', $data);
@@ -79,6 +87,22 @@ class OrdersController extends BaseController
 
     public function respond(Request $request, $id) {
 
+if(!empty($request->combine_array)){
+    $combine_array=explode(',',$request->combine_array);
+    $added_sum=0;
+    foreach ($combine_array as $order_id){
+        $order = Order::getItem($order_id);
+        $added_sum+= $order->sum;
+        foreach ($order->order_parts as $part){
+            $part->order_id=$id;
+            $part->save();
+        }
+       $order->delete();
+    }
+    $order = Order::getItem($id);
+    $order->sum=$order->sum+$added_sum;
+    $order->save();
+}
         $order = Order::getItem($id);
 
         $user=User::where('id',$order->user_id)->first();
@@ -91,7 +115,7 @@ class OrdersController extends BaseController
                 'DATA'=>$date,
                 'USER_REF'=>$user->ref,
                 'TOTAL'=>$order->sum,
-                'KOMMENT'=>$order->comment??'NO COMMENT',
+                'COMMENT'=>$order->comment??'NO COMMENT',
             ];
             $products=[];
             $total=0;

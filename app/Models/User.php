@@ -66,7 +66,8 @@ class User extends Authenticatable
             $user['bin'] = $inputs['bin'];
         }
         $user['password'] = Hash::make($inputs['password']);
-        $user['verification'] = Hash::make($verification_token);
+        $user['verification'] = null;
+//        $user['verification'] = Hash::make($verification_token);
         $user->save();
         return $user;
     }
@@ -87,7 +88,9 @@ class User extends Authenticatable
 
     public function sendRegisteredNotification($token, $admin_email = null) {
         try {
-            Mail::to($this->email)->send(new NewEmailVerificationToken($this->email,$token));
+
+
+            Mail::to($this->email)->send(new RegisteredNotification($this->email,$token));
             $this->notify(new RegisteredNotification($this->email, $token));
         } catch (\Exception $e) {}
         if ($admin_email) try {

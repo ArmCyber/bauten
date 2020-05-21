@@ -35,7 +35,7 @@
             <div class="view-line"><span class="view-label">Статус:</span> {!! $item->status_html !!}</div>
             @if($item->status_type=='new')
                 <div class="pt-2">
-                    <button class="btn btn-success mr-2" data-toggle="modal" data-target="#acceptOrderModal">Принять</button>
+                    <button class="btn btn-success mr-2" data-toggle="modal" id="acceptOrderModalCombine" data-target="#acceptOrderModal">Принять</button>
                     <button class="btn btn-danger" data-toggle="modal" data-target="#denyOrderModal">Откланить</button>
                 </div>
                 @push('modals')
@@ -43,6 +43,7 @@
                                         'form'=>['method'=>'post','action'=>route('admin.orders.respond', ['id'=>$item->id])]])
                         @slot('title')Принять заказ?@endslot
                         <input type="hidden" name="status" value="1">
+                    <input type="hidden" name="combine_array" id="combine_array" value="[]">
                         @csrf @method('patch')
                         <p class="font-weight-bold text-success">Принять заказ?</p>
                         @endmodal
@@ -93,21 +94,26 @@
                     @endpush
             @endif
             <div class="pt-3">
+                <p style="margin-bottom: 15px;">Комментарий к заказу: {{!empty($item->comment)?$item->comment:'Нет комментарии'}} </p>
+                @php($parent_order_id=$item->id)
                 <table class="table table-striped">
                     <thead>
                     <tr>
                         <th>Артикул</th>
                         <th>Название</th>
                         <th>Цена</th>
-                        <th>Кол-во (подтверждено)</th>
+                        @if($item->status==\App\Models\Order::STATUS_PENDING)
+                             <th id="send_count">Кол-во (подтверждено)</th>
+                        @endif
                         <th>кол-во (отправлено)</th>
                         <th>Сумма</th>
 
                     </tr>
                     </thead>
                     <tbody>
+
                     @foreach($item->order_parts as $part)
-                        <tr style=" background: white; color: black; {{($part->count==0)?'background:#ff000033;':null}} {{( !empty($part->changed_count) && $part->count !=0 && $part->changed_count !='new')?'background:#ffff0042;':null}} {{( !empty($part->changed_count) && $part->changed_count =='new')?'background:#00800040;':null}}" >
+                        <tr style=" background: white; color: black; {{($part->count==0)?'background:#ff000033;':null}} {{( !empty($part->first_count) && ($part->count != $part->first_count) && $part->count !=0 && $part->first_count !='new')?'background:#ffff0042;':null}} {{( !empty($part->first_count) && $part->first_count =='new')?'background:#00800040;':null}}" >
                             <td>{{ $part->code }}</td>
                             <td>
                                 @if(Gate::check('admin') && $part->part)
@@ -117,12 +123,20 @@
                                 @endif
                             </td>
                             <td>{{ $part->price }} @if($part->real_price) <del>{{ $part->real_price }}</del> @endif</td>
-                            <td>{{ $part->count }}</td>
+
+
+
+                                @if($item->status==\App\Models\Order::STATUS_PENDING)
+                                    <td>
+                                        {{ $part->count }}
+                                    </td>
+                                @endif
+
                             <td>
-                                @if(!empty($part->changed_count) && $part->changed_count =='new')
+                                @if(!empty($part->first_count) && $part->first_count =='new')
                                     Новый
                                     @else
-                                    {{ ( !empty($part->changed_count))?$part->changed_count:$part->count}}
+                                    {{ ( !empty($part->first_count))?$part->first_count:$part->count}}
 
                                 @endif
                             </td>
@@ -133,7 +147,9 @@
                     <tr class="font-weight-bold">
                         <td>Сумма</td>
                         <td></td>
+                        @if($item->status==\App\Models\Order::STATUS_PENDING)
                         <td></td>
+                        @endif
                         <td></td>
                         <td></td>
                         <td>{{ $item->sum }} @if($item->sum!=$item->real_sum) <del>{{ $item->real_sum }}</del> @endif</td>
@@ -142,14 +158,18 @@
                         <tr class="font-weight-bold">
                             <td>Цена доставки</td>
                             <td></td>
+                            @if($item->status==\App\Models\Order::STATUS_PENDING)
                             <td></td>
+                            @endif
                             <td></td>
                             <td>{{ $item->delivery_price }}</td>
                         </tr>
                         <tr class="font-weight-bold">
                             <td>Итого</td>
                             <td></td>
+                            @if($item->status==\App\Models\Order::STATUS_PENDING)
                             <td></td>
+                            @endif
                             <td></td>
                             <td>{{ $item->total }}</td>
                         </tr>
@@ -157,6 +177,15 @@
                     </tbody>
                 </table>
             </div>
+
+
+
+
+
+
+
+
+
             @if(Gate::check('admin') && ($item->status_type=='new' || $item->status_type=='declined'))
                 <div class="pt-5"><button class="btn btn-outline-danger mr-1" data-toggle="modal" data-target="#deleteUserModal">Удалить заказ</button></div>
                 @push('modals')
@@ -169,6 +198,95 @@
                     @endmodal
                 @endpush
             @endif
+
+@if(!empty($user_orders))
+            @foreach($user_orders as $user_order)
+                <div class="pt-3" style="margin-top: 200px">
+                    <div class="d-inline-block  align-middle">
+                        <input class="labelauty combine custom-labelauty" id="combine-{{$user_order->id}}" type="checkbox"
+                               name="combine"  value="{{$user_order->id}}" aria-hidden="true"
+                               style="display: none;"><label for="combine-{{$user_order->id}}"><span
+                                class="labelauty-unchecked-image"></span><span class="labelauty-unchecked"> Объединить  заказ N{{$user_order->id}} с N{{$parent_order_id}}</span><span
+                                class="labelauty-checked-image"></span></label>
+                    </div>
+                    <p style="margin: 15px 0;">Комментарий к заказу: {{!empty($user_order->comment)?$user_order->comment:'Нет комментарии'}} </p>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Артикул</th>
+                            <th>Название</th>
+                            <th>Цена</th>
+                            @if($user_order->status==\App\Models\Order::STATUS_PENDING)
+                            <th>Кол-во (подтверждено)</th>
+                            @endif
+                            <th>кол-во (отправлено)</th>
+                            <th>Сумма</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        @foreach($user_order->order_parts as $part)
+                            <tr style=" background: white; color: black; {{($part->count==0)?'background:#ff000033;':null}} {{( !empty($part->first_count)&& ($part->count != $part->first_count) && $part->count !=0 && $part->first_count !='new')?'background:#ffff0042;':null}} {{( !empty($part->first_count) && $part->first_count =='new')?'background:#00800040;':null}}" >
+                                <td>{{ $part->code }}</td>
+                                <td>
+                                    @if(Gate::check('admin') && $part->part)
+                                        <a href="{{ route('admin.parts.edit', ['id'=>$part->part->id]) }}">{{ $part->name }}</a>
+                                    @else
+                                        {{ $part->name }}
+                                    @endif
+                                </td>
+                                <td>{{ $part->price }} @if($part->real_price) <del>{{ $part->real_price }}</del> @endif</td>
+                                @if($user_order->status==\App\Models\Order::STATUS_PENDING)
+                                    <td>{{ $part->count }}</td>
+                                @endif
+                                <td>
+                                    @if(!empty($part->first_count) && $part->first_count =='new')
+                                        Новый
+                                    @else
+                                        {{ ( !empty($part->first_count))?$part->first_count:$part->count}}
+
+                                    @endif
+                                </td>
+
+                                <td>{{ $part->sum }} @if($part->sum<($part->price * $part->count)) <del>{{ ($part->price * $part->count) }}</del> @endif</td>
+                            </tr>
+                        @endforeach
+                        <tr class="font-weight-bold">
+                            <td>Сумма</td>
+                            <td></td>
+                            @if($user_order->status==\App\Models\Order::STATUS_PENDING)
+                            <td></td>
+                            @endif
+                            <td></td>
+                            <td></td>
+                            <td>{{ $user_order->sum }} @if($user_order->sum!=$user_order->real_sum) <del>{{ $user_order->real_sum }}</del> @endif</td>
+                        </tr>
+                        @if($item->delivery)
+                            <tr class="font-weight-bold">
+                                <td>Цена доставки</td>
+                                @if($user_order->status==\App\Models\Order::STATUS_PENDING)
+                                    <td></td>
+                                @endif
+                                <td></td>
+                                <td></td>
+                                <td>{{ $user_order->delivery_price }}</td>
+                            </tr>
+                            <tr class="font-weight-bold">
+                                <td>Итого</td>
+                                @if($user_order->status==\App\Models\Order::STATUS_PENDING)
+                                    <td></td>
+                                @endif
+                                <td></td>
+                                <td></td>
+                                <td>{{ $user_order->total }}</td>
+                            </tr>
+                        @endif
+                        </tbody>
+                    </table>
+                </div>
+            @endforeach
+    @endif
         </div>
     </div>
     @stack('modals')
@@ -176,6 +294,16 @@
 @push('js')
     @js(aApp('select2/select2.js'))
     <script>
+        $('#acceptOrderModalCombine').click(function () {
+            var combine_array=[];
+            $('.combine').each(function () {
+                if($(this).is(':checked')){
+                    combine_array.push($(this).val());
+                }
+            })
+            $('#combine_array').val(combine_array);
+
+        })
         $('.select2').select2();
     </script>
 @endpush

@@ -43,6 +43,14 @@ class Order extends Model
         return $result->filterManager()->with(['parts', 'user'])->sort()->get();
     }
 
+    public static function getOrdersWithStatusAndOrderId($status, $user_id=null,$order_id=null){
+        $result = self::where('status', $status);
+        if($user_id!==null) $result->where('user_id', $user_id);
+        if($order_id!==null) $result->where('id','<>',$order_id);
+
+        return $result->filterManager()->with(['parts', 'user','order_parts'])->sort()->get();
+    }
+
 
     public function scopeFilterManager($q){
         $admin = Auth::guard('cms')->user();
@@ -103,6 +111,7 @@ class Order extends Model
                 'price' => $basket_part->part->price,
                 'real_price' => $basket_part->part->sale,
                 'count' => $basket_part->count,
+                'first_count' => $basket_part->count,
                 'sum' => $sum,
                 'name' => $basket_part->part->name,
                 'code' => $basket_part->part->code,

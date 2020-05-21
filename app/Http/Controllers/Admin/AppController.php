@@ -138,7 +138,12 @@ class AppController extends BaseController
 
 //            $static_ip = Banner::getBanners('profile')->first()[0]['data'];
 //            if ($static_ip == $request->IP){
-                if($request->DocStatus=='ACCEPTED'){
+        $order=Order::where('order_ref',$request->UID)->with('parts')->firstOrFail();
+
+    if($order->status==Order::STATUS_NEW){
+        return 'Заказ уже выполнен';
+    }
+        if($request->DocStatus=='ACCEPTED'){
                     $order=Order::where('order_ref',$request->UID)->with('parts')->firstOrFail();
                     //        $sync=new SyncClient();
                     $last_parts_ids=[];
@@ -160,6 +165,7 @@ class AppController extends BaseController
                                 $orderPart->code=$current_part_for_order->code;
                                 $orderPart->price=$current_part_for_order->price;
                                 $orderPart->changed_count='new';
+                                $orderPart->first_count='new';
                             }
                             $user = User::where('id',$order->user_id)->firstOrFail();
 
